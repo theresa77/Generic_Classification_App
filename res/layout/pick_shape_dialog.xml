@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/buttonGray"
+    android:orientation="vertical" >
+    
+    <TextView 
+        style="@style/TextViewDialog"
+        android:text="@string/dialog_pick_shape"
+        />  
+        
+    <View 
+        android:layout_width="fill_parent"
+    	android:layout_height="1dip"
+		android:background="@color/middleGray"
+		android:layout_marginBottom="15dp" />
+     
+	    <LinearLayout
+        android:id="@+id/pick_shape_buttons"
+        style="@style/ButtonBarVertical"
+         >
+         
+	    <ImageButton
+            android:id="@+id/pick_rectangle_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/rectangle"
+            android:contentDescription="@string/rectangle_icon"
+           />
+
+        <ImageButton
+            android:id="@+id/pick_oval_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/oval"
+            android:contentDescription="@string/oval_icon"
+           />
+	    </LinearLayout>
+       
+</LinearLayout>

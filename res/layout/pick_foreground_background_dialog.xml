@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/buttonGray"
+    android:orientation="vertical" >
+    
+    <TextView 
+        style="@style/TextViewDialog"
+        android:text="@string/dialog_edit_foreground_background"
+        />  
+        
+    <View 
+        android:layout_width="fill_parent"
+    	android:layout_height="1dip"
+		android:background="@color/middleGray"
+		android:layout_marginBottom="15dp" />
+   
+      <LinearLayout
+        android:id="@+id/pick_foreground_background_buttons"
+        style="@style/ButtonBarVertical"
+         >
+         
+	    <ImageButton
+            android:id="@+id/pick_foreground_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/f_icon"
+            android:contentDescription="@string/pick_foreground"
+           />
+
+        <ImageButton
+            android:id="@+id/pick_background_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/b_icon"
+            android:contentDescription="@string/pick_background"
+           />
+	    </LinearLayout>
+    
+</LinearLayout>

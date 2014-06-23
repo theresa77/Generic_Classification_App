@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+ 	<!-- labels for dialogs -->
+    <string name="dialog_pick_color">Wähle eine Farbe</string>
+    <string name="dialog_edit_line">Wähle eine Linien-Dicke</string>
+    <string name="dialog_menu">Menü</string>
+    <string name="dialog_transmission_to_server">Übertragung zu Server</string>
+    <string name="dialog_pick_shape">Wähle eine Form</string>
+    <string name="dialog_edit_foreground_background">Wähle Vorder- oder Hintergrund</string>
+    
+    <!-- content description for views -->
+    <string name="ok">OK</string>
+    <string name="rectangle_icon">Rechteck Icon</string>
+ 	<string name="oval_icon">Ellipse Icon</string>
+ 	<string name="pick_foreground">Vordergrund wählen</string>
+ 	<string name="pick_background">Hintergrund wählen</string>
+ 	<string name="camera_icon">Kamera Icon</string>
+ 	<string name="pick">auswählen</string>
+ 	<string name="menu">Menü</string>
+ 	<string name="take_new_photo">Neues Foto</string>
+ 	<string name="picture">Foto</string>
+ 	<string name="edit_line">Liniendicke bearbeiten</string>
+ 	<string name="edit_color">Farbe bearbeiten</string>
+ 	<string name="edit_foreground_background">Auswahl für Vorder- oder Hintergrund bearbeiten</string>
+ 	<string name="edit_form">Form bearbeiten</string>
+ 	
+ 	<!-- Strings for Toast Text -->
+ 	<string name="select_background">Zeichne Hintergrund ausgewählt</string>
+ 	<string name="select_foreground">Zeichne Vordergrund ausgewählt</string>
+ 	<string name="select_foreground_background">Zeichne Vorder- oder Hintergrund</string>
+ 	<string name="select_min_bounting_box">Zeichne Minimum Bounding Box</string>
+ 	<string name="select_object_contour">Zeichne Objektkontur</string>
+ 	<string name="select_rectangle">Rechteck ausgewählt</string>
+ 	<string name="select_oval">Ellipse ausgewählt</string>
+ 	<string name="delete_picture">Bild gelöscht</string>
+ 	<string name="save_picture">Bild in Gallery gespeichert</string>
+ 	<string name="select_color">Farbe gesetzt</string>
+ 	<string name="select_stroke_width">Linien-Dicke gesetzt</string>
+ 	<string name="delete_drawing">Zeichnung gelöscht</string>
+ 	
+</resources>

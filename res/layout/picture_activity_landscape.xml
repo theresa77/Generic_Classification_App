@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/picture_view"
+    android:background="@color/black"
+    android:orientation="horizontal"
+    
+     >
+     
+    <FrameLayout
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:id="@+id/picture_frame"
+        android:layout_weight="1"
+         >
+
+        <ImageView
+            android:id="@+id/picture"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/picture" />
+        
+   </FrameLayout>
+ 	
+    
+	  <LinearLayout
+	      android:id="@+id/picture_view_button_bar"
+	      style="@style/ButtonBarLandscape"
+	      >
+        
+	      <ImageButton
+            android:id="@+id/menu_button"
+            style="@style/ButtonBarButton"
+            android:contentDescription="@string/menu"
+            android:onClick="openMenu"
+            android:src="@drawable/menu_icon" />
+
+        <ImageButton
+            android:id="@+id/select_object_contour_button"
+            style="@style/ButtonBarButton"
+            android:contentDescription="@string/select_object_contour"
+            android:onClick="selectObjectContour"
+            android:src="@drawable/oc_icon" />
+        
+         <ImageButton
+            android:id="@+id/select_fore_or_background_button"
+            style="@style/ButtonBarButton"
+            android:contentDescription="@string/select_foreground_background"
+            android:onClick="selectForegroundBackground"
+            android:src="@drawable/f_icon" />
+        
+        <ImageButton
+            android:id="@+id/select_min_bounting_box_button"
+            style="@style/ButtonBarButton"
+            android:contentDescription="@string/select_min_bounting_box"
+            android:onClick="selectMinimumBoundingBox"
+            android:src="@drawable/mbr_icon" />
+        
+        <ImageButton
+	          android:id="@+id/button_take_new_photo"
+	          android:src="@drawable/new_photo"
+	          android:contentDescription="@string/take_new_photo"
+	          style="@style/ButtonBarButton"
+	          android:onClick="takeNewPhoto" />
+	      
+	  </LinearLayout>
+     
+ </LinearLayout> 

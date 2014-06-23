@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/object_contour_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical" >
+    
+    <FrameLayout
+        android:id="@+id/object_contour_surface_view"
+        android:layout_width="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+         />
+    
+	<LinearLayout
+        android:id="@+id/object_contour_view_buttons"
+        style="@style/ButtonBarVertical"
+         >
+         
+        <ImageButton
+            android:id="@+id/edit_color_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/color_pot_white"
+            android:contentDescription="@string/edit_color"
+            android:onClick="editColor"
+           />
+
+        <ImageButton
+            android:id="@+id/edit_line_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/lines_icon_white"
+            android:contentDescription="@string/edit_line"
+            android:onClick="editLine"
+              />
+
+         <ImageButton
+            android:id="@+id/menu_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/menu_icon"
+            android:contentDescription="@string/menu" 
+            android:onClick="openMenu"
+             />
+
+    </LinearLayout>
+
+</LinearLayout>

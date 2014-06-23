@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- string array for option menu in user scribble main activity -->
+    <string-array name="option_menu_user_scribble">
+   		<item>Bild in Galerie Speichern</item>
+   		<item>Bild Löschen</item>
+   		<item>Bild Anzeigen</item>
+   		<item>Neues Foto</item>
+   		<item>Zeichnung Löschen</item>
+   		<item>zu Server schicken</item>
+    </string-array>
+    
+     <!-- string array for option menu in picture activity -->
+    <string-array name="option_menu_picture_activity">
+   		<item>Bild in Galerie Speichern</item>
+   		<item>Bild Löschen</item>
+    </string-array>
+    
+</resources>

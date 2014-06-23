@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/activity/CameraActivity.java=UTF-8
+encoding//src/activity/PictureActivity.java=UTF-8
+encoding//src/dialog/OptionMenuDialog.java=UTF-8
+encoding//src/dialog/PickStrokeWidthDialog.java=UTF-8
+encoding//src/http/RetrieveHttpTask.java=UTF-8
+encoding//src/view/CameraPreview.java=UTF-8
+encoding//src/view/MinimumBoundingBoxView.java=UTF-8
+encoding//src/view/UserScribbleView.java=UTF-8

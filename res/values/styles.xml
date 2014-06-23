@@ -1,0 +1,75 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar" />    
+
+    <!-- style for button -->
+    <style name="Button" parent="@android:style/Widget.Holo.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/button_selector</item> 
+    </style>
+    
+    <!-- style for button in a dialog -->
+    <style name="ButtonDialog" parent="@android:style/Widget.Holo.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/button_dialog_selector</item> 
+    </style>
+    
+    <!-- style for a button in a button bar -->
+    <style name="ButtonBarButton" parent="Button">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    
+    <!-- style for a button bar -->
+    <style name="ButtonBar" parent="@android:style/Holo.Light.ButtonBar.AlertDialog">
+        <item name="android:background">@color/buttonGray</item>
+    </style>
+    
+    <!-- style for landscape button bar -->
+    <style name="ButtonBarLandscape" parent="ButtonBar">       
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+
+     <!-- style for a vertical button bar -->
+    <style name="ButtonBarVertical" parent="ButtonBar">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    
+    <!-- style for a ListView -->
+    <style name="ListView">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:focusable">true</item>
+        <item name="android:listSelector">@color/darkGray</item>
+        <item name="android:textColor">@color/white</item>     
+    </style>
+    
+    <!-- style for text view in a dialog -->
+    <style name="TextViewDialog">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+    </style>
+    
+    <!-- style for a list view with text -->
+    <style name="TextViewList">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+  
+</resources>

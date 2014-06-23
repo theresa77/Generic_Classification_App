@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/buttonGray"
+    android:orientation="vertical" >
+ 
+    
+        <TextView 
+        style="@style/TextViewDialog"
+        android:text="@string/edit_line"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:textColor="@android:color/white"
+        /> 
+        
+        <View 
+        android:layout_width="fill_parent"
+    	android:layout_height="1dip"
+		android:background="@color/middleGray"
+		android:layout_marginBottom="15dp" />
+ 
+        <SeekBar
+            android:id="@+id/line_controller_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:progress="0"
+            android:max="100"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            android:secondaryProgress="0" 
+             />
+ 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="12" >
+ 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="@string/zero"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+ 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="@string/twenty"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+ 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="@string/forty"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+ 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="@string/sixty"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+ 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="@string/eighty"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+ 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="@string/hundred"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+        
+   <LinearLayout 
+       	android:layout_width="fill_parent"
+    	android:layout_height="100dp"
+    	android:padding="20dp">
+        
+          <View 
+        android:id="@+id/line_picker_view"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_margin="10dp"
+		 /> 
+		 
+     </LinearLayout>
+        
+        <ImageButton 
+        android:id="@+id/pick_line_button"
+        style="@style/ButtonDialog"
+        android:contentDescription="@string/pick"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:src="@drawable/check"
+        />  
+  
+ 
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/buttonGray"
+    android:orientation="vertical" >
+    
+    <TextView 
+        style="@style/TextViewDialog"
+        android:text="@string/dialog_menu"
+        />  
+        
+    <View 
+        android:layout_width="fill_parent"
+    	android:layout_height="1dip"
+		android:background="@color/middleGray"
+		android:layout_marginBottom="15dp" />
+          
+    <ListView 
+        android:id="@+id/option_menu_list"
+        style="@style/ListView"	
+      />
+    
+</LinearLayout>
