@@ -33,7 +33,7 @@ public class ColorPickerDialog extends DialogFragment {
 	private ColorPickerView mColorPickerView;
 	
 	/**
-	 * Called when Dialog gets created
+	 * Called when Dialog gets created.
 	 */
 	@Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

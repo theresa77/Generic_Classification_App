@@ -57,6 +57,9 @@ public class OptionMenuDialog extends DialogFragment {
 	private static final String TAG = OptionMenuDialog.class.getSimpleName();
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	
+	/**
+	 * Called when Dialog gets created.
+	 */
 	@Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 		final Dialog dialog = new Dialog(getActivity());

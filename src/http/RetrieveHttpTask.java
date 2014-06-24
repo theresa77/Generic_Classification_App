@@ -31,7 +31,7 @@ import dialog.TransmissionToServerDialog;
 import domain.Picture;
  
 /**
- * Task class for sending picture and scribbles to a server.
+ * Task for sending picture and scribbles to a server.
  * 
  * @author Theresa Froeschl
  * @version 1.0

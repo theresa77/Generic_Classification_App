@@ -27,6 +27,9 @@ import android.widget.Toast;
  */
 public class PickShapeDialog extends DialogFragment {
 	
+	/**
+	 * Called when Dialog gets created.
+	 */
 	@Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 		final UserScribbleMainActivity activity = (UserScribbleMainActivity) getActivity();

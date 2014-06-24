@@ -29,6 +29,9 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
  */
 public class PickStrokeWidthDialog extends DialogFragment {
 
+	/**
+	 * Called when Dialog gets created.
+	 */
 	@Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 		final UserScribbleMainActivity mActivity = (UserScribbleMainActivity)getActivity();

@@ -36,6 +36,10 @@ public class PictureActivity extends FragmentActivity {
 	private int displayWidth;
 	private int displayHeight;
 	
+	/**
+	 * Called when the activity get created.
+	 * Set all local variables and set picture in the view.
+	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
