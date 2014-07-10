@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/buttonGray"
+    android:orientation="vertical" >
+    
+    <TextView 
+        style="@style/TextViewDialog"
+        android:text="@string/dialog_text_annotation"
+        />  
+        
+    <View 
+        android:layout_width="fill_parent"
+    	android:layout_height="1dip"
+		android:background="@color/middleGray"
+		android:layout_marginBottom="15dp" />
+    
+    <LinearLayout
+        android:id="@+id/text_annotation_dialog"
+        android:orientation="vertical"
+        >        
+        <!-- add here custom layout for text annotations 
+        	editable ListView for old Text Annotations 
+        	and Field for new Text
+        -->
+     
+        
+    </LinearLayout>
+    
+    
+	    
+</LinearLayout>

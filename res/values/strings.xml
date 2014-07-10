@@ -10,6 +10,7 @@
     <string name="dialog_transmission_to_server">Transmission to Server</string>
     <string name="dialog_pick_shape">Pick a Shape</string>
     <string name="dialog_edit_foreground_background">Select Fore- or Background</string>
+    <string name="dialog_text_annotation">Text Annotation</string>
     
     <!-- content description for views -->
     <string name="ok">OK</string>

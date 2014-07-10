@@ -29,7 +29,7 @@
         <ImageButton
             android:id="@+id/edit_color_button"
             style="@style/ButtonBarButton"
-            android:src="@drawable/color_pot_white"
+            android:src="@drawable/color_palette"
             android:contentDescription="@string/edit_color"
             android:onClick="editColor"
            />
