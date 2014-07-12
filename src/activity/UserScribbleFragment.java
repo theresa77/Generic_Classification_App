@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.genericclassificationapp.R;
 
@@ -35,6 +37,7 @@ public abstract class UserScribbleFragment extends Fragment {
 	protected UserScribbleView mView;
 	protected Picture mPicture;
 	protected FrameLayout frameView;
+//	protected ScrollView frameView;
 	protected LayoutInflater inflater;
 	protected ViewGroup container;
 	
@@ -66,6 +69,8 @@ public abstract class UserScribbleFragment extends Fragment {
     	
     	LinearLayout.LayoutParams pictureParams;
     	LinearLayout.LayoutParams frameParams = (LinearLayout.LayoutParams) frameView.getLayoutParams();
+//    	RelativeLayout.LayoutParams frameParams = (RelativeLayout.LayoutParams) frameView.getLayoutParams();
+//    	FrameLayout.LayoutParams frameParams = (FrameLayout.LayoutParams) frameView.getLayoutParams();
     	ImageButton menuButton = (ImageButton) view.findViewById(R.id.menu_button);
 		
 		if (!mPicture.isLandscape()) {

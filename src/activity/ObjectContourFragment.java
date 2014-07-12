@@ -10,6 +10,7 @@ import activity.UserScribbleMainActivity.Scribble;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 /**
@@ -45,6 +46,7 @@ public class ObjectContourFragment extends UserScribbleFragment {
 		}
 
 		frameView = (FrameLayout) view.findViewById(R.id.object_contour_surface_view);
+//		frameView = (ScrollView) view.findViewById(R.id.object_contour_surface_view);
 		
 		// create new view for drawing object contour
 		mView = new ObjectContourView(mActivity);

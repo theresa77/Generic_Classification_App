@@ -8,6 +8,7 @@ import activity.UserScribbleMainActivity.Scribble;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.genericclassificationapp.R;
@@ -45,6 +46,7 @@ public class MinimumBoundingBoxFragment extends UserScribbleFragment {
 		}
 		
 		frameView = (FrameLayout) view.findViewById(R.id.min_bounding_box_surface_view);
+//		frameView = (ScrollView) view.findViewById(R.id.min_bounding_box_surface_view);
 		
 		// create new view for drawing Minimum Bounding Box
 		mView = new MinimumBoundingBoxView(mActivity);

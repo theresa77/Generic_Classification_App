@@ -16,19 +16,14 @@
 		android:background="@color/middleGray"
 		android:layout_marginBottom="15dp" />
     
-    <LinearLayout
+  	<LinearLayout
         android:id="@+id/text_annotation_dialog"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         >        
 
-        <!--
-             add here custom layout for text annotations 
-        	editable ListView for old Text Annotations 
-        	and Field for new Text
-        -->
-
+       
         <ListView
             android:id="@+id/text_annotation_list"
             style="@style/ListView2" />

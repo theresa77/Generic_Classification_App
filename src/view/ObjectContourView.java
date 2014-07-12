@@ -27,6 +27,7 @@ public class ObjectContourView extends UserScribbleView {
 		super(context);
 		mPath = new Path();
 		mPaint.setStyle(Paint.Style.STROKE);
+		
 	}
 	
 	/**
@@ -84,6 +85,7 @@ public class ObjectContourView extends UserScribbleView {
 	 */
 	public void stopMove(float x, float y){
 		mPath.lineTo(x, y);
+		mPath.close();
 		invalidate();
 	}
 
