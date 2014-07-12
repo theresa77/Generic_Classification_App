@@ -19,6 +19,7 @@ import view.UserScribbleView;
 import activity.CameraActivity;
 import activity.PictureActivity;
 import activity.UserScribbleMainActivity;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -62,7 +63,8 @@ public class OptionMenuDialog extends DialogFragment {
 	 */
 	@Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-		final Dialog dialog = new Dialog(getActivity());
+		final Activity activity = getActivity();
+		final Dialog dialog = new Dialog(activity);
 		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -75,7 +77,7 @@ public class OptionMenuDialog extends DialogFragment {
 		ListView listView = (ListView) dialog.findViewById(R.id.option_menu_list);
 
 		String[] list;
-		if (getActivity() instanceof PictureActivity) {
+		if (activity instanceof PictureActivity) {
 			 list = this.getResources().getStringArray(
 					R.array.option_menu_picture_activity);
 		} else {
@@ -83,7 +85,7 @@ public class OptionMenuDialog extends DialogFragment {
 					R.array.option_menu_user_scribble);
 		}
 		
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
                  R.layout.dialog_list_text_view, list);
         listView.setAdapter(adapter);
 
@@ -118,7 +120,7 @@ public class OptionMenuDialog extends DialogFragment {
 				    Bitmap bitmap;		                       
 				    
 				    // add scribbles to the bitmap
-				    if(getActivity() instanceof UserScribbleMainActivity){
+				    if(activity instanceof UserScribbleMainActivity){
 				    	
 				    	bitmap = mPicture.getBitmap();
 				    	
@@ -128,11 +130,11 @@ public class OptionMenuDialog extends DialogFragment {
 					    LinearLayout.LayoutParams pictureParams;
 					
 						if (!mPicture.isLandscape()) {
-							height = ((UserScribbleMainActivity)getActivity()).getDisplayWidth() * 1.33;
-					    	width = ((UserScribbleMainActivity)getActivity()).getDisplayWidth();
+							height = ((UserScribbleMainActivity)activity).getDisplayWidth() * 1.33;
+					    	width = ((UserScribbleMainActivity)activity).getDisplayWidth();
 				    	} else {
-				    		width = ((UserScribbleMainActivity)getActivity()).getDisplayHeight() * 1.33;
-					    	height = ((UserScribbleMainActivity)getActivity()).getDisplayHeight();				
+				    		width = ((UserScribbleMainActivity)activity).getDisplayHeight() * 1.33;
+					    	height = ((UserScribbleMainActivity)activity).getDisplayHeight();				
 				    	}
 						
 					    pictureParams = new LinearLayout.LayoutParams((int)width, (int)height);
@@ -140,7 +142,7 @@ public class OptionMenuDialog extends DialogFragment {
 
 						// draw picture and scribbles to new canvas
 						Canvas canvas = new Canvas(bitmap);
-						UserScribbleView currView = ((UserScribbleMainActivity) getActivity()).getView();
+						UserScribbleView currView = ((UserScribbleMainActivity) activity).getView();
 						currView.draw(canvas);
 					
 					} else {
@@ -167,50 +169,56 @@ public class OptionMenuDialog extends DialogFragment {
 				    File f = new File(mediaFile.getAbsolutePath());
 				    Uri contentUri = Uri.fromFile(f);
 				    mediaScanIntent.setData(contentUri);
-				    getActivity().sendBroadcast(mediaScanIntent);
+				    activity.sendBroadcast(mediaScanIntent);
 					
 					dialog.dismiss();
-					Toast.makeText(getActivity(), R.string.save_picture, Toast.LENGTH_SHORT).show();
+					Toast.makeText(activity, R.string.save_picture, Toast.LENGTH_SHORT).show();
 					break;
 				
 				//delete picture, go back to camera activity
 				case 1:
-					newIntent = new Intent(getActivity(), CameraActivity.class);
+					newIntent = new Intent(activity, CameraActivity.class);
 					startActivity(newIntent);
-					getActivity().finish();
-					Toast.makeText(getActivity(), R.string.delete_picture, Toast.LENGTH_SHORT).show();
+					activity.finish();
+					Toast.makeText(activity, R.string.delete_picture, Toast.LENGTH_SHORT).show();
 					break;
 					
 				//view picture, go to Picture Activity
 				case 2:
-					newIntent = new Intent(getActivity(), PictureActivity.class);
+					newIntent = new Intent(activity, PictureActivity.class);
 					startActivity(newIntent);
-					getActivity().finish();
+					activity.finish();
 					break;
 				
 				//take new photo, go to CameraActivity
 				case 3:
-					newIntent = new Intent(getActivity(), CameraActivity.class);
+					newIntent = new Intent(activity, CameraActivity.class);
 					startActivity(newIntent);
-					getActivity().finish();
+					activity.finish();
 					break;
 				
-				//delete drawing
+				//add Text Annotation	
 				case 4:
-					((UserScribbleMainActivity)getActivity()).resetDrawing();
 					dialog.dismiss();
-					Toast.makeText(getActivity(), R.string.delete_drawing, Toast.LENGTH_SHORT).show();
+					((UserScribbleMainActivity)activity).openTextAnnotationDialog();
+					break;
+					
+				//delete drawing
+				case 5:
+					((UserScribbleMainActivity)activity).resetDrawing();
+					dialog.dismiss();
+					Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
 					break;
 				
 				//send picture and scribbles to server
-				case 5:
+				case 6:
 					Log.d(TAG, "sendToServer called");
 					// create new bitmap for scribbles only
-					Bitmap userScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)getActivity()).getDisplayWidth(),
-												((UserScribbleMainActivity)getActivity()).getDisplayHeight(), 
+					Bitmap userScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)activity).getDisplayWidth(),
+												((UserScribbleMainActivity)activity).getDisplayHeight(), 
 												Bitmap.Config.ARGB_8888); 
 					Canvas canvas = new Canvas(userScribble);
-					UserScribbleView currView = ((UserScribbleMainActivity) getActivity()).getView();
+					UserScribbleView currView = ((UserScribbleMainActivity) activity).getView();
 					
 					// draw scribbles at new canvas object
 					currView.drawUserScribble(canvas);
@@ -225,7 +233,7 @@ public class OptionMenuDialog extends DialogFragment {
 					transDialog.show(getActivity().getSupportFragmentManager(), "TransmissionToServerDialog");
 					
 					// send picture and scribbles to a server
-					new RetrieveHttpTask(((UserScribbleMainActivity)getActivity()).getCurrentScribble().name(), transDialog).execute(byteStream.toByteArray());
+					new RetrieveHttpTask(((UserScribbleMainActivity)activity).getCurrentScribble().name(), transDialog).execute(byteStream.toByteArray());
 								
 					break;
 				}

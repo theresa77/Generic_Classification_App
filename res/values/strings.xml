@@ -53,5 +53,8 @@
  	<string name="select_color">Color Selected</string>
  	<string name="select_stroke_width">Stroke Width Selected</string>
  	<string name="delete_drawing">Drawing deleted</string>
+ 	
+ 	<!-- new Text for testing -->
+ 	<string name="edit_text_annotation">New Text Annotation</string>
 
 </resources>

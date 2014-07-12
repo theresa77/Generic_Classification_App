@@ -36,6 +36,7 @@ import dialog.OptionMenuDialog;
 import dialog.PickForegroundBackgroundDialog;
 import dialog.PickShapeDialog;
 import dialog.PickStrokeWidthDialog;
+import dialog.TextAnnotationDialog;
 import domain.Picture;
 
 /**
@@ -306,6 +307,15 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
+	 * 
+	 */
+	public void openTextAnnotationDialog(){
+		currentDialog = new TextAnnotationDialog();
+		currentDialog.show(getSupportFragmentManager(), "TextAnnotaionDialog");
+		Log.d(TAG, "show Dialog for Text Annotations");
+	}
+	
+	/**
 	 * Called when clicked on menu button.
 	 * Opens a Dialog with the menu.
 	 * @param v clicked button
@@ -313,6 +323,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	public void openMenu(View v){
 		currentDialog = new OptionMenuDialog();
 		currentDialog.show(getSupportFragmentManager(), "OptionMenuDialog");
+		Log.d(TAG, "show Option Menu Dialog");
 	}
 	
 	/**

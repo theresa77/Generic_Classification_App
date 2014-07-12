@@ -63,7 +63,7 @@ public final class R {
     public static final class id {
         public static final int button_capture=0x7f090003;
         public static final int button_take_new_photo=0x7f090025;
-        public static final int button_transmission_ok=0x7f090029;
+        public static final int button_transmission_ok=0x7f09002c;
         public static final int camera_preview=0x7f090001;
         public static final int camera_preview_button_layout=0x7f090002;
         public static final int camera_preview_layout=0x7f090000;
@@ -72,6 +72,7 @@ public final class R {
         public static final int edit_color_button=0x7f09000a;
         public static final int edit_form_button=0x7f09000f;
         public static final int edit_line_button=0x7f090009;
+        public static final int edit_text_annotation=0x7f090028;
         public static final int foreground_background_surface_view=0x7f090006;
         public static final int foreground_background_view=0x7f090005;
         public static final int foreground_background_view_buttons=0x7f090007;
@@ -97,13 +98,15 @@ public final class R {
         public static final int picture_frame=0x7f090020;
         public static final int picture_view=0x7f09001f;
         public static final int picture_view_button_bar=0x7f090022;
-        public static final int progressbar=0x7f090027;
-        public static final int realtabcontent=0x7f09002a;
+        public static final int progressbar=0x7f09002a;
+        public static final int realtabcontent=0x7f09002d;
         public static final int select_fore_or_background_button=0x7f09000b;
         public static final int select_min_bounting_box_button=0x7f090024;
         public static final int select_object_contour_button=0x7f090023;
-        public static final int server_response_text=0x7f090028;
+        public static final int server_response_text=0x7f09002b;
         public static final int text_annotation_dialog=0x7f090026;
+        public static final int text_annotation_list=0x7f090027;
+        public static final int text_annotation_ok_button=0x7f090029;
     }
     public static final class layout {
         public static final int camera_preview=0x7f030000;
@@ -146,6 +149,9 @@ public final class R {
         public static final int edit_foreground_background=0x7f070014;
         public static final int edit_form=0x7f070015;
         public static final int edit_line=0x7f070012;
+        /**  new Text for testing 
+         */
+        public static final int edit_text_annotation=0x7f07002a;
         public static final int eighty=0x7f07001a;
         public static final int forty=0x7f070018;
         public static final int hundred=0x7f07001b;
@@ -197,7 +203,7 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f08000a;
+        public static final int AppBaseTheme=0x7f08000b;
         /**  Application theme. 
          */
         public static final int AppTheme=0x7f080000;
@@ -222,11 +228,14 @@ public final class R {
         /**  style for a ListView 
          */
         public static final int ListView=0x7f080007;
+        /**  style for a ListView2 
+         */
+        public static final int ListView2=0x7f080008;
         /**  style for text view in a dialog 
          */
-        public static final int TextViewDialog=0x7f080008;
+        public static final int TextViewDialog=0x7f080009;
         /**  style for a list view with text 
          */
-        public static final int TextViewList=0x7f080009;
+        public static final int TextViewList=0x7f08000a;
     }
 }

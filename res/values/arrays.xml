@@ -7,6 +7,7 @@
    		<item>Delete Picture</item>
    		<item>View Picture</item>
    		<item>New Photo</item>
+   		<item>Add Text Annotation</item>
    		<item>Delete Drawing</item>
    		<item>Send to Server</item>
     </string-array>

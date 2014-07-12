@@ -19,15 +19,37 @@
     <LinearLayout
         android:id="@+id/text_annotation_dialog"
         android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         >        
-        <!-- add here custom layout for text annotations 
+
+        <!--
+             add here custom layout for text annotations 
         	editable ListView for old Text Annotations 
         	and Field for new Text
         -->
+
+        <ListView
+            android:id="@+id/text_annotation_list"
+            style="@style/ListView2" />
+        
+		<EditText android:id="@+id/edit_text_annotation" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/white"
+	        android:hint="@string/edit_text_annotation" />
      
         
     </LinearLayout>
     
     
-	    
+    <ImageButton 
+        android:id="@+id/text_annotation_ok_button"
+        style="@style/ButtonDialog"
+        android:contentDescription="@string/pick"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:src="@drawable/check"
+        /> 
+     
 </LinearLayout>
