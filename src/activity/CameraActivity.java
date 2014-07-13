@@ -3,31 +3,23 @@
  */
 package activity;
 
-import com.genericclassificationapp.R;
-
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-
 
 import view.CameraPreview;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.Path;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.provider.MediaStore.Files;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -36,6 +28,9 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
+import com.genericclassificationapp.R;
+
 import domain.Picture;
 
 /**
@@ -52,7 +47,6 @@ public class CameraActivity extends Activity {
 	private Camera mCamera;
     private CameraPreview mPreview;
     private boolean useBackCamera = true;
-    private static final int MEDIA_TYPE_IMAGE = 1;
     private static int RESULT_LOAD_IMAGE = 1;
     private Bitmap mPictureBitmap;
     private int displayWidth;
@@ -88,9 +82,6 @@ public class CameraActivity extends Activity {
 
 			// create a Bitmap from the byte array with the width and height of the screen
 			mPictureBitmap = decodeSampledBitmapFromResource(data, reqWidth, reqHeight);
-
-//			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//			mPictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
 			if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 				//if the picture is in portrait it has to be rotated 
@@ -200,7 +191,7 @@ public class CameraActivity extends Activity {
     }
     
     /**
-     * 
+     * TODO
      * @param v
      */
     public void getPictureFromGallery(View v){
@@ -210,7 +201,7 @@ public class CameraActivity extends Activity {
     }
     
     /**
-     * 
+     * TODO
      */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -220,72 +211,36 @@ public class CameraActivity extends Activity {
 
 		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
 			Uri selectedImage = data.getData();
-//			String[] filePathColumn = { MediaStore.Images.Media.DATA };
-//
-//			Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-//			cursor.moveToFirst();
-//
-//			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//			// String picturePath contains the path of selected Image
-//			String picturePath = cursor.getString(columnIndex);
-//			cursor.close();
 			
 			byte[] inputData = null;
-			
 			try {
 				InputStream inputStream = getContentResolver().openInputStream(selectedImage);
-				
+
 				ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
 
-		          // this is storage overwritten on each iteration with bytes
-		          int bufferSize = 1024;
-		          byte[] buffer = new byte[bufferSize];
+				// this is storage overwritten on each iteration with bytes
+				int bufferSize = 1024;
+				byte[] buffer = new byte[bufferSize];
 
-		          // we need to know how may bytes were read to write them to the byteBuffer
-		          int len = 0;
-		          while ((len = inputStream.read(buffer)) != -1) {
-					    byteBuffer.write(buffer, 0, len);
-					  }
-				
-		          // and then we can return your byte array.
-		          inputData = byteBuffer.toByteArray();
-				
-				
+				// we need to know how may bytes were read to write them to the byteBuffer
+				int len = 0;
+				while ((len = inputStream.read(buffer)) != -1) {
+					byteBuffer.write(buffer, 0, len);
+				}
+
+				// and then we can return your byte array.
+				inputData = byteBuffer.toByteArray();
+
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			
-//			mPictureBitmap = BitmapFactory.decodeFile(picturePath);
-//			
-//			int reqWidth = 0;
-//			int reqHeight = 0;
-//			if(mPictureBitmap.getHeight() > mPictureBitmap.getWidth()) {
-//				reqWidth = displayHeight;
-//				reqHeight = displayWidth;
-//			} else {
-//				reqWidth = displayWidth;
-//				reqHeight = displayHeight;
-//			}
-//
-//			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//			mPictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-			
 			// create a Bitmap from the byte array with the width and height of the screen
-//			mPictureBitmap = decodeSampledBitmapFromResource(stream.toByteArray(), reqWidth, reqHeight);
 			mPictureBitmap = decodeSampledBitmapFromResource(inputData, displayWidth, displayHeight);
 
 			if (mPictureBitmap.getHeight() > mPictureBitmap.getWidth()) {
-//				//if the picture is in portrait it has to be rotated 
-//				Matrix matrix = new Matrix();
-//				matrix.postRotate(90);
-//				mPictureBitmap = Bitmap.createBitmap(mPictureBitmap, 0, 0,
-//						mPictureBitmap.getWidth(), mPictureBitmap.getHeight(),
-//						matrix, true);
 				
 				//create picture instance with the bitmap and an flag if the picture is in landsape 
 				Picture.createInstance(mPictureBitmap, false);
@@ -302,7 +257,7 @@ public class CameraActivity extends Activity {
 	}
 
 	/**
-	 * 
+	 * TODO
 	 * @param v
 	 */
     public void changeCamera(View v){
@@ -372,6 +327,9 @@ public class CameraActivity extends Activity {
 		return mPreviewParams;
 	}
 	
+	/**
+	 * TODO
+	 */
 	private void recyclePictureBitmap(){
 		Log.d(TAG, "recyclePictureBitmap() called.");
 		if(mPictureBitmap != null){
