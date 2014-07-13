@@ -17,6 +17,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PictureCallback;
 import android.net.Uri;
 import android.os.Bundle;
@@ -275,20 +276,32 @@ public class CameraActivity extends Activity {
      * @return a new Camera instance
      */
 	private Camera getCameraInstance() {
+		releaseCamera();
 		Camera c = null;
         try {
-        	int i = Camera.getNumberOfCameras()-1;
-        	Log.d(TAG, "Number of Cameras: "+i);
         	// attempt to get a Camera instance
         	if(useBackCamera){
-        		c = Camera.open(0);
-        		Log.d(TAG, "c = Camera.open(0);");
+        		c = Camera.open(CameraInfo.CAMERA_FACING_BACK);
+        		Log.d(TAG, "c = Camera.open("+Camera.CameraInfo.CAMERA_FACING_BACK+");");
         	}else {
         		//TODO: Hier wird eine RuntimeException geworfen weil das mit der front camera offenbar,
         		// komplizierter ist als gedacht.
         		// Recherche wird benötigt!!!
-        		c= Camera.open(i);
-        		Log.d(TAG, "c = Camera.open("+i+");");
+//        		c= Camera.open(CameraInfo.CAMERA_FACING_FRONT);
+        		Log.d(TAG, "c = Camera.open("+Camera.CameraInfo.CAMERA_FACING_FRONT+");");
+        		
+        		Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        	    int cameraCount = Camera.getNumberOfCameras();
+        	    for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
+        	        Camera.getCameraInfo(camIdx, cameraInfo);
+        	        if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+        	            try {
+        	                c = Camera.open(camIdx);
+        	            } catch (RuntimeException e) {
+        	                Log.e(TAG, "Camera failed to open: " + e.getLocalizedMessage());
+        	            }
+        	        }
+        	    }
         	}
         }
         catch (Exception e){

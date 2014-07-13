@@ -12,6 +12,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.hardware.Camera;
+import android.hardware.Camera.CameraInfo;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -117,7 +118,11 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         	Camera.Parameters p = mCamera.getParameters();
             p.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
 
-            mCamera.setParameters(p);
+			// TODO: hier wird immer einer RuntimeException geworfen!
+			// hat vielleicht etwas mit der PreviewSize zu tun, da diese bei der
+			// front camera anders ist
+			// das ganze ist auch leider von gerät abhängig.
+			mCamera.setParameters(p);
         	
         	// set camera orientation corresponding to display orientation
         	setCameraOrientation(getResources().getConfiguration().orientation);
@@ -127,7 +132,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             mCamera.autoFocus(null);
             
 		} catch (IOException e) {
-			Log.d(TAG, "Error setting camera preview: " + e.getMessage());
+			Log.e(TAG, "Error setting camera preview: " + e.getMessage());
 		}
 	}
 
@@ -149,10 +154,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 	public boolean onTouchEvent(MotionEvent event){
 	    if(event.getAction() == MotionEvent.ACTION_DOWN){
 	        Log.d("down", "focusing now");
-
 	        mCamera.autoFocus(null); 
 	    }
-
 	    return true;
 	}
 	
