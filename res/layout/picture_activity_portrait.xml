@@ -27,7 +27,7 @@
     
 	  <LinearLayout
 	      android:id="@+id/picture_view_button_bar"
-	      style="@style/ButtonBarVertical"
+	      style="@style/ButtonBarPortrait"
 	      >
 
 	      <ImageButton

@@ -15,7 +15,7 @@
     
 	<LinearLayout
         android:id="@+id/object_contour_view_buttons"
-        style="@style/ButtonBarVertical"
+        style="@style/ButtonBarPortrait"
          >
          
         <ImageButton

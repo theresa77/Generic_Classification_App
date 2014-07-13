@@ -33,7 +33,7 @@
     
 	<LinearLayout
         android:id="@+id/foreground_background_view_buttons"
-        style="@style/ButtonBarVertical"
+        style="@style/ButtonBarPortrait"
          >
          
 	    <ImageButton

@@ -7,8 +7,6 @@
     android:orientation="vertical"
     >
     
-   
-  
   <FrameLayout
       android:id="@+id/camera_preview"
       android:layout_width="wrap_content"
@@ -16,47 +14,35 @@
       android:layout_weight="1"
       />
   
-  <LinearLayout
+	<LinearLayout
 	      android:id="@+id/picture_view_button_bar"
-	      style="@style/ButtonBarVertical"
+	      style="@style/ButtonBarLandscape"
 	      >
-
-	      <ImageButton
+	      
+      <ImageButton
+            android:id="@+id/button_gallery"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/gallery"
+            android:contentDescription="@string/camera_icon"
+            android:onClick="getPictureFromGallery"
+            /> 
+	     
+        <ImageButton
+            android:id="@+id/button_capture"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/camera_icon_white"
+            android:contentDescription="@string/camera_icon"
+            android:onClick="capturePhoto"
+            /> 
+            
+        <ImageButton
             android:id="@+id/button_change_camera"
             style="@style/ButtonBarButton"
             android:src="@drawable/change_camera"
             android:contentDescription="@string/camera_icon"
-            android:onClick="capturePhoto"
+            android:onClick="changeCamera"
             /> 
-        
-        <ImageButton
-            android:id="@+id/button_capture"
-            style="@style/ButtonBarButton"
-            android:src="@drawable/camera_icon_white"
-            android:contentDescription="@string/camera_icon"
-            android:onClick="capturePhoto"
-            />    
-	      
-	      </LinearLayout>
-  <!--  
-  	<LinearLayout
-        android:id="@+id/camera_preview_button_layout"
-        android:layout_width="wrap_content"
-      	android:layout_height="wrap_content"
-        >
-        
-  	   
-        <ImageButton
-            android:id="@+id/button_capture"
-            style="@style/Button"
-            android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-            android:src="@drawable/camera_icon_white"
-            android:contentDescription="@string/camera_icon"
-            android:onClick="capturePhoto"
-            />    
             
-    </LinearLayout>
-    -->
+	</LinearLayout>
   
 </LinearLayout>

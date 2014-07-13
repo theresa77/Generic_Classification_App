@@ -52,84 +52,87 @@ public final class R {
         public static final int color_pot_white=0x7f020008;
         public static final int custom_progress_bar=0x7f020009;
         public static final int f_icon=0x7f02000a;
-        public static final int lines_icon_white=0x7f02000b;
-        public static final int main_icon=0x7f02000c;
-        public static final int mbr_icon=0x7f02000d;
-        public static final int menu_icon=0x7f02000e;
-        public static final int new_photo=0x7f02000f;
-        public static final int oc_icon=0x7f020010;
-        public static final int oval=0x7f020011;
-        public static final int rectangle=0x7f020012;
+        public static final int gallery=0x7f02000b;
+        public static final int lines_icon_white=0x7f02000c;
+        public static final int main_icon=0x7f02000d;
+        public static final int mbr_icon=0x7f02000e;
+        public static final int menu_icon=0x7f02000f;
+        public static final int new_photo=0x7f020010;
+        public static final int oc_icon=0x7f020011;
+        public static final int oval=0x7f020012;
+        public static final int rectangle=0x7f020013;
     }
     public static final class id {
         public static final int button_capture=0x7f090004;
-        public static final int button_change_camera=0x7f090003;
-        public static final int button_take_new_photo=0x7f090025;
-        public static final int button_transmission_ok=0x7f09002c;
+        public static final int button_change_camera=0x7f090005;
+        public static final int button_gallery=0x7f090003;
+        public static final int button_take_new_photo=0x7f090026;
+        public static final int button_transmission_ok=0x7f09002d;
         public static final int camera_preview=0x7f090001;
         public static final int camera_preview_layout=0x7f090000;
-        public static final int color_picker_view=0x7f090015;
-        public static final int dialog_list_text_view=0x7f090005;
-        public static final int edit_color_button=0x7f09000b;
-        public static final int edit_form_button=0x7f090010;
-        public static final int edit_line_button=0x7f09000a;
-        public static final int edit_text_annotation=0x7f090028;
-        public static final int foreground_background_surface_view=0x7f090007;
-        public static final int foreground_background_view=0x7f090006;
-        public static final int foreground_background_view_buttons=0x7f090008;
-        public static final int line_controller_bar=0x7f09001d;
-        public static final int line_picker_view=0x7f09001e;
-        public static final int menu_button=0x7f090009;
-        public static final int min_bounding_box_buttons=0x7f09000f;
-        public static final int min_bounding_box_surface_view=0x7f09000e;
-        public static final int min_bounding_box_view=0x7f09000d;
-        public static final int object_contour_surface_view=0x7f090012;
-        public static final int object_contour_view=0x7f090011;
-        public static final int object_contour_view_buttons=0x7f090013;
-        public static final int option_menu_list=0x7f090014;
-        public static final int pick_background_button=0x7f090019;
-        public static final int pick_color_button=0x7f090016;
-        public static final int pick_foreground_background_buttons=0x7f090017;
-        public static final int pick_foreground_button=0x7f090018;
-        public static final int pick_line_button=0x7f09001f;
-        public static final int pick_oval_button=0x7f09001c;
-        public static final int pick_rectangle_button=0x7f09001b;
-        public static final int pick_shape_buttons=0x7f09001a;
-        public static final int picture=0x7f090022;
-        public static final int picture_frame=0x7f090021;
-        public static final int picture_view=0x7f090020;
+        public static final int color_picker_view=0x7f090016;
+        public static final int dialog_list_text_view=0x7f090006;
+        public static final int edit_color_button=0x7f09000c;
+        public static final int edit_form_button=0x7f090011;
+        public static final int edit_line_button=0x7f09000b;
+        public static final int edit_text_annotation=0x7f090029;
+        public static final int foreground_background_surface_view=0x7f090008;
+        public static final int foreground_background_view=0x7f090007;
+        public static final int foreground_background_view_buttons=0x7f090009;
+        public static final int line_controller_bar=0x7f09001e;
+        public static final int line_picker_view=0x7f09001f;
+        public static final int menu_button=0x7f09000a;
+        public static final int min_bounding_box_buttons=0x7f090010;
+        public static final int min_bounding_box_surface_view=0x7f09000f;
+        public static final int min_bounding_box_view=0x7f09000e;
+        public static final int object_contour_surface_view=0x7f090013;
+        public static final int object_contour_view=0x7f090012;
+        public static final int object_contour_view_buttons=0x7f090014;
+        public static final int option_menu_list=0x7f090015;
+        public static final int pick_background_button=0x7f09001a;
+        public static final int pick_color_button=0x7f090017;
+        public static final int pick_foreground_background_buttons=0x7f090018;
+        public static final int pick_foreground_button=0x7f090019;
+        public static final int pick_line_button=0x7f090020;
+        public static final int pick_oval_button=0x7f09001d;
+        public static final int pick_rectangle_button=0x7f09001c;
+        public static final int pick_shape_buttons=0x7f09001b;
+        public static final int picture=0x7f090023;
+        public static final int picture_frame=0x7f090022;
+        public static final int picture_view=0x7f090021;
         public static final int picture_view_button_bar=0x7f090002;
-        public static final int progressbar=0x7f09002a;
-        public static final int realtabcontent=0x7f09002d;
-        public static final int select_fore_or_background_button=0x7f09000c;
-        public static final int select_min_bounting_box_button=0x7f090024;
-        public static final int select_object_contour_button=0x7f090023;
-        public static final int server_response_text=0x7f09002b;
-        public static final int text_annotation_dialog=0x7f090026;
-        public static final int text_annotation_list=0x7f090027;
-        public static final int text_annotation_ok_button=0x7f090029;
+        public static final int progressbar=0x7f09002b;
+        public static final int realtabcontent=0x7f09002e;
+        public static final int select_fore_or_background_button=0x7f09000d;
+        public static final int select_min_bounting_box_button=0x7f090025;
+        public static final int select_object_contour_button=0x7f090024;
+        public static final int server_response_text=0x7f09002c;
+        public static final int text_annotation_dialog=0x7f090027;
+        public static final int text_annotation_list=0x7f090028;
+        public static final int text_annotation_ok_button=0x7f09002a;
     }
     public static final class layout {
-        public static final int camera_preview=0x7f030000;
-        public static final int dialog_list_text_view=0x7f030001;
-        public static final int foreground_background_view_landscape=0x7f030002;
-        public static final int foreground_background_view_portrait=0x7f030003;
-        public static final int min_bounding_box_view_landscape=0x7f030004;
-        public static final int min_bounding_box_view_portrait=0x7f030005;
-        public static final int object_contour_view_landscape=0x7f030006;
-        public static final int object_contour_view_portrait=0x7f030007;
-        public static final int option_menu_dialog=0x7f030008;
-        public static final int pick_color_dialog=0x7f030009;
-        public static final int pick_color_dialog_low=0x7f03000a;
-        public static final int pick_foreground_background_dialog=0x7f03000b;
-        public static final int pick_shape_dialog=0x7f03000c;
-        public static final int pick_stroke_width_dialog=0x7f03000d;
-        public static final int picture_activity_landscape=0x7f03000e;
-        public static final int picture_activity_portrait=0x7f03000f;
-        public static final int text_annotation_dialog=0x7f030010;
-        public static final int transmission_to_server_dialog=0x7f030011;
-        public static final int user_scribble_tab_layout_landscape=0x7f030012;
-        public static final int user_scribble_tab_layout_portrait=0x7f030013;
+        public static final int camera_preview_landscape=0x7f030000;
+        public static final int camera_preview_portrait=0x7f030001;
+        public static final int dialog_list_text_view=0x7f030002;
+        public static final int foreground_background_view_landscape=0x7f030003;
+        public static final int foreground_background_view_portrait=0x7f030004;
+        public static final int min_bounding_box_view_landscape=0x7f030005;
+        public static final int min_bounding_box_view_portrait=0x7f030006;
+        public static final int object_contour_view_landscape=0x7f030007;
+        public static final int object_contour_view_portrait=0x7f030008;
+        public static final int option_menu_dialog=0x7f030009;
+        public static final int pick_color_dialog=0x7f03000a;
+        public static final int pick_color_dialog_low=0x7f03000b;
+        public static final int pick_foreground_background_dialog=0x7f03000c;
+        public static final int pick_shape_dialog=0x7f03000d;
+        public static final int pick_stroke_width_dialog=0x7f03000e;
+        public static final int picture_activity_landscape=0x7f03000f;
+        public static final int picture_activity_portrait=0x7f030010;
+        public static final int text_annotation_dialog=0x7f030011;
+        public static final int transmission_to_server_dialog=0x7f030012;
+        public static final int user_scribble_tab_layout_landscape=0x7f030013;
+        public static final int user_scribble_tab_layout_portrait=0x7f030014;
     }
     public static final class string {
         public static final int app_name=0x7f070000;
@@ -217,12 +220,12 @@ public final class R {
         /**  style for a button in a button bar 
          */
         public static final int ButtonBarButton=0x7f080003;
-        /**  style for landscape button bar 
+        /**  style for button bar when screen is in landscape 
          */
         public static final int ButtonBarLandscape=0x7f080005;
-        /**  style for a vertical button bar 
+        /**  style for a button bar when screen is in portrait 
          */
-        public static final int ButtonBarVertical=0x7f080006;
+        public static final int ButtonBarPortrait=0x7f080006;
         /**  style for button in a dialog 
          */
         public static final int ButtonDialog=0x7f080002;

@@ -6,6 +6,10 @@ package activity;
 import com.genericclassificationapp.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 import view.CameraPreview;
@@ -13,12 +17,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Path;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Files;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -42,7 +51,9 @@ public class CameraActivity extends Activity {
 	private static final String TAG = CameraActivity.class.getSimpleName();
 	private Camera mCamera;
     private CameraPreview mPreview;
-    public static final int MEDIA_TYPE_IMAGE = 1;
+    private boolean useBackCamera = true;
+    private static final int MEDIA_TYPE_IMAGE = 1;
+    private static int RESULT_LOAD_IMAGE = 1;
     private Bitmap mPictureBitmap;
     private int displayWidth;
 	private int displayHeight; 
@@ -61,6 +72,8 @@ public class CameraActivity extends Activity {
 		@Override
 		public void onPictureTaken(byte[] data, Camera camera) {
 			Log.d(TAG, "onPictureTaken() called");
+			
+			recyclePictureBitmap();
 
 			int reqWidth = 0;
 			int reqHeight = 0;
@@ -76,8 +89,8 @@ public class CameraActivity extends Activity {
 			// create a Bitmap from the byte array with the width and height of the screen
 			mPictureBitmap = decodeSampledBitmapFromResource(data, reqWidth, reqHeight);
 
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			mPictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//			mPictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
 			if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 				//if the picture is in portrait it has to be rotated 
@@ -109,7 +122,19 @@ public class CameraActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.camera_preview);
+        
+        // get Width and Height of the display from the device
+        WindowManager winMan = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+		Display display = winMan.getDefaultDisplay();
+	    DisplayMetrics metrics = new DisplayMetrics();
+    	display.getMetrics(metrics);
+    	displayHeight = metrics.heightPixels;
+        displayWidth = metrics.widthPixels;
+        
+        if(displayWidth > displayHeight)
+        	setContentView(R.layout.camera_preview_landscape);
+         else
+        	setContentView(R.layout.camera_preview_portrait);
  
         //instantiate camera variable and preview
         mCamera = getCameraInstance();
@@ -119,14 +144,6 @@ public class CameraActivity extends Activity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.camera_preview_layout);
         ImageButton captureButton = (ImageButton) findViewById(R.id.button_capture);
         
-        // get Width and Height of the display from the device
-        WindowManager winMan = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-		Display display = winMan.getDefaultDisplay();
-	    DisplayMetrics metrics = new DisplayMetrics();
-    	display.getMetrics(metrics);
-    	displayHeight = metrics.heightPixels;
-        displayWidth = metrics.widthPixels;
-	    
 	    double width = 0.0; 
 	    double height = 0.0;
 	    
@@ -183,13 +200,141 @@ public class CameraActivity extends Activity {
     }
     
     /**
+     * 
+     * @param v
+     */
+    public void getPictureFromGallery(View v){
+    	Log.d(TAG, "getPictureFromGallery() called"); 
+    	Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);	 
+    	startActivityForResult(i, RESULT_LOAD_IMAGE);
+    }
+    
+    /**
+     * 
+     */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		recyclePictureBitmap();
+
+		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
+			Uri selectedImage = data.getData();
+//			String[] filePathColumn = { MediaStore.Images.Media.DATA };
+//
+//			Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+//			cursor.moveToFirst();
+//
+//			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//			// String picturePath contains the path of selected Image
+//			String picturePath = cursor.getString(columnIndex);
+//			cursor.close();
+			
+			byte[] inputData = null;
+			
+			try {
+				InputStream inputStream = getContentResolver().openInputStream(selectedImage);
+				
+				ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+
+		          // this is storage overwritten on each iteration with bytes
+		          int bufferSize = 1024;
+		          byte[] buffer = new byte[bufferSize];
+
+		          // we need to know how may bytes were read to write them to the byteBuffer
+		          int len = 0;
+		          while ((len = inputStream.read(buffer)) != -1) {
+					    byteBuffer.write(buffer, 0, len);
+					  }
+				
+		          // and then we can return your byte array.
+		          inputData = byteBuffer.toByteArray();
+				
+				
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			
+//			mPictureBitmap = BitmapFactory.decodeFile(picturePath);
+//			
+//			int reqWidth = 0;
+//			int reqHeight = 0;
+//			if(mPictureBitmap.getHeight() > mPictureBitmap.getWidth()) {
+//				reqWidth = displayHeight;
+//				reqHeight = displayWidth;
+//			} else {
+//				reqWidth = displayWidth;
+//				reqHeight = displayHeight;
+//			}
+//
+//			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//			mPictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+			
+			// create a Bitmap from the byte array with the width and height of the screen
+//			mPictureBitmap = decodeSampledBitmapFromResource(stream.toByteArray(), reqWidth, reqHeight);
+			mPictureBitmap = decodeSampledBitmapFromResource(inputData, displayWidth, displayHeight);
+
+			if (mPictureBitmap.getHeight() > mPictureBitmap.getWidth()) {
+//				//if the picture is in portrait it has to be rotated 
+//				Matrix matrix = new Matrix();
+//				matrix.postRotate(90);
+//				mPictureBitmap = Bitmap.createBitmap(mPictureBitmap, 0, 0,
+//						mPictureBitmap.getWidth(), mPictureBitmap.getHeight(),
+//						matrix, true);
+				
+				//create picture instance with the bitmap and an flag if the picture is in landsape 
+				Picture.createInstance(mPictureBitmap, false);
+
+			} else  {
+				Picture.createInstance(mPictureBitmap, true);
+			}
+			
+			// start PictureActivty to view the Picture
+			Intent pictureIntent = new Intent(CameraActivity.this,PictureActivity.class);
+			startActivity(pictureIntent);
+			CameraActivity.this.finish();
+		}
+	}
+
+	/**
+	 * 
+	 * @param v
+	 */
+    public void changeCamera(View v){
+    	Log.d(TAG, "changeCamera() called");
+    	if(useBackCamera)
+    		useBackCamera = false;
+    	else 
+    		useBackCamera = true;
+    	Bundle bundle = new Bundle();
+    	onCreate(bundle);
+    }
+    
+    /**
      * Returns a Camera object of the first back-facing camera on the device
      * @return a new Camera instance
      */
 	private Camera getCameraInstance() {
 		Camera c = null;
         try {
-            c = Camera.open(); // attempt to get a Camera instance
+        	int i = Camera.getNumberOfCameras()-1;
+        	Log.d(TAG, "Number of Cameras: "+i);
+        	// attempt to get a Camera instance
+        	if(useBackCamera){
+        		c = Camera.open(0);
+        		Log.d(TAG, "c = Camera.open(0);");
+        	}else {
+        		//TODO: Hier wird eine RuntimeException geworfen weil das mit der front camera offenbar,
+        		// komplizierter ist als gedacht.
+        		// Recherche wird benötigt!!!
+        		c= Camera.open(i);
+        		Log.d(TAG, "c = Camera.open("+i+");");
+        	}
         }
         catch (Exception e){
             // Camera is not available (in use or does not exist)
@@ -225,6 +370,14 @@ public class CameraActivity extends Activity {
 	 */
 	public LinearLayout.LayoutParams getPreviewParams(){
 		return mPreviewParams;
+	}
+	
+	private void recyclePictureBitmap(){
+		Log.d(TAG, "recyclePictureBitmap() called.");
+		if(mPictureBitmap != null){
+			mPictureBitmap.recycle();
+			mPictureBitmap = null;
+		}
 	}
 
 	/**
@@ -265,8 +418,7 @@ public class CameraActivity extends Activity {
 	 * @param reqHeight required height of the picture
 	 * @return
 	 */
-	public static Bitmap decodeSampledBitmapFromResource(byte[] data,
-			int reqWidth, int reqHeight) {
+	public static Bitmap decodeSampledBitmapFromResource(byte[] data, int reqWidth, int reqHeight) {
 
 		// Decode with inJustDecodeBounds=true to check dimensions
 		final BitmapFactory.Options options = new BitmapFactory.Options();

@@ -15,7 +15,7 @@
     
     <LinearLayout
         android:id="@+id/min_bounding_box_buttons"
-        style="@style/ButtonBarVertical"
+        style="@style/ButtonBarPortrait"
          >
          
         <ImageButton

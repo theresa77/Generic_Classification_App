@@ -27,15 +27,15 @@
         <item name="android:background">@color/buttonGray</item>
     </style>
     
-    <!-- style for landscape button bar -->
+    <!-- style for button bar when screen is in landscape -->
     <style name="ButtonBarLandscape" parent="ButtonBar">       
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">fill_parent</item>
     </style>
 
-     <!-- style for a vertical button bar -->
-    <style name="ButtonBarVertical" parent="ButtonBar">
+     <!-- style for a button bar when screen is in portrait -->
+    <style name="ButtonBarPortrait" parent="ButtonBar">
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>

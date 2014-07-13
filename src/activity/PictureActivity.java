@@ -32,7 +32,7 @@ public class PictureActivity extends FragmentActivity {
 
 	private static final String TAG = PictureActivity.class.getSimpleName();
 	private Picture mPicture;
-	private Bitmap mPictureBitmap;
+//	private Bitmap mPictureBitmap;
 	private int displayWidth;
 	private int displayHeight;
 	
@@ -45,7 +45,7 @@ public class PictureActivity extends FragmentActivity {
 		
 		// get Picture instance
 		mPicture = Picture.getInstance();
-		mPictureBitmap = this.mPicture.getBitmap();
+		//mPictureBitmap = this.mPicture.getBitmap();
         
 		// get Height and Width of display
 		WindowManager winMan = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -76,7 +76,7 @@ public class PictureActivity extends FragmentActivity {
 		
 		// add taken picture to view
 		ImageView image = (ImageView) findViewById(R.id.picture);
-		image.setImageBitmap(mPictureBitmap);
+		image.setImageBitmap(mPicture.getBitmap());
 		
 	}
 	
@@ -87,6 +87,7 @@ public class PictureActivity extends FragmentActivity {
 	 */
 	public void takeNewPhoto(View v){
 		Log.d(TAG, "Take New Photo Button pressed.");
+		mPicture.recyclePicture();
 		Intent cameraIntent = new Intent(PictureActivity.this, CameraActivity.class);
         startActivity(cameraIntent);
         PictureActivity.this.finish();

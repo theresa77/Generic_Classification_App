@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/camera_preview_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical"
+    >
+    
+   
+  
+  <FrameLayout
+      android:id="@+id/camera_preview"
+      android:layout_width="wrap_content"
+      android:layout_height="0dip"
+      android:layout_weight="1"
+      />
+  
+  <LinearLayout
+	      android:id="@+id/picture_view_button_bar"
+	      style="@style/ButtonBarPortrait"
+	      >
+
+	      <ImageButton
+            android:id="@+id/button_change_camera"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/change_camera"
+            android:contentDescription="@string/camera_icon"
+            android:onClick="changeCamera"
+            /> 
+        
+        <ImageButton
+            android:id="@+id/button_capture"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/camera_icon_white"
+            android:contentDescription="@string/camera_icon"
+            android:onClick="capturePhoto"
+            />    
+            
+        <ImageButton
+            android:id="@+id/button_gallery"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/gallery"
+            android:contentDescription="@string/camera_icon"
+            android:onClick="getPictureFromGallery"
+            /> 
+	      
+	      </LinearLayout>
+  <!--  
+  	<LinearLayout
+        android:id="@+id/camera_preview_button_layout"
+        android:layout_width="wrap_content"
+      	android:layout_height="wrap_content"
+        >
+        
+        <ImageButton
+            android:id="@+id/button_capture"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+      		android:layout_height="wrap_content"
+            android:src="@drawable/camera_icon_white"
+            android:contentDescription="@string/camera_icon"
+            android:onClick="capturePhoto"
+            />    
+            
+    </LinearLayout>
+    -->
+  
+</LinearLayout>

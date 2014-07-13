@@ -18,7 +18,7 @@
    
       <LinearLayout
         android:id="@+id/pick_foreground_background_buttons"
-        style="@style/ButtonBarVertical"
+        style="@style/ButtonBarPortrait"
          >
          
 	    <ImageButton

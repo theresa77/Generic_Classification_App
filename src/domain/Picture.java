@@ -60,5 +60,14 @@ public class Picture {
 	public Bitmap getBitmap() {
 		return mBitmap;
 	}
-
+	
+	/**
+	 * TODO
+	 */
+	public void recyclePicture(){
+		mBitmap.recycle();
+		mBitmap = null;
+		mPicture = null;
+	}
+	
 }
