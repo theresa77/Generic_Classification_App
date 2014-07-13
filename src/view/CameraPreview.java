@@ -86,21 +86,33 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
 
         try {
-        	
-        	Camera.Parameters p = mCamera.getParameters();
-            p.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+        	// following code removed to CameraActivity when camera gets opened
+//			Camera.Parameters p = mCamera.getParameters();
+//			//TODO: Auto focus only possible for back camera, use it for front camera too
+////			 p.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+//			try {
+//				// TODO: hier wird immer einer RuntimeException geworfen!
+//				// hat vielleicht etwas mit der PreviewSize zu tun, da diese bei
+//				// der
+//				// front camera anders ist
+//				// das ganze ist auch leider von gerät abhängig.
+//				mCamera.setParameters(p);
+//			} catch (Exception e) {
+//				p.set("camera-id", 2);
+//				p.setPreviewSize(640, 480);
+//				mCamera.setParameters(p);
+//			}
 
-            mCamera.setParameters(p);
-        	
         	// set camera orientation corresponding to display orientation
         	setCameraOrientation(getResources().getConfiguration().orientation);
         	
-            mCamera.setPreviewDisplay(mHolder);
-            mCamera.startPreview(); 
+            mCamera.setPreviewDisplay(holder);
+            mCamera.startPreview();
             mCamera.autoFocus(null);
-
-        }catch (Exception e) {
-			Log.d(TAG, "Error setting camera preview: " + e.getMessage());
+            
+		} catch (Exception e) {
+			e.printStackTrace();
+//			Log.e(TAG, "Error setting camera preview: " + e.getMessage());
 		}
         
         
@@ -114,17 +126,24 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 	public void surfaceCreated(SurfaceHolder holder) {
 		Log.d(TAG, "surfaceCreated( "+holder.toString()+" )"+" called");
 		
-        try {
-        	Camera.Parameters p = mCamera.getParameters();
-            p.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-
-			// TODO: hier wird immer einer RuntimeException geworfen!
-			// hat vielleicht etwas mit der PreviewSize zu tun, da diese bei der
-			// front camera anders ist
-			// das ganze ist auch leider von gerät abhängig.
-			mCamera.setParameters(p);
-        	
-        	// set camera orientation corresponding to display orientation
+		// following code removed to CameraActivity when camera gets opened
+		try {
+//			Camera.Parameters p = mCamera.getParameters();
+//			// p.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+//			try {
+//				// TODO: hier wird immer einer RuntimeException geworfen!
+//				// hat vielleicht etwas mit der PreviewSize zu tun, da diese bei
+//				// der
+//				// front camera anders ist
+//				// das ganze ist auch leider von gerät abhängig.
+//				mCamera.setParameters(p);
+//			} catch (Exception e) {
+//				p.set("camera-id", 2);
+//				p.setPreviewSize(640, 480);
+//				mCamera.setParameters(p);
+//			}
+//
+			// set camera orientation corresponding to display orientation
         	setCameraOrientation(getResources().getConfiguration().orientation);
         	
             mCamera.setPreviewDisplay(holder);

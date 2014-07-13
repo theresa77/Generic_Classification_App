@@ -47,12 +47,16 @@ public class CameraActivity extends Activity {
 	private static final String TAG = CameraActivity.class.getSimpleName();
 	private Camera mCamera;
     private CameraPreview mPreview;
-    private boolean useBackCamera = true;
+    private boolean useBackCamera;
     private static int RESULT_LOAD_IMAGE = 1;
     private Bitmap mPictureBitmap;
     private int displayWidth;
 	private int displayHeight; 
 	private LinearLayout.LayoutParams mPreviewParams;
+	
+	public CameraActivity(){
+		useBackCamera = true;
+	}
 	
 	/**
 	 * Local variable for the PictureCallback
@@ -87,7 +91,10 @@ public class CameraActivity extends Activity {
 			if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 				//if the picture is in portrait it has to be rotated 
 				Matrix matrix = new Matrix();
-				matrix.postRotate(90);
+				if(!useBackCamera)
+					matrix.postRotate(270);
+				else 
+					matrix.postRotate(90);
 				mPictureBitmap = Bitmap.createBitmap(mPictureBitmap, 0, 0,
 						mPictureBitmap.getWidth(), mPictureBitmap.getHeight(),
 						matrix, true);
@@ -277,38 +284,51 @@ public class CameraActivity extends Activity {
      */
 	private Camera getCameraInstance() {
 		releaseCamera();
-		Camera c = null;
+		Camera camera = null;
         try {
+        	Camera.Parameters parameters;
+        	
         	// attempt to get a Camera instance
         	if(useBackCamera){
-        		c = Camera.open(CameraInfo.CAMERA_FACING_BACK);
+        		camera = Camera.open(CameraInfo.CAMERA_FACING_BACK);
+        		parameters = camera.getParameters();
+        		parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+        		
         		Log.d(TAG, "c = Camera.open("+Camera.CameraInfo.CAMERA_FACING_BACK+");");
         	}else {
         		//TODO: Hier wird eine RuntimeException geworfen weil das mit der front camera offenbar,
         		// komplizierter ist als gedacht.
         		// Recherche wird benötigt!!!
-//        		c= Camera.open(CameraInfo.CAMERA_FACING_FRONT);
+        		camera = Camera.open(CameraInfo.CAMERA_FACING_FRONT);
+        		parameters = camera.getParameters();
+        		parameters.set("camera-id", 2);
+        		//TODO: set correct preview size
+        		parameters.setPreviewSize(640, 480);
+        		
         		Log.d(TAG, "c = Camera.open("+Camera.CameraInfo.CAMERA_FACING_FRONT+");");
         		
-        		Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-        	    int cameraCount = Camera.getNumberOfCameras();
-        	    for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
-        	        Camera.getCameraInfo(camIdx, cameraInfo);
-        	        if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-        	            try {
-        	                c = Camera.open(camIdx);
-        	            } catch (RuntimeException e) {
-        	                Log.e(TAG, "Camera failed to open: " + e.getLocalizedMessage());
-        	            }
-        	        }
-        	    }
+        		// another way to get to front camera
+//        		Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+//        	    int cameraCount = Camera.getNumberOfCameras();
+//        	    for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
+//        	        Camera.getCameraInfo(camIdx, cameraInfo);
+//        	        if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+//        	            try {
+//        	                c = Camera.open(camIdx);
+//        	            } catch (RuntimeException e) {
+//        	                Log.e(TAG, "Camera failed to open: " + e.getLocalizedMessage());
+//        	            }
+//        	        }
+//        	    }
         	}
+        	
+        	camera.setParameters(parameters);
         }
         catch (Exception e){
             // Camera is not available (in use or does not exist)
         	e.printStackTrace();
         }
-        return c; // returns null if camera is unavailable
+        return camera; // returns null if camera is unavailable
 	}
 	
 	/**
