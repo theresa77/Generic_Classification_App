@@ -196,7 +196,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 			// user start touch
 			// drawing of scribbles starts
 			case (MotionEvent.ACTION_DOWN):
-				 Log.d(TAG,"Action was DOWN");
+//				 Log.d(TAG,"Action was DOWN");
 				if (currentTab == 0) {
 					xStart = x;
 					yStart = y;
@@ -209,7 +209,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 
 			// user moves finger on screen
 			case (MotionEvent.ACTION_MOVE):
-				 Log.d(TAG, "Action was MOVE");
+//				 Log.d(TAG, "Action was MOVE");
 				if (currentTab == 0) {
 					if (xStart != 0 || yStart != 0) {
 						((MinimumBoundingBoxView)mView).setShape(Math.min(xStart, x), Math.min(yStart, y),
@@ -227,7 +227,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 				
 			//user stop touching the screen
 			case (MotionEvent.ACTION_UP):
-				// Log.d(TAG,"Action was UP");
+//				 Log.d(TAG,"Action was UP");
 				if (currentTab == 0) {
 					((MinimumBoundingBoxView)mView).setShape(Math.min(xStart, x), Math.min(yStart, y),
 															 Math.max(xStart, x), Math.max(yStart, y));

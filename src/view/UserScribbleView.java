@@ -55,7 +55,7 @@ public abstract class UserScribbleView extends SurfaceView {
 		Log.d(TAG, "init() called");
 		mPaint = ((UserScribbleMainActivity) context).getPaint();
 		setBackgroundColor(Color.BLACK);
-		drawNewScribble = true;
+		drawNewScribble = false;
 	}
 	
 	/**

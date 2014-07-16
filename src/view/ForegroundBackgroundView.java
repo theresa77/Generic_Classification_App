@@ -38,6 +38,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		mPath = new Path();
 		mCurrentSelection = Selection.FOREGROUND;
 		drawCircle = true;
+		oldScribbles = new ArrayList<Path>();
 	}
 	
 	/**
@@ -45,25 +46,28 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 */
 	@Override
 	public void onDraw(Canvas canvas){
-		//Log.d(TAG, "onDraw() is called");
+		// Log.d(TAG, "onDraw() is called");
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-		if(!mPath.isEmpty()){
-			if(oldScribbles != null || oldScribbles.isEmpty()){
-				for(Path p : oldScribbles){
-					mPaint.setStyle(Paint.Style.STROKE);
-					canvas.drawPath(p, mPaint);
-				}
+
+		if (oldScribbles != null && !oldScribbles.isEmpty()) {
+			for (Path p : oldScribbles) {
+				mPaint.setStyle(Paint.Style.STROKE);
+				canvas.drawPath(p, mPaint);
+				Log.d(TAG, "Draw Path: " + p.toString());
 			}
-		
-		if (drawCircle){
-			mPaint.setStyle(Paint.Style.FILL);
-			Log.d(TAG, "mPaint.setStyle(Paint.Style.FILL)");
-			canvas.drawCircle(mX, mY, mPaint.getStrokeWidth()/2, mPaint);
-		}else{
-			mPaint.setStyle(Paint.Style.STROKE);
-			canvas.drawPath(mPath, mPaint);
 		}
-	}
+
+		if (!mPath.isEmpty()) {
+
+			if (drawCircle) {
+				mPaint.setStyle(Paint.Style.FILL);
+				Log.d(TAG, "mPaint.setStyle(Paint.Style.FILL)");
+				canvas.drawCircle(mX, mY, mPaint.getStrokeWidth() / 2, mPaint);
+			} else {
+				mPaint.setStyle(Paint.Style.STROKE);
+				canvas.drawPath(mPath, mPaint);
+			}
+		}
 	}
 
 	/**
@@ -72,15 +76,17 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 * @param y coordinate of the touch
 	 */
 	public void startMove(float x, float y){
-		Log.d(TAG, "startMove() called");
-		// wenn boolean true und speichere altes scribble ab, falls es bereits exsisiteirt
+		//Log.d(TAG, "startMove() called");
+		
+		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
 		if(drawNewScribble){
-			if(oldScribbles == null){
-				oldScribbles = new ArrayList<Path>();
-			}
-			oldScribbles.add(mPath);
+			if(mPath != null && !mPath.isEmpty())
+				oldScribbles.add(new Path(mPath));
+			drawNewScribble = false;
 		}
 
+		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
+		
 		drawCircle = true;
 		mPath.reset();
 		mPath.moveTo(x, y);
@@ -95,7 +101,8 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 * @param y coordinate of the current touch event
 	 */
 	public void move(float x, float y){
-		Log.d(TAG, "move() called");
+		//Log.d(TAG, "move() called");
+//		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
 		
 		if (!mPath.isEmpty()) {
 			float dx = Math.abs(x - mX);
@@ -119,6 +126,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 * @param y coordinate of the current touch event
 	 */
 	public void stopMove(float x, float y){
+//		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
 		mPath.lineTo(x, y);
 	//	drawCircle = true;
 		invalidate();
