@@ -307,7 +307,16 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * 
+	 * TODO
+	 * @param v
+	 */
+	public void addFurtherScribble(View v){
+		Log.d(TAG, "addFurtherScribble() called");
+		mView.setDrawNewScribble(true);
+	}
+	
+	/**
+	 * TODO
 	 */
 	public void openTextAnnotationDialog(){
 		currentDialog = new TextAnnotationDialog();

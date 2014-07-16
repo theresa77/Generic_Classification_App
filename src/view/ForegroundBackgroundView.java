@@ -3,6 +3,9 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -24,6 +27,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	private float mY;
 	private Selection mCurrentSelection;
 	private boolean drawCircle;
+	private List<Path> oldScribbles;
 	
 	public enum Selection {
 		FOREGROUND, BACKGROUND
@@ -44,6 +48,12 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		//Log.d(TAG, "onDraw() is called");
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
 		if(!mPath.isEmpty()){
+			if(oldScribbles != null || oldScribbles.isEmpty()){
+				for(Path p : oldScribbles){
+					mPaint.setStyle(Paint.Style.STROKE);
+					canvas.drawPath(p, mPaint);
+				}
+			}
 		
 		if (drawCircle){
 			mPaint.setStyle(Paint.Style.FILL);
@@ -63,6 +73,13 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 */
 	public void startMove(float x, float y){
 		Log.d(TAG, "startMove() called");
+		// wenn boolean true und speichere altes scribble ab, falls es bereits exsisiteirt
+		if(drawNewScribble){
+			if(oldScribbles == null){
+				oldScribbles = new ArrayList<Path>();
+			}
+			oldScribbles.add(mPath);
+		}
 
 		drawCircle = true;
 		mPath.reset();
@@ -71,7 +88,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		mY = y;
 		invalidate();
 	}
-	
+
 	/**
 	 * called when user continues drawing and moves finger over the screen
 	 * @param x coordinate of the current touch event
@@ -128,6 +145,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 			mPaint.setStyle(Paint.Style.STROKE);
 			canvas.drawPath(mPath, mPaint);
 		}
+		//TODO: draw all user Scribbles in oldScribbles-List
 	}
 
 	@Override

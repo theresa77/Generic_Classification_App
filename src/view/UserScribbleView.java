@@ -28,6 +28,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	protected Bitmap mPictureBitmap;
 	protected int displayWidth;
 	protected int displayHeight;
+	protected boolean drawNewScribble;
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
@@ -54,6 +55,7 @@ public abstract class UserScribbleView extends SurfaceView {
 		Log.d(TAG, "init() called");
 		mPaint = ((UserScribbleMainActivity) context).getPaint();
 		setBackgroundColor(Color.BLACK);
+		drawNewScribble = true;
 	}
 	
 	/**
@@ -136,6 +138,14 @@ public abstract class UserScribbleView extends SurfaceView {
 	 */
 	public void setDisplayHeight(int displayHeight) {
 		this.displayHeight = displayHeight;
+	}
+	
+	/**
+	 * TODO
+	 * @param drawNew
+	 */
+	public void setDrawNewScribble(boolean drawNew){
+		this.drawNewScribble = drawNew;
 	}
 	
 	/**
