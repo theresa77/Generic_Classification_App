@@ -3,6 +3,9 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -23,12 +26,13 @@ public class ObjectContourView extends UserScribbleView {
 	private Path mPath;
 	private float mX;
 	private float mY;
+	private List<Path> oldScribbles;
 
 	public ObjectContourView(Context context){
 		super(context);
 		mPath = new Path();
 		mPaint.setStyle(Paint.Style.STROKE);
-		
+		oldScribbles = new ArrayList<Path>();
 	}
 	
 	/**
@@ -36,9 +40,18 @@ public class ObjectContourView extends UserScribbleView {
 	 */
 	public void onDraw(Canvas canvas){
 		//Log.d(TAG, "onDraw() is called");
-		invalidate();	
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-		canvas.drawPath(mPath, mPaint);
+		
+		if (oldScribbles != null && !oldScribbles.isEmpty()) {
+			for (Path p : oldScribbles) {
+				mPaint.setStyle(Paint.Style.STROKE);
+				canvas.drawPath(p, mPaint);
+				Log.d(TAG, "Draw Path: " + p.toString());
+			}
+		}
+		
+		if(!mPath.isEmpty())
+			canvas.drawPath(mPath, mPaint);
 	}
 	
 	public void handleTouchEvent(int action, float x, float y){
@@ -81,6 +94,11 @@ public class ObjectContourView extends UserScribbleView {
 	 */
 	public void startMove(float x, float y){
 		Log.d(TAG, "startMove() called");
+		if(drawNewScribble){
+			if(mPath != null && !mPath.isEmpty())
+				oldScribbles.add(new Path(mPath));
+			drawNewScribble = false;
+		}
 		
 		mPath.reset();
 		mPath.moveTo(x, y);
@@ -135,6 +153,14 @@ public class ObjectContourView extends UserScribbleView {
 	 */
 	@Override
 	public void drawUserScribble(Canvas canvas) {
+		if (oldScribbles != null && !oldScribbles.isEmpty()) {
+			for (Path p : oldScribbles) {
+				mPaint.setStyle(Paint.Style.STROKE);
+				canvas.drawPath(p, mPaint);
+				Log.d(TAG, "Draw Path: " + p.toString());
+			}
+		}
+		
 		canvas.drawPath(mPath, mPaint);
 	}
 

@@ -64,7 +64,7 @@ public final class R {
         public static final int rectangle=0x7f020014;
     }
     public static final class id {
-        public static final int add_further_scribble_button=0x7f09000e;
+        public static final int add_further_scribble_button=0x7f09000b;
         public static final int button_capture=0x7f090004;
         public static final int button_change_camera=0x7f090005;
         public static final int button_gallery=0x7f090003;
@@ -74,9 +74,9 @@ public final class R {
         public static final int camera_preview_layout=0x7f090000;
         public static final int color_picker_view=0x7f090017;
         public static final int dialog_list_text_view=0x7f090006;
-        public static final int edit_color_button=0x7f09000c;
+        public static final int edit_color_button=0x7f09000d;
         public static final int edit_form_button=0x7f090012;
-        public static final int edit_line_button=0x7f09000b;
+        public static final int edit_line_button=0x7f09000c;
         public static final int edit_text_annotation=0x7f09002a;
         public static final int foreground_background_surface_view=0x7f090008;
         public static final int foreground_background_view=0x7f090007;
@@ -105,7 +105,7 @@ public final class R {
         public static final int picture_view_button_bar=0x7f090002;
         public static final int progressbar=0x7f09002c;
         public static final int realtabcontent=0x7f09002f;
-        public static final int select_fore_or_background_button=0x7f09000d;
+        public static final int select_fore_or_background_button=0x7f09000e;
         public static final int select_min_bounting_box_button=0x7f090026;
         public static final int select_object_contour_button=0x7f090025;
         public static final int server_response_text=0x7f09002d;

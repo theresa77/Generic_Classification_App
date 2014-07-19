@@ -33,6 +33,14 @@
             android:contentDescription="@string/edit_line"
             android:onClick="editLine"
               />
+        
+        <ImageButton
+            android:id="@+id/add_further_scribble_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/plus"
+            android:contentDescription="@string/add_further_scribble" 
+            android:onClick="addFurtherScribble"
+             />
 
          <ImageButton
             android:id="@+id/menu_button"

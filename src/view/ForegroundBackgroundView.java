@@ -111,7 +111,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 */
 	public void startMove(float x, float y){
 		//Log.d(TAG, "startMove() called");
-		
 		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
 		if(drawNewScribble){
 			if(mPath != null && !mPath.isEmpty())
@@ -180,6 +179,15 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	
 	@Override
 	public void drawUserScribble(Canvas canvas) {
+		//TODO: check is all scribbles are drawn correct
+		if (oldScribbles != null && !oldScribbles.isEmpty()) {
+			for (Path p : oldScribbles) {
+				mPaint.setStyle(Paint.Style.STROKE);
+				canvas.drawPath(p, mPaint);
+				Log.d(TAG, "Draw Path: " + p.toString());
+			}
+		}
+		
 		if (drawCircle){
 			mPaint.setStyle(Paint.Style.FILL);
 			canvas.drawCircle(mX, mY, mPaint.getStrokeWidth()/2, mPaint);
@@ -187,7 +195,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 			mPaint.setStyle(Paint.Style.STROKE);
 			canvas.drawPath(mPath, mPaint);
 		}
-		//TODO: draw all user Scribbles in oldScribbles-List
 	}
 
 	@Override

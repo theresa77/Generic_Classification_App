@@ -28,6 +28,14 @@
              />
         
         <ImageButton
+            android:id="@+id/add_further_scribble_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/plus"
+            android:contentDescription="@string/add_further_scribble" 
+            android:onClick="addFurtherScribble"
+             />
+        
+        <ImageButton
             android:id="@+id/edit_line_button"
             style="@style/ButtonBarButton"
             android:src="@drawable/lines_icon_white"
