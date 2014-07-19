@@ -25,10 +25,6 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	private float xStart;
 	private float yStart;
 	private boolean editScribble;
-	private boolean editTopLeftCorner;
-	private boolean editTopRightCorner;
-	private boolean editBottomLeftCorner;
-	private boolean editBottomRightCorner;
 
 	public enum Shape {
 		RECTANGLE, OVAL
@@ -39,10 +35,6 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		currentShape = Shape.RECTANGLE;	
 		mPaint.setStyle(Paint.Style.STROKE);
 		editScribble = false;
-		editTopLeftCorner = false;
-		editTopRightCorner = false;
-		editBottomLeftCorner = false;
-		editBottomRightCorner = false;
 	}
 
 	/**
@@ -135,92 +127,39 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 					if (x >= rectf.left-mPaint.getStrokeWidth() && x <= rectf.left+mPaint.getStrokeWidth() 
 						&& y >= rectf.top-mPaint.getStrokeWidth() && y <= rectf.top+mPaint.getStrokeWidth()) {
 						Log.d(TAG, "TOP-LEFT CORNER TOUCHED DOWN");
-//						xStart = x;
-//						yStart = y;
 						xStart = rectf.right;
 						yStart = rectf.bottom;
-						editTopLeftCorner = true;
 					}
 					// right-top corner
 					else if (x >= rectf.right-mPaint.getStrokeWidth() && x <= rectf.right+mPaint.getStrokeWidth() 
 							&& y >= rectf.top-mPaint.getStrokeWidth() && y <= rectf.top+mPaint.getStrokeWidth()) {
 						Log.d(TAG, "TOP-RIGHT CORNER TOUCHED DOWN");
-//						xStart = rectf.right;
-//						yStart = rectf.top;
 						xStart = rectf.left;
 						yStart = rectf.bottom;
-						editTopRightCorner = true;
 					}
 					// left-bottom corner
 					else if (x >= rectf.left-mPaint.getStrokeWidth() && x <= rectf.left+mPaint.getStrokeWidth()  
 							&& y >= rectf.bottom-mPaint.getStrokeWidth() && y <= rectf.bottom+mPaint.getStrokeWidth()) {
 						Log.d(TAG, "BOTTOM-LEFT CORNER TOUCHED DOWN");
-//						xStart = rectf.left;
-//						yStart = rectf.bottom;
 						xStart = rectf.right;
 						yStart = rectf.top;
-						editBottomLeftCorner = true;
 					}
 					// right-bottom corner
 					else if (x >= rectf.right-mPaint.getStrokeWidth() && x <= rectf.right+mPaint.getStrokeWidth() 
 							&& y >= rectf.bottom-mPaint.getStrokeWidth() && y <= rectf.bottom+mPaint.getStrokeWidth()) {
 						Log.d(TAG, "BOTTOM-RIGHT CORNER TOUCHED DOWN");
-//						xStart = rectf.right;
-//						yStart = rectf.bottom;
 						xStart = rectf.left;
 						yStart = rectf.top;
-						editBottomRightCorner = true;
 					}
 					
 					break;
 
 				case (MotionEvent.ACTION_MOVE):
 					// Log.d(TAG, "Action was MOVE");
-
 					if (xStart != 0 || yStart != 0) {
 						Log.d(TAG, "Start values of Touch: xStart: "+xStart+", yStart: "+yStart);
-						
-						// left-top corner
-//						if(editTopLeftCorner){
-////							setShape(x, y, rectf.right, rectf.bottom);
-////							setShape(Math.min(x, rectf.right), Math.min(y, rectf.bottom),
-////									Math.max(x, rectf.right), Math.max(y, rectf.bottom));
-//							setShape(Math.min(x, xStart), Math.min(y, yStart),
-//									Math.max(x, xStart), Math.max(y, yStart));
-//							
-//							Log.d(TAG, "TOP-LEFT CORNER TOUCHED MOVED");
-//						} 
-//						// right-top corner
-//						else if (editTopRightCorner){
-////							setShape(rectf.left, y, x, rectf.bottom);
-////							setShape(Math.min(x, rectf.left), Math.min(y, rectf.bottom),
-////									Math.max(x, rectf.left), Math.max(y, rectf.bottom));
-//							setShape(Math.min(x, xStart), Math.min(y, yStart),
-//									Math.max(x, xStart), Math.max(y, yStart));
-//							Log.d(TAG, "TOP-RIGHT CORNER TOUCHED MOVED");
-//						}
-//						// left-bottom corner
-//						else if (editBottomLeftCorner){
-////							setShape(x, rectf.top, rectf.right, y);
-////							setShape(Math.min(x, rectf.right), Math.min(y, rectf.top),
-////									Math.max(x, rectf.right), Math.max(y, rectf.top));
-//							setShape(Math.min(x, xStart), Math.min(y, yStart),
-//									Math.max(x, xStart), Math.max(y, yStart));
-//							Log.d(TAG, "BOTTOM-LEFT CORNER TOUCHED MOVED");
-//						}
-//						// right-bottom corner
-//						else if (editBottomRightCorner){
-////							setShape(rectf.left, rectf.top, x, y);
-////							setShape(Math.min(x, rectf.left), Math.min(y, rectf.top),
-////									Math.max(x, rectf.left), Math.max(y, rectf.top));
-//							setShape(Math.min(x, xStart), Math.min(y, yStart),
-//									Math.max(x, xStart), Math.max(y, yStart));
-//							Log.d(TAG, "BOTTOM-RIGHT CORNER TOUCHED MOVED");
-//						}
-						
 						setShape(Math.min(x, xStart), Math.min(y, yStart),
 								Math.max(x, xStart), Math.max(y, yStart));
-						
 					} 
 //					else {
 //						xStart = x;
@@ -230,40 +169,6 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 
 				case (MotionEvent.ACTION_UP):
 					// Log.d(TAG,"Action was UP");
-
-					// left-top corner
-//					if(editTopLeftCorner){
-////						setShape(x, y, rectf.right, rectf.bottom);
-//						setShape(Math.min(x, rectf.right), Math.min(y, rectf.bottom),
-//								Math.max(x, rectf.right), Math.max(y, rectf.bottom));
-//						editTopLeftCorner = false;
-//						Log.d(TAG, "TOP-LEFT CORNER TOUCHED UP");
-//					} 
-//					// right-top corner
-//					else if (editTopRightCorner){
-////						setShape(rectf.left, y, x, rectf.bottom);
-//						setShape(Math.min(x, rectf.left), Math.min(y, rectf.bottom),
-//								Math.max(x, rectf.left), Math.max(y, rectf.bottom));
-//						editTopRightCorner = false;
-//						Log.d(TAG, "TOP-RIGHT CORNER TOUCHED UP");
-//					}
-//					// left-bottom corner
-//					else if (editBottomLeftCorner){
-////						setShape(x, rectf.top, rectf.right, y);
-//						setShape(Math.min(x, rectf.right), Math.min(y, rectf.top),
-//								Math.max(x, rectf.right), Math.max(y, rectf.top));
-//						editBottomLeftCorner = false;
-//						Log.d(TAG, "BOTTOM-LEFT CORNER TOUCHED UP");
-//					}
-//					// right-bottom corner
-//					else if (editBottomRightCorner){
-////						setShape(rectf.left, rectf.top, x, y);
-//						setShape(Math.min(x, rectf.left), Math.min(y, rectf.top),
-//								Math.max(x, rectf.left), Math.max(y, rectf.top));
-//						editBottomRightCorner = false;
-//						Log.d(TAG, "BOTTOM-RIGHT CORNER TOUCHED UP");
-//					}
-					
 					setShape(Math.min(x, xStart), Math.min(y, yStart),
 							Math.max(x, xStart), Math.max(y, yStart));
 				
