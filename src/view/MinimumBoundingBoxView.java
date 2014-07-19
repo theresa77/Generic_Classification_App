@@ -54,27 +54,34 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		if (rectf != null) {
 			if (currentShape == Shape.RECTANGLE) {
 				canvas.drawRect(rectf, mPaint);
-				mPaint.setStyle(Paint.Style.FILL);
-				canvas.drawCircle(rectf.left, rectf.top, mPaint.getStrokeWidth(), mPaint);
-				canvas.drawCircle(rectf.left, rectf.bottom, mPaint.getStrokeWidth(), mPaint);
-				canvas.drawCircle(rectf.right, rectf.top, mPaint.getStrokeWidth(), mPaint);
-				canvas.drawCircle(rectf.right, rectf.bottom, mPaint.getStrokeWidth(), mPaint);
+				
+				if(!drawNewScribble){
+					mPaint.setStyle(Paint.Style.FILL);
+					canvas.drawCircle(rectf.left, rectf.top, mPaint.getStrokeWidth(), mPaint);
+					canvas.drawCircle(rectf.left, rectf.bottom, mPaint.getStrokeWidth(), mPaint);
+					canvas.drawCircle(rectf.right, rectf.top, mPaint.getStrokeWidth(), mPaint);
+					canvas.drawCircle(rectf.right, rectf.bottom, mPaint.getStrokeWidth(), mPaint);
+				} 
 			} else {
 				canvas.drawOval(rectf, mPaint);
-				mPaint.setStyle(Paint.Style.FILL);
-				canvas.drawCircle(rectf.centerX(), rectf.top, mPaint.getStrokeWidth(), mPaint);
-				canvas.drawCircle(rectf.centerX(), rectf.bottom, mPaint.getStrokeWidth(), mPaint);
-				canvas.drawCircle(rectf.left, rectf.centerY(), mPaint.getStrokeWidth(), mPaint);
-				canvas.drawCircle(rectf.right, rectf.centerY(), mPaint.getStrokeWidth(), mPaint);
+				
+				if(!drawNewScribble){
+					mPaint.setStyle(Paint.Style.FILL);
+					canvas.drawCircle(rectf.centerX(), rectf.top, mPaint.getStrokeWidth(), mPaint);
+					canvas.drawCircle(rectf.centerX(), rectf.bottom, mPaint.getStrokeWidth(), mPaint);
+					canvas.drawCircle(rectf.left, rectf.centerY(), mPaint.getStrokeWidth(), mPaint);
+					canvas.drawCircle(rectf.right, rectf.centerY(), mPaint.getStrokeWidth(), mPaint);
+				} 
 			}
 		}
+		mPaint.setStyle(Paint.Style.STROKE);
 	}
 	
 	public void handleTouchEvent(int action, float x, float y) {
 		// if user wants to draw new scribble, save old one
 		if(drawNewScribble){
 			if(rectf != null && !rectf.isEmpty())
-				mActivity.addScribbleToList(currentScribble);
+//				mActivity.addScribbleToList(currentScribble);
 			drawNewScribble = false;
 			editScribble = false;
 		}
@@ -373,7 +380,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	public void setShape(float left, float top, float right, float bottom) {
 		Log.d(TAG, "setShape( left: "+left+", top: "+top+", right: "+right+", bottom: "+bottom+" ) is called");
 		rectf = new RectF(left, top, right, bottom);
-		currentScribble = new MinBoundingBox(rectf, currentShape, mPaint);
+		currentScribble = new MinBoundingBox(new RectF(rectf), currentShape, new Paint(mPaint));
 		invalidate();
 	}
 	
@@ -383,6 +390,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	 */
 	public void setCurrentShape(Shape shape){
 		currentShape = shape;
+		currentScribble = new MinBoundingBox(new RectF(rectf), shape, new Paint(mPaint));
 		invalidate();
 	}
 	

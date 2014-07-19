@@ -156,6 +156,9 @@ public abstract class UserScribbleView extends SurfaceView {
 	 */
 	public void setDrawNewScribble(boolean drawNew){
 		this.drawNewScribble = drawNew;
+		mActivity.addScribbleToList(currentScribble);
+		resetDrawing();
+		invalidate();
 	}
 	
 	/**

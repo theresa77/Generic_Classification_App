@@ -29,7 +29,20 @@ public class MinBoundingBox extends Scribble {
 
 	@Override
 	public void drawScribble(Canvas canvas) {
-		canvas.drawRect(rectf, paint);
+		if (shape == Shape.RECTANGLE) {
+			canvas.drawRect(rectf, paint);
+		} else {
+			canvas.drawOval(rectf, paint);
+			
+		}
+	}
+	
+	public String toString() {
+		return "MinBoundingBox(rectf(left: " + rectf.left + ", top: "
+				+ rectf.top + ", right: " + rectf.right + ", bottom: "
+				+ rectf.bottom + ")" + ", shape(" + shape.name() + "), "
+				+ "+paint( color:" + paint.getColor() + ", stroke width: "
+				+ paint.getStrokeWidth() + ") )";
 	}
 	
 	
