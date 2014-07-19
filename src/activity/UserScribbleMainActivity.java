@@ -7,7 +7,6 @@ import view.ForegroundBackgroundView;
 import view.ForegroundBackgroundView.Selection;
 import view.MinimumBoundingBoxView;
 import view.MinimumBoundingBoxView.Shape;
-import view.ObjectContourView;
 import view.UserScribbleView;
 import android.content.Context;
 import android.graphics.Color;
@@ -58,8 +57,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private int displayHeight;
 	private DialogFragment currentDialog;
 	private float marginTopLeft;
-//	private float xStart;
-//	private float yStart;
 	private RelativeLayout tab1;
 	private RelativeLayout tab2;
 	private RelativeLayout tab3;
@@ -173,7 +170,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		int currentTab = mTabHost.getCurrentTab();
 		int action = MotionEventCompat.getActionMasked(event);
 		float x = 0;
 		float y = 0;
@@ -193,88 +189,9 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 			
 			mView.handleTouchEvent(action, x, y);
 			
-	
-//					switch (action) {
-//		
-//					// user start touch
-//					// drawing of scribbles starts
-//					case (MotionEvent.ACTION_DOWN):
-//		//				 Log.d(TAG,"Action was DOWN");
-//						if (currentTab == 0) {
-////							xStart = x;
-////							yStart = y;
-//							
-//						} else if (currentTab == 1) {
-//							((ForegroundBackgroundView)mView).startMove(x, y);
-//						} else {
-//							((ObjectContourView)mView).startMove(x, y);
-//						}
-//		
-//					// user moves finger on screen
-//					case (MotionEvent.ACTION_MOVE):
-//		//				 Log.d(TAG, "Action was MOVE");
-//						if (currentTab == 0) {
-////							if (xStart != 0 || yStart != 0) {
-////								((MinimumBoundingBoxView)mView).setShape(Math.min(xStart, x), Math.min(yStart, y),
-////																		 Math.max(xStart, x), Math.max(yStart, y));
-////							} else {
-////								xStart = x;
-////								yStart = y;
-////							}
-//						} else if (currentTab == 1) {
-//							((ForegroundBackgroundView)mView).move(x, y);
-//						} else {
-//							((ObjectContourView)mView).move(x, y);	
-//						}
-//						return true;
-//						
-//					//user stop touching the screen
-//					case (MotionEvent.ACTION_UP):
-//		//				 Log.d(TAG,"Action was UP");
-//						if (currentTab == 0) {
-////							((MinimumBoundingBoxView)mView).setShape(Math.min(xStart, x), Math.min(yStart, y),
-////																	 Math.max(xStart, x), Math.max(yStart, y));
-////							xStart = 0;
-////							yStart = 0;		
-//						} else if (currentTab == 1) {
-//							((ForegroundBackgroundView)mView).stopMove(x, y);			
-//						} else {
-//							((ObjectContourView)mView).stopMove(x, y);
-//						}
-//						return true;
-//		
-//					case (MotionEvent.ACTION_CANCEL):
-//						// Log.d(TAG,"Action was CANCEL");
-//						return true;
-//		
-//					case (MotionEvent.ACTION_OUTSIDE):
-//						// Log.d(TAG,"Movement occurred outside bounds of current screen element");
-//						return true;
-//		
-//					default:
-//						return super.onTouchEvent(event);
-//					}
-//			
-			
 		} else { // if the touch is outside of the picture
 				 //reset drawing
-			
 			mView.handleTouchEventOutsidePicture(action);
-			
-//			if (currentTab == 0) {
-////				if (action == MotionEvent.ACTION_UP) {
-////					xStart = 0;
-////					yStart = 0;
-////				}
-//			} else if (currentTab == 1) {				
-//				if(action == MotionEvent.ACTION_DOWN){
-//					((ForegroundBackgroundView)mView).resetPath();
-//				}				
-//			} else {				
-//				if(action == MotionEvent.ACTION_DOWN){
-//					((ObjectContourView)mView).resetPath();
-//				}
-//			}
 		}
 		
 		return true;
