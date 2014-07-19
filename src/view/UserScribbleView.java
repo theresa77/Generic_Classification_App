@@ -160,4 +160,18 @@ public abstract class UserScribbleView extends SurfaceView {
 	 */
 	public abstract void resetDrawing();
 	
+	/**
+	 * TODO
+	 * @param action
+	 * @param x
+	 * @param y
+	 */
+	public abstract void handleTouchEvent(int action, float x, float y);
+	
+	/**
+	 * TODO
+	 * @param action
+	 */
+	public abstract void handleTouchEventOutsidePicture(int action);
+	
 }

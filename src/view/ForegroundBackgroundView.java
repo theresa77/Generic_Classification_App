@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.Log;
+import android.view.MotionEvent;
 
 /**
  * View class for controlling the view for a ForegroundBackgroundFragment.
@@ -67,6 +68,39 @@ public class ForegroundBackgroundView extends UserScribbleView {
 				mPaint.setStyle(Paint.Style.STROKE);
 				canvas.drawPath(mPath, mPaint);
 			}
+		}
+	}
+	
+	public void handleTouchEvent(int action, float x, float y){
+
+		switch (action) {
+
+		// user start touch
+		// drawing of scribbles starts
+		case (MotionEvent.ACTION_DOWN):
+			// Log.d(TAG,"Action was DOWN");
+			startMove(x, y);
+			break;
+
+		// user moves finger on screen
+		case (MotionEvent.ACTION_MOVE):
+			// Log.d(TAG, "Action was MOVE");
+			move(x, y);
+			break;
+
+		// user stop touching the screen
+		case (MotionEvent.ACTION_UP):
+			// Log.d(TAG,"Action was UP");
+			stopMove(x, y);
+			break;
+
+		}
+
+	}
+	
+	public void handleTouchEventOutsidePicture(int action){
+		if(action == MotionEvent.ACTION_DOWN){
+			resetPath();
 		}
 	}
 

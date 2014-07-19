@@ -64,16 +64,9 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		}
 	}
 	
-	/**
-	 * TODO
-	 * handles touch event on the picture
-	 * @param action
-	 * @param x
-	 * @param y
-	 */
 	public void handleTouchEvent(int action, float x, float y){
 		
-		// if user scribble was not drawn before
+		// draw new user scribble
 		if (!editScribble) {
 			switch (action) {
 
@@ -85,37 +78,23 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 
 			case (MotionEvent.ACTION_MOVE):
 				// Log.d(TAG, "Action was MOVE");
-
 				if (xStart != 0 || yStart != 0) {
 					setShape(Math.min(xStart, x), Math.min(yStart, y),
 							Math.max(xStart, x), Math.max(yStart, y));
-				} else {
-					xStart = x;
-					yStart = y;
-				}
+				} 
 				break;
 
 			case (MotionEvent.ACTION_UP):
 				// Log.d(TAG,"Action was UP");
-
 				setShape(Math.min(xStart, x), Math.min(yStart, y),
 						Math.max(xStart, x), Math.max(yStart, y));
 				xStart = 0;
 				yStart = 0;
 				editScribble = true;
-				Log.d(TAG, "set editScribble to TRUE!!!");
-				break;
-
-			case (MotionEvent.ACTION_CANCEL):
-				// Log.d(TAG,"Action was CANCEL");
-				break;
-
-			case (MotionEvent.ACTION_OUTSIDE):
-				// Log.d(TAG,"Movement occurred outside bounds of current screen element");
 				break;
 			}
 			
-			// edit existing user scribble
+		// edit existing user scribble
 		} else {
 			if(currentShape == Shape.RECTANGLE){
 				switch (action) {
@@ -123,35 +102,30 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 				case (MotionEvent.ACTION_DOWN):
 // 				Log.d(TAG,"Action was DOWN");
 					
-					// left-top corner
+					// left-top corner touched
 					if (x >= rectf.left-mPaint.getStrokeWidth() && x <= rectf.left+mPaint.getStrokeWidth() 
 						&& y >= rectf.top-mPaint.getStrokeWidth() && y <= rectf.top+mPaint.getStrokeWidth()) {
-						Log.d(TAG, "TOP-LEFT CORNER TOUCHED DOWN");
 						xStart = rectf.right;
 						yStart = rectf.bottom;
 					}
-					// right-top corner
+					// right-top corner touched
 					else if (x >= rectf.right-mPaint.getStrokeWidth() && x <= rectf.right+mPaint.getStrokeWidth() 
 							&& y >= rectf.top-mPaint.getStrokeWidth() && y <= rectf.top+mPaint.getStrokeWidth()) {
-						Log.d(TAG, "TOP-RIGHT CORNER TOUCHED DOWN");
 						xStart = rectf.left;
 						yStart = rectf.bottom;
 					}
-					// left-bottom corner
+					// left-bottom corner touched
 					else if (x >= rectf.left-mPaint.getStrokeWidth() && x <= rectf.left+mPaint.getStrokeWidth()  
 							&& y >= rectf.bottom-mPaint.getStrokeWidth() && y <= rectf.bottom+mPaint.getStrokeWidth()) {
-						Log.d(TAG, "BOTTOM-LEFT CORNER TOUCHED DOWN");
 						xStart = rectf.right;
 						yStart = rectf.top;
 					}
-					// right-bottom corner
+					// right-bottom corner touched
 					else if (x >= rectf.right-mPaint.getStrokeWidth() && x <= rectf.right+mPaint.getStrokeWidth() 
 							&& y >= rectf.bottom-mPaint.getStrokeWidth() && y <= rectf.bottom+mPaint.getStrokeWidth()) {
-						Log.d(TAG, "BOTTOM-RIGHT CORNER TOUCHED DOWN");
 						xStart = rectf.left;
 						yStart = rectf.top;
 					}
-					
 					break;
 
 				case (MotionEvent.ACTION_MOVE):
@@ -161,10 +135,6 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 						setShape(Math.min(x, xStart), Math.min(y, yStart),
 								Math.max(x, xStart), Math.max(y, yStart));
 					} 
-//					else {
-//						xStart = x;
-//						yStart = y;
-//					}
 					break;
 
 				case (MotionEvent.ACTION_UP):
@@ -175,14 +145,6 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 					xStart = 0;
 					yStart = 0;
 					break;
-
-				case (MotionEvent.ACTION_CANCEL):
-					// Log.d(TAG,"Action was CANCEL");
-					break;
-
-				case (MotionEvent.ACTION_OUTSIDE):
-					// Log.d(TAG,"Movement occurred outside bounds of current screen element");
-					break;
 				}
 				
 			} else {
@@ -191,14 +153,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		}
 	}
 	
-	/**
-	 * TODO
-	 * handles touch on screen outside of the picture
-	 * @param action
-	 * @param x
-	 * @param y
-	 */
-	public void handleTouchEventOutsidePicture(int action, float x, float y){
+	public void handleTouchEventOutsidePicture(int action){
 		// if user scribble was not drawn before
 		if (rectf == null || rectf.isEmpty()) {
 			if (action == MotionEvent.ACTION_UP) {
