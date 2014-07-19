@@ -153,6 +153,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
         	@Override
         	public void onTabChanged(String tabId) {
         		setTabsColor();
+        		addScribbleToList(mView.getCurrentScribble());
         	}});
         
         // create new paint object for scribbles

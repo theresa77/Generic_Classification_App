@@ -3,11 +3,6 @@
  */
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import domain.Scribble;
-
 import activity.UserScribbleMainActivity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -17,6 +12,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceView;
+import domain.Scribble;
 
 
 /**
@@ -161,6 +157,14 @@ public abstract class UserScribbleView extends SurfaceView {
 		invalidate();
 	}
 	
+	/**
+	 * TODO
+	 * @return
+	 */
+	public Scribble getCurrentScribble() {
+		return currentScribble;
+	}
+
 	/**
 	 * Draws current user scribbles to the canvas method parameter.
 	 * @param canvas object for drawing user scribbles
