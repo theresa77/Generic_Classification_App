@@ -35,7 +35,7 @@
         android:id="@+id/foreground_background_view_buttons"
         style="@style/ButtonBarPortrait"
          >
-         
+        
 	    <ImageButton
             android:id="@+id/select_fore_or_background_button"
             style="@style/ButtonBarButton"
@@ -63,7 +63,7 @@
         <ImageButton
             android:id="@+id/add_further_scribble_button"
             style="@style/ButtonBarButton"
-            android:src="@drawable/plus"
+            android:src="@drawable/add_further_scribble"
             android:contentDescription="@string/add_further_scribble" 
             android:onClick="addFurtherScribble"
              />
