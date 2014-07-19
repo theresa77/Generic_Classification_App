@@ -3,6 +3,11 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import domain.Scribble;
+
 import activity.UserScribbleMainActivity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -29,6 +34,8 @@ public abstract class UserScribbleView extends SurfaceView {
 	protected int displayWidth;
 	protected int displayHeight;
 	protected boolean drawNewScribble;
+	protected List<Scribble> oldScribbles;
+	protected Scribble currentScribble;
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
@@ -56,6 +63,7 @@ public abstract class UserScribbleView extends SurfaceView {
 		mPaint = ((UserScribbleMainActivity) context).getPaint();
 		setBackgroundColor(Color.BLACK);
 		drawNewScribble = false;
+		oldScribbles = new ArrayList<Scribble>();
 	}
 	
 	/**

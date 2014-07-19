@@ -3,8 +3,6 @@
  */
 package dialog;
 
-import com.genericclassificationapp.R;
-import view.MinimumBoundingBoxView.Shape;
 import activity.UserScribbleMainActivity;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -16,6 +14,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.genericclassificationapp.R;
+
+import domain.MinBoundingBox.Shape;
 
 
 /**

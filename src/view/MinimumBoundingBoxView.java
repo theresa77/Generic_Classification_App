@@ -9,10 +9,12 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
+import domain.MinBoundingBox;
+import domain.MinBoundingBox.Shape;
+import domain.Scribble;
 
 /**
  * View class which controls the view for a MinimumBoundingBoxFragment.
@@ -29,18 +31,14 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	private float xStart;
 	private float yStart;
 	private boolean editScribble;
-	private List<RectF> oldScribbles;
-
-	public enum Shape {
-		RECTANGLE, OVAL
-	}
+//	private List<RectF> oldScribbles;
 
 	public MinimumBoundingBoxView(Context context) {
 		super(context);
 		currentShape = Shape.RECTANGLE;	
 		mPaint.setStyle(Paint.Style.STROKE);
 		editScribble = false;
-		oldScribbles = new ArrayList<RectF>();
+//		oldScribbles = new ArrayList<RectF>();
 	}
 
 	/**
@@ -53,8 +51,9 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		mPaint.setStyle(Paint.Style.STROKE);
 		
 		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-			for (RectF r : oldScribbles) {
-				canvas.drawRect(r, mPaint);
+			for (Scribble s : oldScribbles) {
+//				canvas.drawRect(r, mPaint);
+				s.drawScribble(canvas);
 			}
 		}
 		
@@ -81,7 +80,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		// if user wants to draw new scribble, save old one
 		if(drawNewScribble){
 			if(rectf != null && !rectf.isEmpty())
-				oldScribbles.add(new RectF(rectf));
+				oldScribbles.add(currentScribble);
 			drawNewScribble = false;
 			editScribble = false;
 		}
@@ -156,6 +155,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 				}
 				xStart = 0;
 				yStart = 0;
+				
 				break;
 			}
 
@@ -230,6 +230,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 				}
 				xStart = 0;
 				yStart = 0;
+				
 				break;
 			}
 			
@@ -378,6 +379,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	public void setShape(float left, float top, float right, float bottom) {
 		Log.d(TAG, "setShape( left: "+left+", top: "+top+", right: "+right+", bottom: "+bottom+" ) is called");
 		rectf = new RectF(left, top, right, bottom);
+		currentScribble = new MinBoundingBox(rectf, currentShape, mPaint);
 		invalidate();
 	}
 	
@@ -396,8 +398,9 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	@Override
 	public void drawUserScribble(Canvas canvas) {
 		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-			for (RectF r : oldScribbles) {
-				canvas.drawRect(r, mPaint);
+			for (Scribble s : oldScribbles) {
+//				canvas.drawRect(r, mPaint);
+				s.drawScribble(canvas);
 			}
 		}
 		

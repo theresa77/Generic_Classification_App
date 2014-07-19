@@ -3,15 +3,15 @@
  */
 package activity;
 
-import com.genericclassificationapp.R;
-
 import view.ObjectContourView;
-import activity.UserScribbleMainActivity.Scribble;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
+
+import com.genericclassificationapp.R;
+
+import domain.Scribble.ScribbleType;
 
 /**
  * Fragment for drawing Object Contour.
@@ -33,7 +33,7 @@ public class ObjectContourFragment extends UserScribbleFragment {
 	protected View setCustomContentView(boolean isLandscape) {
 		Log.d(TAG, "setCustomContentView called");
 		
-		mActivity.setCurrentScribble(Scribble.OBJECT_CONTOUR);
+		mActivity.setCurrentScribble(ScribbleType.OBJECT_CONTOUR);
 		View view;
 
 		if (isLandscape) {

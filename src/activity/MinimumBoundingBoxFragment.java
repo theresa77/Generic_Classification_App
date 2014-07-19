@@ -4,14 +4,14 @@
 package activity;
 
 import view.MinimumBoundingBoxView;
-import activity.UserScribbleMainActivity.Scribble;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.genericclassificationapp.R;
+
+import domain.Scribble.ScribbleType;
 
 /**
  * Fragment for drawing Minimum Bounding Box.
@@ -33,7 +33,7 @@ public class MinimumBoundingBoxFragment extends UserScribbleFragment {
 	protected View setCustomContentView(boolean isLandscape) {
 		Log.d(TAG, "setCustomContentView() called");
 		
-		mActivity.setCurrentScribble(Scribble.MINIMUM_BOUNDING_BOX);
+		mActivity.setCurrentScribble(ScribbleType.MINIMUM_BOUNDING_BOX);
 		View view;
 		
 		if(isLandscape){

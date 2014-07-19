@@ -3,15 +3,14 @@
  */
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.Log;
 import android.view.MotionEvent;
+import domain.ObjectContour;
+import domain.Scribble;
 
 /**
  * View class for controlling the view for a ObjectContourFragment.
@@ -26,13 +25,13 @@ public class ObjectContourView extends UserScribbleView {
 	private Path mPath;
 	private float mX;
 	private float mY;
-	private List<Path> oldScribbles;
+//	private List<Path> oldScribbles;
 
 	public ObjectContourView(Context context){
 		super(context);
 		mPath = new Path();
 		mPaint.setStyle(Paint.Style.STROKE);
-		oldScribbles = new ArrayList<Path>();
+//		oldScribbles = new ArrayList<Path>();
 	}
 	
 	/**
@@ -43,10 +42,9 @@ public class ObjectContourView extends UserScribbleView {
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
 		
 		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-			for (Path p : oldScribbles) {
-				mPaint.setStyle(Paint.Style.STROKE);
-				canvas.drawPath(p, mPaint);
-				Log.d(TAG, "Draw Path: " + p.toString());
+			for (Scribble s : oldScribbles) {
+				s.drawScribble(canvas);
+//				canvas.drawPath(p, mPaint);
 			}
 		}
 		
@@ -96,7 +94,7 @@ public class ObjectContourView extends UserScribbleView {
 		Log.d(TAG, "startMove() called");
 		if(drawNewScribble){
 			if(mPath != null && !mPath.isEmpty())
-				oldScribbles.add(new Path(mPath));
+				oldScribbles.add(currentScribble);
 			drawNewScribble = false;
 		}
 		
@@ -137,6 +135,7 @@ public class ObjectContourView extends UserScribbleView {
 	public void stopMove(float x, float y){
 		mPath.lineTo(x, y);
 		mPath.close();
+		currentScribble = new ObjectContour(new Path(mPath), new Paint(mPaint));
 		invalidate();
 	}
 
@@ -154,10 +153,10 @@ public class ObjectContourView extends UserScribbleView {
 	@Override
 	public void drawUserScribble(Canvas canvas) {
 		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-			for (Path p : oldScribbles) {
-				mPaint.setStyle(Paint.Style.STROKE);
-				canvas.drawPath(p, mPaint);
-				Log.d(TAG, "Draw Path: " + p.toString());
+			for (Scribble s : oldScribbles) {
+//				mPaint.setStyle(Paint.Style.STROKE);
+//				canvas.drawPath(p, mPaint);
+				s.drawScribble(canvas);
 			}
 		}
 		

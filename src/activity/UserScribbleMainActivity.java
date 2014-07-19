@@ -6,7 +6,6 @@ package activity;
 import view.ForegroundBackgroundView;
 import view.ForegroundBackgroundView.Selection;
 import view.MinimumBoundingBoxView;
-import view.MinimumBoundingBoxView.Shape;
 import view.UserScribbleView;
 import android.content.Context;
 import android.graphics.Color;
@@ -36,7 +35,9 @@ import dialog.PickForegroundBackgroundDialog;
 import dialog.PickShapeDialog;
 import dialog.PickStrokeWidthDialog;
 import dialog.TextAnnotationDialog;
+import domain.MinBoundingBox.Shape;
 import domain.Picture;
+import domain.Scribble.ScribbleType;
 
 /**
  * Activity for drawing user scribbles.
@@ -60,11 +61,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private RelativeLayout tab1;
 	private RelativeLayout tab2;
 	private RelativeLayout tab3;
-	private Scribble currentScribble;
-	
-	public enum Scribble {
-		MINIMUM_BOUNDING_BOX, OBJECT_CONTOUR, FOREGROUND, BACKGROUND
-	}
+	private ScribbleType currentScribble;
 	
 	/**
 	 * Called when the activity is created.
@@ -368,10 +365,10 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		// adapt icon for button to new selection value
 		if(selection == Selection.FOREGROUND) {
 			imgButton.setImageResource(R.drawable.f_icon);
-			currentScribble = Scribble.FOREGROUND;
+			currentScribble = ScribbleType.FOREGROUND;
 		} else {
 			imgButton.setImageResource(R.drawable.b_icon);
-			currentScribble = Scribble.BACKGROUND;
+			currentScribble = ScribbleType.BACKGROUND;
 		}
 	}
 	
@@ -416,7 +413,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * Get current selection for drawing scribbles.
 	 * @return current scribble selection
 	 */
-	public Scribble getCurrentScribble() {
+	public ScribbleType getCurrentScribble() {
 		return currentScribble;
 	}
 
@@ -424,7 +421,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * Set value for scribble selection.
 	 * @param currentScribble new scribble selection
 	 */
-	public void setCurrentScribble(Scribble currentScribble) {
+	public void setCurrentScribble(ScribbleType currentScribble) {
 		this.currentScribble = currentScribble;
 	}
 	
