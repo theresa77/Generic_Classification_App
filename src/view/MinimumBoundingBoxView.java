@@ -3,9 +3,6 @@
  */
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -31,14 +28,12 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	private float xStart;
 	private float yStart;
 	private boolean editScribble;
-//	private List<RectF> oldScribbles;
 
 	public MinimumBoundingBoxView(Context context) {
 		super(context);
 		currentShape = Shape.RECTANGLE;	
 		mPaint.setStyle(Paint.Style.STROKE);
 		editScribble = false;
-//		oldScribbles = new ArrayList<RectF>();
 	}
 
 	/**
@@ -50,9 +45,8 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
 		mPaint.setStyle(Paint.Style.STROKE);
 		
-		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-			for (Scribble s : oldScribbles) {
-//				canvas.drawRect(r, mPaint);
+		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
+			for (Scribble s : mActivity.getOldScribbles()) {
 				s.drawScribble(canvas);
 			}
 		}
@@ -80,7 +74,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		// if user wants to draw new scribble, save old one
 		if(drawNewScribble){
 			if(rectf != null && !rectf.isEmpty())
-				oldScribbles.add(currentScribble);
+				mActivity.addScribbleToList(currentScribble);
 			drawNewScribble = false;
 			editScribble = false;
 		}
@@ -397,9 +391,8 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	 */
 	@Override
 	public void drawUserScribble(Canvas canvas) {
-		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-			for (Scribble s : oldScribbles) {
-//				canvas.drawRect(r, mPaint);
+		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
+			for (Scribble s : mActivity.getOldScribbles()) {
 				s.drawScribble(canvas);
 			}
 		}

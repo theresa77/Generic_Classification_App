@@ -29,12 +29,13 @@ import android.view.SurfaceView;
 public abstract class UserScribbleView extends SurfaceView {
 
 	private static final String TAG = UserScribbleView.class.getSimpleName();
+	protected UserScribbleMainActivity mActivity;
 	protected Paint mPaint;
 	protected Bitmap mPictureBitmap;
 	protected int displayWidth;
 	protected int displayHeight;
 	protected boolean drawNewScribble;
-	protected List<Scribble> oldScribbles;
+//	protected List<Scribble> oldScribbles;
 	protected Scribble currentScribble;
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
@@ -60,10 +61,11 @@ public abstract class UserScribbleView extends SurfaceView {
 	private void init(Context context) {
 		//this.mActivity = ((UserScribbleMainActivity)context);
 		Log.d(TAG, "init() called");
-		mPaint = ((UserScribbleMainActivity) context).getPaint();
+		mActivity = (UserScribbleMainActivity) context;
+		mPaint = mActivity.getPaint();
 		setBackgroundColor(Color.BLACK);
 		drawNewScribble = false;
-		oldScribbles = new ArrayList<Scribble>();
+//		oldScribbles = new ArrayList<Scribble>();
 	}
 	
 	/**

@@ -3,6 +3,9 @@
  */
 package activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import view.ForegroundBackgroundView;
 import view.ForegroundBackgroundView.Selection;
 import view.MinimumBoundingBoxView;
@@ -37,6 +40,7 @@ import dialog.PickStrokeWidthDialog;
 import dialog.TextAnnotationDialog;
 import domain.MinBoundingBox.Shape;
 import domain.Picture;
+import domain.Scribble;
 import domain.Scribble.ScribbleType;
 
 /**
@@ -62,6 +66,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private RelativeLayout tab2;
 	private RelativeLayout tab3;
 	private ScribbleType currentScribble;
+	private List<Scribble> oldScribbles;
 	
 	/**
 	 * Called when the activity is created.
@@ -159,6 +164,9 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		mPaint.setDither(true);
 		mPaint.setStrokeJoin(Paint.Join.ROUND);
 		mPaint.setStrokeCap(Paint.Cap.ROUND);
+		
+		// create new list for all scribbles
+		oldScribbles = new ArrayList<Scribble>();
 	}
 	
 	/**
@@ -425,4 +433,11 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		this.currentScribble = currentScribble;
 	}
 	
+	public void addScribbleToList(Scribble scri){
+		oldScribbles.add(scri);
+	}
+	
+	public List<Scribble> getOldScribbles(){
+		return oldScribbles;
+	}
 }

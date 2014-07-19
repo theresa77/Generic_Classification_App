@@ -25,13 +25,11 @@ public class ObjectContourView extends UserScribbleView {
 	private Path mPath;
 	private float mX;
 	private float mY;
-//	private List<Path> oldScribbles;
 
 	public ObjectContourView(Context context){
 		super(context);
 		mPath = new Path();
 		mPaint.setStyle(Paint.Style.STROKE);
-//		oldScribbles = new ArrayList<Path>();
 	}
 	
 	/**
@@ -41,10 +39,9 @@ public class ObjectContourView extends UserScribbleView {
 		//Log.d(TAG, "onDraw() is called");
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
 		
-		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-			for (Scribble s : oldScribbles) {
+		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
+			for (Scribble s : mActivity.getOldScribbles()) {
 				s.drawScribble(canvas);
-//				canvas.drawPath(p, mPaint);
 			}
 		}
 		
@@ -94,7 +91,7 @@ public class ObjectContourView extends UserScribbleView {
 		Log.d(TAG, "startMove() called");
 		if(drawNewScribble){
 			if(mPath != null && !mPath.isEmpty())
-				oldScribbles.add(currentScribble);
+				mActivity.addScribbleToList(currentScribble);
 			drawNewScribble = false;
 		}
 		
@@ -152,14 +149,11 @@ public class ObjectContourView extends UserScribbleView {
 	 */
 	@Override
 	public void drawUserScribble(Canvas canvas) {
-		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-			for (Scribble s : oldScribbles) {
-//				mPaint.setStyle(Paint.Style.STROKE);
-//				canvas.drawPath(p, mPaint);
+		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
+			for (Scribble s : mActivity.getOldScribbles()) {
 				s.drawScribble(canvas);
 			}
 		}
-		
 		canvas.drawPath(mPath, mPaint);
 	}
 
