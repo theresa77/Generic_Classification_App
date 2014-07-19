@@ -64,96 +64,156 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		}
 	}
 	
-	public void handleTouchEvent(int action, float x, float y){
-		
-		// draw new user scribble
-		if (!editScribble) {
+	public void handleTouchEvent(int action, float x, float y) {
+		// edit Rectangle
+		if (currentShape == Shape.RECTANGLE) {
 			switch (action) {
 
 			case (MotionEvent.ACTION_DOWN):
 				// Log.d(TAG,"Action was DOWN");
-				xStart = x;
-				yStart = y;
-				break;
-
-			case (MotionEvent.ACTION_MOVE):
-				// Log.d(TAG, "Action was MOVE");
-				if (xStart != 0 || yStart != 0) {
-					setShape(Math.min(xStart, x), Math.min(yStart, y),
-							Math.max(xStart, x), Math.max(yStart, y));
-				} 
-				break;
-
-			case (MotionEvent.ACTION_UP):
-				// Log.d(TAG,"Action was UP");
-				setShape(Math.min(xStart, x), Math.min(yStart, y),
-						Math.max(xStart, x), Math.max(yStart, y));
-				xStart = 0;
-				yStart = 0;
-				editScribble = true;
-				break;
-			}
-			
-		// edit existing user scribble
-		} else {
-			if(currentShape == Shape.RECTANGLE){
-				switch (action) {
-
-				case (MotionEvent.ACTION_DOWN):
-// 				Log.d(TAG,"Action was DOWN");
-					
+				if (!editScribble) {
+					xStart = x;
+					yStart = y;
+				} else {
 					// left-top corner touched
-					if (x >= rectf.left-mPaint.getStrokeWidth() && x <= rectf.left+mPaint.getStrokeWidth() 
-						&& y >= rectf.top-mPaint.getStrokeWidth() && y <= rectf.top+mPaint.getStrokeWidth()) {
+					if (touchOnTopLeftCorner(x, y)) {
 						xStart = rectf.right;
 						yStart = rectf.bottom;
 					}
 					// right-top corner touched
-					else if (x >= rectf.right-mPaint.getStrokeWidth() && x <= rectf.right+mPaint.getStrokeWidth() 
-							&& y >= rectf.top-mPaint.getStrokeWidth() && y <= rectf.top+mPaint.getStrokeWidth()) {
+					else if (touchOnTopRightCorner(x, y)) {
 						xStart = rectf.left;
 						yStart = rectf.bottom;
 					}
 					// left-bottom corner touched
-					else if (x >= rectf.left-mPaint.getStrokeWidth() && x <= rectf.left+mPaint.getStrokeWidth()  
-							&& y >= rectf.bottom-mPaint.getStrokeWidth() && y <= rectf.bottom+mPaint.getStrokeWidth()) {
+					else if (touchOnBottomLeftCorner(x, y)) {
 						xStart = rectf.right;
 						yStart = rectf.top;
 					}
 					// right-bottom corner touched
-					else if (x >= rectf.right-mPaint.getStrokeWidth() && x <= rectf.right+mPaint.getStrokeWidth() 
-							&& y >= rectf.bottom-mPaint.getStrokeWidth() && y <= rectf.bottom+mPaint.getStrokeWidth()) {
+					else if (touchOnBottomRightCorner(x, y)) {
 						xStart = rectf.left;
 						yStart = rectf.top;
 					}
-					break;
+				}
+				break;
 
-				case (MotionEvent.ACTION_MOVE):
-					// Log.d(TAG, "Action was MOVE");
+			case (MotionEvent.ACTION_MOVE):
+				// Log.d(TAG, "Action was MOVE");
+				if (!editScribble) {
 					if (xStart != 0 || yStart != 0) {
-						Log.d(TAG, "Start values of Touch: xStart: "+xStart+", yStart: "+yStart);
+						Log.d(TAG, "Start values of Touch: xStart: " + xStart
+								+ ", yStart: " + yStart);
 						setShape(Math.min(x, xStart), Math.min(y, yStart),
 								Math.max(x, xStart), Math.max(y, yStart));
-					} 
-					break;
+					}
+				} else {
+					if (touchOnTopLeftCorner(x, y) || touchOnTopRightCorner(x, y)
+							|| touchOnBottomLeftCorner(x, y) || touchOnBottomRightCorner(x, y)) {
+						setShape(Math.min(x, xStart), Math.min(y, yStart),
+								Math.max(x, xStart), Math.max(y, yStart));
+					}
+					
+				}
+				break;
 
-				case (MotionEvent.ACTION_UP):
-					// Log.d(TAG,"Action was UP");
+			case (MotionEvent.ACTION_UP):
+				// Log.d(TAG,"Action was UP");
+				if (!editScribble) {
 					setShape(Math.min(x, xStart), Math.min(y, yStart),
 							Math.max(x, xStart), Math.max(y, yStart));
-				
-					xStart = 0;
-					yStart = 0;
-					break;
+					editScribble = true;
+				} else {
+					if (touchOnTopLeftCorner(x, y) || touchOnTopRightCorner(x, y)
+						|| touchOnBottomLeftCorner(x, y) || touchOnBottomRightCorner(x, y)) {
+						setShape(Math.min(x, xStart), Math.min(y, yStart),
+								Math.max(x, xStart), Math.max(y, yStart));
+					}
 				}
-				
-			} else {
-				
+				xStart = 0;
+				yStart = 0;
+				break;
 			}
+
+		// edit Oval
+		} else {
+
+			switch (action) {
+
+			case (MotionEvent.ACTION_DOWN):
+				// Log.d(TAG,"Action was DOWN");
+				if (!editScribble) {
+					xStart = x;
+					yStart = y;
+				} else {
+					// top touched
+					if (touchOnTop(x, y)) {
+						xStart = rectf.centerX();
+						yStart = rectf.bottom;
+					}
+					// bottom touched
+					else if (touchOnBottom(x, y)) {
+						xStart = rectf.centerX();
+						yStart = rectf.top;
+					}
+					// left side touched
+					else if (touchOnLeftSide(x, y)) {
+						xStart = rectf.right;
+						yStart = rectf.centerY();
+					}
+					// right side touched
+					else if (touchOnRightSide(x, y)) {
+						xStart = rectf.left;
+						yStart = rectf.centerY();
+					}
+				}
+				break;
+
+			case (MotionEvent.ACTION_MOVE):
+				// Log.d(TAG, "Action was MOVE");
+				if (!editScribble) {
+					if (xStart != 0 || yStart != 0) {
+						Log.d(TAG, "Start values of Touch: xStart: " + xStart
+								+ ", yStart: " + yStart);
+						setShape(Math.min(x, xStart), Math.min(y, yStart),
+								Math.max(x, xStart), Math.max(y, yStart));
+					}
+				} else {
+					if (touchOnTop(x, y) || touchOnBottom(x, y)) {
+						setShape(Math.min(rectf.left, x), Math.min(yStart, y),
+								Math.max(rectf.right, x), Math.max(yStart, y));
+					}  else if (touchOnLeftSide(x, y) || touchOnRightSide(x, y)) {
+						setShape(Math.min(xStart, x), Math.min(rectf.top, y),
+								Math.max(xStart, x), Math.max(rectf.bottom, y));
+					}
+				}
+				break;
+
+			case (MotionEvent.ACTION_UP):
+				// Log.d(TAG,"Action was UP");
+				if (!editScribble) {
+					setShape(Math.min(x, xStart), Math.min(y, yStart),
+							Math.max(x, xStart), Math.max(y, yStart));
+					editScribble = true;
+				} else {
+					if (touchOnTop(x, y) || touchOnBottom(x, y)) {
+						setShape(Math.min(rectf.left, x), Math.min(yStart, y),
+								Math.max(rectf.right, x), Math.max(yStart, y));
+					}  else if (touchOnLeftSide(x, y) || touchOnRightSide(x, y)) {
+						setShape(Math.min(xStart, x), Math.min(rectf.top, y),
+								Math.max(xStart, x), Math.max(rectf.bottom, y));
+					}
+				}
+				xStart = 0;
+				yStart = 0;
+				break;
+			}
+			
 		}
+
 	}
 	
-	public void handleTouchEventOutsidePicture(int action){
+	public void handleTouchEventOutsidePicture(int action) {
 		// if user scribble was not drawn before
 		if (rectf == null || rectf.isEmpty()) {
 			if (action == MotionEvent.ACTION_UP) {
@@ -162,9 +222,130 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 			}
 		}
 	}
+	
+	/**
+	 * TODO
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private boolean touchOnTopLeftCorner(float x, float y){
+		if (x >= rectf.left - mPaint.getStrokeWidth()
+				&& x <= rectf.left + mPaint.getStrokeWidth()
+				&& y >= rectf.top - mPaint.getStrokeWidth()
+				&& y <= rectf.top + mPaint.getStrokeWidth())
+			return true;
+		return false;
+	}
 
 	/**
+	 * TODO
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private boolean touchOnTopRightCorner(float x, float y){
+		if (x >= rectf.right - mPaint.getStrokeWidth()
+				&& x <= rectf.right + mPaint.getStrokeWidth()
+				&& y >= rectf.top - mPaint.getStrokeWidth()
+				&& y <= rectf.top + mPaint.getStrokeWidth())
+			return true;
+		return false;
+	}
+	
+	/**
+	 * TODO
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private boolean touchOnBottomLeftCorner(float x, float y){
+		if (x >= rectf.left - mPaint.getStrokeWidth()
+				&& x <= rectf.left + mPaint.getStrokeWidth()
+				&& y >= rectf.bottom - mPaint.getStrokeWidth()
+				&& y <= rectf.bottom + mPaint.getStrokeWidth())
+			return true;
+		return false;
+	}
+	
+	/**
+	 * TODO
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private boolean touchOnBottomRightCorner(float x, float y){
+		if (x >= rectf.right - mPaint.getStrokeWidth()
+				&& x <= rectf.right + mPaint.getStrokeWidth()
+				&& y >= rectf.bottom - mPaint.getStrokeWidth()
+				&& y <= rectf.bottom + mPaint.getStrokeWidth())
+			return true;
+		return false;
+	}
+	
+	/**
+	 * TODO
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private boolean touchOnTop(float x, float y){
+		if(x >= rectf.centerX() - mPaint.getStrokeWidth()
+				&& x <= rectf.centerX() + mPaint.getStrokeWidth()
+				&& y >= rectf.top - mPaint.getStrokeWidth()
+				&& y <= rectf.top + mPaint.getStrokeWidth())
+			return true;
+		return false;
+	}
+	
+	/**
+	 * TODO
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private boolean touchOnBottom(float x, float y){
+		if(x >= rectf.centerX() - mPaint.getStrokeWidth()
+				&& x <= rectf.centerX() + mPaint.getStrokeWidth()
+				&& y >= rectf.bottom - mPaint.getStrokeWidth()
+				&& y <= rectf.bottom + mPaint.getStrokeWidth())
+			return true;
+		return false;
+	}
+	
+	/**
+	 * TODO
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private boolean touchOnLeftSide(float x, float y){
+		if(x >= rectf.left - mPaint.getStrokeWidth()
+				&& x <= rectf.left + mPaint.getStrokeWidth()
+				&& y >= rectf.centerY() - mPaint.getStrokeWidth()
+				&& y <= rectf.centerY() + mPaint.getStrokeWidth())
+			return true;
+		return false;
+	}
+	
+	/**
+	 * TODO
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private boolean touchOnRightSide(float x, float y){
+		if(x >= rectf.right - mPaint.getStrokeWidth()
+				&& x <= rectf.right + mPaint.getStrokeWidth()
+				&& y >= rectf.centerY() - mPaint.getStrokeWidth()
+				&& y <= rectf.centerY() + mPaint.getStrokeWidth())
+			return true;
+		return false;
+	}
+	
+	/**
 	 * Set boundaries for the RectF object and draw it.
+	 * 
 	 * @param left boundary for user scribble
 	 * @param top boundary for user scribble
 	 * @param right boundary for user scribble
