@@ -67,6 +67,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private RelativeLayout tab3;
 	private ScribbleType currentScribble;
 	private List<Scribble> oldScribbles;
+	private List<String> textAnnotations;
 	
 	/**
 	 * Called when the activity is created.
@@ -168,6 +169,9 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		
 		// create new list for all scribbles
 		oldScribbles = new ArrayList<Scribble>();
+		
+		// create list for text annotations
+		textAnnotations = new ArrayList<String>();
 	}
 	
 	/**
@@ -445,11 +449,35 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		this.currentScribble = currentScribble;
 	}
 	
+	/**
+	 * TODO
+	 * @param scri
+	 */
 	public void addScribbleToList(Scribble scri){
 		oldScribbles.add(scri);
 	}
 	
+	/**
+	 * TODO
+	 * @return
+	 */
 	public List<Scribble> getOldScribbles(){
 		return oldScribbles;
+	}
+	
+	/**
+	 * TODO
+	 * @param annotation
+	 */
+	public void setTextAnnotations(List<String> annotations){
+		textAnnotations = annotations;
+	}
+	
+	/**
+	 * TODO
+	 * @return
+	 */
+	public List<String> getTextAnnotations(){
+		return textAnnotations;
 	}
 }

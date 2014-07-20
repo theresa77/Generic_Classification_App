@@ -15,28 +15,34 @@
     	android:layout_height="1dip"
 		android:background="@color/middleGray"
 		android:layout_marginBottom="15dp" />
-    
-  	<LinearLayout
-        android:id="@+id/text_annotation_dialog"
-        android:orientation="vertical"
+    <!--  
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        >        
-
-       
-        <ListView
-            android:id="@+id/text_annotation_list"
-            style="@style/ListView2" />
-        
-		<EditText android:id="@+id/edit_text_annotation" 
+        android:layout_height="wrap_content" >
+        -->
+  	
+	  	<LinearLayout
+	        android:id="@+id/text_annotation_dialog"
+	        android:orientation="vertical"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:textColor="@color/white"
-	        android:hint="@string/edit_text_annotation" />
-     
-        
-    </LinearLayout>
-    
+	        >        
+	<!--  -->
+	        <ListView
+	            android:id="@+id/text_annotation_list"
+	            style="@style/ListViewEditTextItems" />
+	     <!--    
+	        
+			<EditText android:id="@+id/edit_text_annotation" 
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textColor="@color/white"
+		        android:hint="@string/edit_text_annotation" />
+	     -->
+	    </LinearLayout>
+    <!-- 
+    </ScrollView>
+    -->
     
     <ImageButton 
         android:id="@+id/text_annotation_ok_button"
