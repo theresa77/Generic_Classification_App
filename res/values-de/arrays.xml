@@ -8,7 +8,8 @@
    		<item>Bild Anzeigen</item>
    		<item>Neues Foto</item>
    		<item>Text Annotation hinzufügen</item>
-   		<item>Zeichnung Löschen</item>
+   		<item>Letzte Zeichnung Löschen</item>
+   		<item>Alle Zeichnungen Löschen</item>
    		<item>zu Server schicken</item>
     </string-array>
     

@@ -31,7 +31,6 @@ public abstract class UserScribbleView extends SurfaceView {
 	protected int displayWidth;
 	protected int displayHeight;
 	protected boolean drawNewScribble;
-//	protected List<Scribble> oldScribbles;
 	protected Scribble currentScribble;
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
@@ -61,7 +60,6 @@ public abstract class UserScribbleView extends SurfaceView {
 		mPaint = mActivity.getPaint();
 		setBackgroundColor(Color.BLACK);
 		drawNewScribble = false;
-//		oldScribbles = new ArrayList<Scribble>();
 	}
 	
 	/**
@@ -151,10 +149,18 @@ public abstract class UserScribbleView extends SurfaceView {
 	 * @param drawNew
 	 */
 	public void setDrawNewScribble(boolean drawNew){
-		this.drawNewScribble = drawNew;
+		drawNewScribble = drawNew;
 		mActivity.addScribbleToList(currentScribble);
-		resetDrawing();
+		resetLastDrawing();
 		invalidate();
+	}
+	
+	/**
+	 * TODO
+	 * @return
+	 */
+	public boolean drawNewScribble(){
+		return drawNewScribble;
 	}
 	
 	/**
@@ -172,10 +178,10 @@ public abstract class UserScribbleView extends SurfaceView {
 	public abstract void drawUserScribble(Canvas canvas);
 	
 	/**
-	 * Resets drawing. 
-	 * Scribbles get deleted.
+	 * Resets last drawing. 
+	 * Scribble get deleted.
 	 */
-	public abstract void resetDrawing();
+	public abstract void resetLastDrawing();
 	
 	/**
 	 * TODO

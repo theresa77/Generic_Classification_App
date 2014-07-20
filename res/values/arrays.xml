@@ -8,7 +8,8 @@
    		<item>View Picture</item>
    		<item>New Photo</item>
    		<item>Add Text Annotation</item>
-   		<item>Delete Drawing</item>
+   		<item>Delete Last Drawing</item>
+   		<item>Delete All Drawings</item>
    		<item>Send to Server</item>
     </string-array>
     

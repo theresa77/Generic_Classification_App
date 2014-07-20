@@ -162,7 +162,7 @@ public class ObjectContourView extends UserScribbleView {
 	 * Screen gets cleared.
 	 */
 	@Override
-	public void resetDrawing() {
+	public void resetLastDrawing() {
 		mPath.reset();
 		invalidate();
 	}

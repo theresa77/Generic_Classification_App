@@ -203,15 +203,22 @@ public class OptionMenuDialog extends DialogFragment {
 					((UserScribbleMainActivity)activity).openTextAnnotationDialog();
 					break;
 					
-				//delete drawing
+				//delete last drawing
 				case 5:
-					((UserScribbleMainActivity)activity).resetDrawing();
+					((UserScribbleMainActivity)activity).resetLastDrawing();
+					dialog.dismiss();
+					Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
+					break;
+					
+				//delete all drawings	
+				case 6:
+					((UserScribbleMainActivity)activity).resetAllDrawings();
 					dialog.dismiss();
 					Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
 					break;
 				
 				//send picture and scribbles to server
-				case 6:
+				case 7:
 					Log.d(TAG, "sendToServer called");
 					// create new bitmap for scribbles only
 					Bitmap userScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)activity).getDisplayWidth(),

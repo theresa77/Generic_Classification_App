@@ -198,7 +198,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	}
 
 	@Override
-	public void resetDrawing() {
+	public void resetLastDrawing() {
 		resetPath();
 	}
 

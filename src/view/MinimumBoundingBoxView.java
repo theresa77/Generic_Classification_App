@@ -420,7 +420,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	 * Delete drawing.
 	 */
 	@Override
-	public void resetDrawing() {
+	public void resetLastDrawing() {
 		rectf = null;
 		editScribble = false;
 		invalidate();
