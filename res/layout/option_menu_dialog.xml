@@ -5,10 +5,15 @@
     android:background="@color/buttonGray"
     android:orientation="vertical" >
     
-    <TextView 
-        style="@style/TextViewDialog"
-        android:text="@string/dialog_menu"
-        />  
+    <ScrollView
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content" >
+         
+	    <TextView 
+	        style="@style/TextViewDialog"
+	        android:text="@string/dialog_menu"  />  
+        
+    </ScrollView>
         
     <View 
         android:layout_width="fill_parent"
