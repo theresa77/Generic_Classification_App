@@ -389,7 +389,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * Resets last drawing.
 	 * Deletes user scribble.
 	 */
-	public void resetLastDrawing(){
+	public void resetLastDrawing(View v){
 		mView.resetLastDrawing();
 		if(mView.drawNewScribble() && !oldScribbles.isEmpty()){
 			oldScribbles.remove(oldScribbles.size()-1);
@@ -401,7 +401,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	public void resetAllDrawings(){
 		oldScribbles = new ArrayList<Scribble>();
-		resetLastDrawing();
+		resetLastDrawing(null);
 	}
 
 	/**
@@ -454,7 +454,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param scri
 	 */
 	public void addScribbleToList(Scribble scri){
-		oldScribbles.add(scri);
+		if(scri != null)
+			oldScribbles.add(scri);
 	}
 	
 	/**

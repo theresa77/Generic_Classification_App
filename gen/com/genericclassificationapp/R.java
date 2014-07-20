@@ -49,20 +49,21 @@ public final class R {
         public static final int camera_icon_white=0x7f020005;
         public static final int change_camera=0x7f020006;
         public static final int check=0x7f020007;
-        public static final int color_palette=0x7f020008;
-        public static final int color_pot_white=0x7f020009;
-        public static final int custom_progress_bar=0x7f02000a;
-        public static final int f_icon=0x7f02000b;
-        public static final int gallery=0x7f02000c;
-        public static final int lines_icon_white=0x7f02000d;
-        public static final int main_icon=0x7f02000e;
-        public static final int mbr_icon=0x7f02000f;
-        public static final int menu_icon=0x7f020010;
-        public static final int new_photo=0x7f020011;
-        public static final int oc_icon=0x7f020012;
-        public static final int oval=0x7f020013;
-        public static final int plus=0x7f020014;
-        public static final int rectangle=0x7f020015;
+        public static final int clear=0x7f020008;
+        public static final int color_palette=0x7f020009;
+        public static final int color_pot_white=0x7f02000a;
+        public static final int custom_progress_bar=0x7f02000b;
+        public static final int f_icon=0x7f02000c;
+        public static final int gallery=0x7f02000d;
+        public static final int lines_icon_white=0x7f02000e;
+        public static final int main_icon=0x7f02000f;
+        public static final int mbr_icon=0x7f020010;
+        public static final int menu_icon=0x7f020011;
+        public static final int new_photo=0x7f020012;
+        public static final int oc_icon=0x7f020013;
+        public static final int oval=0x7f020014;
+        public static final int plus=0x7f020015;
+        public static final int rectangle=0x7f020016;
     }
     public static final class id {
         public static final int add_further_scribble_button=0x7f09000c;
@@ -74,10 +75,11 @@ public final class R {
         public static final int camera_preview=0x7f090001;
         public static final int camera_preview_layout=0x7f090000;
         public static final int color_picker_view=0x7f090019;
+        public static final int delete_scribble_button=0x7f09000d;
         public static final int dialog_list_text_view=0x7f090006;
-        public static final int edit_color_button=0x7f09000e;
+        public static final int edit_color_button=0x7f09000f;
         public static final int edit_form_button=0x7f090014;
-        public static final int edit_line_button=0x7f09000d;
+        public static final int edit_line_button=0x7f09000e;
         public static final int edit_text_item_annotation=0x7f090007;
         public static final int foreground_background_surface_view=0x7f090009;
         public static final int foreground_background_view=0x7f090008;
@@ -106,7 +108,6 @@ public final class R {
         public static final int picture_view_button_bar=0x7f090002;
         public static final int progressbar=0x7f09002e;
         public static final int realtabcontent=0x7f090031;
-        public static final int select_background_button=0x7f09000f;
         public static final int select_fore_or_background_button=0x7f090028;
         public static final int select_foreground_button=0x7f090010;
         public static final int select_min_bounting_box_button=0x7f090029;
@@ -146,6 +147,7 @@ public final class R {
         public static final int camera_icon=0x7f07000d;
         public static final int delete_drawing=0x7f070029;
         public static final int delete_picture=0x7f070025;
+        public static final int delete_scribble=0x7f07002c;
         public static final int dialog_edit_foreground_background=0x7f070006;
         public static final int dialog_edit_line=0x7f070002;
         public static final int dialog_menu=0x7f070003;

@@ -205,7 +205,7 @@ public class OptionMenuDialog extends DialogFragment {
 					
 				//delete last drawing
 				case 5:
-					((UserScribbleMainActivity)activity).resetLastDrawing();
+					((UserScribbleMainActivity)activity).resetLastDrawing(null);
 					dialog.dismiss();
 					Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
 					break;

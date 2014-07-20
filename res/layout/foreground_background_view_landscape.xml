@@ -29,9 +29,17 @@
          <ImageButton
             android:id="@+id/add_further_scribble_button"
             style="@style/ButtonBarButton"
-            android:src="@drawable/add_further_scribble"
+            android:src="@drawable/plus"
             android:contentDescription="@string/add_further_scribble" 
             android:onClick="addFurtherScribble"
+             />
+         
+         <ImageButton
+            android:id="@+id/delete_scribble_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/clear"
+            android:contentDescription="@string/delete_scribble" 
+            android:onClick="resetLastDrawing"
              />
         
          <ImageButton
@@ -49,7 +57,8 @@
             android:contentDescription="@string/edit_color"
             android:onClick="editColor"
            />
-        
+       
+         <!--
          <ImageButton
             android:id="@+id/select_background_button"
             style="@style/ButtonBarButton"
@@ -58,7 +67,7 @@
             
            />
          
-         <!-- android:onClick="pickForegroundBackground" -->
+          android:onClick="pickForegroundBackground" -->
         
         <ImageButton
             android:id="@+id/select_foreground_button"
