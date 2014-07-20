@@ -1,5 +1,7 @@
 package activity;
 
+import view.ViewObjectView;
+
 import com.genericclassificationapp.R;
 
 import domain.Picture;
@@ -7,17 +9,21 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class ViewObjectActivity extends Activity {
 	
 	private Picture mPicture;
+	private ViewObjectView mView;
 	private int displayWidth;
 	private int displayHeight;
 
@@ -35,6 +41,11 @@ public class ViewObjectActivity extends Activity {
 		displayHeight = metrics.heightPixels;
 		displayWidth = metrics.widthPixels;
 		
+		LinearLayout.LayoutParams params;
+		double width = 0.0; 
+	    double height = 0.0;
+//	    float marginTopLeft = 0; 
+		
 		if (!mPicture.isLandscape()) {// Picture on Portrait
 
 			// set orientation of activity to portrait
@@ -43,6 +54,15 @@ public class ViewObjectActivity extends Activity {
 
 			ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
 			backButton.setMinimumHeight((int) (displayHeight * 0.1));
+			
+			width = displayWidth;
+	    	height = displayWidth * 1.33;
+	    	
+	    	// calculate and set top padding to show preview in the middle of the screen
+	    	int top = (int) ((displayHeight - height - (displayHeight*0.1))/2);
+	    	params = new LinearLayout.LayoutParams((int)width, (int)height);
+	    	params.bottomMargin = top;
+//	    	marginTopLeft = (float) (top + displayHeight*0.1);
 
 		} else { // Picture in landscape
 
@@ -52,11 +72,28 @@ public class ViewObjectActivity extends Activity {
 
 			ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
 			backButton.setMinimumWidth((int) (displayWidth * 0.1));
+			
+			height = displayHeight;
+	    	width = displayHeight * 1.33;
+	    	
+	    	// calculate and set left padding to show preview in the middle of the screen
+	    	int left = (int)((displayWidth - width - (displayWidth*0.1))/2);
+	    	params = new LinearLayout.LayoutParams((int)width, (int)height);
+	    	params.rightMargin = left;
+//	    	marginTopLeft = (float) (left + displayWidth*0.1);
 		}
 
-		// add taken picture to view
-		ImageView image = (ImageView) findViewById(R.id.picture);
-		image.setImageBitmap(mPicture.getBitmap());
+//		// add taken picture to view
+//		ImageView image = (ImageView) findViewById(R.id.picture);
+//		image.setImageBitmap(mPicture.getBitmap());
+		
+		
+		mView = new ViewObjectView(this);
+		mView.setBitmap(Bitmap.createScaledBitmap(mPicture.getBitmap(), params.width, params.height, false));
+		
+		FrameLayout pictureFrame = (FrameLayout) findViewById(R.id.picture_frame);
+		pictureFrame.setLayoutParams(params);
+		pictureFrame.addView(mView);
 	}
 	
 	
@@ -65,5 +102,6 @@ public class ViewObjectActivity extends Activity {
 		startActivity(newIntent);
 		this.finish();
 	}
+	
 
 }

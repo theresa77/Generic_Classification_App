@@ -3,6 +3,8 @@
  */
 package domain;
 
+import java.util.List;
+
 import android.graphics.Bitmap;
 
 /**
@@ -19,6 +21,7 @@ public class Picture {
 	private static Picture mPicture;
 	private boolean mIsLandscape;
 	private Bitmap mBitmap;
+	private List<Scribble> scribbles;
 	
 	public Picture(Bitmap mBitmap, boolean mIsLandscape){
 		this.mIsLandscape = mIsLandscape;
@@ -69,5 +72,16 @@ public class Picture {
 		mBitmap = null;
 		mPicture = null;
 	}
+
+	
+	public List<Scribble> getScribbles() {
+		return scribbles;
+	}
+
+	public void setScribbles(List<Scribble> scribbles) {
+		this.scribbles = scribbles;
+	}
+	
+	
 	
 }
