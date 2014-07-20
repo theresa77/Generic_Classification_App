@@ -58,5 +58,6 @@
  	<string name="edit_text_annotation">New Text Annotation</string>
  	<string name="add_further_scribble">Add Further Scribble</string>
  	<string name="delete_scribble">Delete Scribble</string>
+ 	<string name="back">Get Back</string>
 
 </resources>

@@ -19,6 +19,7 @@ import view.UserScribbleView;
 import activity.CameraActivity;
 import activity.PictureActivity;
 import activity.UserScribbleMainActivity;
+import activity.ViewObjectActivity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -189,36 +190,42 @@ public class OptionMenuDialog extends DialogFragment {
 					startActivity(newIntent);
 					activity.finish();
 					break;
+					
+				case 3:
+					newIntent = new Intent(activity, ViewObjectActivity.class);
+					startActivity(newIntent);
+					activity.finish();
+					break;
 				
 				//take new photo, go to CameraActivity
-				case 3:
+				case 4:
 					newIntent = new Intent(activity, CameraActivity.class);
 					startActivity(newIntent);
 					activity.finish();
 					break;
 				
 				//add Text Annotation	
-				case 4:
+				case 5:
 					dialog.dismiss();
 					((UserScribbleMainActivity)activity).openTextAnnotationDialog();
 					break;
 					
 				//delete last drawing
-				case 5:
+				case 6:
 					((UserScribbleMainActivity)activity).resetLastDrawing(null);
 					dialog.dismiss();
 					Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
 					break;
 					
 				//delete all drawings	
-				case 6:
+				case 7:
 					((UserScribbleMainActivity)activity).resetAllDrawings();
 					dialog.dismiss();
 					Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
 					break;
 				
 				//send picture and scribbles to server
-				case 7:
+				case 8:
 					Log.d(TAG, "sendToServer called");
 					// create new bitmap for scribbles only
 					Bitmap userScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)activity).getDisplayWidth(),

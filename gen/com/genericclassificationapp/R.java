@@ -43,30 +43,32 @@ public final class R {
     public static final class drawable {
         public static final int add_further_scribble=0x7f020000;
         public static final int b_icon=0x7f020001;
-        public static final int button_dialog_selector=0x7f020002;
-        public static final int button_selector=0x7f020003;
-        public static final int button_shape=0x7f020004;
-        public static final int camera_icon_white=0x7f020005;
-        public static final int change_camera=0x7f020006;
-        public static final int check=0x7f020007;
-        public static final int clear=0x7f020008;
-        public static final int color_palette=0x7f020009;
-        public static final int color_pot_white=0x7f02000a;
-        public static final int custom_progress_bar=0x7f02000b;
-        public static final int f_icon=0x7f02000c;
-        public static final int gallery=0x7f02000d;
-        public static final int lines_icon_white=0x7f02000e;
-        public static final int main_icon=0x7f02000f;
-        public static final int mbr_icon=0x7f020010;
-        public static final int menu_icon=0x7f020011;
-        public static final int new_photo=0x7f020012;
-        public static final int oc_icon=0x7f020013;
-        public static final int oval=0x7f020014;
-        public static final int plus=0x7f020015;
-        public static final int rectangle=0x7f020016;
+        public static final int back=0x7f020002;
+        public static final int button_dialog_selector=0x7f020003;
+        public static final int button_selector=0x7f020004;
+        public static final int button_shape=0x7f020005;
+        public static final int camera_icon_white=0x7f020006;
+        public static final int change_camera=0x7f020007;
+        public static final int check=0x7f020008;
+        public static final int clear=0x7f020009;
+        public static final int color_palette=0x7f02000a;
+        public static final int color_pot_white=0x7f02000b;
+        public static final int custom_progress_bar=0x7f02000c;
+        public static final int f_icon=0x7f02000d;
+        public static final int gallery=0x7f02000e;
+        public static final int lines_icon_white=0x7f02000f;
+        public static final int main_icon=0x7f020010;
+        public static final int mbr_icon=0x7f020011;
+        public static final int menu_icon=0x7f020012;
+        public static final int new_photo=0x7f020013;
+        public static final int oc_icon=0x7f020014;
+        public static final int oval=0x7f020015;
+        public static final int plus=0x7f020016;
+        public static final int rectangle=0x7f020017;
     }
     public static final class id {
         public static final int add_further_scribble_button=0x7f09000c;
+        public static final int back_button=0x7f090032;
         public static final int button_capture=0x7f090004;
         public static final int button_change_camera=0x7f090005;
         public static final int button_gallery=0x7f090003;
@@ -140,10 +142,13 @@ public final class R {
         public static final int transmission_to_server_dialog=0x7f030013;
         public static final int user_scribble_tab_layout_landscape=0x7f030014;
         public static final int user_scribble_tab_layout_portrait=0x7f030015;
+        public static final int view_object_activity_landscape=0x7f030016;
+        public static final int view_object_activity_portrait=0x7f030017;
     }
     public static final class string {
         public static final int add_further_scribble=0x7f07002b;
         public static final int app_name=0x7f070000;
+        public static final int back=0x7f07002d;
         public static final int camera_icon=0x7f07000d;
         public static final int delete_drawing=0x7f070029;
         public static final int delete_picture=0x7f070025;
