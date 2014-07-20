@@ -63,8 +63,8 @@ public class TextAnnotationDialog extends DialogFragment {
 	                	
 	                	EditTextAdapter adapter = (EditTextAdapter)listView.getAdapter();
 	                	for(int i=0; i < adapter.getCount(); i++){
-	                		if(adapter.getItem(i).itemText != null || adapter.getItem(i).itemText.equals("")){
-	                			String text = adapter.getItem(i).itemText;
+	                		if(adapter.getItemText(i) != null || adapter.getItemText(i).equals("")){
+	                			String text = adapter.getItemText(i);
 	                			Log.d(TAG, text);
 	                			annotations.add(text);
 	                		}

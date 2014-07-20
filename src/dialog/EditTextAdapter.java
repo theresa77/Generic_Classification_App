@@ -103,13 +103,17 @@ public class EditTextAdapter extends BaseAdapter {
 		return position;
 	}
 	
+	public String getItemText(int position){
+		return getItem(position).itemText;
+	}
+	
 	
 	private class ViewHolder {
         EditText editText;
     }
  
-    class ListItem {
-        public String itemText;
+    private class ListItem {
+        String itemText;
     }
 }
 

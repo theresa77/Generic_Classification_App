@@ -6,12 +6,18 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.ForeBackGround;
+import domain.ObjectContour;
+import domain.Scribble;
+
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 /**
  * View class for controlling the view for a ForegroundBackgroundFragment.
@@ -23,12 +29,14 @@ import android.view.MotionEvent;
 public class ForegroundBackgroundView extends UserScribbleView {
 
 	private static final String TAG = ForegroundBackgroundView.class.getSimpleName();
-	private Path mPath;
+	private Path mForePath;
+	private Path mBackPath;
 	private float mX;
 	private float mY;
 	private Selection mCurrentSelection;
 	private boolean drawCircle;
-	private List<Path> oldScribbles;
+	private boolean drawForeground;
+//	private List<Path> oldScribbles;
 	
 	public enum Selection {
 		FOREGROUND, BACKGROUND
@@ -36,10 +44,12 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	
 	public ForegroundBackgroundView(Context context){
 		super(context);
-		mPath = new Path();
+		mForePath = new Path();
+		mBackPath = new Path();
 		mCurrentSelection = Selection.FOREGROUND;
 		drawCircle = true;
-		oldScribbles = new ArrayList<Path>();
+		drawForeground = true;
+//		oldScribbles = new ArrayList<Path>();
 	}
 	
 	/**
@@ -50,24 +60,35 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		// Log.d(TAG, "onDraw() is called");
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
 
-		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-			for (Path p : oldScribbles) {
-				mPaint.setStyle(Paint.Style.STROKE);
-				canvas.drawPath(p, mPaint);
-				Log.d(TAG, "Draw Path: " + p.toString());
+//		if (oldScribbles != null && !oldScribbles.isEmpty()) {
+//			for (Path p : oldScribbles) {
+//				mPaint.setStyle(Paint.Style.STROKE);
+//				canvas.drawPath(p, mPaint);
+//				Log.d(TAG, "Draw Path: " + p.toString());
+//			}
+//		}
+		
+		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
+			for (Scribble s : mActivity.getOldScribbles()) {
+				s.drawScribble(canvas);
 			}
 		}
 
-		if (!mPath.isEmpty()) {
-
-			if (drawCircle) {
-				mPaint.setStyle(Paint.Style.FILL);
-				Log.d(TAG, "mPaint.setStyle(Paint.Style.FILL)");
-				canvas.drawCircle(mX, mY, mPaint.getStrokeWidth() / 2, mPaint);
-			} else {
+		if (mForePath != null && !mForePath.isEmpty()) {
+//			if (drawCircle) {
+//				mPaint.setStyle(Paint.Style.FILL);
+//				Log.d(TAG, "mPaint.setStyle(Paint.Style.FILL)");
+//				canvas.drawCircle(mX, mY, mPaint.getStrokeWidth() / 2, mPaint);
+//			} else {
 				mPaint.setStyle(Paint.Style.STROKE);
-				canvas.drawPath(mPath, mPaint);
-			}
+				mPaint.setColor(Color.BLUE);
+				canvas.drawPath(mForePath, mPaint);
+//			}
+		}
+
+		if (mBackPath != null && !mBackPath.isEmpty()) {
+			mPaint.setColor(Color.RED);
+			canvas.drawPath(mBackPath, mPaint);
 		}
 	}
 	
@@ -113,16 +134,21 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		//Log.d(TAG, "startMove() called");
 		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
 		if(drawNewScribble){
-			if(mPath != null && !mPath.isEmpty())
-				oldScribbles.add(new Path(mPath));
+			if(mBackPath != null && !mBackPath.isEmpty())
+				mActivity.addScribbleToList(currentScribble);
 			drawNewScribble = false;
 		}
 
-		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
-		
 		drawCircle = true;
-		mPath.reset();
-		mPath.moveTo(x, y);
+		
+		if (drawForeground) {
+			mForePath.reset();
+			mForePath.moveTo(x, y);
+		} else {
+			mBackPath.reset();
+			mBackPath.moveTo(x, y);
+		}
+		
 		mX = x;
 		mY = y;
 		invalidate();
@@ -137,17 +163,32 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		//Log.d(TAG, "move() called");
 //		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
 		
-		if (!mPath.isEmpty()) {
-			float dx = Math.abs(x - mX);
-			float dy = Math.abs(y - mY);
-			if (dx >= 4 || dy >= 4) {
-				mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
-				mX = x;
-				mY = y;
+		if(drawForeground){
+			if (!mForePath.isEmpty()) {
+				float dx = Math.abs(x - mX);
+				float dy = Math.abs(y - mY);
+				if (dx >= 4 || dy >= 4) {
+					mForePath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
+					mX = x;
+					mY = y;
+				}
+			} else {
+				startMove(x, y);
 			}
 		} else {
-			startMove(x, y);
+			if (!mBackPath.isEmpty()) {
+				float dx = Math.abs(x - mX);
+				float dy = Math.abs(y - mY);
+				if (dx >= 4 || dy >= 4) {
+					mBackPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
+					mX = x;
+					mY = y;
+				}
+			} else {
+				startMove(x, y);
+			}
 		}
+		
 		if(drawCircle)
 			drawCircle = false;
 		invalidate();
@@ -160,7 +201,14 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 */
 	public void stopMove(float x, float y){
 //		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
-		mPath.lineTo(x, y);
+		if(drawForeground){
+			mForePath.lineTo(x, y);
+			drawForeground = false;
+			Toast.makeText(mActivity, "Draw Background", Toast.LENGTH_SHORT).show();
+		} else {
+			mBackPath.lineTo(x, y);
+			currentScribble = new ForeBackGround(new Path(mForePath), new Path(mBackPath), new Paint(mPaint), Color.BLUE, Color.RED);
+		}
 	//	drawCircle = true;
 		invalidate();
 	}
@@ -168,11 +216,14 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	/**
 	 * Resets the path from the previous touch
 	 * Called when user starts new touch
+	 * TODO
 	 */
 	public void resetPath(){
-		mPath.reset();
+		mForePath.reset();
+		mBackPath.reset();
 		mX = 0;
 		mY = 0;
+		drawForeground = true;
 		drawCircle = true;
 		invalidate();
 	}
@@ -180,20 +231,33 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	@Override
 	public void drawUserScribble(Canvas canvas) {
 		//TODO: check is all scribbles are drawn correct
-		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-			for (Path p : oldScribbles) {
-				mPaint.setStyle(Paint.Style.STROKE);
-				canvas.drawPath(p, mPaint);
-				Log.d(TAG, "Draw Path: " + p.toString());
+//		if (oldScribbles != null && !oldScribbles.isEmpty()) {
+//			for (Path p : oldScribbles) {
+//				mPaint.setStyle(Paint.Style.STROKE);
+//				canvas.drawPath(p, mPaint);
+//				Log.d(TAG, "Draw Path: " + p.toString());
+//			}
+//		}
+		
+		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
+			for (Scribble s : mActivity.getOldScribbles()) {
+				s.drawScribble(canvas);
 			}
 		}
 		
-		if (drawCircle){
-			mPaint.setStyle(Paint.Style.FILL);
-			canvas.drawCircle(mX, mY, mPaint.getStrokeWidth()/2, mPaint);
-		}else{
+		if(mForePath != null && !mForePath.isEmpty()){
+//		if (drawCircle){
+//			mPaint.setStyle(Paint.Style.FILL);
+//			canvas.drawCircle(mX, mY, mPaint.getStrokeWidth()/2, mPaint);
+//		}else{
 			mPaint.setStyle(Paint.Style.STROKE);
-			canvas.drawPath(mPath, mPaint);
+			canvas.drawPath(mForePath, mPaint);
+//		}
+		} 
+		
+		if (mBackPath != null && !mBackPath.isEmpty()) {
+			mPaint.setColor(Color.BLUE);
+			canvas.drawPath(mBackPath, mPaint);
 		}
 	}
 

@@ -41,7 +41,7 @@
             android:contentDescription="@string/edit_line"
             android:onClick="editLine"
               />
-        
+         
          <ImageButton
             android:id="@+id/edit_color_button"
             style="@style/ButtonBarButton"
@@ -50,12 +50,22 @@
             android:onClick="editColor"
            />
         
+         <ImageButton
+            android:id="@+id/select_background_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/b_icon"
+            android:contentDescription="@string/edit_foreground_background"
+            
+           />
+         
+         <!-- android:onClick="pickForegroundBackground" -->
+        
         <ImageButton
-            android:id="@+id/select_fore_or_background_button"
+            android:id="@+id/select_foreground_button"
             style="@style/ButtonBarButton"
             android:src="@drawable/f_icon"
             android:contentDescription="@string/edit_foreground_background"
-            android:onClick="pickForegroundBackground"
+            
            />
 
     </LinearLayout>
