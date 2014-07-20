@@ -9,12 +9,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import com.genericclassificationapp.R;
  */
 public class TextAnnotationDialog extends DialogFragment {
 	
+	private static final String TAG = TextAnnotationDialog.class.getSimpleName();
 	private ArrayList<EditText> editTextItems;
 	private ListView listView;
 	
@@ -47,21 +50,8 @@ public class TextAnnotationDialog extends DialogFragment {
 		dialog.show();
 		
 		listView = (ListView) dialog.findViewById(R.id.text_annotation_list);
-		editTextItems = new ArrayList<EditText>();
-        for (int i = 0; i <= activity.getTextAnnotations().size(); i++) {
-        	EditText item = (EditText) dialog.findViewById(R.id.edit_text_item_annotation_dialog);
-        	if(i < activity.getTextAnnotations().size())
-        		item.setText(activity.getTextAnnotations().get(i));
-            editTextItems.add(item);
-        }
-        
-        EditTextArrayAdapter adapter = new EditTextArrayAdapter(activity, R.drawable.edit_text_item_annotation_dialog, editTextItems); 
+        EditTextAdapter adapter = new EditTextAdapter(activity); 
         listView.setAdapter(adapter);
-		
-//		String[] list = new String[] {"First Annotation", "Second Annotation"};
-//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
-//                R.layout.dialog_list_text_view, list);
-//       listView.setAdapter(adapter);
        
        // get ok button and set a click listener 
        ImageButton mPickButton = (ImageButton) dialog.findViewById(R.id.text_annotation_ok_button);
@@ -69,20 +59,18 @@ public class TextAnnotationDialog extends DialogFragment {
 	            new View.OnClickListener() {
 	                @Override
 	                public void onClick(View v) {
-	                	//TODO:save new Text Annotation
-//	                	List<String> annotations = new ArrayList<String>();
-//	                	EditTextArrayAdapter adapter = (EditTextArrayAdapter)listView.getAdapter();
-//	                	
-////	                	for(int i=0; i < adapter.getCount(); i++){
-////	                		if(adapter.getView(i, listView, listView).getText() != null){
-////	                			annotations.add(adapter.getView(i).getText().toString());
-////	                		}
-////	                	}
-//	                	
-//	                	for(EditText item : editTextItems){
-//	                		String text = item.getText().toString();
-//	                	}
-//	                	activity.setTextAnnotations(annotations);
+	                	List<String> annotations = new ArrayList<String>();
+	                	
+	                	EditTextAdapter adapter = (EditTextAdapter)listView.getAdapter();
+	                	for(int i=0; i < adapter.getCount(); i++){
+	                		if(adapter.getItem(i).itemText != null || adapter.getItem(i).itemText.equals("")){
+	                			String text = adapter.getItem(i).itemText;
+	                			Log.d(TAG, text);
+	                			annotations.add(text);
+	                		}
+	                	}
+	                	activity.setTextAnnotations(annotations);
+	                	
 	                	dialog.dismiss();
 	                	//TODO: make correct Toast Text
 	                	Toast.makeText(activity, "Text Annotation saved", Toast.LENGTH_SHORT).show();

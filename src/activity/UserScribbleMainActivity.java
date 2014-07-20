@@ -470,7 +470,10 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param annotation
 	 */
 	public void setTextAnnotations(List<String> annotations){
-		textAnnotations = annotations;
+		textAnnotations = new ArrayList<String>();
+		for(String s: annotations){
+			textAnnotations.add(s);
+		}
 	}
 	
 	/**
