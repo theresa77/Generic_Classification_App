@@ -66,7 +66,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private RelativeLayout tab2;
 	private RelativeLayout tab3;
 	private ScribbleType currentScribble;
-	private List<Scribble> oldScribbles;
+	private List<Scribble> scribbles;
 	private List<String> textAnnotations;
 	
 	/**
@@ -168,7 +168,9 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		mPaint.setStrokeCap(Paint.Cap.ROUND);
 		
 		// create new list for all scribbles
-		oldScribbles = new ArrayList<Scribble>();
+		scribbles = mPicture.getScribbles();
+		if(scribbles == null)
+			scribbles = new ArrayList<Scribble>();
 		
 		// create list for text annotations
 		textAnnotations = new ArrayList<String>();
@@ -391,8 +393,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	public void resetLastDrawing(View v){
 		mView.resetLastDrawing();
-		if(mView.drawNewScribble() && !oldScribbles.isEmpty()){
-			oldScribbles.remove(oldScribbles.size()-1);
+		if(mView.drawNewScribble() && !scribbles.isEmpty()){
+			scribbles.remove(scribbles.size()-1);
 		}
 	}
 	
@@ -400,7 +402,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * Deletes all user scribbles.
 	 */
 	public void resetAllDrawings(){
-		oldScribbles = new ArrayList<Scribble>();
+		scribbles = new ArrayList<Scribble>();
+		mPicture.setScribbles(scribbles);
 		resetLastDrawing(null);
 	}
 
@@ -455,15 +458,15 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	public void addScribbleToList(Scribble scri){
 		if(scri != null)
-			oldScribbles.add(scri);
+			scribbles.add(scri);
 	}
 	
 	/**
 	 * TODO
 	 * @return
 	 */
-	public List<Scribble> getOldScribbles(){
-		return oldScribbles;
+	public List<Scribble> getScribbles(){
+		return scribbles;
 	}
 	
 	/**

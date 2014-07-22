@@ -45,8 +45,8 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
 		mPaint.setStyle(Paint.Style.STROKE);
 		
-		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
-			for (Scribble s : mActivity.getOldScribbles()) {
+		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+			for (Scribble s : mPicture.getScribbles()) {
 				s.drawScribble(canvas);
 			}
 		}
@@ -399,8 +399,8 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	 */
 	@Override
 	public void drawUserScribble(Canvas canvas) {
-		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
-			for (Scribble s : mActivity.getOldScribbles()) {
+		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+			for (Scribble s : mPicture.getScribbles()) {
 				s.drawScribble(canvas);
 			}
 		}

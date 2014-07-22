@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceView;
+import domain.Picture;
 import domain.Scribble;
 
 
@@ -27,6 +28,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	private static final String TAG = UserScribbleView.class.getSimpleName();
 	protected UserScribbleMainActivity mActivity;
 	protected Paint mPaint;
+	protected Picture mPicture;
 	protected Bitmap mPictureBitmap;
 	protected int displayWidth;
 	protected int displayHeight;
@@ -60,6 +62,7 @@ public abstract class UserScribbleView extends SurfaceView {
 		mPaint = mActivity.getPaint();
 		setBackgroundColor(Color.BLACK);
 		drawNewScribble = false;
+		mPicture = Picture.getInstance();
 	}
 	
 	/**

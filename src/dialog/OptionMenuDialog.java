@@ -193,7 +193,7 @@ public class OptionMenuDialog extends DialogFragment {
 					
 				case 3:
 					Picture picture = Picture.getInstance();
-					picture.setScribbles(((UserScribbleMainActivity)activity).getOldScribbles());
+					picture.setScribbles(((UserScribbleMainActivity)activity).getScribbles());
 					newIntent = new Intent(activity, ViewObjectActivity.class);
 					startActivity(newIntent);
 					activity.finish();

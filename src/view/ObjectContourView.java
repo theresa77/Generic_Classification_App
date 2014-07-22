@@ -39,8 +39,8 @@ public class ObjectContourView extends UserScribbleView {
 		//Log.d(TAG, "onDraw() is called");
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
 		
-		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
-			for (Scribble s : mActivity.getOldScribbles()) {
+		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+			for (Scribble s : mPicture.getScribbles()) {
 				s.drawScribble(canvas);
 			}
 		}
@@ -91,7 +91,7 @@ public class ObjectContourView extends UserScribbleView {
 		Log.d(TAG, "startMove() called");
 		if(drawNewScribble){
 			if(mPath != null && !mPath.isEmpty())
-				mActivity.addScribbleToList(currentScribble);
+				mPicture.addScribbleToList(currentScribble);
 			drawNewScribble = false;
 		}
 		
@@ -149,8 +149,8 @@ public class ObjectContourView extends UserScribbleView {
 	 */
 	@Override
 	public void drawUserScribble(Canvas canvas) {
-		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
-			for (Scribble s : mActivity.getOldScribbles()) {
+		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+			for (Scribble s : mPicture.getScribbles()) {
 				s.drawScribble(canvas);
 			}
 		}

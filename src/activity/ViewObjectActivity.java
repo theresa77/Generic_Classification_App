@@ -58,10 +58,11 @@ public class ViewObjectActivity extends Activity {
 			width = displayWidth;
 	    	height = displayWidth * 1.33;
 	    	
-	    	// calculate and set top padding to show preview in the middle of the screen
-	    	int top = (int) ((displayHeight - height - (displayHeight*0.1))/2);
+	    	// calculate and set top and bottom padding to show preview in the middle of the screen
+	    	int topBottom = (int) ((displayHeight - height - (displayHeight*0.1))/2);
 	    	params = new LinearLayout.LayoutParams((int)width, (int)height);
-	    	params.bottomMargin = top;
+	    	params.bottomMargin = topBottom;
+	    	params.topMargin = topBottom;
 //	    	marginTopLeft = (float) (top + displayHeight*0.1);
 
 		} else { // Picture in landscape
@@ -76,17 +77,13 @@ public class ViewObjectActivity extends Activity {
 			height = displayHeight;
 	    	width = displayHeight * 1.33;
 	    	
-	    	// calculate and set left padding to show preview in the middle of the screen
-	    	int left = (int)((displayWidth - width - (displayWidth*0.1))/2);
+	    	// calculate and set left and right padding to show preview in the middle of the screen
+	    	int leftRight = (int)((displayWidth - width - (displayWidth*0.1))/2);
 	    	params = new LinearLayout.LayoutParams((int)width, (int)height);
-	    	params.rightMargin = left;
+	    	params.rightMargin = leftRight;
+	    	params.leftMargin = leftRight;
 //	    	marginTopLeft = (float) (left + displayWidth*0.1);
 		}
-
-//		// add taken picture to view
-//		ImageView image = (ImageView) findViewById(R.id.picture);
-//		image.setImageBitmap(mPicture.getBitmap());
-		
 		
 		mView = new ViewObjectView(this);
 		mView.setBitmap(Bitmap.createScaledBitmap(mPicture.getBitmap(), params.width, params.height, false));

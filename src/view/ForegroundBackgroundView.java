@@ -36,7 +36,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	private Selection mCurrentSelection;
 	private boolean drawCircle;
 	private boolean drawForeground;
-//	private List<Path> oldScribbles;
 	
 	public enum Selection {
 		FOREGROUND, BACKGROUND
@@ -49,7 +48,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		mCurrentSelection = Selection.FOREGROUND;
 		drawCircle = true;
 		drawForeground = true;
-//		oldScribbles = new ArrayList<Path>();
 	}
 	
 	/**
@@ -59,17 +57,9 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	public void onDraw(Canvas canvas){
 		// Log.d(TAG, "onDraw() is called");
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-
-//		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-//			for (Path p : oldScribbles) {
-//				mPaint.setStyle(Paint.Style.STROKE);
-//				canvas.drawPath(p, mPaint);
-//				Log.d(TAG, "Draw Path: " + p.toString());
-//			}
-//		}
 		
-		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
-			for (Scribble s : mActivity.getOldScribbles()) {
+		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+			for (Scribble s : mPicture.getScribbles()) {
 				s.drawScribble(canvas);
 			}
 		}
@@ -135,7 +125,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
 		if(drawNewScribble){
 			if(mBackPath != null && !mBackPath.isEmpty())
-				mActivity.addScribbleToList(currentScribble);
+				mPicture.addScribbleToList(currentScribble);
 			drawNewScribble = false;
 		}
 
@@ -230,17 +220,9 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	
 	@Override
 	public void drawUserScribble(Canvas canvas) {
-		//TODO: check is all scribbles are drawn correct
-//		if (oldScribbles != null && !oldScribbles.isEmpty()) {
-//			for (Path p : oldScribbles) {
-//				mPaint.setStyle(Paint.Style.STROKE);
-//				canvas.drawPath(p, mPaint);
-//				Log.d(TAG, "Draw Path: " + p.toString());
-//			}
-//		}
 		
-		if (mActivity.getOldScribbles() != null && !mActivity.getOldScribbles().isEmpty()) {
-			for (Scribble s : mActivity.getOldScribbles()) {
+		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+			for (Scribble s : mPicture.getScribbles()) {
 				s.drawScribble(canvas);
 			}
 		}

@@ -82,6 +82,10 @@ public class Picture {
 		this.scribbles = scribbles;
 	}
 	
+	public void addScribbleToList(Scribble scri){
+		scribbles.add(scri);
+	}
+	
 	
 	
 }

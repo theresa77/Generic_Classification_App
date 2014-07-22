@@ -14,6 +14,7 @@ public class MinBoundingBox extends Scribble {
 	}
 	
 	public MinBoundingBox(RectF rectf, Shape shape, Paint paint){
+		super();
 		this.rectf = rectf;
 		this.shape = shape;
 		super.paint = paint;
@@ -43,6 +44,11 @@ public class MinBoundingBox extends Scribble {
 				+ rectf.bottom + ")" + ", shape(" + shape.name() + "), "
 				+ "+paint( color:" + paint.getColor() + ", stroke width: "
 				+ paint.getStrokeWidth() + ") )";
+	}
+	
+	public RectF getBoundingBoxOfScribble(){
+		// left, top, right, bottom
+		return rectf;
 	}
 	
 	

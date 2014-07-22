@@ -3,6 +3,7 @@ package domain;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.RectF;
 
 public class ForeBackGround extends Scribble {
 
@@ -11,6 +12,7 @@ public class ForeBackGround extends Scribble {
 	private int foreColor, backColor;
 	
 	public ForeBackGround(Path fore, Path back, Paint paint, int foreColor, int backColor){
+		super();
 		this.pathFore = fore;
 		this.pathBack = back;
 		this.paint = paint;
@@ -32,6 +34,23 @@ public class ForeBackGround extends Scribble {
 		canvas.drawPath(pathFore, paint);
 		paint.setColor(backColor);
 		canvas.drawPath(pathBack, paint);
+	}
+	
+	public RectF getBoundingBoxOfScribble(){
+		// left, top, right, bottom
+		RectF bounds = new RectF();
+		RectF boundsFore = new RectF();
+		RectF boundsBack = new RectF();
+		
+		pathFore.computeBounds(boundsFore, true);
+		pathBack.computeBounds(boundsBack, true);
+		
+		bounds.left = Math.min(boundsFore.left, boundsBack.left);
+		bounds.top = Math.min(boundsFore.top, boundsBack.top);
+		bounds.right = Math.min(boundsFore.right, boundsBack.right);
+		bounds.bottom = Math.min(boundsFore.bottom, boundsBack.bottom);
+		
+		return bounds;
 	}
 	
 }
