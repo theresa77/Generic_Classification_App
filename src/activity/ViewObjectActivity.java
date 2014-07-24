@@ -1,15 +1,20 @@
 package activity;
 
+import java.util.List;
+
 import view.ViewObjectView;
 
 import com.genericclassificationapp.R;
 
 import domain.Picture;
+import domain.Scribble;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -26,6 +31,9 @@ public class ViewObjectActivity extends Activity {
 	private ViewObjectView mView;
 	private int displayWidth;
 	private int displayHeight;
+	private Bitmap mPictureBitmap;
+	private List<Scribble> scribbles;
+	private RectF bounds;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,12 +93,18 @@ public class ViewObjectActivity extends Activity {
 //	    	marginTopLeft = (float) (left + displayWidth*0.1);
 		}
 		
-		mView = new ViewObjectView(this);
-		mView.setBitmap(Bitmap.createScaledBitmap(mPicture.getBitmap(), params.width, params.height, false));
+//		mView = new ViewObjectView(this);
+//		mView.setBitmap(Bitmap.createScaledBitmap(mPicture.getBitmap(), params.width, params.height, false));
+//		
+//		FrameLayout pictureFrame = (FrameLayout) findViewById(R.id.picture_frame);
+//		pictureFrame.setLayoutParams(params);
+//		pictureFrame.addView(mView);
 		
-		FrameLayout pictureFrame = (FrameLayout) findViewById(R.id.picture_frame);
-		pictureFrame.setLayoutParams(params);
-		pictureFrame.addView(mView);
+		scribbles = mPicture.getScribbles();
+		mPictureBitmap = createScaledBitmap(drawScribblesToBitmap(mPicture.getBitmap()));
+		
+		ImageView image = (ImageView) findViewById(R.id.picture);
+		image.setImageBitmap(mPictureBitmap);
 	}
 	
 	
@@ -98,6 +112,70 @@ public class ViewObjectActivity extends Activity {
 		Intent newIntent = new Intent(this, UserScribbleMainActivity.class);
 		startActivity(newIntent);
 		this.finish();
+	}
+	
+	
+	private Bitmap drawScribblesToBitmap(Bitmap bitmap){
+		Canvas canvas = new Canvas(bitmap);
+//		canvas.drawBitmap(bitmap, 0, 0, null);
+		
+		if (scribbles != null && !scribbles.isEmpty()) {
+			for (Scribble s : scribbles) {
+				if(s != null)
+					s.drawScribble(canvas);
+			}
+		}
+		return bitmap;
+	}
+	
+	private Bitmap createScaledBitmap(Bitmap bitmap){
+		bitmap = drawScribblesToBitmap(bitmap);
+		bounds = calculateBoundingBoxForScribbles();
+		
+		float width = bounds.right - bounds.left;
+		bounds.left = (float) (bounds.left - width*0.15);
+		bounds.right = (float) (bounds.right + width*0.15);
+		if(bounds.left < 0)
+			bounds.left = 0;
+		if(bounds.right > bitmap.getWidth()) //--> größer als Bildschirm-Breite/Höhe
+			bounds.right = bitmap.getWidth();
+		width = bounds.right - bounds.left;
+		
+		float height = bounds.bottom - bounds.top;
+		bounds.top = (float) (bounds.top - height*0.15);
+		bounds.bottom = (float) (bounds.bottom + height *0.15);
+		if(bounds.top < 0)
+			bounds.top = 0;
+		if(bounds.bottom > bitmap.getHeight()) // ---> größer als Bildschirm-Breite/Höhe
+			bounds.bottom = bitmap.getHeight();
+		height = bounds.bottom - bounds.top;
+		
+		return Bitmap.createBitmap(bitmap, (int)bounds.left, (int)bounds.top, (int)width, (int)height);
+	}
+
+	private RectF calculateBoundingBoxForScribbles(){
+		RectF bounds = null;
+		RectF currScri = new RectF();
+		
+		for(Scribble scri : scribbles){
+			if(bounds != null){
+				currScri = scri.getBoundingBoxOfScribble();
+				
+				bounds.left = Math.min(currScri.left, bounds.left);
+				bounds.top = Math.min(currScri.top, bounds.top);
+				bounds.right = Math.max(currScri.right, bounds.right);
+				bounds.bottom = Math.max(currScri.bottom, bounds.bottom);
+				
+//				bounds = new RectF(Math.min(currScri.left, bounds.left), 
+//								   Math.min(currScri.top, bounds.top),
+//								   Math.max(currScri.right, bounds.right),
+//								   Math.max(currScri.bottom, bounds.bottom));
+			} else {
+				bounds = scri.getBoundingBoxOfScribble();
+			}
+		}
+		
+		return bounds;
 	}
 	
 

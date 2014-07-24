@@ -3,6 +3,7 @@
  */
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
@@ -83,6 +84,8 @@ public class Picture {
 	}
 	
 	public void addScribbleToList(Scribble scri){
+		if(scribbles == null)
+			scribbles = new ArrayList<Scribble>();
 		scribbles.add(scri);
 	}
 	
