@@ -107,6 +107,8 @@ public class ViewObjectActivity extends Activity {
 		mPictureBitmap = Bitmap.createScaledBitmap(mPicture.getBitmap(), params.width, params.height, false);
 		mPictureBitmap = createScaledBitmap(drawScribblesToBitmap(mPictureBitmap));
 		
+		Log.d(TAG, "Params-width: "+ params.width);
+		Log.d(TAG, "Params-height: "+ params.height);
 		ImageView image = (ImageView) findViewById(R.id.picture);
 		image.setImageBitmap(mPictureBitmap);
 	}
@@ -160,26 +162,6 @@ public class ViewObjectActivity extends Activity {
 		width = bounds.right - bounds.left;
 		Log.d(TAG, "width (1): "+ width);
 		
-		
-		//TODO: alle möglichen Fälle wie die Bounding Box auf dem Bild platziert sein kann abdecken
-//		if(width < frameWidth){
-//			Log.d(TAG, "enter if statement: if(width < frameWidth)");
-//			bounds.left = (float) (bounds.left - ((frameWidth - width)*0.5));
-//			bounds.right = (float) (bounds.right + ((frameWidth - width)*0.5));
-//			Log.d(TAG, "bounds - LEFT (3): " + bounds.left);
-//			Log.d(TAG, "bounds - RIGHT (3): " + bounds.right);
-//			if(bounds.left < 0){
-//				Log.d(TAG, "set bounds.left = 0  (2)");
-//				bounds.left = 0;
-//			}
-//			if(bounds.right > bitmap.getWidth()) {//--> größer als Bildschirm-Breite/Höhe
-//				Log.d(TAG, "set bounds.right = bitmap.getWidth()  (2)");
-//				bounds.right = bitmap.getWidth();
-//			}
-//		}
-//		width = bounds.right - bounds.left;
-//		Log.d(TAG, "width (2): "+ width);
-		
 		float height = bounds.bottom - bounds.top;
 		bounds.top = (float) (bounds.top - height*0.15);
 		bounds.bottom = (float) (bounds.bottom + height *0.15);
@@ -197,57 +179,60 @@ public class ViewObjectActivity extends Activity {
 		height = bounds.bottom - bounds.top;
 		Log.d(TAG, "height (1): "+ height);
 		
-		//TODO: alle möglichen Fälle wie die Bounding Box auf dem Bild platziert sein kann abdecken
-//		if(height < frameHeight){
-//			Log.d(TAG, "enter if statement: if(height < frameHeight)");
-//			bounds.top = (float) (bounds.top - ((frameHeight - height)*0.5));
-//			bounds.bottom = (float) (bounds.bottom + ((frameHeight - height)*0.5));
-//			Log.d(TAG, "bounds - TOP (3): " + bounds.top);
-//			Log.d(TAG, "bounds - BOTTOM (3): " + bounds.bottom);
-//			if(bounds.top < 0){
-//				Log.d(TAG, "set bounds.top = 0  (2)");
-//				bounds.top = 0;
-//			}
-//			if(bounds.bottom > bitmap.getHeight()) {// ---> größer als Bildschirm-Breite/Höhe
-//				Log.d(TAG, "set bounds.bottom = bitmap.getHeight()  (2)");
-//				bounds.bottom = bitmap.getHeight();
-//			}
-//		}
-//		height = bounds.bottom - bounds.top;
-//		Log.d(TAG, "height (2): "+ height);
 		
 		//TODO: Seiterverhältnis von Höhe und Breite vergleichen und schauen, 
 		//		ob das ganze in Hoch- oder Querformat ist.
 		// TODO: and frame-grenzen anpassen - wenn width oder height über diese grenzen gehen
-		//		--> offenbar wird das scribble verändert, wenn man dann wieder auf return geht.
-//		if(frameWidth < frameHeight){ // screen in portrait
+		//		--> offenbar wird das scribble verändert, wenn man dann wieder auf return geht- 
+		//			übernimmt irgendwie die das bounds RectF als Scribble
+		//
+		// bei Bild im Hochformat und Bounding Box im Querformat wird oben und unten ein zu dicker schwarzer streifen angezeigt
+		// das gleiche ist auch bei Bild im Querformat, die Bounding Box aber im Hochformat - links und rechts dicke schwarze streifen
+		// die Frage ist hier: will ich das so haben, oder soll stattdessen so viel wie möglich vom restlichen Bild gezeigt werden?
 			
 			if(width < height){ // bounding box ist im "Hochformat" - Höhe übernehmen, Breite anpassen
+				Log.d(TAG, "Bounding Box in PORTRAIT");
 				width = (int)(height * 0.75);
 				bounds.left = bounds.left - Math.abs(width - (bounds.right - bounds.left))/2;
 				if((bounds.left + width) > bitmap.getWidth()){
+					Log.d(TAG, "IF statement entered: if((bounds.left + width) > bitmap.getWidth())");
 					bounds.left = bounds.left - ((bounds.left + width) - bitmap.getWidth());
 				}
+				
+				// Versuch bei Querformat-bild und Hochformat-Scribble-Bounding-Box die ganze mögliche Bildbreite zu nutzen.
+				// ist nicht geglückt
+//				if((bounds.left + width) < bitmap.getWidth()){
+//					Log.d(TAG, "IF statement entered: if((bounds.left + width) < bitmap.getWidth())");
+//					bounds.left = bounds.left - (bitmap.getWidth() - width);
+//					width = width + (bitmap.getWidth() - width);
+//				}
 				if(bounds.left < 0){
+					Log.d(TAG, "IF statement entered: if(bounds.left < 0)");
 					Log.d(TAG, "set bounds.left = 0)");
+					width = width + bounds.left;
 					bounds.left = 0;
 				}
 			} else { // bounding box ist im "Querformat" - Breite übernemen, Höhe anpassen
-				height = (int)(width * 1.33);
+				Log.d(TAG, "Bounding Box in LANDSCAPE");
+				height = (int)(width * 0.75);
 				bounds.top = bounds.top - Math.abs(height - (bounds.bottom - bounds.top))/2;
 				if((bounds.top + height) > bitmap.getHeight()){
 					bounds.top = bounds.top - ((bounds.top + height) - bitmap.getHeight());
 				}
 				if(bounds.top < 0){
 					Log.d(TAG, "set bounds.top = 0");
+					height = height + bounds.top;
 					bounds.top = 0;
 				}
 			}
 			
-//		} else { // screen in landscape
-			
-//		}
 		
+		Log.d(TAG, "Bitmap-HEIGHT: "+bitmap.getHeight());
+		Log.d(TAG, "Bitmap-WIDTH: "+bitmap.getWidth());
+		Log.d(TAG, "Bounds-LEFT: "+bounds.left);
+		Log.d(TAG, "Bounds-TOP: "+bounds.top);
+		Log.d(TAG, "WIDTH: "+width);
+		Log.d(TAG, "HEIGHT: "+height);
 		
 		return Bitmap.createBitmap(bitmap, (int)bounds.left, (int)bounds.top, (int)width, (int)height);
 	}
