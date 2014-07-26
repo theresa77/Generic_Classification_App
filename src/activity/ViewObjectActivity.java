@@ -218,17 +218,35 @@ public class ViewObjectActivity extends Activity {
 		
 		//TODO: Seiterverhältnis von Höhe und Breite vergleichen und schauen, 
 		//		ob das ganze in Hoch- oder Querformat ist.
-		if(frameWidth < frameHeight){ // screen in portrait
+		// TODO: and frame-grenzen anpassen - wenn width oder height über diese grenzen gehen
+		//		--> offenbar wird das scribble verändert, wenn man dann wieder auf return geht.
+//		if(frameWidth < frameHeight){ // screen in portrait
 			
 			if(width < height){ // bounding box ist im "Hochformat" - Höhe übernehmen, Breite anpassen
-				height = height;
-//				bounds.left = bounds.left - (int)((height * 0.75 - width) / 2); - funkt nicht!
-				width = (int)((height * 0.75));
+				width = (int)(height * 0.75);
+				bounds.left = bounds.left - Math.abs(width - (bounds.right - bounds.left))/2;
+				if((bounds.left + width) > bitmap.getWidth()){
+					bounds.left = bounds.left - ((bounds.left + width) - bitmap.getWidth());
+				}
+				if(bounds.left < 0){
+					Log.d(TAG, "set bounds.left = 0)");
+					bounds.left = 0;
+				}
+			} else { // bounding box ist im "Querformat" - Breite übernemen, Höhe anpassen
+				height = (int)(width * 1.33);
+				bounds.top = bounds.top - Math.abs(height - (bounds.bottom - bounds.top))/2;
+				if((bounds.top + height) > bitmap.getHeight()){
+					bounds.top = bounds.top - ((bounds.top + height) - bitmap.getHeight());
+				}
+				if(bounds.top < 0){
+					Log.d(TAG, "set bounds.top = 0");
+					bounds.top = 0;
+				}
 			}
 			
-		} else { // screen in landscape
+//		} else { // screen in landscape
 			
-		}
+//		}
 		
 		
 		return Bitmap.createBitmap(bitmap, (int)bounds.left, (int)bounds.top, (int)width, (int)height);
