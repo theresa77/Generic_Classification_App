@@ -17,6 +17,7 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -27,6 +28,7 @@ import android.widget.LinearLayout;
 
 public class ViewObjectActivity extends Activity {
 	
+	private static final String TAG = ViewObjectActivity.class.getSimpleName();
 	private Picture mPicture;
 	private ViewObjectView mView;
 	private int displayWidth;
@@ -34,6 +36,7 @@ public class ViewObjectActivity extends Activity {
 	private Bitmap mPictureBitmap;
 	private List<Scribble> scribbles;
 	private RectF bounds;
+	private LinearLayout.LayoutParams params;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +52,7 @@ public class ViewObjectActivity extends Activity {
 		displayHeight = metrics.heightPixels;
 		displayWidth = metrics.widthPixels;
 		
-		LinearLayout.LayoutParams params;
+//		LinearLayout.LayoutParams params;
 		double width = 0.0; 
 	    double height = 0.0;
 //	    float marginTopLeft = 0; 
@@ -101,7 +104,8 @@ public class ViewObjectActivity extends Activity {
 //		pictureFrame.addView(mView);
 		
 		scribbles = mPicture.getScribbles();
-		mPictureBitmap = createScaledBitmap(drawScribblesToBitmap(mPicture.getBitmap()));
+		mPictureBitmap = Bitmap.createScaledBitmap(mPicture.getBitmap(), params.width, params.height, false);
+		mPictureBitmap = createScaledBitmap(drawScribblesToBitmap(mPictureBitmap));
 		
 		ImageView image = (ImageView) findViewById(R.id.picture);
 		image.setImageBitmap(mPictureBitmap);
@@ -131,24 +135,101 @@ public class ViewObjectActivity extends Activity {
 	private Bitmap createScaledBitmap(Bitmap bitmap){
 		bitmap = drawScribblesToBitmap(bitmap);
 		bounds = calculateBoundingBoxForScribbles();
+		int frameWidth = params.width;
+		int frameHeight = params.height;
+		Log.d(TAG, "frameWidth: "+ frameWidth);
+		Log.d(TAG, "frameHeight: "+ frameHeight);
+		Log.d(TAG, "bounds - LEFT (1): " + bounds.left);
+		Log.d(TAG, "bounds - RIGHT (1): " + bounds.right);
+		Log.d(TAG, "bounds - TOP (1): " + bounds.top);
+		Log.d(TAG, "bounds - BOTTOM (1): " + bounds.bottom);
 		
 		float width = bounds.right - bounds.left;
 		bounds.left = (float) (bounds.left - width*0.15);
 		bounds.right = (float) (bounds.right + width*0.15);
-		if(bounds.left < 0)
+		Log.d(TAG, "bounds - LEFT (2): " + bounds.left);
+		Log.d(TAG, "bounds - RIGHT (2): " + bounds.right);
+		if(bounds.left < 0){
+			Log.d(TAG, "set bounds.left = 0  (1)");
 			bounds.left = 0;
-		if(bounds.right > bitmap.getWidth()) //--> größer als Bildschirm-Breite/Höhe
+		}
+		if(bounds.right > bitmap.getWidth()) {//--> größer als Bildschirm-Breite/Höhe
+			Log.d(TAG, "set bounds.right = bitmap.getWidth()  (1)");
 			bounds.right = bitmap.getWidth();
+		}
 		width = bounds.right - bounds.left;
+		Log.d(TAG, "width (1): "+ width);
+		
+		
+		//TODO: alle möglichen Fälle wie die Bounding Box auf dem Bild platziert sein kann abdecken
+//		if(width < frameWidth){
+//			Log.d(TAG, "enter if statement: if(width < frameWidth)");
+//			bounds.left = (float) (bounds.left - ((frameWidth - width)*0.5));
+//			bounds.right = (float) (bounds.right + ((frameWidth - width)*0.5));
+//			Log.d(TAG, "bounds - LEFT (3): " + bounds.left);
+//			Log.d(TAG, "bounds - RIGHT (3): " + bounds.right);
+//			if(bounds.left < 0){
+//				Log.d(TAG, "set bounds.left = 0  (2)");
+//				bounds.left = 0;
+//			}
+//			if(bounds.right > bitmap.getWidth()) {//--> größer als Bildschirm-Breite/Höhe
+//				Log.d(TAG, "set bounds.right = bitmap.getWidth()  (2)");
+//				bounds.right = bitmap.getWidth();
+//			}
+//		}
+//		width = bounds.right - bounds.left;
+//		Log.d(TAG, "width (2): "+ width);
 		
 		float height = bounds.bottom - bounds.top;
 		bounds.top = (float) (bounds.top - height*0.15);
 		bounds.bottom = (float) (bounds.bottom + height *0.15);
-		if(bounds.top < 0)
+		Log.d(TAG, "bounds - TOP (2): " + bounds.top);
+		Log.d(TAG, "bounds - BOTTOM (2): " + bounds.bottom);
+		if(bounds.top < 0){
+			Log.d(TAG, "set bounds.top = 0  (1)");
 			bounds.top = 0;
-		if(bounds.bottom > bitmap.getHeight()) // ---> größer als Bildschirm-Breite/Höhe
+		}
+			
+		if(bounds.bottom > bitmap.getHeight()) {// ---> größer als Bildschirm-Breite/Höhe
+			Log.d(TAG, "set bounds.bottom = bitmap.getHeight()  (1)");
 			bounds.bottom = bitmap.getHeight();
+		}
 		height = bounds.bottom - bounds.top;
+		Log.d(TAG, "height (1): "+ height);
+		
+		//TODO: alle möglichen Fälle wie die Bounding Box auf dem Bild platziert sein kann abdecken
+//		if(height < frameHeight){
+//			Log.d(TAG, "enter if statement: if(height < frameHeight)");
+//			bounds.top = (float) (bounds.top - ((frameHeight - height)*0.5));
+//			bounds.bottom = (float) (bounds.bottom + ((frameHeight - height)*0.5));
+//			Log.d(TAG, "bounds - TOP (3): " + bounds.top);
+//			Log.d(TAG, "bounds - BOTTOM (3): " + bounds.bottom);
+//			if(bounds.top < 0){
+//				Log.d(TAG, "set bounds.top = 0  (2)");
+//				bounds.top = 0;
+//			}
+//			if(bounds.bottom > bitmap.getHeight()) {// ---> größer als Bildschirm-Breite/Höhe
+//				Log.d(TAG, "set bounds.bottom = bitmap.getHeight()  (2)");
+//				bounds.bottom = bitmap.getHeight();
+//			}
+//		}
+//		height = bounds.bottom - bounds.top;
+//		Log.d(TAG, "height (2): "+ height);
+		
+		//TODO: Seiterverhältnis von Höhe und Breite vergleichen und schauen, 
+		//		ob das ganze in Hoch- oder Querformat ist.
+		if(frameWidth < frameHeight){ // screen in portrait
+			
+			if(width < height){ // bounding box ist im "Hochformat" - Höhe übernehmen, Breite anpassen
+				height = height;
+//				bounds.left = bounds.left - (int)((height * 0.75 - width) / 2); - funkt nicht!
+				width = (int)((height * 0.75));
+			}
+			
+		} else { // screen in landscape
+			
+		}
+		
 		
 		return Bitmap.createBitmap(bitmap, (int)bounds.left, (int)bounds.top, (int)width, (int)height);
 	}
