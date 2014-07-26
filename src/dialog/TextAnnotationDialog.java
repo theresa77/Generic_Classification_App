@@ -1,6 +1,7 @@
 package dialog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import activity.UserScribbleMainActivity;
@@ -10,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -33,6 +35,7 @@ public class TextAnnotationDialog extends DialogFragment {
 	private static final String TAG = TextAnnotationDialog.class.getSimpleName();
 	private ArrayList<EditText> editTextItems;
 	private ListView listView;
+	private SparseArray<String> textAnnotations;
 	
 	/**
 	 * Called when Dialog gets created.
@@ -49,8 +52,10 @@ public class TextAnnotationDialog extends DialogFragment {
 		dialog.setCanceledOnTouchOutside(false);
 		dialog.show();
 		
+		textAnnotations = new SparseArray<String>();
+		
 		listView = (ListView) dialog.findViewById(R.id.text_annotation_list);
-        EditTextAdapter adapter = new EditTextAdapter(activity); 
+        EditTextAdapter adapter = new EditTextAdapter(this); 
         listView.setAdapter(adapter);
        
        // get ok button and set a click listener 
@@ -61,14 +66,10 @@ public class TextAnnotationDialog extends DialogFragment {
 	                public void onClick(View v) {
 	                	List<String> annotations = new ArrayList<String>();
 	                	
-	                	EditTextAdapter adapter = (EditTextAdapter)listView.getAdapter();
-	                	for(int i=0; i < adapter.getCount(); i++){
-	                		if(adapter.getItemText(i) != null || adapter.getItemText(i).equals("")){
-	                			String text = adapter.getItemText(i);
-	                			Log.d(TAG, text);
-	                			annotations.add(text);
-	                		}
+	                	for(int i=0; i<textAnnotations.size(); i++){
+	                		annotations.add(textAnnotations.get(i));
 	                	}
+	                	
 	                	activity.setTextAnnotations(annotations);
 	                	
 	                	dialog.dismiss();
@@ -79,6 +80,10 @@ public class TextAnnotationDialog extends DialogFragment {
 	        );
 		
 		return dialog;
+	}
+	
+	public void addTextAnnotation(int id, String annotation){
+		textAnnotations.put(id, annotation);
 	}
 
 }

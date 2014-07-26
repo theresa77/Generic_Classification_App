@@ -2,30 +2,30 @@ package dialog;
 
 import java.util.ArrayList;
 
-import com.genericclassificationapp.R;
-
 import activity.UserScribbleMainActivity;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+
+import com.genericclassificationapp.R;
 
 public class EditTextAdapter extends BaseAdapter {
 
 	private ArrayList<ListItem> itemList;
 	private LayoutInflater mInflater;
 	private ViewHolder holder;
+	private UserScribbleMainActivity activity;
+	private TextAnnotationDialog dialog;
 	
-	public EditTextAdapter(Context context) {
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        UserScribbleMainActivity activity = (UserScribbleMainActivity)context;
+	public EditTextAdapter(TextAnnotationDialog dialog) {
+		this.dialog = dialog;
+        mInflater = (LayoutInflater) dialog.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        activity = (UserScribbleMainActivity)dialog.getActivity();
         itemList = new ArrayList<ListItem>();
         
         for (int i = 0; i <= activity.getTextAnnotations().size(); i++) {
@@ -58,29 +58,18 @@ public class EditTextAdapter extends BaseAdapter {
         holder.editText.addTextChangedListener(new TextWatcher() {
 
 			public void afterTextChanged(Editable text) {
-				itemList.get(holder.editText.getId()).itemText = text.toString();
+//				itemList.get(holder.editText.getId()).itemText = text.toString();
+				if(text != null && text.length()>0){
+//					activity.addTextAnnotation(text.toString());
+					dialog.addTextAnnotation(holder.editText.getId(), text.toString());
+				}
 			}
 
 			public void beforeTextChanged(CharSequence text, int arg1, int arg2, int arg3) {}
-
-			public void onTextChanged(CharSequence text, int arg1, int arg2, int arg3) {
-				itemList.get(holder.editText.getId()).itemText = text.toString();
-			}
+			public void onTextChanged(CharSequence text, int arg1, int arg2, int arg3) {}
 			
         });
-        		
-        		
-        		
-////        		).setOnFocusChangeListener(new OnFocusChangeListener() {
-//            public void onFocusChange(View v, boolean hasFocus) {
-////                if (!hasFocus){
-//                    final int position = v.getId();
-//                    final EditText editText = (EditText) v;
-//                    itemList.get(position).itemText = editText.getText().toString();
-////                }
-//            }
-////        });
-
+       
         return convertView;
 	}
 	

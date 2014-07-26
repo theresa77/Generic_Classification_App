@@ -480,6 +480,10 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		}
 	}
 	
+	public void addTextAnnotation(String annotation){
+		textAnnotations.add(annotation);
+	}
+	
 	/**
 	 * TODO
 	 * @return
