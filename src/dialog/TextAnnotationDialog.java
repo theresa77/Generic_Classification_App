@@ -36,6 +36,8 @@ public class TextAnnotationDialog extends DialogFragment {
 	private ArrayList<EditText> editTextItems;
 	private ListView listView;
 	private SparseArray<String> textAnnotations;
+//	private HashMap<Integer, String> textAnnotations;
+	private EditTextAdapter adapter;
 	
 	/**
 	 * Called when Dialog gets created.
@@ -53,9 +55,10 @@ public class TextAnnotationDialog extends DialogFragment {
 		dialog.show();
 		
 		textAnnotations = new SparseArray<String>();
+//		textAnnotations = new HashMap<Integer, String>();
 		
 		listView = (ListView) dialog.findViewById(R.id.text_annotation_list);
-        EditTextAdapter adapter = new EditTextAdapter(this); 
+        adapter = new EditTextAdapter(this); 
         listView.setAdapter(adapter);
        
        // get ok button and set a click listener 
@@ -64,13 +67,20 @@ public class TextAnnotationDialog extends DialogFragment {
 	            new View.OnClickListener() {
 	                @Override
 	                public void onClick(View v) {
-	                	List<String> annotations = new ArrayList<String>();
+	                	
+	                	List<String> newAnnotations = new ArrayList<String>();
+	                	
+//	                	for(int i=0; i<listView.getCount(); i++){
+//	                		EditText editText = null;
+//	                		editText = (EditText) adapter.getView(i, editText, listView);
+//	                		newAnnotations.add(editText.getText().toString());
+//	                	}
 	                	
 	                	for(int i=0; i<textAnnotations.size(); i++){
-	                		annotations.add(textAnnotations.get(i));
+	                		newAnnotations.add(textAnnotations.get(i));
 	                	}
 	                	
-	                	activity.setTextAnnotations(annotations);
+	                	activity.addTextAnnotations(newAnnotations);
 	                	
 	                	dialog.dismiss();
 	                	//TODO: make correct Toast Text
@@ -83,7 +93,9 @@ public class TextAnnotationDialog extends DialogFragment {
 	}
 	
 	public void addTextAnnotation(int id, String annotation){
+		Log.d(TAG, "addTextAnnotation( id: "+id+", annotation: "+annotation+" ) called");
 		textAnnotations.put(id, annotation);
+		Log.d(TAG, textAnnotations.size()+"");
 	}
 
 }

@@ -18,7 +18,7 @@ public class EditTextAdapter extends BaseAdapter {
 
 	private ArrayList<ListItem> itemList;
 	private LayoutInflater mInflater;
-	private ViewHolder holder;
+//	private ViewHolder holder;
 	private UserScribbleMainActivity activity;
 	private TextAnnotationDialog dialog;
 	
@@ -41,7 +41,7 @@ public class EditTextAdapter extends BaseAdapter {
 	
 	@Override
     public View getView(int position, View convertView, ViewGroup parent){
-//		ViewHolder holder;
+		ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.edit_text_item_annotation_dialog, null);
@@ -55,21 +55,8 @@ public class EditTextAdapter extends BaseAdapter {
         holder.editText.setId(position);
         
         //update adapter once user is finished with editing
-        holder.editText.addTextChangedListener(new TextWatcher() {
-
-			public void afterTextChanged(Editable text) {
-//				itemList.get(holder.editText.getId()).itemText = text.toString();
-				if(text != null && text.length()>0){
-//					activity.addTextAnnotation(text.toString());
-					dialog.addTextAnnotation(holder.editText.getId(), text.toString());
-				}
-			}
-
-			public void beforeTextChanged(CharSequence text, int arg1, int arg2, int arg3) {}
-			public void onTextChanged(CharSequence text, int arg1, int arg2, int arg3) {}
-			
-        });
-       
+        holder.editText.addTextChangedListener(new EditTextWatcher(position));
+  
         return convertView;
 	}
 	
@@ -94,6 +81,25 @@ public class EditTextAdapter extends BaseAdapter {
 	
 	public String getItemText(int position){
 		return getItem(position).itemText;
+	}
+	
+	private class EditTextWatcher implements TextWatcher{
+		
+		private int id;
+		
+		public EditTextWatcher(int id){
+			this.id = id;
+		}
+
+		@Override
+		public void afterTextChanged(Editable text) {
+			if(text != null && text.length()>0)
+				dialog.addTextAnnotation(id, text.toString());
+		}
+
+		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,int arg3) {}
+		public void onTextChanged(CharSequence arg0, int arg1, int arg2,int arg3) {}
+		
 	}
 	
 	
