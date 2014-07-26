@@ -189,44 +189,50 @@ public class ViewObjectActivity extends Activity {
 		// bei Bild im Hochformat und Bounding Box im Querformat wird oben und unten ein zu dicker schwarzer streifen angezeigt
 		// das gleiche ist auch bei Bild im Querformat, die Bounding Box aber im Hochformat - links und rechts dicke schwarze streifen
 		// die Frage ist hier: will ich das so haben, oder soll stattdessen so viel wie möglich vom restlichen Bild gezeigt werden?
-			
-			if(width < height){ // bounding box ist im "Hochformat" - Höhe übernehmen, Breite anpassen
-				Log.d(TAG, "Bounding Box in PORTRAIT");
-				width = (int)(height * 0.75);
-				bounds.left = bounds.left - Math.abs(width - (bounds.right - bounds.left))/2;
-				if((bounds.left + width) > bitmap.getWidth()){
-					Log.d(TAG, "IF statement entered: if((bounds.left + width) > bitmap.getWidth())");
-					bounds.left = bounds.left - ((bounds.left + width) - bitmap.getWidth());
-				}
-				
-				// Versuch bei Querformat-bild und Hochformat-Scribble-Bounding-Box die ganze mögliche Bildbreite zu nutzen.
-				// ist nicht geglückt
-//				if((bounds.left + width) < bitmap.getWidth()){
-//					Log.d(TAG, "IF statement entered: if((bounds.left + width) < bitmap.getWidth())");
-//					bounds.left = bounds.left - (bitmap.getWidth() - width);
-//					width = width + (bitmap.getWidth() - width);
-//				}
-				if(bounds.left < 0){
-					Log.d(TAG, "IF statement entered: if(bounds.left < 0)");
-					Log.d(TAG, "set bounds.left = 0)");
-					width = width + bounds.left;
-					bounds.left = 0;
-				}
-			} else { // bounding box ist im "Querformat" - Breite übernemen, Höhe anpassen
-				Log.d(TAG, "Bounding Box in LANDSCAPE");
-				height = (int)(width * 0.75);
-				bounds.top = bounds.top - Math.abs(height - (bounds.bottom - bounds.top))/2;
-				if((bounds.top + height) > bitmap.getHeight()){
-					bounds.top = bounds.top - ((bounds.top + height) - bitmap.getHeight());
-				}
-				if(bounds.top < 0){
-					Log.d(TAG, "set bounds.top = 0");
-					height = height + bounds.top;
-					bounds.top = 0;
-				}
-			}
-			
+	
 		
+		// dieser auskommentierte code soll bewirken, dass nicht nur die bounding box um Object+Scribbles gezeichnet wird,
+		// sondern so viel wie möglich auch vom restlichen Bild, sodass am Bildschirm keine zu dicken schwarzen Balken sind.
+		// funktioniert aber mit diesem code noch nicht richtig, es wird vermutlich eine ausführlichere Fallunterscheidung
+		// zwischen Hochformat und Querformat, jeweils für Bildschirm und BoundingBox der Scribbles benötigt.
+//			if(width < height){ // bounding box ist im "Hochformat" - Höhe übernehmen, Breite anpassen
+//				Log.d(TAG, "Bounding Box in PORTRAIT");
+//				width = (int)(height * 0.75);
+//				bounds.left = bounds.left - Math.abs(width - (bounds.right - bounds.left))/2;
+//				if((bounds.left + width) > bitmap.getWidth()){
+//					Log.d(TAG, "IF statement entered: if((bounds.left + width) > bitmap.getWidth())");
+//					bounds.left = bounds.left - ((bounds.left + width) - bitmap.getWidth());
+//				}
+//				
+//				// Versuch bei Querformat-bild und Hochformat-Scribble-Bounding-Box die ganze mögliche Bildbreite zu nutzen.
+//				// ist nicht geglückt
+////				if((bounds.left + width) < bitmap.getWidth()){
+////					Log.d(TAG, "IF statement entered: if((bounds.left + width) < bitmap.getWidth())");
+////					bounds.left = bounds.left - (bitmap.getWidth() - width);
+////					width = width + (bitmap.getWidth() - width);
+////				}
+//				if(bounds.left < 0){
+//					Log.d(TAG, "IF statement entered: if(bounds.left < 0)");
+//					Log.d(TAG, "set bounds.left = 0)");
+//					width = width + bounds.left;
+//					bounds.left = 0;
+//				}
+//			} else { // bounding box ist im "Querformat" - Breite übernemen, Höhe anpassen
+//				Log.d(TAG, "Bounding Box in LANDSCAPE");
+//				height = (int)(width * 0.75);
+//				bounds.top = bounds.top - Math.abs(height - (bounds.bottom - bounds.top))/2;
+//				if((bounds.top + height) > bitmap.getHeight()){
+//					Log.d(TAG, "IF statement entered: if((bounds.top + height) > bitmap.getHeight())");
+//					bounds.top = bounds.top - ((bounds.top + height) - bitmap.getHeight());
+//				}
+//				if(bounds.top < 0){
+//					Log.d(TAG, "IF statement entered: if(bounds.top < 0)");
+//					Log.d(TAG, "set bounds.top = 0");
+//					height = height + bounds.top;
+//					bounds.top = 0;
+//				}
+//			}
+			
 		Log.d(TAG, "Bitmap-HEIGHT: "+bitmap.getHeight());
 		Log.d(TAG, "Bitmap-WIDTH: "+bitmap.getWidth());
 		Log.d(TAG, "Bounds-LEFT: "+bounds.left);

@@ -38,17 +38,22 @@ public class ForeBackGround extends Scribble {
 	
 	public RectF getBoundingBoxOfScribble(){
 		// left, top, right, bottom
-		RectF bounds = new RectF();
+//		RectF bounds = new RectF();
 		RectF boundsFore = new RectF();
 		RectF boundsBack = new RectF();
 		
 		pathFore.computeBounds(boundsFore, true);
 		pathBack.computeBounds(boundsBack, true);
 		
-		bounds.left = Math.min(boundsFore.left, boundsBack.left);
-		bounds.top = Math.min(boundsFore.top, boundsBack.top);
-		bounds.right = Math.min(boundsFore.right, boundsBack.right);
-		bounds.bottom = Math.min(boundsFore.bottom, boundsBack.bottom);
+//		bounds.left = Math.min(boundsFore.left, boundsBack.left);
+//		bounds.top = Math.min(boundsFore.top, boundsBack.top);
+//		bounds.right = Math.min(boundsFore.right, boundsBack.right);
+//		bounds.bottom = Math.min(boundsFore.bottom, boundsBack.bottom);
+
+		RectF bounds = new RectF(Math.min(boundsFore.left, boundsBack.left),
+								 Math.min(boundsFore.top, boundsBack.top),
+								 Math.max(boundsFore.right, boundsBack.right),
+								 Math.max(boundsFore.bottom, boundsBack.bottom));
 		
 		return bounds;
 	}
