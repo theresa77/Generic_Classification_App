@@ -245,17 +245,12 @@ public class ViewObjectActivity extends Activity {
 			if(bounds != null){
 				currScri = scri.getBoundingBoxOfScribble();
 				
-				bounds.left = Math.min(currScri.left, bounds.left);
-				bounds.top = Math.min(currScri.top, bounds.top);
-				bounds.right = Math.max(currScri.right, bounds.right);
-				bounds.bottom = Math.max(currScri.bottom, bounds.bottom);
-				
-//				bounds = new RectF(Math.min(currScri.left, bounds.left), 
-//								   Math.min(currScri.top, bounds.top),
-//								   Math.max(currScri.right, bounds.right),
-//								   Math.max(currScri.bottom, bounds.bottom));
+				bounds = new RectF(Math.min(currScri.left, bounds.left), 
+								   Math.min(currScri.top, bounds.top),
+								   Math.max(currScri.right, bounds.right),
+								   Math.max(currScri.bottom, bounds.bottom));
 			} else {
-				bounds = scri.getBoundingBoxOfScribble();
+				bounds = new RectF(scri.getBoundingBoxOfScribble());
 			}
 		}
 		
