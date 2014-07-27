@@ -36,7 +36,6 @@ public class TextAnnotationDialog extends DialogFragment {
 	private ArrayList<EditText> editTextItems;
 	private ListView listView;
 	private SparseArray<String> textAnnotations;
-//	private HashMap<Integer, String> textAnnotations;
 	private EditTextAdapter adapter;
 	
 	/**
@@ -68,7 +67,7 @@ public class TextAnnotationDialog extends DialogFragment {
 	                @Override
 	                public void onClick(View v) {
 	                	
-//	                	List<String> newAnnotations = new ArrayList<String>();
+	                	List<String> newAnnotations = new ArrayList<String>();
 	                	
 //	                	for(int i=0; i<listView.getCount(); i++){
 ////	                		LinearLayout layout = null;
@@ -82,13 +81,12 @@ public class TextAnnotationDialog extends DialogFragment {
 ////	                		newAnnotations.add(editText.getText().toString());
 //	                	}
 //	                	
-//	                	for(int i=0; i<textAnnotations.size(); i++){
-////	                		newAnnotations.add(textAnnotations.get(i));
-//	                		
-//	                	}
+	                	for(int i=0; i<textAnnotations.size(); i++){
+	                		newAnnotations.add(textAnnotations.valueAt(i));       		
+	                	}
 	                	
-//	                	activity.addTextAnnotations(newAnnotations);
-	                	activity.addTextAnnotations(textAnnotations);
+	                	activity.addTextAnnotations(newAnnotations);
+//	                	activity.addTextAnnotations(textAnnotations);
 	                	
 	                	dialog.dismiss();
 	                	//TODO: make correct Toast Text
@@ -102,7 +100,7 @@ public class TextAnnotationDialog extends DialogFragment {
 	
 	public void addTextAnnotation(int id, String annotation){
 		Log.d(TAG, "addTextAnnotation( id: "+id+", annotation: "+annotation+" ) called");
-		textAnnotations.put(id, annotation);
+		textAnnotations.append(id, annotation);
 		Log.d(TAG, textAnnotations.size()+"");
 	}
 
