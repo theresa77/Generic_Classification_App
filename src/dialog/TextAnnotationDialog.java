@@ -13,6 +13,7 @@ import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -58,6 +59,22 @@ public class TextAnnotationDialog extends DialogFragment {
 		listView = (ListView) dialog.findViewById(R.id.text_annotation_list);
         adapter = new EditTextAdapter(this); 
         listView.setAdapter(adapter);
+        
+        int height = 0;
+        EditText item;
+        for(int i=0; i<activity.getTextAnnotations().size(); i++){
+        	item = adapter.getItem(i);
+        	item.measure(0, 0);
+        	height += item.getMeasuredHeight();
+        }
+        
+        // set height for list view of edit-text-fields
+        if(height > activity.getDisplayHeight()*0.5){
+        	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 
+					(int)(activity.getDisplayHeight()-activity.getDisplayHeight()*0.5));
+        	listView.setLayoutParams(params);
+        }
+        
        
        // get ok button and set a click listener 
        ImageButton mPickButton = (ImageButton) dialog.findViewById(R.id.text_annotation_ok_button);
@@ -65,16 +82,7 @@ public class TextAnnotationDialog extends DialogFragment {
 	            new View.OnClickListener() {
 	                @Override
 	                public void onClick(View v) {
-	                	
-//	                	List<String> newAnnotations = new ArrayList<String>();
-//	                	
-//	                	for(int i=0; i<textAnnotations.size(); i++){
-//	                		newAnnotations.add(textAnnotations.valueAt(i));       		
-//	                	}
-//	                	
-//	                	activity.addTextAnnotations(newAnnotations);
 	                	activity.addTextAnnotations(textAnnotations);
-	                	
 	                	dialog.dismiss();
 	                	//TODO: make correct Toast Text
 	                	Toast.makeText(activity, "Text Annotation saved", Toast.LENGTH_SHORT).show();

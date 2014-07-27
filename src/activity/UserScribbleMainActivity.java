@@ -483,6 +483,10 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 //		}
 //	}
 	
+	/**
+	 * TODO
+	 * @param annotations
+	 */
 	public void addTextAnnotations(SparseArray<String> annotations){
 		for(int i=0; i<annotations.size(); i++){
 			if(annotations.keyAt(i)<textAnnotations.size()){

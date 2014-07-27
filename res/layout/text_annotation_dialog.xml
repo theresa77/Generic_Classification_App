@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:background="@color/buttonGray"
     android:orientation="vertical" >
     
@@ -15,42 +15,37 @@
     	android:layout_height="1dip"
 		android:background="@color/middleGray"
 		android:layout_marginBottom="15dp" />
+    
     <!--  
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
-        -->
-  	
-	  	<LinearLayout
-	        android:id="@+id/text_annotation_dialog"
-	        android:orientation="vertical"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        >        
-	<!--  -->
-	        <ListView
-	            android:id="@+id/text_annotation_list"
-	            style="@style/ListViewEditTextItems" />
-	     <!--    
-	        
-			<EditText android:id="@+id/edit_text_annotation" 
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:textColor="@color/white"
-		        android:hint="@string/edit_text_annotation" />
-	     -->
-	    </LinearLayout>
-    <!-- 
+     -->   
+     <!--  -->
+     <LinearLayout
+        android:id="@+id/text_annotation_dialog"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/text_annotation_list"
+            style="@style/ListViewEditTextItems" />
+        
+    </LinearLayout>
+    
+     <ImageButton
+            android:id="@+id/text_annotation_ok_button"
+            style="@style/ButtonDialog"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/pick"
+            android:src="@drawable/check" />
+
+	<!--    	
     </ScrollView>
+ 
     -->
     
-    <ImageButton 
-        android:id="@+id/text_annotation_ok_button"
-        style="@style/ButtonDialog"
-        android:contentDescription="@string/pick"
-        android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:src="@drawable/check"
-        /> 
      
 </LinearLayout>
