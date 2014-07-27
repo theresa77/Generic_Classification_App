@@ -486,7 +486,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	public void addTextAnnotations(SparseArray<String> annotations){
 		for(int i=0; i<annotations.size(); i++){
 			if(annotations.keyAt(i)<textAnnotations.size()){
-				textAnnotations.set(i, annotations.valueAt(i));
+				textAnnotations.set(annotations.keyAt(i), annotations.valueAt(i));
 			}
 			else
 				textAnnotations.add(annotations.valueAt(i));
