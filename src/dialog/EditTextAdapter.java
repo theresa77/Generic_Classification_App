@@ -69,13 +69,7 @@ public class EditTextAdapter extends BaseAdapter {
 		
 		editText.setText(itemList.get(position).getText().toString());
 		editText.setId(position);
-//		if(editText.getId() < activity.getTextAnnotations().size()){
-//			editText.setText(activity.getTextAnnotations().get(editText.getId()));
-//    		Log.d(TAG, "set Text for ListItem on position "+editText.getId()+" and with text: "+activity.getTextAnnotations().get(editText.getId()));
-//    	}
-		
-//		editText.addTextChangedListener(new EditTextWatcher(position,editText));
-		
+
 		editText.addTextChangedListener(new TextWatcher(){
 
 			@Override
@@ -91,26 +85,6 @@ public class EditTextAdapter extends BaseAdapter {
 				}
 			}
 		});
-		
-//		editText.setOnEditorActionListener(new OnEditorActionListener() {
-//
-//			@Override
-//			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//				dialog.addTextAnnotation(editText.getId(), v.getText().toString());
-//				return false;
-//			}
-//			
-//		});
-		
-//		editText.setOnTouchListener(new OnTouchListener(){
-//
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				// TODO Auto-generated method stub
-//				return false;
-//			}
-//			
-//		});
 		
 		return editText;
 	}
@@ -137,45 +111,5 @@ public class EditTextAdapter extends BaseAdapter {
 	public String getItemText(int position) {
 		return getItem(position).getText().toString();
 	}
-	
-	private class EditTextWatcher implements TextWatcher {
-
-		private final int id;
-		private String currText;
-		private EditText editText;
-
-		public EditTextWatcher(int id, EditText editText) {
-			Log.d(TAG, "new EditTextWatcher( "+id+" )");
-			this.id = id;
-			this.editText = editText;
-		}
-
-		@Override
-		public void afterTextChanged(Editable text) {
-//			if (text != null && text.length() > 0) {
-//				if(currText == null)
-//					currText = text.toString();
-//				if(!text.toString().equals(currText)){
-//					currText = text.toString();
-//					dialog.addTextAnnotation(id, text.toString());
-//				}
-//			}
-		}
-
-		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,int arg3) {}
-
-		public void onTextChanged(CharSequence text, int arg1, int arg2,int arg3) {
-			if (text != null && text.length() > 0 && editText.getId()==id) {
-//				if(currText == null)
-//					currText = text.toString();
-//				if(!text.toString().equals(currText)){
-//					currText = text.toString();
-					dialog.addTextAnnotation(id, text.toString());
-//				}
-			}
-		}
-
-	}
-
 	
 }

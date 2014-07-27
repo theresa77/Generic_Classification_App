@@ -481,11 +481,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		for(String s: annotations){
 			textAnnotations.add(s);
 		}
-//		if(textAnnotations == null)
-//			textAnnotations = new SparseArray<String>();
-//		for(int i=0; i<annotations.size(); i++){
-//			textAnnotations.put(i,annotations.get(i));
-//		}
 	}
 	
 	/**
@@ -493,10 +488,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @return
 	 */
 	public List<String> getTextAnnotations(){
-//		List<String> annotations = new ArrayList<String>();
-//		for(int i=0; i<textAnnotations.size(); i++){
-//			annotations.add(textAnnotations.get(i));
-//		}
 		return textAnnotations;
 	}
 }

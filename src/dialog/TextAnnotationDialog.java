@@ -54,7 +54,6 @@ public class TextAnnotationDialog extends DialogFragment {
 		dialog.show();
 		
 		textAnnotations = new SparseArray<String>();
-//		textAnnotations = new HashMap<Integer, String>();
 		
 		listView = (ListView) dialog.findViewById(R.id.text_annotation_list);
         adapter = new EditTextAdapter(this); 
@@ -69,24 +68,11 @@ public class TextAnnotationDialog extends DialogFragment {
 	                	
 	                	List<String> newAnnotations = new ArrayList<String>();
 	                	
-//	                	for(int i=0; i<listView.getCount(); i++){
-////	                		LinearLayout layout = null;
-////	                		layout = (LinearLayout) adapter.getView(i, layout, listView);
-////	                		EditText editText = (EditText) layout.getChildAt(0);
-//	                		
-//	                		EditText editText = null;
-//	                		editText = (EditText) adapter.getView(i, editText, listView);
-//	                		
-//	                		textAnnotations.put(i, editText.getText().toString());
-////	                		newAnnotations.add(editText.getText().toString());
-//	                	}
-//	                	
 	                	for(int i=0; i<textAnnotations.size(); i++){
 	                		newAnnotations.add(textAnnotations.valueAt(i));       		
 	                	}
 	                	
 	                	activity.addTextAnnotations(newAnnotations);
-//	                	activity.addTextAnnotations(textAnnotations);
 	                	
 	                	dialog.dismiss();
 	                	//TODO: make correct Toast Text
