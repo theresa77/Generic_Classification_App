@@ -66,13 +66,14 @@ public class TextAnnotationDialog extends DialogFragment {
 	                @Override
 	                public void onClick(View v) {
 	                	
-	                	List<String> newAnnotations = new ArrayList<String>();
-	                	
-	                	for(int i=0; i<textAnnotations.size(); i++){
-	                		newAnnotations.add(textAnnotations.valueAt(i));       		
-	                	}
-	                	
-	                	activity.addTextAnnotations(newAnnotations);
+//	                	List<String> newAnnotations = new ArrayList<String>();
+//	                	
+//	                	for(int i=0; i<textAnnotations.size(); i++){
+//	                		newAnnotations.add(textAnnotations.valueAt(i));       		
+//	                	}
+//	                	
+//	                	activity.addTextAnnotations(newAnnotations);
+	                	activity.addTextAnnotations(textAnnotations);
 	                	
 	                	dialog.dismiss();
 	                	//TODO: make correct Toast Text
