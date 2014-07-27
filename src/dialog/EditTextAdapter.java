@@ -6,6 +6,7 @@ import activity.UserScribbleMainActivity;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,9 @@ import com.genericclassificationapp.R;
 
 public class EditTextAdapter extends BaseAdapter {
 
-	private ArrayList<ListItem> itemList;
+	private static final String TAG = EditTextAdapter.class.getSimpleName();
+//	private ArrayList<ListItem> itemList;
+	private ArrayList<EditText> itemList;
 	private LayoutInflater mInflater;
 //	private ViewHolder holder;
 	private UserScribbleMainActivity activity;
@@ -26,12 +29,16 @@ public class EditTextAdapter extends BaseAdapter {
 		this.dialog = dialog;
         mInflater = (LayoutInflater) dialog.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         activity = (UserScribbleMainActivity)dialog.getActivity();
-        itemList = new ArrayList<ListItem>();
+//      itemList = new ArrayList<ListItem>();
+        itemList = new ArrayList<EditText>();
         
         for (int i = 0; i <= activity.getTextAnnotations().size(); i++) {
-        	ListItem listItem = new ListItem();
+//        	ListItem listItem = new ListItem();
+        	EditText listItem = new EditText(activity);
         	if(i < activity.getTextAnnotations().size()){
-        		listItem.itemText = activity.getTextAnnotations().get(i);
+//        		listItem.itemText = activity.getTextAnnotations().get(i);
+        		listItem.setText(activity.getTextAnnotations().get(i));
+        		
         	}
 //        	listItem.itemText = "TEST";
         	itemList.add(listItem);
@@ -41,26 +48,51 @@ public class EditTextAdapter extends BaseAdapter {
 	
 	@Override
     public View getView(int position, View convertView, ViewGroup parent){
-		ViewHolder holder;
+		String msg = "getView( position: "+position+", convertView-Text: ";
+		if(convertView != null)
+			msg += ((EditText)convertView).getText().toString();
+		else
+			msg += "NULL";
+		msg += ", parent: ";
+		if(parent != null)
+			msg += parent.toString();
+		msg += " ) called";
+			
+		Log.d(TAG, msg);
+		
+//		ViewHolder holder;
+		EditText editText = null;
         if (convertView == null) {
-            holder = new ViewHolder();
+//            holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.edit_text_item_annotation_dialog, null);
-            holder.editText = (EditText) convertView.findViewById(R.id.edit_text_item_annotation);
-            convertView.setTag(holder);
+             editText = (EditText) convertView.findViewById(R.id.edit_text_item_annotation);
+//           holder.editText = (EditText) convertView.findViewById(R.id.edit_text_item_annotation);
+//            convertView.setTag(holder);
+             convertView.setTag(editText);
+             
         } else {
-            holder = (ViewHolder) convertView.getTag();
+//            holder = (ViewHolder) convertView.getTag();
+        	 editText = (EditText) convertView.getTag();
+        	
         }
-        //Fill EditText with the value you have in data source
-        holder.editText.setText(itemList.get(position).itemText);
-        holder.editText.setId(position);
-        
-        //update adapter once user is finished with editing
-        holder.editText.addTextChangedListener(new EditTextWatcher(position));
+//        //Fill EditText with the value you have in data source
+//        holder.editText.setText(itemList.get(position).itemText);
+//        holder.editText.setId(position);
+        editText.setText(itemList.get(position).getText().toString());
+//        
+//        //update adapter once user is finished with editing
+//        holder.editText.addTextChangedListener(new EditTextWatcher(position));
+        editText.addTextChangedListener(new EditTextWatcher(position));
   
-        return convertView;
+//        return holder.editText;
+        return editText;
 	}
 	
-	public ArrayList<ListItem> getList(){
+//	public ArrayList<ListItem> getList(){
+//		return itemList;
+//	}
+	
+	public ArrayList<EditText> getList(){
 		return itemList;
 	}
 	
@@ -69,8 +101,13 @@ public class EditTextAdapter extends BaseAdapter {
         return itemList.size();
     }
 
+//	@Override
+//	public ListItem getItem(int position) {
+//        return itemList.get(position);
+//    }
+	
 	@Override
-	public ListItem getItem(int position) {
+	public EditText getItem(int position) {
         return itemList.get(position);
     }
 
@@ -79,8 +116,12 @@ public class EditTextAdapter extends BaseAdapter {
 		return position;
 	}
 	
+//	public String getItemText(int position){
+//		return getItem(position).itemText;
+//	}
+	
 	public String getItemText(int position){
-		return getItem(position).itemText;
+		return getItem(position).getText().toString();
 	}
 	
 	private class EditTextWatcher implements TextWatcher{
@@ -93,8 +134,9 @@ public class EditTextAdapter extends BaseAdapter {
 
 		@Override
 		public void afterTextChanged(Editable text) {
-			if(text != null && text.length()>0)
+			if(text != null && text.length()>0){
 				dialog.addTextAnnotation(id, text.toString());
+			}
 		}
 
 		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,int arg3) {}
@@ -108,6 +150,7 @@ public class EditTextAdapter extends BaseAdapter {
     }
  
     private class ListItem {
+    	EditText editText;
         String itemText;
     }
 }

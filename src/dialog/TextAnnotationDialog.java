@@ -68,19 +68,27 @@ public class TextAnnotationDialog extends DialogFragment {
 	                @Override
 	                public void onClick(View v) {
 	                	
-	                	List<String> newAnnotations = new ArrayList<String>();
+//	                	List<String> newAnnotations = new ArrayList<String>();
 	                	
 //	                	for(int i=0; i<listView.getCount(); i++){
+////	                		LinearLayout layout = null;
+////	                		layout = (LinearLayout) adapter.getView(i, layout, listView);
+////	                		EditText editText = (EditText) layout.getChildAt(0);
+//	                		
 //	                		EditText editText = null;
 //	                		editText = (EditText) adapter.getView(i, editText, listView);
-//	                		newAnnotations.add(editText.getText().toString());
+//	                		
+//	                		textAnnotations.put(i, editText.getText().toString());
+////	                		newAnnotations.add(editText.getText().toString());
+//	                	}
+//	                	
+//	                	for(int i=0; i<textAnnotations.size(); i++){
+////	                		newAnnotations.add(textAnnotations.get(i));
+//	                		
 //	                	}
 	                	
-	                	for(int i=0; i<textAnnotations.size(); i++){
-	                		newAnnotations.add(textAnnotations.get(i));
-	                	}
-	                	
-	                	activity.addTextAnnotations(newAnnotations);
+//	                	activity.addTextAnnotations(newAnnotations);
+	                	activity.addTextAnnotations(textAnnotations);
 	                	
 	                	dialog.dismiss();
 	                	//TODO: make correct Toast Text

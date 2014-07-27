@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.MotionEventCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -67,7 +68,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private RelativeLayout tab3;
 	private ScribbleType currentScribble;
 	private List<Scribble> scribbles;
-	private List<String> textAnnotations;
+//	private List<String> textAnnotations;
+	private SparseArray<String> textAnnotations;
 	
 	/**
 	 * Called when the activity is created.
@@ -173,7 +175,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 			scribbles = new ArrayList<Scribble>();
 		
 		// create list for text annotations
-		textAnnotations = new ArrayList<String>();
+//		textAnnotations = new ArrayList<String>();
+		textAnnotations = new SparseArray<String>();
 	}
 	
 	/**
@@ -473,10 +476,15 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * TODO
 	 * @param annotation
 	 */
-	public void addTextAnnotations(List<String> annotations){
+	public void addTextAnnotations(SparseArray<String> annotations){
 //		textAnnotations = new ArrayList<String>();
-		for(String s: annotations){
-			textAnnotations.add(s);
+//		for(String s: annotations){
+//			textAnnotations.add(s);
+//		}
+		if(textAnnotations == null)
+			textAnnotations = new SparseArray<String>();
+		for(int i=0; i<annotations.size(); i++){
+			textAnnotations.put(i,annotations.get(i));
 		}
 	}
 	
@@ -485,6 +493,11 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @return
 	 */
 	public List<String> getTextAnnotations(){
-		return textAnnotations;
+		List<String> annotations = new ArrayList<String>();
+		for(int i=0; i<textAnnotations.size(); i++){
+			annotations.add(textAnnotations.get(i));
+		}
+		return annotations;
+//		return textAnnotations;
 	}
 }
