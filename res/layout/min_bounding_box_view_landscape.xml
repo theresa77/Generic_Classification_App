@@ -28,6 +28,14 @@
              />
         
         <ImageButton
+            android:id="@+id/zoom_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/magnifier"
+            android:contentDescription="@string/magnifier" 
+            android:onClick="zoom"
+             />
+        
+        <ImageButton
             android:id="@+id/add_further_scribble_button"
             style="@style/ButtonBarButton"
             android:src="@drawable/plus"

@@ -69,7 +69,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private ScribbleType currentScribble;
 	private List<Scribble> scribbles;
 	private List<String> textAnnotations;
-//	private SparseArray<String> textAnnotations;
 	
 	/**
 	 * Called when the activity is created.
@@ -503,5 +502,9 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	public List<String> getTextAnnotations(){
 		return textAnnotations;
+	}
+	
+	public void zoom(View v){
+		mView.setZoomEnabled();
 	}
 }

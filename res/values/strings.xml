@@ -59,5 +59,6 @@
  	<string name="add_further_scribble">Add Further Scribble</string>
  	<string name="delete_scribble">Delete Scribble</string>
  	<string name="back">Get Back</string>
+ 	<string name="magnifier">magnifier</string>
 
 </resources>

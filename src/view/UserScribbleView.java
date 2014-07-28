@@ -34,6 +34,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	protected int displayHeight;
 	protected boolean drawNewScribble;
 	protected Scribble currentScribble;
+	protected boolean zoomEnabled;
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
@@ -175,6 +176,12 @@ public abstract class UserScribbleView extends SurfaceView {
 	 */
 	public Scribble getCurrentScribble() {
 		return currentScribble;
+	}
+	
+	public void setZoomEnabled(){
+		Log.d(TAG, "ZOOM-ENABLED BOOLEAN BEFORE: "+zoomEnabled);
+		zoomEnabled = (zoomEnabled ? false : true);
+		Log.d(TAG, "ZOOM-ENABLED BOOLEAN AFTER: "+zoomEnabled);
 	}
 
 	/**
