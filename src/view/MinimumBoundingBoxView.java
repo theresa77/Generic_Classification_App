@@ -42,39 +42,47 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	@Override
 	public void onDraw(Canvas canvas) {
 		// Log.d(TAG, "onDraw() is called");
-		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-		mPaint.setStyle(Paint.Style.STROKE);
+		//TODO: use zoomBox for drawing the bitmap
+		canvas.save();
+		canvas.scale(mScaleFactor, mScaleFactor, focusX, focusY);
+		canvas.translate(mPosX, mPosY);
+		canvas.drawBitmap(mPictureBitmap, matrix, null);
+		canvas.restore();
 		
-		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
-			for (Scribble s : mPicture.getScribbles()) {
-				s.drawScribble(canvas);
-			}
-		}
 		
-		if (rectf != null) {
-			if (currentShape == Shape.RECTANGLE) {
-				canvas.drawRect(rectf, mPaint);
-				
-				if(!drawNewScribble){
-					mPaint.setStyle(Paint.Style.FILL);
-					canvas.drawCircle(rectf.left, rectf.top, mPaint.getStrokeWidth(), mPaint);
-					canvas.drawCircle(rectf.left, rectf.bottom, mPaint.getStrokeWidth(), mPaint);
-					canvas.drawCircle(rectf.right, rectf.top, mPaint.getStrokeWidth(), mPaint);
-					canvas.drawCircle(rectf.right, rectf.bottom, mPaint.getStrokeWidth(), mPaint);
-				} 
-			} else {
-				canvas.drawOval(rectf, mPaint);
-				
-				if(!drawNewScribble){
-					mPaint.setStyle(Paint.Style.FILL);
-					canvas.drawCircle(rectf.centerX(), rectf.top, mPaint.getStrokeWidth(), mPaint);
-					canvas.drawCircle(rectf.centerX(), rectf.bottom, mPaint.getStrokeWidth(), mPaint);
-					canvas.drawCircle(rectf.left, rectf.centerY(), mPaint.getStrokeWidth(), mPaint);
-					canvas.drawCircle(rectf.right, rectf.centerY(), mPaint.getStrokeWidth(), mPaint);
-				} 
-			}
-		}
-		mPaint.setStyle(Paint.Style.STROKE);
+//		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
+//		mPaint.setStyle(Paint.Style.STROKE);
+//		
+//		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+//			for (Scribble s : mPicture.getScribbles()) {
+//				s.drawScribble(canvas);
+//			}
+//		}
+//		
+//		if (rectf != null) {
+//			if (currentShape == Shape.RECTANGLE) {
+//				canvas.drawRect(rectf, mPaint);
+//				
+//				if(!drawNewScribble){
+//					mPaint.setStyle(Paint.Style.FILL);
+//					canvas.drawCircle(rectf.left, rectf.top, mPaint.getStrokeWidth(), mPaint);
+//					canvas.drawCircle(rectf.left, rectf.bottom, mPaint.getStrokeWidth(), mPaint);
+//					canvas.drawCircle(rectf.right, rectf.top, mPaint.getStrokeWidth(), mPaint);
+//					canvas.drawCircle(rectf.right, rectf.bottom, mPaint.getStrokeWidth(), mPaint);
+//				} 
+//			} else {
+//				canvas.drawOval(rectf, mPaint);
+//				
+//				if(!drawNewScribble){
+//					mPaint.setStyle(Paint.Style.FILL);
+//					canvas.drawCircle(rectf.centerX(), rectf.top, mPaint.getStrokeWidth(), mPaint);
+//					canvas.drawCircle(rectf.centerX(), rectf.bottom, mPaint.getStrokeWidth(), mPaint);
+//					canvas.drawCircle(rectf.left, rectf.centerY(), mPaint.getStrokeWidth(), mPaint);
+//					canvas.drawCircle(rectf.right, rectf.centerY(), mPaint.getStrokeWidth(), mPaint);
+//				} 
+//			}
+//		}
+//		mPaint.setStyle(Paint.Style.STROKE);
 	}
 	
 	public void handleTouchEvent(int action, float x, float y) {
@@ -233,8 +241,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 				yStart = 0;
 				
 				break;
-			}
-			
+			}		
 		}
 
 	}

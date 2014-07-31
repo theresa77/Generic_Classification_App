@@ -8,9 +8,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.SurfaceView;
 import domain.Picture;
 import domain.Scribble;
@@ -35,6 +39,27 @@ public abstract class UserScribbleView extends SurfaceView {
 	protected boolean drawNewScribble;
 	protected Scribble currentScribble;
 	protected boolean zoomEnabled;
+	protected RectF zoomBox;
+	
+	
+	protected static final int INVALID_POINTER_ID = -1;
+	protected float mPosX;
+	protected float mPosY;
+	protected float mLastTouchX;
+	protected float mLastTouchY;
+	protected int mActivePointerId = INVALID_POINTER_ID;
+	protected ScaleGestureDetector mScaleDetector;
+	protected float mScaleFactor = 1.f;
+	protected float focusX;
+	protected float focusY;
+	protected float lastFocusX = -1;
+	protected float lastFocusY = -1;
+	static final int IMG_WIDTH = 640;
+	static final int IMG_HEIGHT = 480;
+	Matrix matrix;
+	float sy;
+	float sx;
+	
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
@@ -64,6 +89,16 @@ public abstract class UserScribbleView extends SurfaceView {
 		setBackgroundColor(Color.BLACK);
 		drawNewScribble = false;
 		mPicture = Picture.getInstance();
+
+		matrix = new Matrix();
+		final int width = mPicture.getBitmap().getWidth();
+		final int height = mPicture.getBitmap().getHeight();
+		sx = 550 / (float) width;
+		sy = 700 / (float) height;
+		matrix.setScale(sx, sy);
+		matrix.postTranslate(sx, sy);
+
+		mScaleDetector = new ScaleGestureDetector(mActivity, new ScaleListener());
 	}
 	
 	/**
@@ -179,9 +214,11 @@ public abstract class UserScribbleView extends SurfaceView {
 	}
 	
 	public void setZoomEnabled(){
-		Log.d(TAG, "ZOOM-ENABLED BOOLEAN BEFORE: "+zoomEnabled);
 		zoomEnabled = (zoomEnabled ? false : true);
-		Log.d(TAG, "ZOOM-ENABLED BOOLEAN AFTER: "+zoomEnabled);
+	}
+	
+	public void setZoomBox(int left, int top, int right, int bottom){
+		zoomBox = new RectF(left, top, right, bottom);
 	}
 
 	/**
@@ -210,4 +247,116 @@ public abstract class UserScribbleView extends SurfaceView {
 	 */
 	public abstract void handleTouchEventOutsidePicture(int action);
 	
+	
+	public void handleTouchZoomEvent(MotionEvent event, int action, float x, float y){
+
+		// Let the ScaleGestureDetector inspect all events.
+		mScaleDetector.onTouchEvent(event);
+
+		// final int action = event.getAction();
+		switch (action & MotionEvent.ACTION_MASK) {
+		case MotionEvent.ACTION_DOWN: {
+
+			x = event.getX() / mScaleFactor;
+			y = event.getY() / mScaleFactor;
+			mLastTouchX = x;
+			mLastTouchY = y;
+			mActivePointerId = event.getPointerId(0);
+
+			break;
+		}
+
+		case MotionEvent.ACTION_MOVE: {
+			int pointerIndex = event.findPointerIndex(mActivePointerId);
+			x = event.getX(pointerIndex) / mScaleFactor;
+			y = event.getY(pointerIndex) / mScaleFactor;
+
+			// Only move if the ScaleGestureDetector isn't processing a
+			// gesture.
+			if (!mScaleDetector.isInProgress()) {
+
+				final float dx = x - mLastTouchX;
+				final float dy = y - mLastTouchY;
+				mPosX += dx;
+				mPosY += dy;
+
+				invalidate();
+			}
+
+			mLastTouchX = x;
+			mLastTouchY = y;
+
+			break;
+		}
+
+		case MotionEvent.ACTION_UP: {
+			mActivePointerId = INVALID_POINTER_ID;
+			break;
+		}
+
+		case MotionEvent.ACTION_CANCEL: {
+			mActivePointerId = INVALID_POINTER_ID;
+			break;
+		}
+
+		case MotionEvent.ACTION_POINTER_UP: {
+
+			final int pointerIndex = (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+			final int pointerId = event.getPointerId(pointerIndex);
+			if (pointerId == mActivePointerId) {
+				// This was our active pointer going up. Choose a new
+				// active pointer and adjust accordingly.
+				final int newPointerIndex = pointerIndex == 0 ? 1 : 0;
+				mLastTouchX = event.getX(newPointerIndex) / mScaleFactor;
+				mLastTouchY = event.getY(newPointerIndex) / mScaleFactor;
+				mActivePointerId = event.getPointerId(newPointerIndex);
+			}
+			break;
+		}
+		}
+		
+		
+		
+	}
+	
+	private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+		@Override
+		public boolean onScaleBegin(ScaleGestureDetector detector) {
+
+			// float x = detector.getFocusX();
+			// float y = detector.getFocusY();
+
+			lastFocusX = -1;
+			lastFocusY = -1;
+
+			return true;
+		}
+
+		@Override
+		public boolean onScale(ScaleGestureDetector detector) {
+			mScaleFactor *= detector.getScaleFactor();
+
+			focusX = detector.getFocusX();
+			focusY = detector.getFocusY();
+
+			if (lastFocusX == -1)
+				lastFocusX = focusX;
+			if (lastFocusY == -1)
+				lastFocusY = focusY;
+
+			mPosX += (focusX - lastFocusX);
+			mPosY += (focusY - lastFocusY);
+			Log.v("Hi Zoom", "Factor:" + mScaleFactor);
+			// Don't let the object get too small or too large.
+			mScaleFactor = Math.max(0.5f, Math.min(mScaleFactor, 2.0f));
+
+			lastFocusX = focusX;
+			lastFocusY = focusY;
+
+			invalidate();
+			return true;
+		}
+
+	}
+
 }

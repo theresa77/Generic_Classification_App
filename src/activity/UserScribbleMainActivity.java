@@ -69,6 +69,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private ScribbleType currentScribble;
 	private List<Scribble> scribbles;
 	private List<String> textAnnotations;
+	private Boolean zoomEnabled;
+	 
 	
 	/**
 	 * Called when the activity is created.
@@ -176,6 +178,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		// create list for text annotations
 		textAnnotations = new ArrayList<String>();
 //		textAnnotations = new SparseArray<String>();
+		
+		zoomEnabled = true;
 	}
 	
 	/**
@@ -188,26 +192,33 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		float x = 0;
 		float y = 0;
 
-		// get position of touch on the picture
-		if (displayWidth > displayHeight) { //display in landscape
-			x = event.getX() - marginTopLeft;
-			y = event.getY();
-		} else {							//display in portrait
-			x = event.getX();
-			y = event.getY() - marginTopLeft;
-		}
-		
-		// for drawing the scribbles a touch is only relevant when it is on the picture
-		if (x >= 0 && x <= mView.getBitmap().getWidth() && y >= 0
-				&& y <= mView.getBitmap().getHeight()) {
+		if (zoomEnabled) {
+			//TODO: get translation of touch and set zoomBox object in view-class
+			mView.handleTouchZoomEvent(event, action, x, y);
 			
-			mView.handleTouchEvent(action, x, y);
-			
-		} else { // if the touch is outside of the picture
-				 //reset drawing
-			mView.handleTouchEventOutsidePicture(action);
+		} else {
+			// get position of touch on the picture
+			if (displayWidth > displayHeight) { // display in landscape
+				x = event.getX() - marginTopLeft;
+				y = event.getY();
+			} else { // display in portrait
+				x = event.getX();
+				y = event.getY() - marginTopLeft;
+			}
+
+			// for drawing the scribbles a touch is only relevant when it is on
+			// the picture
+			if (x >= 0 && x <= mView.getBitmap().getWidth() && y >= 0
+					&& y <= mView.getBitmap().getHeight()) {
+
+				mView.handleTouchEvent(action, x, y);
+
+			} else { // if the touch is outside of the picture
+						// reset drawing
+				mView.handleTouchEventOutsidePicture(action);
+			}
 		}
-		
+
 		return true;
 	}
 	
@@ -504,7 +515,12 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		return textAnnotations;
 	}
 	
+	/**
+	 * 
+	 * @param v
+	 */
 	public void zoom(View v){
 		mView.setZoomEnabled();
+		zoomEnabled = (zoomEnabled ? false : true);
 	}
 }
