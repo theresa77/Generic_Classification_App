@@ -45,43 +45,41 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		drawForeground = true;
 	}
 	
-	/**
-	 * Draws bitmap of the picture and the current user scribbles
-	 */
-	@Override
-	public void onDraw(Canvas canvas){
-		// Log.d(TAG, "onDraw() is called");
-		if (mActivity.isZoomEnabled()) {
-			super.onDraw(canvas);
-		} else {
-			canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-
-			if (mPicture.getScribbles() != null
-					&& !mPicture.getScribbles().isEmpty()) {
-				for (Scribble s : mPicture.getScribbles()) {
-					s.drawScribble(canvas);
-				}
-			}
-
-			if (mForePath != null && !mForePath.isEmpty()) {
-				// if (drawCircle) {
-				// mPaint.setStyle(Paint.Style.FILL);
-				// Log.d(TAG, "mPaint.setStyle(Paint.Style.FILL)");
-				// canvas.drawCircle(mX, mY, mPaint.getStrokeWidth() / 2,
-				// mPaint);
-				// } else {
-				mPaint.setStyle(Paint.Style.STROKE);
-				mPaint.setColor(Color.BLUE);
-				canvas.drawPath(mForePath, mPaint);
-				// }
-			}
-
-			if (mBackPath != null && !mBackPath.isEmpty()) {
-				mPaint.setColor(Color.RED);
-				canvas.drawPath(mBackPath, mPaint);
-			}
-		}
-	}
+//	/**
+//	 * Draws bitmap of the picture and the current user scribbles
+//	 */
+//	@Override
+//	public void onDraw(Canvas canvas){
+//		// Log.d(TAG, "onDraw() is called");
+//		
+//			canvas.drawBitmap(mPictureBitmap, 0, 0, null);
+//
+//			if (mPicture.getScribbles() != null
+//					&& !mPicture.getScribbles().isEmpty()) {
+//				for (Scribble s : mPicture.getScribbles()) {
+//					s.drawScribble(canvas);
+//				}
+//			}
+//
+//			if (mForePath != null && !mForePath.isEmpty()) {
+//				// if (drawCircle) {
+//				// mPaint.setStyle(Paint.Style.FILL);
+//				// Log.d(TAG, "mPaint.setStyle(Paint.Style.FILL)");
+//				// canvas.drawCircle(mX, mY, mPaint.getStrokeWidth() / 2,
+//				// mPaint);
+//				// } else {
+//				mPaint.setStyle(Paint.Style.STROKE);
+//				mPaint.setColor(Color.BLUE);
+//				canvas.drawPath(mForePath, mPaint);
+//				// }
+//			}
+//
+//			if (mBackPath != null && !mBackPath.isEmpty()) {
+//				mPaint.setColor(Color.RED);
+//				canvas.drawPath(mBackPath, mPaint);
+//			}
+//		
+//	}
 	
 	public void handleTouchEvent(int action, float x, float y){
 
@@ -263,6 +261,12 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 */
 	public void setCurrentSelection(Selection selection) {
 		this.mCurrentSelection = selection;
+	}
+
+	@Override
+	public void drawFurtherThings(Canvas canvas) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

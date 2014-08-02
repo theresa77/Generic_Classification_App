@@ -32,27 +32,25 @@ public class ObjectContourView extends UserScribbleView {
 		mPaint.setStyle(Paint.Style.STROKE);
 	}
 	
-	/**
-	 * Draw picture and current scribble the canvas object.
-	 */
-	public void onDraw(Canvas canvas){
-		// Log.d(TAG, "onDraw() is called");
-		if (mActivity.isZoomEnabled()) {
-			super.onDraw(canvas);
-		} else {
-			canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-
-			if (mPicture.getScribbles() != null
-					&& !mPicture.getScribbles().isEmpty()) {
-				for (Scribble s : mPicture.getScribbles()) {
-					s.drawScribble(canvas);
-				}
-			}
-
-			if (!mPath.isEmpty())
-				canvas.drawPath(mPath, mPaint);
-		}
-	}
+//	/**
+//	 * Draw picture and current scribble the canvas object.
+//	 */
+//	public void onDraw(Canvas canvas){
+//		// Log.d(TAG, "onDraw() is called");
+//		
+//			canvas.drawBitmap(mPictureBitmap, 0, 0, null);
+//
+//			if (mPicture.getScribbles() != null
+//					&& !mPicture.getScribbles().isEmpty()) {
+//				for (Scribble s : mPicture.getScribbles()) {
+//					s.drawScribble(canvas);
+//				}
+//			}
+//
+//			if (!mPath.isEmpty())
+//				canvas.drawPath(mPath, mPaint);
+//		
+//	}
 	
 	public void handleTouchEvent(int action, float x, float y){
 
@@ -170,6 +168,12 @@ public class ObjectContourView extends UserScribbleView {
 	public void resetLastDrawing() {
 		mPath.reset();
 		invalidate();
+	}
+
+	@Override
+	public void drawFurtherThings(Canvas canvas) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

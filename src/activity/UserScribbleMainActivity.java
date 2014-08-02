@@ -177,9 +177,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		
 		// create list for text annotations
 		textAnnotations = new ArrayList<String>();
-//		textAnnotations = new SparseArray<String>();
 		
-		zoomEnabled = true;
+		zoomEnabled = false;
 	}
 	
 	/**
@@ -520,8 +519,15 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param v
 	 */
 	public void zoom(View v){
-		mView.setZoomEnabled();
-		zoomEnabled = (zoomEnabled ? false : true);
+//		mView.setZoomEnabled();
+	//	zoomEnabled = (zoomEnabled ? false : true);
+		
+		if(zoomEnabled){
+			zoomEnabled = false;
+		} else {
+			zoomEnabled = true;
+			addScribbleToList(mView.getCurrentScribble());
+		}
 	}
 	
 	/**

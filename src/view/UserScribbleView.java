@@ -200,7 +200,9 @@ public abstract class UserScribbleView extends SurfaceView {
 			mPosY = boundsAfterScale.bottom-boundsBeforeScale.bottom;
 		}
 		
-		canvas.drawBitmap(mPictureBitmap, 0, 0, null);	
+		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
+		drawUserScribble(canvas);
+		drawFurtherThings(canvas);
 		canvas.restore();
 	}
 	
@@ -234,19 +236,25 @@ public abstract class UserScribbleView extends SurfaceView {
 		return currentScribble;
 	}
 	
-	public void setZoomEnabled(){
-		zoomEnabled = (zoomEnabled ? false : true);
-	}
+//	public void setZoomEnabled(){
+//		zoomEnabled = (zoomEnabled ? false : true);
+//	}
 	
-	public void setZoomBox(int left, int top, int right, int bottom){
-		zoomBox = new RectF(left, top, right, bottom);
-	}
+//	public void setZoomBox(int left, int top, int right, int bottom){
+//		zoomBox = new RectF(left, top, right, bottom);
+//	}
 
 	/**
 	 * Draws current user scribbles to the canvas method parameter.
 	 * @param canvas object for drawing user scribbles
 	 */
 	public abstract void drawUserScribble(Canvas canvas);
+	
+	/**
+	 * TODO
+	 * @param canvas
+	 */
+	public abstract void drawFurtherThings(Canvas canvas);
 	
 	/**
 	 * Resets last drawing. 
