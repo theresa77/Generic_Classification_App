@@ -49,6 +49,14 @@
             android:contentDescription="@string/add_further_scribble" 
             android:onClick="addFurtherScribble"
              />
+        
+        <ImageButton
+            android:id="@+id/zoom_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/magnifier"
+            android:contentDescription="@string/magnifier" 
+            android:onClick="zoom"
+             />
 
          <ImageButton
             android:id="@+id/menu_button"

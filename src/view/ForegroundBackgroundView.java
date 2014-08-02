@@ -3,13 +3,6 @@
  */
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import domain.ForeBackGround;
-import domain.ObjectContour;
-import domain.Scribble;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -18,6 +11,8 @@ import android.graphics.Path;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
+import domain.ForeBackGround;
+import domain.Scribble;
 
 /**
  * View class for controlling the view for a ForegroundBackgroundFragment.

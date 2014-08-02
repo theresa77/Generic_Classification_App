@@ -6,31 +6,13 @@
     android:background="@android:color/black"
     android:orientation="vertical" >
     
-    
-    <!-- 
-    <ScrollView
-        android:id="@+id/picture_scroll_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-         >
-          -->
-    
-	     <FrameLayout
+     <FrameLayout
 	        android:id="@+id/foreground_background_surface_view"
 	        android:layout_width="wrap_content"
         	android:layout_height="0dip"
         	android:layout_weight="1"
 	         />
 	    
-	    <!-- android:layout_height="0dip"
-	    	 android:layout_weight="1"
-	   	 -->
-	  
- <!-- 
-    
-    </ScrollView>
-    -->
-    
 	<LinearLayout
         android:id="@+id/foreground_background_view_buttons"
         style="@style/ButtonBarPortrait"
@@ -85,6 +67,14 @@
             android:src="@drawable/plus"
             android:contentDescription="@string/add_further_scribble" 
             android:onClick="addFurtherScribble"
+             />
+        
+        <ImageButton
+            android:id="@+id/zoom_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/magnifier"
+            android:contentDescription="@string/magnifier" 
+            android:onClick="zoom"
              />
 
          <ImageButton
