@@ -188,15 +188,15 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		int action = MotionEventCompat.getActionMasked(event);
-		float x = 0;
-		float y = 0;
-
 		if (zoomEnabled) {
-			//TODO: get translation of touch and set zoomBox object in view-class
-			mView.handleTouchZoomEvent(event, action, x, y);
+			mView.handleTouchZoomEvent(event);
 			
 		} else {
+			int action = MotionEventCompat.getActionMasked(event);
+			float x = 0;
+			float y = 0;
+			
+			
 			// get position of touch on the picture
 			if (displayWidth > displayHeight) { // display in landscape
 				x = event.getX() - marginTopLeft;

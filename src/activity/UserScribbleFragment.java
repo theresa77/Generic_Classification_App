@@ -37,7 +37,6 @@ public abstract class UserScribbleFragment extends Fragment {
 	protected UserScribbleView mView;
 	protected Picture mPicture;
 	protected FrameLayout frameView;
-//	protected ScrollView frameView;
 	protected LayoutInflater inflater;
 	protected ViewGroup container;
 	
@@ -69,8 +68,6 @@ public abstract class UserScribbleFragment extends Fragment {
     	
     	LinearLayout.LayoutParams pictureParams;
     	LinearLayout.LayoutParams frameParams = (LinearLayout.LayoutParams) frameView.getLayoutParams();
-//    	RelativeLayout.LayoutParams frameParams = (RelativeLayout.LayoutParams) frameView.getLayoutParams();
-//    	FrameLayout.LayoutParams frameParams = (FrameLayout.LayoutParams) frameView.getLayoutParams();
     	ImageButton menuButton = (ImageButton) view.findViewById(R.id.menu_button);
 		
 		if (!mPicture.isLandscape()) {
@@ -81,11 +78,12 @@ public abstract class UserScribbleFragment extends Fragment {
 	    	width = displayWidth;
 
 	    	// calculate top margin for picture frame
-			int top = (int)((displayHeight - height - (displayHeight*0.2))/2);
+			int topBottom = (int)((displayHeight - height - (displayHeight*0.2))/2);
 			
 			// add top margin value to frame parameters to show picture in the middle of the screen
-			frameParams.topMargin = top;
-			marginTopLeft = (float) (top + displayHeight*0.1);
+			frameParams.topMargin = topBottom;
+			frameParams.bottomMargin = topBottom;
+			marginTopLeft = (float) (topBottom + displayHeight*0.1);
 			
 			menuButton.setMinimumHeight((int)(displayHeight*0.1));
 			
@@ -97,11 +95,12 @@ public abstract class UserScribbleFragment extends Fragment {
 	    	height = displayHeight;
 			
 	    	// calculate left margin for picture 
-			int left = (int)((displayWidth - width - (displayWidth*0.2))/2);
+			int leftRight = (int)((displayWidth - width - (displayWidth*0.2))/2);
 			
 			// add left margin value to frame parameters to show picture in the middle of the screen
-			frameParams.leftMargin = left;
-			marginTopLeft = (float) (left + displayWidth*0.1);
+			frameParams.leftMargin = leftRight;
+			frameParams.rightMargin = leftRight;
+			marginTopLeft = (float) (leftRight + displayWidth*0.1);
 			
 			menuButton.setMinimumWidth((int)(displayWidth*0.1));
     	}

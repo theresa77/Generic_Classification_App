@@ -10,12 +10,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.SurfaceView;
+import android.widget.FrameLayout;
 import domain.Picture;
 import domain.Scribble;
 
@@ -43,10 +45,12 @@ public abstract class UserScribbleView extends SurfaceView {
 	
 	
 	protected static final int INVALID_POINTER_ID = -1;
+	protected float mPosScaleX;
+	protected float mPosScaleY;
 	protected float mPosX;
 	protected float mPosY;
-	protected float mLastTouchX;
-	protected float mLastTouchY;
+	protected float mTouchStartX;
+	protected float mTouchStartY;
 	protected int mActivePointerId = INVALID_POINTER_ID;
 	protected ScaleGestureDetector mScaleDetector;
 	protected float mScaleFactor = 1.f;
@@ -54,11 +58,13 @@ public abstract class UserScribbleView extends SurfaceView {
 	protected float focusY;
 	protected float lastFocusX = -1;
 	protected float lastFocusY = -1;
-	static final int IMG_WIDTH = 640;
-	static final int IMG_HEIGHT = 480;
-	Matrix matrix;
-	float sy;
-	float sx;
+//	static final int IMG_WIDTH = 640;
+//	static final int IMG_HEIGHT = 480;
+//	protected Matrix matrix;
+//	protected float sy;
+//	protected float sx;
+	protected FrameLayout frameLayout;
+	protected Rect clipBounds;
 	
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
@@ -76,13 +82,13 @@ public abstract class UserScribbleView extends SurfaceView {
 	    init(context);
 	}
 	
+	
 	/**
 	 * Called when view get initialized.
 	 * Sets Paint object for user scribbles.
 	 * @param context
 	 */
 	private void init(Context context) {
-		//this.mActivity = ((UserScribbleMainActivity)context);
 		Log.d(TAG, "init() called");
 		mActivity = (UserScribbleMainActivity) context;
 		mPaint = mActivity.getPaint();
@@ -90,14 +96,19 @@ public abstract class UserScribbleView extends SurfaceView {
 		drawNewScribble = false;
 		mPicture = Picture.getInstance();
 
-		matrix = new Matrix();
-		final int width = mPicture.getBitmap().getWidth();
-		final int height = mPicture.getBitmap().getHeight();
-		sx = 550 / (float) width;
-		sy = 700 / (float) height;
-		matrix.setScale(sx, sy);
-		matrix.postTranslate(sx, sy);
+//		matrix = new Matrix();
+//		
+//		sx = 1;
+//		sy = 1;
+//		Log.d(TAG, "displayWidth: "+ displayWidth);
+//		Log.d(TAG, "displayHeight: "+ displayHeight);
+//		Log.d(TAG, "mPicture.getBitmap().getWidth(): "+mPicture.getBitmap().getWidth());
+//		Log.d(TAG, "mPicture.getBitmap().getHeight(): "+mPicture.getBitmap().getHeight());
+//		
+//		matrix.setScale(sx, sy);
+//		matrix.postTranslate(sx, sy);
 
+		this.clipBounds = new Rect(0,0,0,0);
 		mScaleDetector = new ScaleGestureDetector(mActivity, new ScaleListener());
 	}
 	
@@ -248,19 +259,19 @@ public abstract class UserScribbleView extends SurfaceView {
 	public abstract void handleTouchEventOutsidePicture(int action);
 	
 	
-	public void handleTouchZoomEvent(MotionEvent event, int action, float x, float y){
+	public void handleTouchZoomEvent(MotionEvent event){
 
 		// Let the ScaleGestureDetector inspect all events.
 		mScaleDetector.onTouchEvent(event);
 
-		// final int action = event.getAction();
+		int action = event.getAction();
+		
 		switch (action & MotionEvent.ACTION_MASK) {
+		
 		case MotionEvent.ACTION_DOWN: {
 
-			x = event.getX() / mScaleFactor;
-			y = event.getY() / mScaleFactor;
-			mLastTouchX = x;
-			mLastTouchY = y;
+			mTouchStartX = event.getX() / mScaleFactor;
+			mTouchStartY = event.getY() / mScaleFactor;
 			mActivePointerId = event.getPointerId(0);
 
 			break;
@@ -268,23 +279,39 @@ public abstract class UserScribbleView extends SurfaceView {
 
 		case MotionEvent.ACTION_MOVE: {
 			int pointerIndex = event.findPointerIndex(mActivePointerId);
-			x = event.getX(pointerIndex) / mScaleFactor;
-			y = event.getY(pointerIndex) / mScaleFactor;
+			float x = event.getX(pointerIndex) / mScaleFactor;
+			float y = event.getY(pointerIndex) / mScaleFactor;
 
-			// Only move if the ScaleGestureDetector isn't processing a
-			// gesture.
+			// Only move if the ScaleGestureDetector isn't processing a gesture.
 			if (!mScaleDetector.isInProgress()) {
 
-				final float dx = x - mLastTouchX;
-				final float dy = y - mLastTouchY;
-				mPosX += dx;
-				mPosY += dy;
+				//TODO: schauen wie es verhindert werden kann, dass foto aus bild geschoben werden kann.
+				// ich brauch den abstand von bildschirmrand bis zu bildrand, wenn hineingezoomt wurde.
+				if (mScaleFactor > 1.0f) {
+					float dx = (x - mTouchStartX);
+					float dy = (y - mTouchStartY);
+					
+//					Log.d(TAG, "mPosX - before translation: "+mPosX);
+//					Log.d(TAG, "mPosY - before translation: "+mPosY);
+//					Log.d(TAG, "DX: "+(x - mTouchStartX));
+//					Log.d(TAG, "DY: "+(y - mTouchStartY));
+//					
+					
+					
+					mPosX += dx;
+					mPosY += dy;
+					
+//					Log.d(TAG, "mPosX - after translation: "+mPosX);
+//					Log.d(TAG, "mPosY - after translation: "+mPosY);
+//					Log.d(TAG, "mPosScaleX - after translation: "+mPosScaleX);
+//					Log.d(TAG, "mPosScaleY - after translation: "+mPosScaleY);
 
-				invalidate();
+					invalidate();
+				}
 			}
 
-			mLastTouchX = x;
-			mLastTouchY = y;
+			mTouchStartX = x;
+			mTouchStartY = y;
 
 			break;
 		}
@@ -301,34 +328,27 @@ public abstract class UserScribbleView extends SurfaceView {
 
 		case MotionEvent.ACTION_POINTER_UP: {
 
-			final int pointerIndex = (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
-			final int pointerId = event.getPointerId(pointerIndex);
+			int pointerIndex = (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+			int pointerId = event.getPointerId(pointerIndex);
 			if (pointerId == mActivePointerId) {
-				// This was our active pointer going up. Choose a new
-				// active pointer and adjust accordingly.
-				final int newPointerIndex = pointerIndex == 0 ? 1 : 0;
-				mLastTouchX = event.getX(newPointerIndex) / mScaleFactor;
-				mLastTouchY = event.getY(newPointerIndex) / mScaleFactor;
+				// This was our active pointer going up. Choose a new active pointer and adjust accordingly.
+				int newPointerIndex = pointerIndex == 0 ? 1 : 0;
+				mTouchStartX = event.getX(newPointerIndex) / mScaleFactor;
+				mTouchStartY = event.getY(newPointerIndex) / mScaleFactor;
 				mActivePointerId = event.getPointerId(newPointerIndex);
 			}
 			break;
 		}
 		}
 		
-		
-		
 	}
 	
 	private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+		
 		@Override
 		public boolean onScaleBegin(ScaleGestureDetector detector) {
-
-			// float x = detector.getFocusX();
-			// float y = detector.getFocusY();
-
 			lastFocusX = -1;
 			lastFocusY = -1;
-
 			return true;
 		}
 
@@ -338,20 +358,29 @@ public abstract class UserScribbleView extends SurfaceView {
 
 			focusX = detector.getFocusX();
 			focusY = detector.getFocusY();
+			Log.d(TAG, "focusX: " + focusX);
+			Log.d(TAG, "focusY: " + focusY);
 
 			if (lastFocusX == -1)
 				lastFocusX = focusX;
 			if (lastFocusY == -1)
 				lastFocusY = focusY;
 
+//			Log.d(TAG, "mPosX - before scale: "+mPosX);
+//			Log.d(TAG, "mPosY - before scale: "+mPosY);
 			mPosX += (focusX - lastFocusX);
 			mPosY += (focusY - lastFocusY);
-			Log.v("Hi Zoom", "Factor:" + mScaleFactor);
+//			Log.d(TAG, "mPosX - after scale: "+mPosX);
+//			Log.d(TAG, "mPosY - after scale: "+mPosY);
+			
 			// Don't let the object get too small or too large.
-			mScaleFactor = Math.max(0.5f, Math.min(mScaleFactor, 2.0f));
+			mScaleFactor = Math.max(1.0f, Math.min(mScaleFactor, 2.0f));
+			Log.d(TAG, "Scale-Factor:" + mScaleFactor);
 
 			lastFocusX = focusX;
 			lastFocusY = focusY;
+			mPosScaleX = mPosX;
+			mPosScaleY = mPosY;
 
 			invalidate();
 			return true;
