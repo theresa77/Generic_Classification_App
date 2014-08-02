@@ -42,11 +42,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	protected Scribble currentScribble;
 	protected boolean zoomEnabled;
 	protected RectF zoomBox;
-	
-	
 	protected static final int INVALID_POINTER_ID = -1;
-	protected float mPosScaleX;
-	protected float mPosScaleY;
 	protected float mPosX;
 	protected float mPosY;
 	protected float mTouchStartX;
@@ -58,14 +54,6 @@ public abstract class UserScribbleView extends SurfaceView {
 	protected float focusY;
 	protected float lastFocusX = -1;
 	protected float lastFocusY = -1;
-//	static final int IMG_WIDTH = 640;
-//	static final int IMG_HEIGHT = 480;
-//	protected Matrix matrix;
-//	protected float sy;
-//	protected float sx;
-	protected FrameLayout frameLayout;
-	protected Rect clipBounds;
-	
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
@@ -95,20 +83,6 @@ public abstract class UserScribbleView extends SurfaceView {
 		setBackgroundColor(Color.BLACK);
 		drawNewScribble = false;
 		mPicture = Picture.getInstance();
-
-//		matrix = new Matrix();
-//		
-//		sx = 1;
-//		sy = 1;
-//		Log.d(TAG, "displayWidth: "+ displayWidth);
-//		Log.d(TAG, "displayHeight: "+ displayHeight);
-//		Log.d(TAG, "mPicture.getBitmap().getWidth(): "+mPicture.getBitmap().getWidth());
-//		Log.d(TAG, "mPicture.getBitmap().getHeight(): "+mPicture.getBitmap().getHeight());
-//		
-//		matrix.setScale(sx, sy);
-//		matrix.postTranslate(sx, sy);
-
-		this.clipBounds = new Rect(0,0,0,0);
 		mScaleDetector = new ScaleGestureDetector(mActivity, new ScaleListener());
 	}
 	
@@ -192,6 +166,54 @@ public abstract class UserScribbleView extends SurfaceView {
 	 */
 	public void setDisplayHeight(int displayHeight) {
 		this.displayHeight = displayHeight;
+	}
+	
+	@Override
+	public void onDraw(Canvas canvas){
+		canvas.save();
+		Rect boundsBeforeScale = canvas.getClipBounds();
+//		Log.d(TAG, "boundsBeforeScale - left: "+boundsBeforeScale.left+", top: "+boundsBeforeScale.top+
+//				", right: "+boundsBeforeScale.right+", bottom: "+boundsBeforeScale.bottom);
+		
+		canvas.scale(mScaleFactor, mScaleFactor, focusX, focusY);
+		
+		Rect boundsAfterScale = canvas.getClipBounds();
+//		Log.d(TAG, "boundsAfterScale - left: "+boundsAfterScale.left+", top: "+boundsAfterScale.top+
+//				", right: "+boundsAfterScale.right+", bottom: "+boundsAfterScale.bottom);
+		
+		
+		canvas.translate(mPosX, mPosY);
+		Rect boundsAfterTranslate = canvas.getClipBounds();
+//		Log.d(TAG, "boundsAfterTranslate - left: "+boundsAfterTranslate.left+", top: "+boundsAfterTranslate.top+
+//				", right: "+boundsAfterTranslate.right+", bottom: "+boundsAfterTranslate.bottom);
+		
+//		Log.d(TAG, "mPosX: "+mPosX);
+//		Log.d(TAG, "mPosY: "+mPosY);
+		
+		
+		if(boundsAfterTranslate.left < 0){
+			canvas.translate(boundsAfterTranslate.left, 0);
+			mPosX = boundsAfterScale.left;
+		}
+		if(boundsAfterTranslate.right > boundsBeforeScale.right){
+			Log.d(TAG, "Canvas translate to the right");
+			canvas.translate((boundsBeforeScale.right-boundsAfterTranslate.right)*(-1), 0);
+			mPosX = boundsAfterScale.right-boundsBeforeScale.right;
+		}
+		if(boundsAfterTranslate.top < 0){
+			canvas.translate(0, boundsAfterTranslate.top);
+			mPosY = boundsAfterScale.top;
+		}
+		if (boundsAfterTranslate.bottom > boundsBeforeScale.bottom) {
+			canvas.translate(0, (boundsBeforeScale.bottom-boundsAfterTranslate.bottom)*(-1));
+			mPosY = boundsAfterScale.bottom-boundsBeforeScale.bottom;
+		}
+		 boundsAfterTranslate = canvas.getClipBounds();
+		Log.d(TAG, "boundsAfter2ndTranslate - left: "+boundsAfterTranslate.left+", top: "+boundsAfterTranslate.top+
+				", right: "+boundsAfterTranslate.right+", bottom: "+boundsAfterTranslate.bottom);
+		
+		canvas.drawBitmap(mPictureBitmap, 0, 0, null);	
+		canvas.restore();
 	}
 	
 	/**
@@ -285,27 +307,10 @@ public abstract class UserScribbleView extends SurfaceView {
 			// Only move if the ScaleGestureDetector isn't processing a gesture.
 			if (!mScaleDetector.isInProgress()) {
 
-				//TODO: schauen wie es verhindert werden kann, dass foto aus bild geschoben werden kann.
-				// ich brauch den abstand von bildschirmrand bis zu bildrand, wenn hineingezoomt wurde.
 				if (mScaleFactor > 1.0f) {
-					float dx = (x - mTouchStartX);
-					float dy = (y - mTouchStartY);
+					mPosX += (x - mTouchStartX);
+					mPosY += (y - mTouchStartY);
 					
-//					Log.d(TAG, "mPosX - before translation: "+mPosX);
-//					Log.d(TAG, "mPosY - before translation: "+mPosY);
-//					Log.d(TAG, "DX: "+(x - mTouchStartX));
-//					Log.d(TAG, "DY: "+(y - mTouchStartY));
-//					
-					
-					
-					mPosX += dx;
-					mPosY += dy;
-					
-//					Log.d(TAG, "mPosX - after translation: "+mPosX);
-//					Log.d(TAG, "mPosY - after translation: "+mPosY);
-//					Log.d(TAG, "mPosScaleX - after translation: "+mPosScaleX);
-//					Log.d(TAG, "mPosScaleY - after translation: "+mPosScaleY);
-
 					invalidate();
 				}
 			}
@@ -358,30 +363,24 @@ public abstract class UserScribbleView extends SurfaceView {
 
 			focusX = detector.getFocusX();
 			focusY = detector.getFocusY();
-			Log.d(TAG, "focusX: " + focusX);
-			Log.d(TAG, "focusY: " + focusY);
+//			Log.d(TAG, "focusX: " + focusX);
+//			Log.d(TAG, "focusY: " + focusY);
 
 			if (lastFocusX == -1)
 				lastFocusX = focusX;
 			if (lastFocusY == -1)
 				lastFocusY = focusY;
 
-//			Log.d(TAG, "mPosX - before scale: "+mPosX);
-//			Log.d(TAG, "mPosY - before scale: "+mPosY);
 			mPosX += (focusX - lastFocusX);
 			mPosY += (focusY - lastFocusY);
-//			Log.d(TAG, "mPosX - after scale: "+mPosX);
-//			Log.d(TAG, "mPosY - after scale: "+mPosY);
-			
+
 			// Don't let the object get too small or too large.
 			mScaleFactor = Math.max(1.0f, Math.min(mScaleFactor, 2.0f));
-			Log.d(TAG, "Scale-Factor:" + mScaleFactor);
+//			Log.d(TAG, "Scale-Factor:" + mScaleFactor);
 
 			lastFocusX = focusX;
 			lastFocusY = focusY;
-			mPosScaleX = mPosX;
-			mPosScaleY = mPosY;
-
+		
 			invalidate();
 			return true;
 		}

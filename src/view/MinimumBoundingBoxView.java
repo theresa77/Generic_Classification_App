@@ -43,95 +43,54 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	@Override
 	public void onDraw(Canvas canvas) {
 		// Log.d(TAG, "onDraw() is called");
-		//TODO: use zoomBox for drawing the bitmap
-		//maybe call super.onDraw(canvas) and move code to UserScribbleView
-		canvas.save();
-		Rect boundsBeforeScale = canvas.getClipBounds();
-		Log.d(TAG, "boundsBeforeScale - left: "+boundsBeforeScale.left+", top: "+boundsBeforeScale.top+
-				", right: "+boundsBeforeScale.right+", bottom: "+boundsBeforeScale.bottom);
-		
-		canvas.scale(mScaleFactor, mScaleFactor, focusX, focusY);
-		
-		Rect boundsAfterScale = canvas.getClipBounds();
-		Log.d(TAG, "boundsAfterScale - left: "+boundsAfterScale.left+", top: "+boundsAfterScale.top+
-				", right: "+boundsAfterScale.right+", bottom: "+boundsAfterScale.bottom);
-		
-		
-		canvas.translate(mPosX, mPosY);
-		Rect boundsAfterTranslate = canvas.getClipBounds();
-		Log.d(TAG, "boundsAfterTranslate - left: "+boundsAfterTranslate.left+", top: "+boundsAfterTranslate.top+
-				", right: "+boundsAfterTranslate.right+", bottom: "+boundsAfterTranslate.bottom);
-		
-		Log.d(TAG, "mPosX: "+mPosX);
-		Log.d(TAG, "mPosY: "+mPosY);
-		
-		
-		if(boundsAfterTranslate.left < 0){
-			canvas.translate(boundsAfterTranslate.left, 0);
-			mPosX = boundsAfterScale.left;
+
+		if (mActivity.isZoomEnabled()) {
+			super.onDraw(canvas);
+		} else {
+
+			canvas.drawBitmap(mPictureBitmap, 0, 0, null);
+			mPaint.setStyle(Paint.Style.STROKE);
+
+			if (mPicture.getScribbles() != null
+					&& !mPicture.getScribbles().isEmpty()) {
+				for (Scribble s : mPicture.getScribbles()) {
+					s.drawScribble(canvas);
+				}
+			}
+
+			if (rectf != null) {
+				if (currentShape == Shape.RECTANGLE) {
+					canvas.drawRect(rectf, mPaint);
+
+					if (!drawNewScribble) {
+						mPaint.setStyle(Paint.Style.FILL);
+						canvas.drawCircle(rectf.left, rectf.top,
+								mPaint.getStrokeWidth(), mPaint);
+						canvas.drawCircle(rectf.left, rectf.bottom,
+								mPaint.getStrokeWidth(), mPaint);
+						canvas.drawCircle(rectf.right, rectf.top,
+								mPaint.getStrokeWidth(), mPaint);
+						canvas.drawCircle(rectf.right, rectf.bottom,
+								mPaint.getStrokeWidth(), mPaint);
+					}
+				} else {
+					canvas.drawOval(rectf, mPaint);
+
+					if (!drawNewScribble) {
+						mPaint.setStyle(Paint.Style.FILL);
+						canvas.drawCircle(rectf.centerX(), rectf.top,
+								mPaint.getStrokeWidth(), mPaint);
+						canvas.drawCircle(rectf.centerX(), rectf.bottom,
+								mPaint.getStrokeWidth(), mPaint);
+						canvas.drawCircle(rectf.left, rectf.centerY(),
+								mPaint.getStrokeWidth(), mPaint);
+						canvas.drawCircle(rectf.right, rectf.centerY(),
+								mPaint.getStrokeWidth(), mPaint);
+					}
+				}
+			}
+			mPaint.setStyle(Paint.Style.STROKE);
 		}
-		if(boundsAfterTranslate.right > boundsBeforeScale.right){
-			Log.d(TAG, "Canvas translate to the right");
-			canvas.translate((boundsBeforeScale.right-boundsAfterTranslate.right)*(-1), 0);
-			mPosX = boundsAfterScale.right-boundsBeforeScale.right;
-		}
-		if(boundsAfterTranslate.top < 0){
-			canvas.translate(0, boundsAfterTranslate.top);
-			mPosY = boundsAfterScale.top;
-		}
-		if (boundsAfterTranslate.bottom > boundsBeforeScale.bottom) {
-			canvas.translate(0, (boundsBeforeScale.bottom-boundsAfterTranslate.bottom)*(-1));
-			mPosY = boundsAfterScale.bottom-boundsBeforeScale.bottom;
-		}
-		 boundsAfterTranslate = canvas.getClipBounds();
-		Log.d(TAG, "boundsAfter2ndTranslate - left: "+boundsAfterTranslate.left+", top: "+boundsAfterTranslate.top+
-				", right: "+boundsAfterTranslate.right+", bottom: "+boundsAfterTranslate.bottom);
-		
-//		Rect clipRect = new Rect();
-//		canvas.clipRect(clipRect);
-//		matrix.setScale(mScaleFactor, mScaleFactor, focusX, focusY);
-//		matrix.setTranslate(mPosX, mPosY);
-//		canvas.drawBitmap(mPictureBitmap, matrix, null);
-		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-		
-//		canvas.drawCircle(focusX, focusY, mPaint.getStrokeWidth(), mPaint);
-		
-		canvas.restore();
-		
-		
-//		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-//		mPaint.setStyle(Paint.Style.STROKE);
-//		
-//		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
-//			for (Scribble s : mPicture.getScribbles()) {
-//				s.drawScribble(canvas);
-//			}
-//		}
-//		
-//		if (rectf != null) {
-//			if (currentShape == Shape.RECTANGLE) {
-//				canvas.drawRect(rectf, mPaint);
-//				
-//				if(!drawNewScribble){
-//					mPaint.setStyle(Paint.Style.FILL);
-//					canvas.drawCircle(rectf.left, rectf.top, mPaint.getStrokeWidth(), mPaint);
-//					canvas.drawCircle(rectf.left, rectf.bottom, mPaint.getStrokeWidth(), mPaint);
-//					canvas.drawCircle(rectf.right, rectf.top, mPaint.getStrokeWidth(), mPaint);
-//					canvas.drawCircle(rectf.right, rectf.bottom, mPaint.getStrokeWidth(), mPaint);
-//				} 
-//			} else {
-//				canvas.drawOval(rectf, mPaint);
-//				
-//				if(!drawNewScribble){
-//					mPaint.setStyle(Paint.Style.FILL);
-//					canvas.drawCircle(rectf.centerX(), rectf.top, mPaint.getStrokeWidth(), mPaint);
-//					canvas.drawCircle(rectf.centerX(), rectf.bottom, mPaint.getStrokeWidth(), mPaint);
-//					canvas.drawCircle(rectf.left, rectf.centerY(), mPaint.getStrokeWidth(), mPaint);
-//					canvas.drawCircle(rectf.right, rectf.centerY(), mPaint.getStrokeWidth(), mPaint);
-//				} 
-//			}
-//		}
-//		mPaint.setStyle(Paint.Style.STROKE);
 	}
 	
 	public void handleTouchEvent(int action, float x, float y) {

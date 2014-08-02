@@ -36,17 +36,22 @@ public class ObjectContourView extends UserScribbleView {
 	 * Draw picture and current scribble the canvas object.
 	 */
 	public void onDraw(Canvas canvas){
-		//Log.d(TAG, "onDraw() is called");
-		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-		
-		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
-			for (Scribble s : mPicture.getScribbles()) {
-				s.drawScribble(canvas);
+		// Log.d(TAG, "onDraw() is called");
+		if (mActivity.isZoomEnabled()) {
+			super.onDraw(canvas);
+		} else {
+			canvas.drawBitmap(mPictureBitmap, 0, 0, null);
+
+			if (mPicture.getScribbles() != null
+					&& !mPicture.getScribbles().isEmpty()) {
+				for (Scribble s : mPicture.getScribbles()) {
+					s.drawScribble(canvas);
+				}
 			}
+
+			if (!mPath.isEmpty())
+				canvas.drawPath(mPath, mPaint);
 		}
-		
-		if(!mPath.isEmpty())
-			canvas.drawPath(mPath, mPaint);
 	}
 	
 	public void handleTouchEvent(int action, float x, float y){
@@ -72,7 +77,7 @@ public class ObjectContourView extends UserScribbleView {
 			stopMove(x, y);
 			break;
 		}
-
+	
 	}
 
 	public void handleTouchEventOutsidePicture(int action){

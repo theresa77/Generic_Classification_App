@@ -516,11 +516,19 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * 
+	 * TODO
 	 * @param v
 	 */
 	public void zoom(View v){
 		mView.setZoomEnabled();
 		zoomEnabled = (zoomEnabled ? false : true);
+	}
+	
+	/**
+	 * TODO
+	 * @return
+	 */
+	public boolean isZoomEnabled(){
+		return zoomEnabled;
 	}
 }
