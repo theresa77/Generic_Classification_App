@@ -19,9 +19,12 @@ public abstract class Scribble {
 		return paint;
 	}
 	
+	public void setPaint(Paint paint){
+		this.paint = paint;
+	}
+	
 	public abstract void drawScribble(Canvas canvas);
 	
-	// TODO: input parameters???
 	public abstract RectF getBoundingBoxOfScribble();	
 	
 }

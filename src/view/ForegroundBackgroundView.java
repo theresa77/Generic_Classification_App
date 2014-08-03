@@ -220,7 +220,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	
 	@Override
 	public void drawUserScribble(Canvas canvas) {
-		
+		int color = mPaint.getColor();
 		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
 			for (Scribble s : mPicture.getScribbles()) {
 				s.drawScribble(canvas);
@@ -232,20 +232,46 @@ public class ForegroundBackgroundView extends UserScribbleView {
 //			mPaint.setStyle(Paint.Style.FILL);
 //			canvas.drawCircle(mX, mY, mPaint.getStrokeWidth()/2, mPaint);
 //		}else{
+			mPaint.setColor(Color.BLUE);
 			mPaint.setStyle(Paint.Style.STROKE);
 			canvas.drawPath(mForePath, mPaint);
 //		}
 		} 
 		
 		if (mBackPath != null && !mBackPath.isEmpty()) {
-			mPaint.setColor(Color.BLUE);
+			mPaint.setColor(Color.RED);
 			canvas.drawPath(mBackPath, mPaint);
 		}
+		
+		mPaint.setColor(color);
 	}
 	
 	@Override
 	public void drawUserScribble(Canvas canvas, Rect canvasRect, Rect zoomRect) {
+		int color = mPaint.getColor();
+		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+			for (Scribble s : mPicture.getScribbles()) {
+				s.drawScribble(canvas);
+			}
+		}
 		
+		if(mForePath != null && !mForePath.isEmpty()){
+//		if (drawCircle){
+//			mPaint.setStyle(Paint.Style.FILL);
+//			canvas.drawCircle(mX, mY, mPaint.getStrokeWidth()/2, mPaint);
+//		}else{
+			mPaint.setColor(Color.BLUE);
+			mPaint.setStyle(Paint.Style.STROKE);
+			canvas.drawPath(mForePath, mPaint);
+//		}
+		} 
+		
+		if (mBackPath != null && !mBackPath.isEmpty()) {
+			mPaint.setColor(Color.RED);
+			canvas.drawPath(mBackPath, mPaint);
+		}
+		
+		mPaint.setColor(color);
 	}
 
 	@Override

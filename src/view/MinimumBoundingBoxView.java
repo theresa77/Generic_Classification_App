@@ -114,8 +114,9 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		
 		// if user wants to draw new scribble, save old one
 		if(drawNewScribble){
-			if(rectf != null && !rectf.isEmpty())
+//			if(rectf != null && !rectf.isEmpty()){
 //				mActivity.addScribbleToList(currentScribble);
+//			}
 			drawNewScribble = false;
 			editScribble = false;
 		}

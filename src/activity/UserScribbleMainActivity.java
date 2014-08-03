@@ -66,7 +66,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private RelativeLayout tab1;
 	private RelativeLayout tab2;
 	private RelativeLayout tab3;
-	private ScribbleType currentScribble;
+	private ScribbleType currentScribbleType;
 	private List<Scribble> scribbles;
 	private List<String> textAnnotations;
 	private Boolean zoomEnabled;
@@ -158,6 +158,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
         	public void onTabChanged(String tabId) {
         		setTabsColor();
         		addScribbleToList(mView.getCurrentScribble());
+        		addFurtherScribble(null);
         	}});
         
         // create new paint object for scribbles
@@ -404,10 +405,10 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		// adapt icon for button to new selection value
 		if(selection == Selection.FOREGROUND) {
 			imgButton.setImageResource(R.drawable.f_icon);
-			currentScribble = ScribbleType.FOREGROUND;
+			currentScribbleType = ScribbleType.FOREGROUND;
 		} else {
 			imgButton.setImageResource(R.drawable.b_icon);
-			currentScribble = ScribbleType.BACKGROUND;
+			currentScribbleType = ScribbleType.BACKGROUND;
 		}
 	}
 	
@@ -465,7 +466,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @return current scribble selection
 	 */
 	public ScribbleType getCurrentScribble() {
-		return currentScribble;
+		return currentScribbleType;
 	}
 
 	/**
@@ -473,7 +474,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param currentScribble new scribble selection
 	 */
 	public void setCurrentScribble(ScribbleType currentScribble) {
-		this.currentScribble = currentScribble;
+		this.currentScribbleType = currentScribble;
 	}
 	
 	/**
@@ -481,8 +482,10 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param scri
 	 */
 	public void addScribbleToList(Scribble scri){
-		if(scri != null)
+		if(scri != null){
+			scri.setPaint(new Paint(mPaint));
 			scribbles.add(scri);
+		}
 	}
 	
 	/**

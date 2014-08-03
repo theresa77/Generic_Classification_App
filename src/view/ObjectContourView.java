@@ -163,7 +163,12 @@ public class ObjectContourView extends UserScribbleView {
 	
 	@Override
 	public void drawUserScribble(Canvas canvas, Rect canvasRect, Rect zoomRect) {
-		
+		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+			for (Scribble s : mPicture.getScribbles()) {
+				s.drawScribble(canvas);
+			}
+		}
+		canvas.drawPath(mPath, mPaint);
 	}
 
 	/**

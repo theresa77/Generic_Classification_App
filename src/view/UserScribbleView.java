@@ -56,7 +56,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	private Rect boundsBeforeScale = new Rect();
 	private Rect boundsAfterScale = new Rect();
 	private Rect boundsAfterTranslate = new Rect();
-	private Matrix matrix = new Matrix();
+//	private Matrix matrix = new Matrix();
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
