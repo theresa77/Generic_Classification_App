@@ -203,9 +203,10 @@ public class CameraActivity extends Activity {
      * @param v
      */
     public void getPictureFromGallery(View v){
-    	Log.d(TAG, "getPictureFromGallery() called"); 
-    	Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);	 
-    	startActivityForResult(i, RESULT_LOAD_IMAGE);
+    	Log.d(TAG, "getPictureFromGallery() called");
+    	releaseCamera();
+    	Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);	 
+    	startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
     
     /**
@@ -216,7 +217,11 @@ public class CameraActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		recyclePictureBitmap();
-
+		if(resultCode == RESULT_CANCELED){
+			mCamera = getCameraInstance();
+	        mPreview.setCameraInstance(mCamera);
+		}
+		
 		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
 			Uri selectedImage = data.getData();
 			
@@ -261,7 +266,7 @@ public class CameraActivity extends Activity {
 			Intent pictureIntent = new Intent(CameraActivity.this,PictureActivity.class);
 			startActivity(pictureIntent);
 			CameraActivity.this.finish();
-		}
+		} 
 	}
 
 	/**
