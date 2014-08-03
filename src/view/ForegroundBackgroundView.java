@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -240,6 +241,11 @@ public class ForegroundBackgroundView extends UserScribbleView {
 			mPaint.setColor(Color.BLUE);
 			canvas.drawPath(mBackPath, mPaint);
 		}
+	}
+	
+	@Override
+	public void drawUserScribble(Canvas canvas, Rect canvasRect, Rect zoomRect) {
+		
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -47,7 +48,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	private float mTouchStartY;
 	private int mActivePointerId = INVALID_POINTER_ID;
 	private ScaleGestureDetector mScaleDetector;
-	private float mScaleFactor = 1.f;
+	protected float mScaleFactor = 1.f;
 	private float focusX;
 	private float focusY;
 	private float lastFocusX = -1;
@@ -55,6 +56,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	private Rect boundsBeforeScale = new Rect();
 	private Rect boundsAfterScale = new Rect();
 	private Rect boundsAfterTranslate = new Rect();
+	private Matrix matrix = new Matrix();
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
@@ -171,6 +173,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	
 	@Override
 	public void onDraw(Canvas canvas){
+		
 		canvas.save();
 		canvas.getClipBounds(boundsBeforeScale);
 //		Log.d(TAG, "boundsBeforeScale - left: "+boundsBeforeScale.left+", top: "+boundsBeforeScale.top+", right: "+boundsBeforeScale.right+", bottom: "+boundsBeforeScale.bottom);
@@ -201,7 +204,7 @@ public abstract class UserScribbleView extends SurfaceView {
 		}
 		
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-		drawUserScribble(canvas);
+		drawUserScribble(canvas, boundsBeforeScale, boundsAfterTranslate);
 		drawFurtherThings(canvas);
 		canvas.restore();
 	}
@@ -250,6 +253,8 @@ public abstract class UserScribbleView extends SurfaceView {
 	 */
 	public abstract void drawUserScribble(Canvas canvas);
 	
+	public abstract void drawUserScribble(Canvas canvas, Rect canvasRect, Rect zooRect);
+	
 	/**
 	 * TODO
 	 * @param canvas
@@ -278,6 +283,13 @@ public abstract class UserScribbleView extends SurfaceView {
 	
 	
 	public void handleTouchZoomEvent(MotionEvent event){
+		Log.d(TAG, "handleTouchZoomEvent() called");
+//		Log.d(TAG, "X-coordinate of touch: "+event.getX());
+//		if(mActivePointerId > 0)
+//			Log.d(TAG, "X-coordinate of touch with pointerIndex: "+event.getX(event.findPointerIndex(mActivePointerId)));
+//		Log.d(TAG, "Y-coordinate of touch: "+event.getY());
+//		if(mActivePointerId > 0)
+//			Log.d(TAG, "Y-coordinate of touch with pointerIndex: "+event.getY(event.findPointerIndex(mActivePointerId)));
 
 		// Let the ScaleGestureDetector inspect all events.
 		mScaleDetector.onTouchEvent(event);
@@ -296,8 +308,8 @@ public abstract class UserScribbleView extends SurfaceView {
 
 		case MotionEvent.ACTION_MOVE: {
 			int pointerIndex = event.findPointerIndex(mActivePointerId);
-			float x = event.getX(pointerIndex) / mScaleFactor;
-			float y = event.getY(pointerIndex) / mScaleFactor;
+			float x = (event.getX(pointerIndex)) / mScaleFactor;
+			float y = (event.getY(pointerIndex)) / mScaleFactor;
 
 			// Only move if the ScaleGestureDetector isn't processing a gesture.
 			if (!mScaleDetector.isInProgress()) {

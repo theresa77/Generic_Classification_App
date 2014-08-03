@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import domain.ObjectContour;
@@ -158,6 +159,11 @@ public class ObjectContourView extends UserScribbleView {
 			}
 		}
 		canvas.drawPath(mPath, mPaint);
+	}
+	
+	@Override
+	public void drawUserScribble(Canvas canvas, Rect canvasRect, Rect zoomRect) {
+		
 	}
 
 	/**

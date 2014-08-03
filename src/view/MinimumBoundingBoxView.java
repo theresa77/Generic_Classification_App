@@ -6,6 +6,7 @@ package view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -96,6 +97,21 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	
 	
 	public void handleTouchEvent(int action, float x, float y) {
+		Log.d(TAG, "X-coordinate von Event: "+x);
+		Log.d(TAG, "Y-coordinate von Event: "+y);
+//		x = x / mScaleFactor;
+//		y = y / mScaleFactor;
+//		if (mActivity.getDisplayWidth() > mActivity.getDisplayHeight()) { // display in landscape
+//			x -= mActivity.getMarginTopLeft();
+//		} else { // display in portrait
+//			y -= mActivity.getMarginTopLeft() / mScaleFactor;
+//		}
+//		Log.d(TAG, "X-coordinate von Event - MarginTopLeft: "+x);
+//		Log.d(TAG, "Y-coordinate von Event - MarginTopLeft: "+y);
+//		Log.d(TAG, "mSclaeFactor: "+mScaleFactor);
+//		Log.d(TAG, "X-coordinate von Event / mScaleFactor: "+x);
+//		Log.d(TAG, "Y-coordinate von Event / mScaleFactor: "+y);
+		
 		// if user wants to draw new scribble, save old one
 		if(drawNewScribble){
 			if(rectf != null && !rectf.isEmpty())
@@ -423,6 +439,49 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		}
 		
 		if (rectf != null) {
+			mPaint.setStyle(Paint.Style.STROKE);
+			if (currentShape == Shape.RECTANGLE) {
+				canvas.drawRect(rectf, mPaint);
+			} else {
+				canvas.drawOval(rectf, mPaint);
+			}
+		}
+	}
+	
+	@Override
+	public void drawUserScribble(Canvas canvas, Rect canvasRect, Rect zoomRect) {
+		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+			for (Scribble s : mPicture.getScribbles()) {
+				Log.d(TAG, "draw Scribble in MinimumBoundingBoxView: "+s.toString());
+				s.drawScribble(canvas);
+			}
+		}
+		
+		if (rectf != null) {
+			Log.d(TAG, "SCRIBBLE-RECTF - before -- left: "+rectf.left+", top: "+rectf.top+", right: "+rectf.right+", bottom: "+rectf.bottom);
+			
+//			Rect canvasRect = canvas.getClipBounds();
+			
+//			if((canvasRect.left - zoomRect.left) != 0){
+//				rectf.left += (canvasRect.left - zoomRect.left);
+//			}
+//			if ((canvasRect.right - zoomRect.right) != 0) {
+//				rectf.right -= (canvasRect.right - zoomRect.right);
+//			}
+//			if ((canvasRect.top - zoomRect.top) != 0) {
+//				rectf.top += (canvasRect.top - zoomRect.top);
+//			}
+//			if ((canvasRect.bottom - zoomRect.bottom) != 0) {
+//				rectf.bottom -= (canvasRect.bottom - zoomRect.bottom);
+//			}
+			
+			
+//			rectf.top -= mActivity.getMarginTopLeft();
+			
+			Log.d(TAG, "ZOOM-RECT -  left: "+zoomRect.left+", top: "+zoomRect.top+", right: "+zoomRect.right+", bottom: "+zoomRect.bottom);
+			Log.d(TAG, "CANVAS-RECT -  left: "+canvasRect.left+", top: "+canvasRect.top+", right: "+canvasRect.right+", bottom: "+canvasRect.bottom);
+			Log.d(TAG, "SCRIBBLE-RECTF - after -- left: "+rectf.left+", top: "+rectf.top+", right: "+rectf.right+", bottom: "+rectf.bottom);
+			
 			mPaint.setStyle(Paint.Style.STROKE);
 			if (currentShape == Shape.RECTANGLE) {
 				canvas.drawRect(rectf, mPaint);

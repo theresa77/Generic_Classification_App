@@ -187,10 +187,10 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		if (zoomEnabled) {
-			mView.handleTouchZoomEvent(event);
-			
-		} else {
+//		if (zoomEnabled) {
+//			mView.handleTouchZoomEvent(event);
+//			
+//		} else {
 			int action = MotionEventCompat.getActionMasked(event);
 			float x = 0;
 			float y = 0;
@@ -205,18 +205,22 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 				y = event.getY() - marginTopLeft;
 			}
 
-			// for drawing the scribbles a touch is only relevant when it is on
-			// the picture
+			// for drawing the scribbles a touch is only relevant when it is on the picture
 			if (x >= 0 && x <= mView.getBitmap().getWidth() && y >= 0
 					&& y <= mView.getBitmap().getHeight()) {
 
-				mView.handleTouchEvent(action, x, y);
+				if (zoomEnabled) {
+					mView.handleTouchZoomEvent(event);
+				} else {
+					mView.handleTouchEvent(action, x, y);
+//					mView.handleTouchEvent(action, event.getX(), event.getY());
+				}
 
 			} else { // if the touch is outside of the picture
 						// reset drawing
 				mView.handleTouchEventOutsidePicture(action);
 			}
-		}
+//		}
 
 		return true;
 	}
@@ -363,6 +367,14 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	public void setMarginTopLeft(float marginTopLeft){
 		this.marginTopLeft = marginTopLeft;
+	}
+	
+	/**
+	 * TODO
+	 * @return
+	 */
+	public float getMarginTopLeft(){
+		return this.marginTopLeft;
 	}
 
 	/**
@@ -519,14 +531,13 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param v
 	 */
 	public void zoom(View v){
-//		mView.setZoomEnabled();
-	//	zoomEnabled = (zoomEnabled ? false : true);
-		
 		if(zoomEnabled){
 			zoomEnabled = false;
+			v.setBackgroundColor(this.getResources().getColor(R.color.buttonGray));
 		} else {
 			zoomEnabled = true;
 			addScribbleToList(mView.getCurrentScribble());
+			v.setBackgroundColor(this.getResources().getColor(R.color.darkGray));
 		}
 	}
 	
