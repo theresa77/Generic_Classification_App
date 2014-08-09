@@ -519,23 +519,16 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	
 	/**
 	 * TODO
-	 * @param annotation
-	 */
-//	public void addTextAnnotations(List<String> annotations){
-////		textAnnotations = new ArrayList<String>();
-//		for(String s: annotations){
-//			textAnnotations.add(s);
-//		}
-//	}
-	
-	/**
-	 * TODO
 	 * @param annotations
 	 */
-	public void addTextAnnotations(SparseArray<String> annotations){
+	public void setTextAnnotations(SparseArray<String> annotations){
 		for(int i=0; i<annotations.size(); i++){
-			if(annotations.keyAt(i)<textAnnotations.size()){
-				textAnnotations.set(annotations.keyAt(i), annotations.valueAt(i));
+			if(annotations.keyAt(i) < textAnnotations.size()){
+				if(annotations.valueAt(i).equals("")) {
+					textAnnotations.remove(annotations.keyAt(i));
+				} else {
+					textAnnotations.set(annotations.keyAt(i), annotations.valueAt(i));
+				}
 			}
 			else
 				textAnnotations.add(annotations.valueAt(i));

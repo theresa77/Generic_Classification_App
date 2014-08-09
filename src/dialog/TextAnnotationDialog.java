@@ -76,7 +76,7 @@ public class TextAnnotationDialog extends DialogFragment {
 	            new View.OnClickListener() {
 	                @Override
 	                public void onClick(View v) {
-	                	activity.addTextAnnotations(textAnnotations);
+	                	activity.setTextAnnotations(textAnnotations);
 	                	dialog.dismiss();
 	                	//TODO: make correct Toast Text
 	                	Toast.makeText(activity, "Text Annotation saved", Toast.LENGTH_SHORT).show();
@@ -89,7 +89,7 @@ public class TextAnnotationDialog extends DialogFragment {
 	
 	public void addTextAnnotation(int id, String annotation){
 		Log.d(TAG, "addTextAnnotation( id: "+id+", annotation: "+annotation+" ) called");
-		textAnnotations.append(id, annotation);
+		textAnnotations.put(id, annotation);
 		Log.d(TAG, textAnnotations.size()+"");
 	}
 

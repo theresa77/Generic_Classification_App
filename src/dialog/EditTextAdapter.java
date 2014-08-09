@@ -75,9 +75,13 @@ public class EditTextAdapter extends BaseAdapter {
 
 			@Override
 			public void onTextChanged(CharSequence text, int start, int before, int count) {
+				Log.d(TAG, "onTextChanged() called in EditTextAdapter: TEXT: "+text+", LENGTH: "+ text.length()+ ", FOCUS: "+editText.isFocused());
 				if (text != null && text.length() > 0 && editText.isFocused()) {
 					dialog.addTextAnnotation(editText.getId(), text.toString());	
-				}
+				} 
+				else if(text.length()== 0 && editText.isFocused()){
+					dialog.addTextAnnotation(editText.getId(), "");
+				} 
 			}
 		});
 		
