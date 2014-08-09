@@ -42,21 +42,21 @@ public abstract class UserScribbleView extends SurfaceView {
 	protected boolean zoomEnabled;
 	protected RectF zoomBox;
 	private final int INVALID_POINTER_ID = -1;
-	private float mPosX;
-	private float mPosY;
+	protected float mPosX;
+	protected float mPosY;
 	private float mTouchStartX;
 	private float mTouchStartY;
 	private int mActivePointerId = INVALID_POINTER_ID;
 	private ScaleGestureDetector mScaleDetector;
 	protected float mScaleFactor = 1.f;
-	private float focusX;
-	private float focusY;
+	protected float focusX;
+	protected float focusY;
 	private float lastFocusX = -1;
 	private float lastFocusY = -1;
-	private Rect boundsBeforeScale = new Rect();
-	private Rect boundsAfterScale = new Rect();
-	private Rect boundsAfterTranslate = new Rect();
-//	private Matrix matrix = new Matrix();
+	protected Rect boundsBeforeScale = new Rect();
+	protected Rect boundsAfterScale = new Rect();
+	protected Rect boundsAfterTranslate = new Rect();
+	protected Rect zoomBounds = new Rect();
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
@@ -203,8 +203,12 @@ public abstract class UserScribbleView extends SurfaceView {
 			mPosY = boundsAfterScale.bottom-boundsBeforeScale.bottom;
 		}
 		
+		canvas.getClipBounds(zoomBounds);
+		Log.d(TAG, "zoomBounds - left: "+zoomBounds.left+", top: "+zoomBounds.top+", right: "+zoomBounds.right+", bottom: "+zoomBounds.bottom);
+		
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-		drawUserScribble(canvas, boundsBeforeScale, boundsAfterTranslate);
+		drawUserScribble(canvas);
+//		drawUserScribble(canvas, boundsBeforeScale, boundsAfterTranslate);
 		drawFurtherThings(canvas);
 		canvas.restore();
 	}
@@ -283,7 +287,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	
 	
 	public void handleTouchZoomEvent(MotionEvent event){
-		Log.d(TAG, "handleTouchZoomEvent() called");
+//		Log.d(TAG, "handleTouchZoomEvent() called");
 //		Log.d(TAG, "X-coordinate of touch: "+event.getX());
 //		if(mActivePointerId > 0)
 //			Log.d(TAG, "X-coordinate of touch with pointerIndex: "+event.getX(event.findPointerIndex(mActivePointerId)));

@@ -5,6 +5,7 @@ package view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -97,8 +98,8 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	
 	
 	public void handleTouchEvent(int action, float x, float y) {
-		Log.d(TAG, "X-coordinate von Event: "+x);
-		Log.d(TAG, "Y-coordinate von Event: "+y);
+		Log.d(TAG, "###################### X-coordinate von Event: "+x);
+		Log.d(TAG, "###################### Y-coordinate von Event: "+y);
 //		x = x / mScaleFactor;
 //		y = y / mScaleFactor;
 //		if (mActivity.getDisplayWidth() > mActivity.getDisplayHeight()) { // display in landscape
@@ -111,6 +112,28 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 //		Log.d(TAG, "mSclaeFactor: "+mScaleFactor);
 //		Log.d(TAG, "X-coordinate von Event / mScaleFactor: "+x);
 //		Log.d(TAG, "Y-coordinate von Event / mScaleFactor: "+y);
+		
+		
+//		if(mScaleFactor > 1.0f && boundsAfterScale != null && !boundsAfterScale.isEmpty()){
+//			x = x + (mPictureBitmap.getWidth() - boundsAfterScale.right);
+//			y = y + (mPictureBitmap.getHeight() - boundsAfterScale.bottom);
+//		}
+		
+		if(mScaleFactor > 1.0f){
+//			x = ((x+mPosX)/mScaleFactor);
+//			y = ((y+mPosY)/mScaleFactor);
+//			Matrix matrix = new Matrix();
+//			matrix.postTranslate(mPosX, mPosY);
+//			matrix.postScale(1/mScaleFactor, 1/mScaleFactor, focusX, focusY);
+			
+			
+			x = x * (1/mScaleFactor);
+			y = y * (1/mScaleFactor);
+			x += zoomBounds.left;
+			y += zoomBounds.top;
+			Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!! X-coordinate nach NeuBerrechnung: "+x);
+			Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!! Y-coordinate nach NeuBerrechnung: "+y);
+		}
 		
 		// if user wants to draw new scribble, save old one
 		if(drawNewScribble){
