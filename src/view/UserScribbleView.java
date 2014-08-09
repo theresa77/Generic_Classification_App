@@ -40,23 +40,23 @@ public abstract class UserScribbleView extends SurfaceView {
 	protected boolean drawNewScribble;
 	protected Scribble currentScribble;
 	protected boolean zoomEnabled;
-	protected RectF zoomBox;
+//	protected RectF zoomBox;
 	private final int INVALID_POINTER_ID = -1;
-	protected float mPosX;
-	protected float mPosY;
+	private float mPosX;
+	private float mPosY;
 	private float mTouchStartX;
 	private float mTouchStartY;
 	private int mActivePointerId = INVALID_POINTER_ID;
 	private ScaleGestureDetector mScaleDetector;
-	protected float mScaleFactor = 1.f;
-	protected float focusX;
-	protected float focusY;
+	private float mScaleFactor = 1.0f;
+	private float focusX;
+	private float focusY;
 	private float lastFocusX = -1;
 	private float lastFocusY = -1;
-	protected Rect boundsBeforeScale = new Rect();
-	protected Rect boundsAfterScale = new Rect();
-	protected Rect boundsAfterTranslate = new Rect();
-	protected Rect zoomBounds = new Rect();
+	private Rect boundsBeforeScale = new Rect();
+	private Rect boundsAfterScale = new Rect();
+	private Rect boundsAfterTranslate = new Rect();
+	private Rect zoomBounds = new Rect();
 
 	public UserScribbleView(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
@@ -208,7 +208,6 @@ public abstract class UserScribbleView extends SurfaceView {
 		
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
 		drawUserScribble(canvas);
-//		drawUserScribble(canvas, boundsBeforeScale, boundsAfterTranslate);
 		drawFurtherThings(canvas);
 		canvas.restore();
 	}
@@ -243,21 +242,23 @@ public abstract class UserScribbleView extends SurfaceView {
 		return currentScribble;
 	}
 	
-//	public void setZoomEnabled(){
-//		zoomEnabled = (zoomEnabled ? false : true);
-//	}
+	/**
+	 * TODO
+	 * @return
+	 */
+	public Rect getZoomBounds(){
+		return zoomBounds;
+	}
 	
-//	public void setZoomBox(int left, int top, int right, int bottom){
-//		zoomBox = new RectF(left, top, right, bottom);
-//	}
-
+	public float getZoomFactor(){
+		return mScaleFactor;
+	}
+	
 	/**
 	 * Draws current user scribbles to the canvas method parameter.
 	 * @param canvas object for drawing user scribbles
 	 */
 	public abstract void drawUserScribble(Canvas canvas);
-	
-	public abstract void drawUserScribble(Canvas canvas, Rect canvasRect, Rect zooRect);
 	
 	/**
 	 * TODO
@@ -287,14 +288,6 @@ public abstract class UserScribbleView extends SurfaceView {
 	
 	
 	public void handleTouchZoomEvent(MotionEvent event){
-//		Log.d(TAG, "handleTouchZoomEvent() called");
-//		Log.d(TAG, "X-coordinate of touch: "+event.getX());
-//		if(mActivePointerId > 0)
-//			Log.d(TAG, "X-coordinate of touch with pointerIndex: "+event.getX(event.findPointerIndex(mActivePointerId)));
-//		Log.d(TAG, "Y-coordinate of touch: "+event.getY());
-//		if(mActivePointerId > 0)
-//			Log.d(TAG, "Y-coordinate of touch with pointerIndex: "+event.getY(event.findPointerIndex(mActivePointerId)));
-
 		// Let the ScaleGestureDetector inspect all events.
 		mScaleDetector.onTouchEvent(event);
 		int action = event.getAction();

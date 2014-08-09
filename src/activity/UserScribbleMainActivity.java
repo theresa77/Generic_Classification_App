@@ -13,6 +13,7 @@ import view.UserScribbleView;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -188,40 +189,42 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-//		if (zoomEnabled) {
-//			mView.handleTouchZoomEvent(event);
-//			
-//		} else {
-			int action = MotionEventCompat.getActionMasked(event);
-			float x = 0;
-			float y = 0;
-			
-			
-			// get position of touch on the picture
-			if (displayWidth > displayHeight) { // display in landscape
-				x = event.getX() - marginTopLeft;
-				y = event.getY();
-			} else { // display in portrait
-				x = event.getX();
-				y = event.getY() - marginTopLeft;
+		int action = MotionEventCompat.getActionMasked(event);
+		float x = 0;
+		float y = 0;
+
+		// get position of touch on the picture
+		if (displayWidth > displayHeight) { // display in landscape
+			x = event.getX() - marginTopLeft;
+			y = event.getY();
+		} else { // display in portrait
+			x = event.getX();
+			y = event.getY() - marginTopLeft;
+		}
+		
+		// if user has zoomed in, the correct position of the touch gets calculated
+		float zoomFactor = mView.getZoomFactor();
+		if(zoomFactor > 1.0f){
+			Rect zoomBounds = mView.getZoomBounds();
+			x = x * (1/zoomFactor) + zoomBounds.left;
+			y = y * (1/zoomFactor) + zoomBounds.top;
+		}
+
+		// for drawing the scribbles a touch is only relevant when it is on the
+		// picture
+		if (x >= 0 && x <= mView.getBitmap().getWidth() && y >= 0
+				&& y <= mView.getBitmap().getHeight()) {
+
+			if (zoomEnabled) {
+				mView.handleTouchZoomEvent(event);
+			} else {
+				mView.handleTouchEvent(action, x, y);
 			}
 
-			// for drawing the scribbles a touch is only relevant when it is on the picture
-			if (x >= 0 && x <= mView.getBitmap().getWidth() && y >= 0
-					&& y <= mView.getBitmap().getHeight()) {
-
-				if (zoomEnabled) {
-					mView.handleTouchZoomEvent(event);
-				} else {
-					mView.handleTouchEvent(action, x, y);
-//					mView.handleTouchEvent(action, event.getX(), event.getY());
-				}
-
-			} else { // if the touch is outside of the picture
-						// reset drawing
-				mView.handleTouchEventOutsidePicture(action);
-			}
-//		}
+		} else { // if the touch is outside of the picture
+					// reset drawing
+			mView.handleTouchEventOutsidePicture(action);
+		}
 
 		return true;
 	}
