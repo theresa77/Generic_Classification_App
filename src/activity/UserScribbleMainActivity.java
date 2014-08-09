@@ -273,6 +273,14 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	
 	/**
 	 * TODO
+	 * @param v
+	 */
+	public void resetLastForeBackDrawing(View v){
+		((ForegroundBackgroundView)mView).resetLastDrawing();
+	}
+	
+	/**
+	 * TODO
 	 */
 	public void openTextAnnotationDialog(){
 		currentDialog = new TextAnnotationDialog();
@@ -297,9 +305,13 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param v clicked button
 	 */
 	public void pickForegroundBackground(View v){
-		currentDialog = new PickForegroundBackgroundDialog();
-		currentDialog.show(getSupportFragmentManager(), "SelectForgroundBackgroundDialog");
-		Log.d(TAG, "show Dialog for selecting foreground or background");
+		// OLD CODE:
+//		currentDialog = new PickForegroundBackgroundDialog();
+//		currentDialog.show(getSupportFragmentManager(), "SelectForgroundBackgroundDialog");
+//		Log.d(TAG, "show Dialog for selecting foreground or background");
+		
+		
+		((ForegroundBackgroundView)mView).setForeBackgroundButton();
 	}
 	
 	/**

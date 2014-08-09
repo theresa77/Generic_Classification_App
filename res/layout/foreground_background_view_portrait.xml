@@ -23,7 +23,7 @@
             style="@style/ButtonBarButton"
             android:src="@drawable/f_icon"
             android:contentDescription="@string/edit_foreground_background"
-            
+            android:onClick="pickForegroundBackground"
            />
 
 	    <!--
@@ -52,15 +52,15 @@
             android:contentDescription="@string/edit_line"
             android:onClick="editLine"
               />
-        <!-- 
+        
         <ImageButton
             android:id="@+id/delete_scribble_button"
             style="@style/ButtonBarButton"
             android:src="@drawable/clear"
             android:contentDescription="@string/delete_scribble" 
-            android:onClick="resetLastDrawing"
+            android:onClick="resetLastForeBackDrawing"
              />
-         -->
+        
         <ImageButton
             android:id="@+id/add_further_scribble_button"
             style="@style/ButtonBarButton"
