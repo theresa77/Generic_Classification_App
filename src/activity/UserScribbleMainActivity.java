@@ -36,7 +36,6 @@ import com.genericclassificationapp.R;
 
 import dialog.ColorPickerDialog;
 import dialog.OptionMenuDialog;
-import dialog.PickForegroundBackgroundDialog;
 import dialog.PickShapeDialog;
 import dialog.PickStrokeWidthDialog;
 import dialog.TextAnnotationDialog;
@@ -276,7 +275,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param v
 	 */
 	public void resetLastForeBackDrawing(View v){
-		((ForegroundBackgroundView)mView).deleteLastDrawnPath();
+//		((ForegroundBackgroundView)mView).deleteLastDrawnPath();
+		mView.resetLastDrawing();
 	}
 	
 	/**
@@ -447,6 +447,10 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		scribbles = new ArrayList<Scribble>();
 		mPicture.setScribbles(scribbles);
 		resetLastDrawing(null);
+		if(mView instanceof ForegroundBackgroundView){
+			((ForegroundBackgroundView)mView).resetAllDrawings();
+		}
+		mView.setDrawNewScribble(true);
 	}
 
 	/**

@@ -50,11 +50,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	
 	public ForegroundBackgroundView(Context context, UserScribbleView oldView, ImageButton foreBackButton){
 		super(context);
-		mForePaint.setColor(Color.YELLOW);
-		mBackPaint.setColor(Color.MAGENTA);
-//		foreBackButton = (ImageButton) findViewById(R.id.select_foreground_button);
-		this.foreBackButton = foreBackButton;
-		
+		init(foreBackButton);
 		mScaleFactor = oldView.mScaleFactor;
 		focusX = oldView.focusX;
 		focusY = oldView.focusY;
@@ -64,16 +60,18 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	
 	public ForegroundBackgroundView(Context context, ImageButton foreBackButton){
 		super(context);
+		init(foreBackButton);
+	}
+	
+	public ForegroundBackgroundView(Context context){
+		super(context);
+	}
+	
+	private void init(ImageButton foreBackButton) {
+		Log.d(TAG, "init ForegroundBackgroundView");
 		mForePaint.setColor(Color.YELLOW);
 		mBackPaint.setColor(Color.MAGENTA);
-//		foreBackButton = (ImageButton) findViewById(R.id.select_foreground_button);
 		this.foreBackButton = foreBackButton;
-		
-//		mForePath = new Path();
-//		mBackPath = new Path();
-//		mCurrentSelection = Selection.FOREGROUND;
-//		drawCircle = true;
-//		drawForeground = true;	
 	}
 	
 	public void handleTouchEvent(int action, float x, float y){
@@ -301,11 +299,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 
 	@Override
 	public void resetLastDrawing() {
-		resetPath();
-		invalidate();
-	}
-	
-	public void deleteLastDrawnPath(){
 		if(drawForeground) {
 			if(mForePathList.size()>0)
 				mForePathList.remove(mForePathList.size()-1);
@@ -313,9 +306,17 @@ public class ForegroundBackgroundView extends UserScribbleView {
 			if(mBackPathList.size()>0)
 				mBackPathList.remove(mBackPathList.size()-1);
 		}
-		resetLastDrawing();
+		resetPath();
+		invalidate();
 	}
-
+	
+	public void resetAllDrawings(){
+		mPath = new Path();
+		mForePathList = new ArrayList<Path>();
+		mBackPathList = new ArrayList<Path>();
+		invalidate();
+	}
+	
 	/**
 	 * Get current selection of foreground or background
 	 * @param selection
@@ -335,7 +336,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	@Override
 	public void drawFurtherThings(Canvas canvas) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	/**
