@@ -49,7 +49,11 @@ public class ForegroundBackgroundFragment extends UserScribbleFragment {
 //		frameView = (ScrollView) view.findViewById(R.id.foreground_background_surface_view);
 		
 		// create new view for drawing foreground or background
-		mView = new ForegroundBackgroundView(mActivity);
+		if(mView == null){
+			mView = new ForegroundBackgroundView(mActivity);
+		} else {
+			mView = new ForegroundBackgroundView(mActivity, mView);
+		}
 		
 		Toast.makeText(getActivity(), R.string.select_foreground_background, Toast.LENGTH_SHORT).show();
 		

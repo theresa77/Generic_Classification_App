@@ -45,6 +45,7 @@ public abstract class UserScribbleFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mActivity = (UserScribbleMainActivity) getActivity();
+		mView = mActivity.getView();
 		this.inflater = inflater;
 		this.container = container;
 
@@ -53,6 +54,14 @@ public abstract class UserScribbleFragment extends Fragment {
         
         // set content view
         View view = setCustomContentView(mPicture.isLandscape());
+        
+        // set correct color for zoom button
+        ImageButton zoomButton = (ImageButton) view.findViewById(R.id.zoom_button);
+		if(mActivity.isZoomEnabled()){
+			zoomButton.setBackgroundColor(this.getResources().getColor(R.color.darkGray));
+		} else {
+			zoomButton.setBackgroundColor(this.getResources().getColor(R.color.buttonGray));
+		}
 
         // get height and width of the display
 		int displayHeight = mActivity.getDisplayHeight();

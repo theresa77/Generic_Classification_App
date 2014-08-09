@@ -7,6 +7,7 @@ import view.MinimumBoundingBoxView;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.genericclassificationapp.R;
@@ -48,7 +49,11 @@ public class MinimumBoundingBoxFragment extends UserScribbleFragment {
 		frameView = (FrameLayout) view.findViewById(R.id.min_bounding_box_surface_view);
 		
 		// create new view for drawing Minimum Bounding Box
-		mView = new MinimumBoundingBoxView(mActivity);
+		if(mView == null){
+			mView = new MinimumBoundingBoxView(mActivity);
+		} else {
+			mView = new MinimumBoundingBoxView(mActivity, mView);
+		}
 		
 		Toast.makeText(getActivity(), R.string.select_min_bounting_box, Toast.LENGTH_SHORT).show();
 		

@@ -29,6 +29,18 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	private float yStart;
 	private boolean editScribble;
 
+	public MinimumBoundingBoxView(Context context, UserScribbleView oldView) {
+		super(context);
+		currentShape = Shape.RECTANGLE;	
+		mPaint.setStyle(Paint.Style.STROKE);
+		editScribble = false;
+		mScaleFactor = oldView.mScaleFactor;
+		focusX = oldView.focusX;
+		focusY = oldView.focusY;
+		mPosX = oldView.mPosX;
+		mPosY = oldView.mPosY;
+	}
+	
 	public MinimumBoundingBoxView(Context context) {
 		super(context);
 		currentShape = Shape.RECTANGLE;	

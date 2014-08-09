@@ -36,13 +36,27 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		FOREGROUND, BACKGROUND
 	}
 	
-	public ForegroundBackgroundView(Context context){
+	public ForegroundBackgroundView(Context context, UserScribbleView oldView){
 		super(context);
 		mForePath = new Path();
 		mBackPath = new Path();
 		mCurrentSelection = Selection.FOREGROUND;
 		drawCircle = true;
 		drawForeground = true;
+		mScaleFactor = oldView.mScaleFactor;
+		focusX = oldView.focusX;
+		focusY = oldView.focusY;
+		mPosX = oldView.mPosX;
+		mPosY = oldView.mPosY;
+	}
+	
+	public ForegroundBackgroundView(Context context){
+		super(context);
+		mForePath = new Path();
+		mBackPath = new Path();
+		mCurrentSelection = Selection.FOREGROUND;
+		drawCircle = true;
+		drawForeground = true;	
 	}
 	
 	public void handleTouchEvent(int action, float x, float y){

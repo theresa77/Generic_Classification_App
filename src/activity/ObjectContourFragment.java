@@ -49,7 +49,12 @@ public class ObjectContourFragment extends UserScribbleFragment {
 //		frameView = (ScrollView) view.findViewById(R.id.object_contour_surface_view);
 		
 		// create new view for drawing object contour
-		mView = new ObjectContourView(mActivity);
+		if(mView == null){
+			mView = new ObjectContourView(mActivity);
+		} else {
+			mView = new ObjectContourView(mActivity, mView);
+		}
+		
 		
 		Toast.makeText(getActivity(), R.string.select_object_contour, Toast.LENGTH_SHORT).show();
 		

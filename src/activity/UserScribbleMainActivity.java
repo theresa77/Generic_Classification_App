@@ -69,8 +69,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private RelativeLayout tab3;
 	private ScribbleType currentScribbleType;
 	private List<Scribble> scribbles;
-	private List<String> textAnnotations;
-	private Boolean zoomEnabled;
+	private List<String> textAnnotations = new ArrayList<String>();
+	private Boolean zoomEnabled = false;
 	 
 	
 	/**
@@ -177,10 +177,10 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		if(scribbles == null)
 			scribbles = new ArrayList<Scribble>();
 		
-		// create list for text annotations
-		textAnnotations = new ArrayList<String>();
-		
-		zoomEnabled = false;
+//		// create list for text annotations
+//		textAnnotations = new ArrayList<String>();
+//		
+//		zoomEnabled = false;
 	}
 	
 	/**

@@ -25,7 +25,18 @@ public class ObjectContourView extends UserScribbleView {
 	private Path mPath;
 	private float mX;
 	private float mY;
-
+	
+	public ObjectContourView(Context context, UserScribbleView oldView){
+		super(context);
+		mPath = new Path();
+		mPaint.setStyle(Paint.Style.STROKE);
+		mScaleFactor = oldView.mScaleFactor;
+		focusX = oldView.focusX;
+		focusY = oldView.focusY;
+		mPosX = oldView.mPosX;
+		mPosY = oldView.mPosY;
+	}
+	
 	public ObjectContourView(Context context){
 		super(context);
 		mPath = new Path();
