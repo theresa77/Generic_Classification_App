@@ -5,9 +5,7 @@ package view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -37,16 +35,6 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		mPaint.setStyle(Paint.Style.STROKE);
 		editScribble = false;
 	}
-
-//	/**
-//	 * Draw picture and user scribble to canvas object.
-//	 */
-//	@Override
-//	public void onDraw(Canvas canvas) {
-//		// Log.d(TAG, "onDraw() is called");
-//		super.onDraw(canvas);
-//		drawFurtherThings(canvas);
-//	}
 
 	/**
 	 * TODO
@@ -98,18 +86,6 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	
 	
 	public void handleTouchEvent(int action, float x, float y) {
-////		Log.d(TAG, "###################### X-coordinate von Event: "+x);
-////		Log.d(TAG, "###################### Y-coordinate von Event: "+y);
-//		
-//		if(mScaleFactor > 1.0f){
-//			x = x * (1/mScaleFactor);
-//			y = y * (1/mScaleFactor);
-//			x += zoomBounds.left;
-//			y += zoomBounds.top;
-////			Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!! X-coordinate nach NeuBerrechnung: "+x);
-////			Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!! Y-coordinate nach NeuBerrechnung: "+y);
-//		}
-		
 		// if user wants to draw new scribble, save old one
 		if(drawNewScribble){
 //			if(rectf != null && !rectf.isEmpty()){

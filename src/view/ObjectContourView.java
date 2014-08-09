@@ -7,7 +7,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import domain.ObjectContour;
@@ -32,26 +31,6 @@ public class ObjectContourView extends UserScribbleView {
 		mPath = new Path();
 		mPaint.setStyle(Paint.Style.STROKE);
 	}
-	
-//	/**
-//	 * Draw picture and current scribble the canvas object.
-//	 */
-//	public void onDraw(Canvas canvas){
-//		// Log.d(TAG, "onDraw() is called");
-//		
-//			canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-//
-//			if (mPicture.getScribbles() != null
-//					&& !mPicture.getScribbles().isEmpty()) {
-//				for (Scribble s : mPicture.getScribbles()) {
-//					s.drawScribble(canvas);
-//				}
-//			}
-//
-//			if (!mPath.isEmpty())
-//				canvas.drawPath(mPath, mPaint);
-//		
-//	}
 	
 	public void handleTouchEvent(int action, float x, float y){
 

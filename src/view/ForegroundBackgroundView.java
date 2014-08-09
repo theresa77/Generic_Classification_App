@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -45,42 +44,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		drawCircle = true;
 		drawForeground = true;
 	}
-	
-//	/**
-//	 * Draws bitmap of the picture and the current user scribbles
-//	 */
-//	@Override
-//	public void onDraw(Canvas canvas){
-//		// Log.d(TAG, "onDraw() is called");
-//		
-//			canvas.drawBitmap(mPictureBitmap, 0, 0, null);
-//
-//			if (mPicture.getScribbles() != null
-//					&& !mPicture.getScribbles().isEmpty()) {
-//				for (Scribble s : mPicture.getScribbles()) {
-//					s.drawScribble(canvas);
-//				}
-//			}
-//
-//			if (mForePath != null && !mForePath.isEmpty()) {
-//				// if (drawCircle) {
-//				// mPaint.setStyle(Paint.Style.FILL);
-//				// Log.d(TAG, "mPaint.setStyle(Paint.Style.FILL)");
-//				// canvas.drawCircle(mX, mY, mPaint.getStrokeWidth() / 2,
-//				// mPaint);
-//				// } else {
-//				mPaint.setStyle(Paint.Style.STROKE);
-//				mPaint.setColor(Color.BLUE);
-//				canvas.drawPath(mForePath, mPaint);
-//				// }
-//			}
-//
-//			if (mBackPath != null && !mBackPath.isEmpty()) {
-//				mPaint.setColor(Color.RED);
-//				canvas.drawPath(mBackPath, mPaint);
-//			}
-//		
-//	}
 	
 	public void handleTouchEvent(int action, float x, float y){
 
@@ -197,7 +160,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 			Toast.makeText(mActivity, "Draw Background", Toast.LENGTH_SHORT).show();
 		} else {
 			mBackPath.lineTo(x, y);
-			currentScribble = new ForeBackGround(new Path(mForePath), new Path(mBackPath), new Paint(mPaint), Color.BLUE, Color.RED);
+			currentScribble = new ForeBackGround(new Path(mForePath), new Path(mBackPath), new Paint(mPaint), Color.YELLOW, Color.MAGENTA);
 		}
 	//	drawCircle = true;
 		invalidate();
@@ -232,14 +195,14 @@ public class ForegroundBackgroundView extends UserScribbleView {
 //			mPaint.setStyle(Paint.Style.FILL);
 //			canvas.drawCircle(mX, mY, mPaint.getStrokeWidth()/2, mPaint);
 //		}else{
-			mPaint.setColor(Color.BLUE);
+			mPaint.setColor(Color.YELLOW);
 			mPaint.setStyle(Paint.Style.STROKE);
 			canvas.drawPath(mForePath, mPaint);
 //		}
 		} 
 		
 		if (mBackPath != null && !mBackPath.isEmpty()) {
-			mPaint.setColor(Color.RED);
+			mPaint.setColor(Color.MAGENTA);
 			canvas.drawPath(mBackPath, mPaint);
 		}
 		

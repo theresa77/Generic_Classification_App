@@ -2,18 +2,16 @@ package view;
 
 import java.util.List;
 
-import domain.Picture;
-import domain.Scribble;
-import activity.ViewObjectActivity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.view.View;
+import domain.Picture;
+import domain.Scribble;
 
 public class ViewObjectView extends View {
 	
-	private ViewObjectActivity mActivity;
 	private Bitmap mPictureBitmap;
 	private List<Scribble> scribbles;
 	private RectF bounds;
@@ -24,7 +22,6 @@ public class ViewObjectView extends View {
 
 	public ViewObjectView(Context context, Bitmap bitmap) {
 		super(context);
-		mActivity = (ViewObjectActivity)context;
 		Picture picture = Picture.getInstance();
 		scribbles = picture.getScribbles();
 		mPictureBitmap = createScaledBitmap(drawScribblesToBitmap(picture.getBitmap()));

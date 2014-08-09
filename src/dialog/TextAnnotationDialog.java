@@ -1,9 +1,5 @@
 package dialog;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import activity.UserScribbleMainActivity;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -16,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -34,7 +29,6 @@ import com.genericclassificationapp.R;
 public class TextAnnotationDialog extends DialogFragment {
 	
 	private static final String TAG = TextAnnotationDialog.class.getSimpleName();
-	private ArrayList<EditText> editTextItems;
 	private ListView listView;
 	private SparseArray<String> textAnnotations;
 	private EditTextAdapter adapter;
