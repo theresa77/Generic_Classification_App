@@ -161,10 +161,4 @@ public class ObjectContourView extends UserScribbleView {
 		invalidate();
 	}
 
-	@Override
-	public void drawFurtherThings(Canvas canvas) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

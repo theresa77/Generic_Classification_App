@@ -205,7 +205,7 @@ public abstract class UserScribbleView extends SurfaceView {
 		
 		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
 		drawUserScribble(canvas);
-		drawFurtherThings(canvas);
+//		drawFurtherThings(canvas);
 		canvas.restore();
 	}
 	
@@ -256,12 +256,6 @@ public abstract class UserScribbleView extends SurfaceView {
 	 * @param canvas object for drawing user scribbles
 	 */
 	public abstract void drawUserScribble(Canvas canvas);
-	
-	/**
-	 * TODO
-	 * @param canvas
-	 */
-	public abstract void drawFurtherThings(Canvas canvas);
 	
 	/**
 	 * Resets last drawing. 

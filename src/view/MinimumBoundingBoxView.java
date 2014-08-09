@@ -52,7 +52,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	 * TODO
 	 * @param canvas
 	 */
-	public void drawFurtherThings(Canvas canvas){
+	public void drawCornerPoints(Canvas canvas){
 		mPaint.setStyle(Paint.Style.STROKE);
 
 		if (mPicture.getScribbles() != null
@@ -100,9 +100,6 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	public void handleTouchEvent(int action, float x, float y) {
 		// if user wants to draw new scribble, save old one
 		if(drawNewScribble){
-//			if(rectf != null && !rectf.isEmpty()){
-//				mActivity.addScribbleToList(currentScribble);
-//			}
 			drawNewScribble = false;
 			editScribble = false;
 		}
@@ -270,6 +267,64 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	}
 	
 	/**
+	 * Set boundaries for the RectF object and draw it.
+	 * 
+	 * @param left boundary for user scribble
+	 * @param top boundary for user scribble
+	 * @param right boundary for user scribble
+	 * @param bottom boundary for user scribble
+	 */
+	public void setShape(float left, float top, float right, float bottom) {
+		Log.d(TAG, "setShape( left: "+left+", top: "+top+", right: "+right+", bottom: "+bottom+" ) is called");
+		rectf = new RectF(left, top, right, bottom);
+		currentScribble = new MinBoundingBox(new RectF(rectf), currentShape, new Paint(mPaint));
+		invalidate();
+	}
+	
+	/**
+	 * Set the current shape and draw scribbles.
+	 * @param shape
+	 */
+	public void setCurrentShape(Shape shape){
+		currentShape = shape;
+		currentScribble = new MinBoundingBox(new RectF(rectf), shape, new Paint(mPaint));
+		invalidate();
+	}
+	
+	/**
+	 * Draw user scribble to canvas object.
+	 */
+	@Override
+	public void drawUserScribble(Canvas canvas) {
+		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+			for (Scribble s : mPicture.getScribbles()) {
+				s.drawScribble(canvas);
+			}
+		}
+		
+		if (rectf != null) {
+			mPaint.setStyle(Paint.Style.STROKE);
+			if (currentShape == Shape.RECTANGLE) {
+				canvas.drawRect(rectf, mPaint);
+			} else {
+				canvas.drawOval(rectf, mPaint);
+			}
+			drawCornerPoints(canvas);
+		}
+	}
+
+	/**
+	 * Set RectF object null.
+	 * Delete drawing.
+	 */
+	@Override
+	public void resetLastDrawing() {
+		rectf = null;
+		editScribble = false;
+		invalidate();
+	}
+	
+	/**
 	 * TODO
 	 * @param x
 	 * @param y
@@ -388,63 +443,5 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 			return true;
 		return false;
 	}
-	
-	/**
-	 * Set boundaries for the RectF object and draw it.
-	 * 
-	 * @param left boundary for user scribble
-	 * @param top boundary for user scribble
-	 * @param right boundary for user scribble
-	 * @param bottom boundary for user scribble
-	 */
-	public void setShape(float left, float top, float right, float bottom) {
-		Log.d(TAG, "setShape( left: "+left+", top: "+top+", right: "+right+", bottom: "+bottom+" ) is called");
-		rectf = new RectF(left, top, right, bottom);
-		currentScribble = new MinBoundingBox(new RectF(rectf), currentShape, new Paint(mPaint));
-		invalidate();
-	}
-	
-	/**
-	 * Set the current shape and draw scribbles.
-	 * @param shape
-	 */
-	public void setCurrentShape(Shape shape){
-		currentShape = shape;
-		currentScribble = new MinBoundingBox(new RectF(rectf), shape, new Paint(mPaint));
-		invalidate();
-	}
-	
-	/**
-	 * Draw user scribble to canvas object.
-	 */
-	@Override
-	public void drawUserScribble(Canvas canvas) {
-		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
-			for (Scribble s : mPicture.getScribbles()) {
-				s.drawScribble(canvas);
-			}
-		}
-		
-		if (rectf != null) {
-			mPaint.setStyle(Paint.Style.STROKE);
-			if (currentShape == Shape.RECTANGLE) {
-				canvas.drawRect(rectf, mPaint);
-			} else {
-				canvas.drawOval(rectf, mPaint);
-			}
-		}
-	}
-
-	/**
-	 * Set RectF object null.
-	 * Delete drawing.
-	 */
-	@Override
-	public void resetLastDrawing() {
-		rectf = null;
-		editScribble = false;
-		invalidate();
-	}
-
 	
 }

@@ -333,11 +333,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		this.mCurrentSelection = selection;
 	}
 
-	@Override
-	public void drawFurtherThings(Canvas canvas) {
-		// TODO Auto-generated method stub
-	}
-	
 	/**
 	 * TODO
 	 * @return
