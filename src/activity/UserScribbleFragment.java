@@ -75,7 +75,6 @@ public abstract class UserScribbleFragment extends Fragment {
     	
     	LinearLayout.LayoutParams pictureParams;
     	LinearLayout.LayoutParams frameParams = (LinearLayout.LayoutParams) frameView.getLayoutParams();
-    	ImageButton menuButton = (ImageButton) view.findViewById(R.id.menu_button);
 		
 		if (!mPicture.isLandscape()) {
 			// set orientation of the activity to portrait
@@ -92,7 +91,7 @@ public abstract class UserScribbleFragment extends Fragment {
 			frameParams.bottomMargin = topBottom;
 			marginTopLeft = (float) (topBottom + displayHeight*0.1);
 			
-			menuButton.setMinimumHeight((int)(displayHeight*0.1));
+			zoomButton.setMinimumHeight((int)(displayHeight*0.1));
 			
     	} else {
     		// set orientation of the activity to landscape
@@ -109,7 +108,7 @@ public abstract class UserScribbleFragment extends Fragment {
 			frameParams.rightMargin = leftRight;
 			marginTopLeft = (float) (leftRight + displayWidth*0.1);
 			
-			menuButton.setMinimumWidth((int)(displayWidth*0.1));
+			zoomButton.setMinimumWidth((int)(displayWidth*0.1));
     	}
 		
 		// create new layout parameter object with calculated width and height for the bitmap
