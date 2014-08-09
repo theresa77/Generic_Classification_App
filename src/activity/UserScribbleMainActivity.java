@@ -276,7 +276,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param v
 	 */
 	public void resetLastForeBackDrawing(View v){
-		((ForegroundBackgroundView)mView).resetLastDrawing();
+		((ForegroundBackgroundView)mView).deleteLastDrawnPath();
 	}
 	
 	/**
@@ -338,7 +338,9 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param width for scribbles
 	 */
 	public void setStrokeWidth(int width){
-		mPaint.setStrokeWidth(width);
+		if(!(mView instanceof ForegroundBackgroundView)) {
+			mPaint.setStrokeWidth(width);
+		}
 		mView.setStrokeWidth(width);
 		if(currentDialog!=null)
 			currentDialog.dismiss();

@@ -301,6 +301,11 @@ public class ForegroundBackgroundView extends UserScribbleView {
 
 	@Override
 	public void resetLastDrawing() {
+		resetPath();
+		invalidate();
+	}
+	
+	public void deleteLastDrawnPath(){
 		if(drawForeground) {
 			if(mForePathList.size()>0)
 				mForePathList.remove(mForePathList.size()-1);
@@ -308,8 +313,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 			if(mBackPathList.size()>0)
 				mBackPathList.remove(mBackPathList.size()-1);
 		}
-		resetPath();
-		invalidate();
+		resetLastDrawing();
 	}
 
 	/**
@@ -357,17 +361,22 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		if (drawForeground) {
 			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.b_icon));
 			drawForeground = false;
+			
 		} else {
 			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.f_icon));
 			drawForeground = true;
+			setDrawNewScribble(true);
 		}
 	}
 	
-	/**
-	 * resets last fore- or background path which has been drawn by the user.
-	 */
-	public void resetLastForeBackDrawing(){
-		resetPath();
+	@Override
+	public void setStrokeWidth(int width){
+		if(drawForeground) {
+			mForePaint.setStrokeWidth(width);
+		} else {
+			mBackPaint.setStrokeWidth(width);
+		}
+		invalidate();
 	}
 
 }
