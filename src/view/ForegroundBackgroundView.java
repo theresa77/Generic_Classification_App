@@ -245,7 +245,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		mPath.reset();
 		mX = 0;
 		mY = 0;
-		drawForeground = true;
+//		drawForeground = true;
 //		drawCircle = true;
 		invalidate();
 	}

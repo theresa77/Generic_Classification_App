@@ -41,14 +41,6 @@
             android:contentDescription="@string/add_further_scribble" 
             android:onClick="addFurtherScribble"
              />
-          
-         <ImageButton
-            android:id="@+id/delete_scribble_button"
-            style="@style/ButtonBarButton"
-            android:src="@drawable/clear"
-            android:contentDescription="@string/delete_scribble" 
-            android:onClick="resetLastForeBackDrawing"
-             />
         
          <ImageButton
             android:id="@+id/edit_line_button"
@@ -76,6 +68,14 @@
            />
          
            -->
+           
+         <ImageButton
+            android:id="@+id/delete_scribble_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/waste"
+            android:contentDescription="@string/delete_scribble" 
+            android:onClick="resetLastForeBackDrawing"
+             />
         
         <ImageButton
             android:id="@+id/select_foreground_button"
