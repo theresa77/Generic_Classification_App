@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 
 import domain.Picture;
+import domain.Scribble;
 
 /**
  * Dialog for the option menu.
@@ -230,18 +231,18 @@ public class OptionMenuDialog extends DialogFragment {
 				//send picture and scribbles to server
 				case 8:
 					Log.d(TAG, "sendToServer called");
-					// create new bitmap for scribbles only
-					Bitmap userScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)activity).getDisplayWidth(),
-												((UserScribbleMainActivity)activity).getDisplayHeight(), 
-												Bitmap.Config.ARGB_8888); 
-					Canvas canvas = new Canvas(userScribble);
-					UserScribbleView currView = ((UserScribbleMainActivity) activity).getView();
-					
-					// draw scribbles at new canvas object
-					currView.drawUserScribble(canvas);
-					
-					ByteArrayOutputStream byteStream = new ByteArrayOutputStream();	        	
-					userScribble.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+//					// create new bitmap for scribbles only
+//					Bitmap userScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)activity).getDisplayWidth(),
+//												((UserScribbleMainActivity)activity).getDisplayHeight(), 
+//												Bitmap.Config.ARGB_8888); 
+//					Canvas canvas = new Canvas(userScribble);
+//					UserScribbleView currView = ((UserScribbleMainActivity) activity).getView();
+//					
+//					// draw scribbles at new canvas object
+//					currView.drawUserScribble(canvas);
+//					
+//					ByteArrayOutputStream byteStream = new ByteArrayOutputStream();	        	
+//					userScribble.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
 					
 					dialog.dismiss();
 					
@@ -249,9 +250,11 @@ public class OptionMenuDialog extends DialogFragment {
 					TransmissionToServerDialog transDialog = new TransmissionToServerDialog();
 					transDialog.show(getActivity().getSupportFragmentManager(), "TransmissionToServerDialog");
 					
+					Scribble[] scribbles = (Scribble[]) ((UserScribbleMainActivity)activity).getScribbles().toArray();
+					
 					// send picture and scribbles to a server
-					new RetrieveHttpTask(((UserScribbleMainActivity)activity).getCurrentScribble().name(), transDialog).execute(byteStream.toByteArray());
-								
+//					new RetrieveHttpTask(((UserScribbleMainActivity)activity).getCurrentScribble().name(), transDialog).execute(byteStream.toByteArray());
+					new RetrieveHttpTask(transDialog).execute(scribbles);	
 					break;
 				}
 			}	

@@ -23,12 +23,17 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import view.UserScribbleView;
+
+import activity.UserScribbleMainActivity;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 import dialog.TransmissionToServerDialog;
 import domain.Picture;
+import domain.Scribble;
  
 /**
  * Task for sending picture and scribbles to a server.
@@ -37,17 +42,21 @@ import domain.Picture;
  * @version 1.0
  *
  */
-public class RetrieveHttpTask extends AsyncTask<byte[], Integer, String> {
+public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
  
 	
 	private static final String TAG = RetrieveHttpTask.class.getSimpleName();
 	private TransmissionToServerDialog dialog;
-	private String tag;
+//	private String tag;
 	private Boolean tranmissionComplete = false;
 	
-	public RetrieveHttpTask(String tag, TransmissionToServerDialog dialog){
+//	public RetrieveHttpTask(String tag, TransmissionToServerDialog dialog){
+//		this.dialog = dialog;
+//		this.tag = tag;
+//	}
+	
+	public RetrieveHttpTask(TransmissionToServerDialog dialog){
 		this.dialog = dialog;
-		this.tag = tag;
 	}
  
 	/**
@@ -55,7 +64,8 @@ public class RetrieveHttpTask extends AsyncTask<byte[], Integer, String> {
 	 * Send picture and scribbles to a server and receive the response.
 	 */
 	@Override
-	protected String doInBackground(byte[]... scribbles) {
+//	protected String doInBackground(byte[]... scribbles) {
+		protected String doInBackground(Scribble[]... scribbles) {
 		Log.d(TAG, "doInBackground() called");
 		
 		String result = "Error!";
@@ -70,21 +80,39 @@ public class RetrieveHttpTask extends AsyncTask<byte[], Integer, String> {
 	    	
 	    	Picture mPicture = Picture.getInstance();
 	    	Bitmap bitmap = mPicture.getBitmap();
-	    	ByteArrayOutputStream stream = new ByteArrayOutputStream();	        	
-	    	bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+	    	
+	    	ByteArrayOutputStream streamBitmap = new ByteArrayOutputStream();	        	
+	    	bitmap.compress(Bitmap.CompressFormat.PNG, 100, streamBitmap);
+	    	
+	    	
+	    	// TODO: diesen codeblock anpassen - liste aller scribbles durchgehen und diese zeichnen
+	    	// create new bitmap for scribbles only
+			Bitmap userScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)dialog.getActivity()).getDisplayWidth(),
+										((UserScribbleMainActivity)dialog.getActivity()).getDisplayHeight(), 
+										Bitmap.Config.ARGB_8888); 
+			Canvas canvas = new Canvas(userScribble);
+			UserScribbleView currView = ((UserScribbleMainActivity) dialog.getActivity()).getView();
+			
+			// draw scribbles at new canvas object
+			currView.drawUserScribble(canvas);
+			
+			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();	        	
+			userScribble.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+			
+			
 	    	
 	    	// create JSONObject 
 	        JSONObject jsonObject = new JSONObject();
 	        try {
-	        	byte[] pictureEncoded = Base64.encode(stream.toByteArray(), Base64.DEFAULT);
-	        	byte[] scribblesEncoded = Base64.encode(scribbles[0], Base64.DEFAULT);
-	        	byte[] tagEncoded = Base64.encode(tag.getBytes(), Base64.DEFAULT);
+	        	byte[] pictureEncoded = Base64.encode(streamBitmap.toByteArray(), Base64.DEFAULT);
+//	        	byte[] scribblesEncoded = Base64.encode(scribbles[0], Base64.DEFAULT);
+//	        	byte[] tagEncoded = Base64.encode(tag.getBytes(), Base64.DEFAULT);
 	        	
 	        	// add byte array of picture and scribble to JSONObject
 	        	jsonObject.put("picture", pictureEncoded);
 	        	jsonObject.put("landscape", mPicture.isLandscape());
-	        	jsonObject.put("scribbles", scribblesEncoded);
-	        	jsonObject.put("tag",tagEncoded); 
+//	        	jsonObject.put("scribbles", scribblesEncoded);
+//	        	jsonObject.put("tag",tagEncoded); 
 	            
 	          } catch (JSONException e) {
 	            e.printStackTrace();
