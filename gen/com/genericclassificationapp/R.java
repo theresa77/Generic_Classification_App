@@ -70,12 +70,12 @@ public final class R {
     }
     public static final class id {
         public static final int add_further_scribble_button=0x7f09000d;
-        public static final int back_button=0x7f090033;
+        public static final int back_button=0x7f090035;
         public static final int button_capture=0x7f090004;
         public static final int button_change_camera=0x7f090005;
         public static final int button_gallery=0x7f090003;
         public static final int button_take_new_photo=0x7f09002b;
-        public static final int button_transmission_ok=0x7f090031;
+        public static final int button_transmission_ok=0x7f090033;
         public static final int camera_preview=0x7f090001;
         public static final int camera_preview_layout=0x7f090000;
         public static final int color_picker_view=0x7f09001a;
@@ -94,6 +94,7 @@ public final class R {
         public static final int min_bounding_box_buttons=0x7f090013;
         public static final int min_bounding_box_surface_view=0x7f090012;
         public static final int min_bounding_box_view=0x7f090011;
+        public static final int new_text_annotation_button=0x7f09002f;
         public static final int object_contour_surface_view=0x7f090017;
         public static final int object_contour_view=0x7f090016;
         public static final int object_contour_view_buttons=0x7f090018;
@@ -110,16 +111,17 @@ public final class R {
         public static final int picture_frame=0x7f090026;
         public static final int picture_view=0x7f090025;
         public static final int picture_view_button_bar=0x7f090002;
-        public static final int progressbar=0x7f09002f;
-        public static final int realtabcontent=0x7f090032;
+        public static final int progressbar=0x7f090031;
+        public static final int realtabcontent=0x7f090034;
         public static final int select_fore_or_background_button=0x7f090029;
         public static final int select_foreground_button=0x7f090010;
         public static final int select_min_bounting_box_button=0x7f09002a;
         public static final int select_object_contour_button=0x7f090028;
-        public static final int server_response_text=0x7f090030;
+        public static final int server_response_text=0x7f090032;
         public static final int text_annotation_dialog=0x7f09002c;
+        public static final int text_annotation_dialog_button_bar=0x7f09002e;
         public static final int text_annotation_list=0x7f09002d;
-        public static final int text_annotation_ok_button=0x7f09002e;
+        public static final int text_annotation_ok_button=0x7f090030;
         public static final int zoom_button=0x7f09000c;
     }
     public static final class layout {
@@ -179,6 +181,7 @@ public final class R {
         public static final int hundred_percent=0x7f07001d;
         public static final int magnifier=0x7f07002e;
         public static final int menu=0x7f07000f;
+        public static final int new_text_annotation=0x7f07002f;
         /**  content description for views 
  content description for views 
          */

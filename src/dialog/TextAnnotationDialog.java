@@ -83,6 +83,16 @@ public class TextAnnotationDialog extends DialogFragment {
 	                }
 	            }
 	        );
+       
+       ImageButton mNewButton = (ImageButton) dialog.findViewById(R.id.new_text_annotation_button);
+       mNewButton.setOnClickListener(
+    		   new View.OnClickListener() {
+	                @Override
+	                public void onClick(View v) {
+	                	adapter.addNewListItem();
+	                }
+	            }
+	        );
 		
 		return dialog;
 	}

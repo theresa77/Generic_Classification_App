@@ -16,12 +16,6 @@
 		android:background="@color/middleGray"
 		android:layout_marginBottom="15dp" />
     
-    <!--  
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-     -->   
-     <!--  -->
      <LinearLayout
         android:id="@+id/text_annotation_dialog"
         android:layout_width="fill_parent"
@@ -34,18 +28,29 @@
         
     </LinearLayout>
     
-     <ImageButton
+     <LinearLayout
+        android:id="@+id/text_annotation_dialog_button_bar"
+        style="@style/ButtonBarPortrait"
+         >
+        
+         <ImageButton
+            android:id="@+id/new_text_annotation_button"
+            style="@style/ButtonDialog"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/new_text_annotation"
+            android:src="@drawable/plus"
+            android:layout_weight="1" />
+    
+     	<ImageButton
             android:id="@+id/text_annotation_ok_button"
             style="@style/ButtonDialog"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/pick"
-            android:src="@drawable/check" />
-
-	<!--    	
-    </ScrollView>
- 
-    -->
-    
+            android:src="@drawable/check"
+            android:layout_weight="1"  />
+     
+     </LinearLayout>
      
 </LinearLayout>

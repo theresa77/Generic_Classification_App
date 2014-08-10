@@ -87,6 +87,12 @@ public class EditTextAdapter extends BaseAdapter {
 		
 		return editText;
 	}
+	
+	public void addNewListItem(){
+		EditText listItem = new EditText(activity);
+		itemList.add(listItem);
+		notifyDataSetChanged();
+	}
 
 	public ArrayList<EditText> getList() {
 		return itemList;
