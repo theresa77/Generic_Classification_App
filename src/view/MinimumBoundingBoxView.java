@@ -49,8 +49,8 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	}
 
 	/**
-	 * TODO
-	 * @param canvas
+	 * Draws points to the corners of the last drawn minimum bounding box which is still editable.
+	 * @param canvas to draw point on
 	 */
 	public void drawCornerPoints(Canvas canvas){
 		mPaint.setStyle(Paint.Style.STROKE);
@@ -63,6 +63,8 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		}
 
 		if (rectf != null) {
+			// if the shape is a rectangle,
+			// draw the points to the corners
 			if (currentShape == Shape.RECTANGLE) {
 				canvas.drawRect(rectf, mPaint);
 
@@ -77,6 +79,9 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 					canvas.drawCircle(rectf.right, rectf.bottom,
 							mPaint.getStrokeWidth(), mPaint);
 				}
+				
+			// if the shape is a oval
+			// draw the points to the very top, bottom, left and right of the oval
 			} else {
 				canvas.drawOval(rectf, mPaint);
 
@@ -96,7 +101,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		mPaint.setStyle(Paint.Style.STROKE);
 	}
 	
-	
+	@Override
 	public void handleTouchEvent(int action, float x, float y) {
 		// if user wants to draw new scribble, save old one
 		if(drawNewScribble){
@@ -256,6 +261,7 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 
 	}
 	
+	@Override
 	public void handleTouchEventOutsidePicture(int action) {
 		// if user scribble was not drawn before
 		if (rectf == null || rectf.isEmpty()) {
@@ -325,10 +331,10 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	}
 	
 	/**
-	 * TODO
-	 * @param x
-	 * @param y
-	 * @return
+	 * Query if the user has touched the top left corner of the editable minimum bounding rectangle.
+	 * @param x x-position of the touch
+	 * @param y y-position of the touch
+	 * @return true if user has touched the top left corner
 	 */
 	private boolean touchOnTopLeftCorner(float x, float y){
 		if (x >= rectf.left - mPaint.getStrokeWidth()
@@ -340,10 +346,10 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	}
 
 	/**
-	 * TODO
-	 * @param x
-	 * @param y
-	 * @return
+	 * Query if the user has touched the top right corner of the editable minimum bounding rectangle.
+	 * @param x x-position of the touch
+	 * @param y y-position of the touch
+	 * @return true if user has touched the top right corner
 	 */
 	private boolean touchOnTopRightCorner(float x, float y){
 		if (x >= rectf.right - mPaint.getStrokeWidth()
@@ -355,10 +361,10 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	}
 	
 	/**
-	 * TODO
-	 * @param x
-	 * @param y
-	 * @return
+	 *	Query if the user has touched the bottom left corner of the editable minimum bounding rectangle.
+	 * @param x x-position of the touch
+	 * @param y y-position of the touch
+	 * @return true if user has touched the bottom left corner
 	 */
 	private boolean touchOnBottomLeftCorner(float x, float y){
 		if (x >= rectf.left - mPaint.getStrokeWidth()
@@ -370,10 +376,10 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	}
 	
 	/**
-	 * TODO
-	 * @param x
-	 * @param y
-	 * @return
+	 * Query if the user has touched the bottom right corner of the editable minimum bounding rectangle.
+	 * @param x x-position of the touch
+	 * @param y y-position of the touch
+	 * @return true if user has touched the bottom right corner
 	 */
 	private boolean touchOnBottomRightCorner(float x, float y){
 		if (x >= rectf.right - mPaint.getStrokeWidth()
@@ -385,10 +391,10 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	}
 	
 	/**
-	 * TODO
-	 * @param x
-	 * @param y
-	 * @return
+	 * Query if the user has touched the top of the editable minimum bounding oval.
+	 * @param x x-position of the touch
+	 * @param y y-position of the touch
+	 * @return true if the user has touched the top
 	 */
 	private boolean touchOnTop(float x, float y){
 		if(x >= rectf.centerX() - mPaint.getStrokeWidth()
@@ -400,10 +406,10 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	}
 	
 	/**
-	 * TODO
-	 * @param x
-	 * @param y
-	 * @return
+	 * Query if the user has touched the bottom of the editable minimum bounding oval.
+	 * @param x x-position of the touch
+	 * @param y y-position of the touch
+	 * @return true if the user has touched the bottom
 	 */
 	private boolean touchOnBottom(float x, float y){
 		if(x >= rectf.centerX() - mPaint.getStrokeWidth()
@@ -415,10 +421,10 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	}
 	
 	/**
-	 * TODO
-	 * @param x
-	 * @param y
-	 * @return
+	 * Query if the user has touched the left side of the editable minimum bounding oval.
+	 * @param x x-position of the touch
+	 * @param y y-position of the touch
+	 * @return true if the user has touched the left side
 	 */
 	private boolean touchOnLeftSide(float x, float y){
 		if(x >= rectf.left - mPaint.getStrokeWidth()
@@ -430,10 +436,10 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	}
 	
 	/**
-	 * TODO
-	 * @param x
-	 * @param y
-	 * @return
+	 * Query if the user has touched the right side of the editable minimum bounding oval.
+	 * @param x x-position of the touch
+	 * @param y y-position of the touch
+	 * @return true if the user has touched the right side
 	 */
 	private boolean touchOnRightSide(float x, float y){
 		if(x >= rectf.right - mPaint.getStrokeWidth()
