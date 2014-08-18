@@ -38,6 +38,7 @@ public class EditTextAdapter extends BaseAdapter {
         activity = (UserScribbleMainActivity)dialog.getActivity();
         itemList = new ArrayList<EditText>();
         
+        // set old text annotations in the corresponding EditText field in the list
         for (int i = 0; i <= activity.getTextAnnotations().size(); i++) {
         	EditText listItem = new EditText(activity);
         	if(i < activity.getTextAnnotations().size()){
@@ -49,6 +50,9 @@ public class EditTextAdapter extends BaseAdapter {
        
     }
 	
+	/**
+	 * Get EditText object at the specified position in the ListView of the dialog.
+	 */
 	@Override
     public View getView(int position, View convertView, ViewGroup parent){
 		String msg = "getView( position: "+position+", convertView-Text: ";
@@ -65,7 +69,7 @@ public class EditTextAdapter extends BaseAdapter {
 		final EditText editText;
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.edit_text_item_annotation_dialog, null);
-			editText = (EditText) convertView .findViewById(R.id.edit_text_item_annotation);
+			editText = (EditText) convertView.findViewById(R.id.edit_text_item_annotation);
 			convertView.setTag(editText);
 		} else {
 			editText = (EditText) convertView.getTag();
@@ -74,6 +78,7 @@ public class EditTextAdapter extends BaseAdapter {
 		editText.setText(itemList.get(position).getText().toString());
 		editText.setId(position);
 
+		// add TextChangedListener for saving changes in EditText fields in the ListView 
 		editText.addTextChangedListener(new TextWatcher(){
 
 			@Override
@@ -82,6 +87,10 @@ public class EditTextAdapter extends BaseAdapter {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+			/**
+			 * Called when user changes the text in the corresponding EditText field.
+			 * Save changed text annotation.
+			 */
 			@Override
 			public void onTextChanged(CharSequence text, int start, int before, int count) {
 				Log.d(TAG, "onTextChanged() called in EditTextAdapter: TEXT: "+text+", LENGTH: "+ text.length()+ ", FOCUS: "+editText.isFocused());
@@ -97,31 +106,52 @@ public class EditTextAdapter extends BaseAdapter {
 		return editText;
 	}
 	
+	/**
+	 * Add new EditText field to the list. 
+	 */
 	public void addNewListItem(){
 		EditText listItem = new EditText(activity);
 		itemList.add(listItem);
 		notifyDataSetChanged();
 	}
 
+	/**
+	 * Get list of all EditText fields.
+	 * @return list of EditText fields from the dialog
+	 */
 	public ArrayList<EditText> getList() {
 		return itemList;
 	}
 
+	/**
+	 * Get number of all EditText fields in the list.
+	 */
 	@Override
 	public int getCount() {
 		return itemList.size();
 	}
 
+	/**
+	 * Get the EditText field at the corresponding position.
+	 */
 	@Override
 	public EditText getItem(int position) {
 		return itemList.get(position);
 	}
 
+	/**
+	 * Get the id of the EditText item at the corresponding position in the list.
+	 */
 	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 
+	/**
+	 * Get the text of the EditText item at the corresponding in the list.
+	 * @param position of EditText item
+	 * @return text of EditText item
+	 */
 	public String getItemText(int position) {
 		return getItem(position).getText().toString();
 	}

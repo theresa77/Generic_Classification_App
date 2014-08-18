@@ -10,6 +10,12 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 
+/**
+ * Class for one Foreground-Background drawing.
+ * 
+ * @author Theresa Froeschl
+ *
+ */
 public class ForeBackGround extends Scribble {
 
 	private List<Path> forePathList, backPathList;
@@ -26,14 +32,25 @@ public class ForeBackGround extends Scribble {
 //		this.backColor = backColor;
 	}
 
-	public List<Path> getPathFore() {
+	/**
+	 * Get list of all drawn paths which were marked by the user as Foreground.
+	 * @return
+	 */
+	public List<Path> getPathsForeground() {
 		return forePathList;
 	}
 
-	public List<Path> getPathBack() {
+	/**
+	 * Get list of all drawn paths which were marked by the user as Background.
+	 * @return
+	 */
+	public List<Path> getPathsBackground() {
 		return backPathList;
 	}
 
+	/**
+	 * Draw all paths of Foreground and Background to a canvas.
+	 */
 	@Override
 	public void drawScribble(Canvas canvas) {
 //		paint.setColor(foreColor);
@@ -53,6 +70,7 @@ public class ForeBackGround extends Scribble {
 //		canvas.drawPath(backPath, backPaint);
 	}
 	
+	@Override
 	public RectF getBoundingBoxOfScribble(){
 		RectF boundsFore = new RectF();
 		RectF boundsBack = new RectF();
