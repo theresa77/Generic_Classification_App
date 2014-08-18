@@ -68,7 +68,7 @@ public class EditTextAdapter extends BaseAdapter {
 
 		final EditText editText;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.edit_text_item_annotation_dialog, null);
+			convertView = mInflater.inflate(R.layout.edit_text_item_annotation_dialog, parent);
 			editText = (EditText) convertView.findViewById(R.id.edit_text_item_annotation);
 			convertView.setTag(editText);
 		} else {
