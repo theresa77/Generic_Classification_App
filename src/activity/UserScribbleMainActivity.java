@@ -73,7 +73,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	
 	/**
 	 * Called when the activity is created.
-	 * Sets local variables.
+	 * Set local variables.
 	 */
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,8 +229,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	
 	/**
 	 * Called when clicked on change color button.
-	 * Opens Dialog to pick a color.
-	 * @param v clicked button
+	 * Open dialog to pick a color.
+	 * @param v pressed button
 	 */
 	public void editColor(View v){
 		currentDialog = new ColorPickerDialog();
@@ -240,8 +240,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	
 	/**
 	 * Called when clicked on change stroke button.
-	 * Opens Dialog to set stroke width.
-	 * @param v clicked button
+	 * Open dialog to set stroke width.
+	 * @param v pressed button
 	 */
 	public void editLine(View v){
 		currentDialog = new PickStrokeWidthDialog();
@@ -251,8 +251,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	
 	/**
 	 * Called when clicked on change shape button at MinimumBoundingBoxView.
-	 * Opens a Dialog to choose between rectangle and oval shape.
-	 * @param v clicked button
+	 * Open dialog to choose between rectangle and oval shape.
+	 * @param v pressed button
 	 */
 	public void editForm(View v){
 		currentDialog = new PickShapeDialog();
@@ -261,8 +261,9 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * TODO
-	 * @param v
+	 * Called when user clicks on button for drawing new scribble.
+	 * Set flag for drawing new scribble to true.
+	 * @param v pressed button
 	 */
 	public void addFurtherScribble(View v){
 		Log.d(TAG, "addFurtherScribble() called");
@@ -270,8 +271,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * TODO
-	 * @param v
+	 * Reset last drawn path in ForeroundBackgroundView
+	 * @param v pressed button
 	 */
 	public void resetLastForeBackDrawing(View v){
 //		((ForegroundBackgroundView)mView).deleteLastDrawnPath();
@@ -279,7 +280,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * TODO
+	 * Open dialog for adding, editing and deleting text annotations.
 	 */
 	public void openTextAnnotationDialog(){
 		currentDialog = new TextAnnotationDialog();
@@ -289,8 +290,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	
 	/**
 	 * Called when clicked on menu button.
-	 * Opens a Dialog with the menu.
-	 * @param v clicked button
+	 * Open dialog with the menu.
+	 * @param v pressed button
 	 */
 	public void openMenu(View v){
 		currentDialog = new OptionMenuDialog();
@@ -300,8 +301,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	
 	/**
 	 * Called when clicked on ForegroundBackground button in ForegroundBackgroundView
-	 * Opens a Dialog to choose between selecting the foreground or the background of the picture.
-	 * @param v clicked button
+	 * Open dialog to choose between selecting the foreground or the background of the picture.
+	 * @param v pressed button
 	 */
 	public void pickForegroundBackground(View v){
 		// OLD CODE:
@@ -314,7 +315,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * Sets color for drawing scribbles.
+	 * Set color for drawing scribbles.
 	 * @param color selected color
 	 */
 	public void setUserScribbleColor(int color) {
@@ -325,7 +326,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * Gets current color for drawing scribbles
+	 * Get current color for drawing scribbles
 	 * @return color for scribbles
 	 */
 	public int getUserScribbleColor() {
@@ -333,7 +334,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 
 	/**
-	 * Sets the stroke width for drawing scribbles
+	 * Set the stroke width for drawing scribbles
 	 * @param width for scribbles
 	 */
 	public void setStrokeWidth(int width){
@@ -346,7 +347,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * Gets current stroke width for scribbles
+	 * Get current stroke width for scribbles
 	 * @return stroke width for scribbles
 	 */
 	public float getStrokeWidth(){
@@ -354,7 +355,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * Gets Paint object for user scribbles,
+	 * Get Paint object for user scribbles,
 	 * @return paint object for scribbles
 	 */
 	public Paint getPaint(){
@@ -362,7 +363,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 
 	/**
-	 * Gets width of the display
+	 * Get width of the display
 	 * @return width of display
 	 */
 	public int getDisplayWidth(){
@@ -370,7 +371,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * Gets height of the display
+	 * Get height of the display
 	 * @return height of display
 	 */
 	public int getDisplayHeight(){
@@ -378,7 +379,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * Gets margin value for the picture to the top of the display when it is in portrait
+	 * Get margin value for the picture to the top of the display when it is in portrait
 	 * and to the left of the display when it is on landscape
 	 * @param marginTopLeft margin to top/left to the display
 	 */
@@ -387,15 +388,16 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * TODO
-	 * @return
+	 * Get top margin value for portrait orientation
+	 * and left margin value for landscape orientation.
+	 * @return top/left margin value
 	 */
 	public float getMarginTopLeft(){
 		return this.marginTopLeft;
 	}
 
 	/**
-	 * Sets the current view for the selected tab
+	 * Set the current view for the selected tab
 	 * @param mView current view for the activity
 	 */
 	public void setCurrentView(UserScribbleView mView) {
@@ -403,7 +405,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 
 	/**
-	 * Sets the value for the selected shape for MinimumBoundingBoxView
+	 * Set the value for the selected shape for MinimumBoundingBoxView
 	 * @param shape selected shape
 	 */
 	public void setShape(Shape shape) {
@@ -411,7 +413,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * Sets the value for the selection of fore- or background for ForgroundBackgroundView
+	 * Set the value for the selection of fore- or background for ForgroundBackgroundView
 	 * @param selection value for selection
 	 */
 	public void setForeBackgroundSelection(Selection selection){
@@ -429,8 +431,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * Resets last drawing.
-	 * Deletes user scribble.
+	 * Reset last drawing.
+	 * Delete user scribble.
 	 */
 	public void resetLastDrawing(View v){
 		mView.resetLastDrawing();
@@ -440,7 +442,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * Deletes all user scribbles.
+	 * Delete all user scribbles.
 	 */
 	public void resetAllDrawings(){
 		scribbles = new ArrayList<Scribble>();
@@ -544,7 +546,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	
 	/**
 	 * Called when user clicks on zoom button.
-	 * Enables or disables zoom, depending on whether zoom is disabled or enabled.
+	 * Enable or disable zoom, depending on whether zoom is disabled or enabled.
 	 * @param v zoom button
 	 */
 	public void zoom(View v){
@@ -559,7 +561,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * Returns true if zoom is enabled.
+	 * Return true if zoom is enabled.
 	 * @return true if zoom is enabled, false if it is disabled
 	 */
 	public boolean isZoomEnabled(){

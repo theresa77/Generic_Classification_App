@@ -210,8 +210,8 @@ public abstract class UserScribbleView extends SurfaceView {
 	}
 	
 	/**
-	 * TODO
-	 * @param drawNew
+	 * Set boolean flag for drawing new scribble and save old scribble. 
+	 * @param drawNew boolean flag, true if user wants to draw a new scribble.
 	 */
 	public void setDrawNewScribble(boolean drawNew){
 		drawNewScribble = drawNew;
@@ -224,29 +224,33 @@ public abstract class UserScribbleView extends SurfaceView {
 	}
 	
 	/**
-	 * TODO
-	 * @return
+	 * Returns true if user wants to draw a new scribble.
+	 * @return true if user wants to draw a new scribble
 	 */
 	public boolean drawNewScribble(){
 		return drawNewScribble;
 	}
 	
 	/**
-	 * TODO
-	 * @return
+	 * Returns the last drawn scribble.
+	 * @return current and last drawn scribble
 	 */
 	public Scribble getCurrentScribble() {
 		return currentScribble;
 	}
 	
 	/**
-	 * TODO
-	 * @return
+	 * Get bounds of zoomed area.
+	 * @return bounds of zoom
 	 */
 	public Rect getZoomBounds(){
 		return zoomBounds;
 	}
 	
+	/**
+	 * Returns scale factor of zoom.
+	 * @return scale factor of zoom
+	 */
 	public float getZoomFactor(){
 		return mScaleFactor;
 	}
@@ -264,20 +268,23 @@ public abstract class UserScribbleView extends SurfaceView {
 	public abstract void resetLastDrawing();
 	
 	/**
-	 * TODO
-	 * @param action
-	 * @param x
-	 * @param y
+	 * Called when user touches screen inside the picture.
+	 * @param action value of touch
+	 * @param x x-position of touch
+	 * @param y y-position of touch
 	 */
 	public abstract void handleTouchEvent(int action, float x, float y);
 	
 	/**
-	 * TODO
-	 * @param action
+	 * Called when user touches screen outside of the picture.
+	 * @param action value of the touch
 	 */
 	public abstract void handleTouchEventOutsidePicture(int action);
 	
-	
+	/**
+	 * Called when zoom is enabled. Handle multitouch for zooming.
+	 * @param event 
+	 */
 	public void handleTouchZoomEvent(MotionEvent event){
 		// Let the ScaleGestureDetector inspect all events.
 		mScaleDetector.onTouchEvent(event);
@@ -343,6 +350,13 @@ public abstract class UserScribbleView extends SurfaceView {
 		
 	}
 	
+	
+	/**
+	 * Private class for zooming in and out on the taken picture.
+	 * 
+	 * @author Theresa Froeschl
+	 *
+	 */
 	private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
 		
 		@Override

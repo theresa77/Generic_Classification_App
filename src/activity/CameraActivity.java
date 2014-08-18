@@ -199,8 +199,9 @@ public class CameraActivity extends Activity {
     }
     
     /**
-     * TODO
-     * @param v
+     * Called when user pressed gallery button.
+     * Get picture from gallery.
+     * @param v pressed button
      */
     public void getPictureFromGallery(View v){
     	Log.d(TAG, "getPictureFromGallery() called");
@@ -210,7 +211,7 @@ public class CameraActivity extends Activity {
     }
     
     /**
-     * TODO
+     * Called after user selected picture from gallery.
      */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -270,8 +271,9 @@ public class CameraActivity extends Activity {
 	}
 
 	/**
-	 * TODO
-	 * @param v
+	 * Called when user pressed the change camera button.
+	 * Set flag for using back or front camera and calls on create method to change selected camera.
+	 * @param v pressed button
 	 */
     public void changeCamera(View v){
     	Log.d(TAG, "changeCamera() called");
@@ -366,7 +368,7 @@ public class CameraActivity extends Activity {
 	}
 	
 	/**
-	 * TODO
+	 * Recycle bitmap for taken picture.
 	 */
 	private void recyclePictureBitmap(){
 		Log.d(TAG, "recyclePictureBitmap() called.");
