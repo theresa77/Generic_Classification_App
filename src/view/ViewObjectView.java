@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2014 Theresa Froeschl
+ */
 package view;
 
 import java.util.List;
@@ -10,6 +13,7 @@ import android.view.View;
 import domain.Picture;
 import domain.Scribble;
 
+// TODO: DELETE
 public class ViewObjectView extends View {
 	
 	private Bitmap mPictureBitmap;

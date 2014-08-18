@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2014 Theresa Froeschl
+ */
 package activity;
 
 import java.util.List;
@@ -30,7 +33,7 @@ public class ViewObjectActivity extends Activity {
 	
 	private static final String TAG = ViewObjectActivity.class.getSimpleName();
 	private Picture mPicture;
-	private ViewObjectView mView;
+//	private ViewObjectView mView;
 	private int displayWidth;
 	private int displayHeight;
 	private Bitmap mPictureBitmap;

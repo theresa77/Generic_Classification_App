@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2014 Theresa Froeschl
+ */
 package dialog;
 
 import java.util.ArrayList;
@@ -15,6 +18,12 @@ import android.widget.EditText;
 
 import com.genericclassificationapp.R;
 
+/**
+ * Adapter class for ListView of EditText fields in TextAnnotationDialog. 
+ * 
+ * @author Theresa Froeschl
+ *
+ */
 public class EditTextAdapter extends BaseAdapter {
 
 	private static final String TAG = EditTextAdapter.class.getSimpleName();
