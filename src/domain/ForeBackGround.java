@@ -18,8 +18,8 @@ import android.graphics.RectF;
  */
 public class ForeBackGround extends Scribble {
 
+	private List<Tuple<Path,Paint>> foreTupleList, backTupleList;
 	private List<Path> forePathList, backPathList;
-//	private int foreColor, backColor;
 	private Paint forePaint, backPaint;
 	
 	public ForeBackGround(List<Path> forePathList, List<Path> backPathList, Paint forePaint, Paint backPaint){
@@ -28,8 +28,12 @@ public class ForeBackGround extends Scribble {
 		this.backPathList = backPathList;
 		this.forePaint = forePaint;
 		this.backPaint = backPaint;
-//		this.foreColor = foreColor;
-//		this.backColor = backColor;
+	}
+	
+	public ForeBackGround(List<Tuple<Path,Paint>> foreTupleList, List<Tuple<Path,Paint>> backTupleList){
+		super();
+		this.foreTupleList = foreTupleList;
+		this.backTupleList = backTupleList;
 	}
 
 	/**
@@ -53,11 +57,7 @@ public class ForeBackGround extends Scribble {
 	 */
 	@Override
 	public void drawScribble(Canvas canvas) {
-//		paint.setColor(foreColor);
-//		canvas.drawPath(pathFore, paint);
-//		paint.setColor(backColor);
-//		canvas.drawPath(pathBack, paint);
-		
+
 		for(Path p : forePathList) {
 			canvas.drawPath(p, forePaint);
 		}
@@ -65,9 +65,17 @@ public class ForeBackGround extends Scribble {
 		for (Path p : backPathList) {
 			canvas.drawPath(p, backPaint);
 		}
+		
+		
+//		// code for Tuples
+//		for(Tuple<Path,Paint> t : foreTupleList) {
+//			canvas.drawPath(t.x, t.y);
+//		}
+//
+//		for (Tuple<Path,Paint> t : backTupleList) {
+//			canvas.drawPath(t.x, t.y);
+//		}
 
-//		canvas.drawPath(forePath, forePaint);
-//		canvas.drawPath(backPath, backPaint);
 	}
 	
 	@Override
