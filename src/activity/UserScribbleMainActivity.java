@@ -42,7 +42,6 @@ import dialog.TextAnnotationDialog;
 import domain.MinBoundingBox.Shape;
 import domain.Picture;
 import domain.Scribble;
-import domain.Scribble.ScribbleType;
 
 /**
  * Activity for drawing user scribbles.
@@ -66,7 +65,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private RelativeLayout tab1;
 	private RelativeLayout tab2;
 	private RelativeLayout tab3;
-	private ScribbleType currentScribbleType;
+//	private ScribbleType currentScribbleType;
 	private List<Scribble> scribbles;
 	private List<String> textAnnotations = new ArrayList<String>();
 	private Boolean zoomEnabled = false;
@@ -422,10 +421,10 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		// adapt icon for button to new selection value
 		if(selection == Selection.FOREGROUND) {
 			imgButton.setImageResource(R.drawable.f_icon);
-			currentScribbleType = ScribbleType.FOREGROUND;
+//			currentScribbleType = ScribbleType.FOREGROUND;
 		} else {
 			imgButton.setImageResource(R.drawable.b_icon);
-			currentScribbleType = ScribbleType.BACKGROUND;
+//			currentScribbleType = ScribbleType.BACKGROUND;
 		}
 	}
 	
@@ -486,17 +485,17 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * Get current selection for drawing scribbles.
 	 * @return current scribble selection
 	 */
-	public ScribbleType getCurrentScribble() {
-		return currentScribbleType;
-	}
+//	public ScribbleType getCurrentScribble() {
+//		return currentScribbleType;
+//	}
 
 	/**
 	 * Set value for scribble selection.
 	 * @param currentScribble new scribble selection
 	 */
-	public void setCurrentScribble(ScribbleType currentScribble) {
-		this.currentScribbleType = currentScribble;
-	}
+//	public void setCurrentScribble(ScribbleType currentScribble) {
+//		this.currentScribbleType = currentScribble;
+//	}
 	
 	/**
 	 * TODO

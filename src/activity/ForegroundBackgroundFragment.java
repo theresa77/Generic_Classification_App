@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.genericclassificationapp.R;
 
-import domain.Scribble.ScribbleType;
+//import domain.Scribble.ScribbleType;
 
 /**
  * Fragment for drawing Foreground or Background.
@@ -34,7 +34,7 @@ public class ForegroundBackgroundFragment extends UserScribbleFragment {
 	protected View setCustomContentView(boolean isLandscape) {
 		Log.d(TAG, "setCustomContentView called");
 		
-		mActivity.setCurrentScribble(ScribbleType.FOREGROUND);
+//		mActivity.setCurrentScribble(ScribbleType.FOREGROUND);
 		View view;
 		
 		if(isLandscape){
