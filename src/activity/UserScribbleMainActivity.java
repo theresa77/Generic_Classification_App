@@ -498,8 +498,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 //	}
 	
 	/**
-	 * TODO
-	 * @param scri
+	 * Add new scribble to list of all scribbles.
+	 * @param scri new scribble 
 	 */
 	public void addScribbleToList(Scribble scri){
 		if(scri != null){
@@ -509,16 +509,16 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * TODO
-	 * @return
+	 * Get list of all drawn scribbles.
+	 * @return list of scribbles
 	 */
 	public List<Scribble> getScribbles(){
 		return scribbles;
 	}
 	
 	/**
-	 * TODO
-	 * @param annotations
+	 * Set list of text annotations.
+	 * @param annotations sparse array of text annotations
 	 */
 	public void setTextAnnotations(SparseArray<String> annotations){
 		for(int i=0; i<annotations.size(); i++){
@@ -535,16 +535,17 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * TODO
-	 * @return
+	 * Get list of all text annotations.
+	 * @return list of text annotations
 	 */
 	public List<String> getTextAnnotations(){
 		return textAnnotations;
 	}
 	
 	/**
-	 * TODO
-	 * @param v
+	 * Called when user clicks on zoom button.
+	 * Enables or disables zoom, depending on whether zoom is disabled or enabled.
+	 * @param v zoom button
 	 */
 	public void zoom(View v){
 		if(zoomEnabled){
@@ -558,8 +559,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * TODO
-	 * @return
+	 * Returns true if zoom is enabled.
+	 * @return true if zoom is enabled, false if it is disabled
 	 */
 	public boolean isZoomEnabled(){
 		return zoomEnabled;

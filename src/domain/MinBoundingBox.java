@@ -8,6 +8,12 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+/**
+ * Class for one Minimum Bounding Box drawing.
+ * 
+ * @author Theresa Froeschl
+ *
+ */
 public class MinBoundingBox extends Scribble {
 
 	private RectF rectf;
@@ -25,13 +31,13 @@ public class MinBoundingBox extends Scribble {
 		this.paint = paint;
 	}
 
-	public RectF getRectf() {
-		return rectf;
-	}
-
-	public Shape getShape() {
-		return shape;
-	}
+//	public RectF getRectf() {
+//		return rectf;
+//	}
+//
+//	public Shape getShape() {
+//		return shape;
+//	}
 
 	@Override
 	public void drawScribble(Canvas canvas) {
@@ -43,16 +49,16 @@ public class MinBoundingBox extends Scribble {
 		}
 	}
 	
-	public void drawScribble(Canvas canvas, Rect rect) {
-		if (shape == Shape.RECTANGLE) {
-			
-			canvas.drawRect(rectf, paint);
-		} else {
-			canvas.drawOval(rectf, paint);
-			
-		}
-	}
-	
+//	public void drawScribble(Canvas canvas, Rect rect) {
+//		if (shape == Shape.RECTANGLE) {
+//			
+//			canvas.drawRect(rectf, paint);
+//		} else {
+//			canvas.drawOval(rectf, paint);
+//			
+//		}
+//	}
+//	
 	public String toString() {
 		return "MinBoundingBox(rectf(left: " + rectf.left + ", top: "
 				+ rectf.top + ", right: " + rectf.right + ", bottom: "
@@ -61,8 +67,8 @@ public class MinBoundingBox extends Scribble {
 				+ paint.getStrokeWidth() + ") )";
 	}
 	
+	@Override
 	public RectF getBoundingBoxOfScribble(){
-		// left, top, right, bottom
 		return rectf;
 	}
 	

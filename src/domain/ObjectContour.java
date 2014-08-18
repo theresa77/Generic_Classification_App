@@ -8,6 +8,12 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 
+/**
+ * Class for one Object Contour drawing.
+ * 
+ * @author Theresa Froeschl
+ *
+ */
 public class ObjectContour extends Scribble {
 
 	private Path path;
@@ -19,17 +25,17 @@ public class ObjectContour extends Scribble {
 		this.paint = paint;
 	}
 
-	public Path getPath() {
-		return path;
-	}
+//	public Path getPath() {
+//		return path;
+//	}
 
 	@Override
 	public void drawScribble(Canvas canvas) {
 		canvas.drawPath(path, paint);
 	}
 	
+	@Override
 	public RectF getBoundingBoxOfScribble(){
-		// left, top, right, bottom
 		RectF bounds = new RectF();
 		path.computeBounds(bounds, true);
 		return bounds;
