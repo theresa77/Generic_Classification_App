@@ -11,11 +11,12 @@ import android.graphics.RectF;
 public class ObjectContour extends Scribble {
 
 	private Path path;
+	private Paint paint;
 	
 	public ObjectContour(Path path, Paint paint){
 		super();
 		this.path = path;
-		super.paint = paint;
+		this.paint = paint;
 	}
 
 	public Path getPath() {

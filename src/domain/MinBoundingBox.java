@@ -12,6 +12,7 @@ public class MinBoundingBox extends Scribble {
 
 	private RectF rectf;
 	private Shape shape;
+	private Paint paint;
 	
 	public enum Shape {
 		RECTANGLE, OVAL
@@ -21,7 +22,7 @@ public class MinBoundingBox extends Scribble {
 		super();
 		this.rectf = rectf;
 		this.shape = shape;
-		super.paint = paint;
+		this.paint = paint;
 	}
 
 	public RectF getRectf() {

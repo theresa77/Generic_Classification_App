@@ -503,7 +503,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	public void addScribbleToList(Scribble scri){
 		if(scri != null){
-			scri.setPaint(new Paint(mPaint));
+//			scri.setPaint(new Paint(mPaint));
 			scribbles.add(scri);
 		}
 	}
