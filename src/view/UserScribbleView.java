@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -200,10 +201,21 @@ public abstract class UserScribbleView extends SurfaceView {
 			mPosY = boundsAfterScale.bottom-boundsBeforeScale.bottom;
 		}
 		
+//		Matrix matrix = new Matrix();
+//		matrix.postScale(mScaleFactor, mScaleFactor, focusX, focusY);
+//		matrix.postTranslate(mPosX, mPosY);
+		
+		Paint paint = new Paint();
+		paint.setAntiAlias(true);
+		paint.setFilterBitmap(true);
+		paint.setDither(true);
+		
 		canvas.getClipBounds(zoomBounds);
 //		Log.d(TAG, "zoomBounds - left: "+zoomBounds.left+", top: "+zoomBounds.top+", right: "+zoomBounds.right+", bottom: "+zoomBounds.bottom);
 		
-		canvas.drawBitmap(mPictureBitmap, 0, 0, null);
+		canvas.drawBitmap(mPictureBitmap, 0, 0, paint);
+//		canvas.drawBitmap(mPictureBitmap, matrix, null);
+		
 		drawUserScribble(canvas);
 //		drawFurtherThings(canvas);
 		canvas.restore();

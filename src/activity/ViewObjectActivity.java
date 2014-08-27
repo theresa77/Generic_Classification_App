@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -125,8 +126,15 @@ public class ViewObjectActivity extends Activity {
 	
 	
 	private Bitmap drawScribblesToBitmap(Bitmap bitmap){
-		Canvas canvas = new Canvas(bitmap);
-//		canvas.drawBitmap(bitmap, 0, 0, null);
+
+		Canvas canvas = new Canvas();
+		
+//		Canvas canvas = new Canvas(bitmap);
+//		Paint paint = new Paint();
+//		paint.setAntiAlias(true);
+//		paint.setFilterBitmap(true);
+//		paint.setDither(true);
+//		canvas.drawBitmap(bitmap, 0, 0, paint);
 		
 		if (scribbles != null && !scribbles.isEmpty()) {
 			for (Scribble s : scribbles) {

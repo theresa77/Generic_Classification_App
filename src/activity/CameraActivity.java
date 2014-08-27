@@ -429,7 +429,7 @@ public class CameraActivity extends Activity {
 
 		// Calculate inSampleSize
 		options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-		options.inScaled = false;
+		//options.inScaled = false;
 
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;
