@@ -66,7 +66,7 @@ public class Picture {
 	}
 	
 	/**
-	 * TODO
+	 * Recycle bitmap for taken picture.
 	 */
 	public void recyclePicture(){
 		mBitmap.recycle();
@@ -74,15 +74,26 @@ public class Picture {
 		mPicture = null;
 	}
 
-	
+	/**
+	 * Get list of all drawn scribbles.
+	 * @return list of scribbles
+	 */
 	public List<Scribble> getScribbles() {
 		return scribbles;
 	}
 
+	/**
+	 * Set list for all scribbles.
+	 * @param scribbles new list of scribbles
+	 */
 	public void setScribbles(List<Scribble> scribbles) {
 		this.scribbles = scribbles;
 	}
 	
+	/**
+	 * Add new scribble to list.
+	 * @param scri new sribble
+	 */
 	public void addScribbleToList(Scribble scri){
 		if(scribbles == null)
 			scribbles = new ArrayList<Scribble>();

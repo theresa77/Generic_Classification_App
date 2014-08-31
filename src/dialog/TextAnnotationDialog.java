@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2014 Theresa Froeschl
+ */
 package dialog;
 
 import activity.UserScribbleMainActivity;

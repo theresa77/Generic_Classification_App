@@ -95,7 +95,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 //				// hat vielleicht etwas mit der PreviewSize zu tun, da diese bei
 //				// der
 //				// front camera anders ist
-//				// das ganze ist auch leider von gerät abhängig.
+//				// das ganze ist auch leider vom gerät abhängig.
 //				mCamera.setParameters(p);
 //			} catch (Exception e) {
 //				p.set("camera-id", 2);

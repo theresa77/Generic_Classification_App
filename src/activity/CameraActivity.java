@@ -86,6 +86,9 @@ public class CameraActivity extends Activity {
 			}
 
 			// create a Bitmap from the byte array with the width and height of the screen
+			// TODO: test ob doppelte größe zu viel ist (wegen speicher)
+//			reqWidth = reqWidth * 2;
+//			reqHeight = reqHeight * 2;
 			mPictureBitmap = decodeSampledBitmapFromResource(data, reqWidth, reqHeight);
 
 			if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -199,8 +202,9 @@ public class CameraActivity extends Activity {
     }
     
     /**
-     * TODO
-     * @param v
+     * Called when user pressed gallery button.
+     * Get picture from gallery.
+     * @param v pressed button
      */
     public void getPictureFromGallery(View v){
     	Log.d(TAG, "getPictureFromGallery() called");
@@ -210,7 +214,7 @@ public class CameraActivity extends Activity {
     }
     
     /**
-     * TODO
+     * Called after user selected picture from gallery.
      */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -251,18 +255,19 @@ public class CameraActivity extends Activity {
 			}
 
 			// create a Bitmap from the byte array with the width and height of the screen
+			//mPictureBitmap = BitmapFactory.decodeByteArray(inputData, 0, inputData.length);
 			mPictureBitmap = decodeSampledBitmapFromResource(inputData, displayWidth, displayHeight);
 
 			if (mPictureBitmap.getHeight() > mPictureBitmap.getWidth()) {
 				
-				//create picture instance with the bitmap and an flag if the picture is in landsape 
+				//create picture instance with the bitmap and an flag if the picture is in landscape 
 				Picture.createInstance(mPictureBitmap, false);
 
 			} else  {
 				Picture.createInstance(mPictureBitmap, true);
 			}
 			
-			// start PictureActivty to view the Picture
+			// start PictureActivity to view the Picture
 			Intent pictureIntent = new Intent(CameraActivity.this,PictureActivity.class);
 			startActivity(pictureIntent);
 			CameraActivity.this.finish();
@@ -270,8 +275,9 @@ public class CameraActivity extends Activity {
 	}
 
 	/**
-	 * TODO
-	 * @param v
+	 * Called when user pressed the change camera button.
+	 * Set flag for using back or front camera and calls on create method to change selected camera.
+	 * @param v pressed button
 	 */
     public void changeCamera(View v){
     	Log.d(TAG, "changeCamera() called");
@@ -366,7 +372,7 @@ public class CameraActivity extends Activity {
 	}
 	
 	/**
-	 * TODO
+	 * Recycle bitmap for taken picture.
 	 */
 	private void recyclePictureBitmap(){
 		Log.d(TAG, "recyclePictureBitmap() called.");
@@ -425,6 +431,7 @@ public class CameraActivity extends Activity {
 
 		// Calculate inSampleSize
 		options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+		//options.inScaled = false;
 
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;

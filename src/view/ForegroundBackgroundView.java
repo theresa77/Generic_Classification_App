@@ -233,9 +233,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	}
 	
 	/**
-	 * Resets the path from the previous touch
-	 * Called when user starts new touch
-	 * TODO
+	 * Resets the last drawn path.
 	 */
 	public void resetPath(){
 //		mForePath.reset();
@@ -334,23 +332,23 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	}
 
 	/**
-	 * TODO
-	 * @return
+	 * Returns if user is currently drawing on the foreground of the picture.
+	 * @return true is user is markig the foreground
 	 */
 	public boolean isDrawingForeground(){
 		return drawForeground;
 	}
 	
 	/**
-	 * TODO
-	 * @param drawForeground
+	 * Set boolean flag for drawing on the foreground or the background of the picture.
+	 * @param drawForeground true for drawing on the foreground
 	 */
 	public void setDrawForeground(boolean drawForeground){
 		this.drawForeground = drawForeground;
 	}
 	
 	/**
-	 * TODO
+	 * Set drawable for foreground-background-button at the very left in the button bar.
 	 */
 	public void setForeBackgroundButton(){
 		if (drawForeground) {
