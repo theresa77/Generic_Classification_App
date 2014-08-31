@@ -287,7 +287,9 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	 */
 	public void setCurrentShape(Shape shape){
 		currentShape = shape;
-		currentScribble = new MinBoundingBox(new RectF(rectf), shape, new Paint(mPaint));
+		if(rectf != null && !rectf.isEmpty() && mPaint != null){
+			currentScribble = new MinBoundingBox(new RectF(rectf), shape, new Paint(mPaint));
+		}
 		invalidate();
 	}
 	

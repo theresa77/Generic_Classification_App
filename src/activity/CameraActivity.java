@@ -384,7 +384,7 @@ public class CameraActivity extends Activity {
 	 * @param reqHeight value for the required height of the picture
 	 * @return calculated inSampleSize value 
 	 */
-	public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+	public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {	
 		// Raw height and width of image
 		final int height = options.outHeight;
 		final int width = options.outWidth;
@@ -415,7 +415,9 @@ public class CameraActivity extends Activity {
 	 * @return
 	 */
 	public static Bitmap decodeSampledBitmapFromResource(byte[] data, int reqWidth, int reqHeight) {
-
+		reqWidth = reqWidth * 2;
+		reqHeight = reqHeight * 2;
+		
 		// Decode with inJustDecodeBounds=true to check dimensions
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
