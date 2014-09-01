@@ -94,7 +94,7 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 			UserScribbleView currView = ((UserScribbleMainActivity) dialog.getActivity()).getView();
 			
 			// draw scribbles at new canvas object
-			currView.drawUserScribble(canvas);
+			currView.drawCurrentScribble(canvas);
 			
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();	        	
 			userScribble.compress(Bitmap.CompressFormat.PNG, 100, byteStream);

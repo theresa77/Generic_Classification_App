@@ -303,12 +303,12 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 	 * Draw user scribble to canvas object.
 	 */
 	@Override
-	public void drawUserScribble(Canvas canvas) {
-		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
-			for (Scribble s : mPicture.getScribbles()) {
-				s.drawScribble(canvas);
-			}
-		}
+	public void drawCurrentScribble(Canvas canvas) {
+//		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+//			for (Scribble s : mPicture.getScribbles()) {
+//				s.drawScribble(canvas);
+//			}
+//		}
 		
 		if (rectf != null) {
 			mPaint.setStyle(Paint.Style.STROKE);

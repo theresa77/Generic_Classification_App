@@ -97,8 +97,11 @@ public class Picture {
 	public void addScribbleToList(Scribble scri){
 		if(scribbles == null)
 			scribbles = new ArrayList<Scribble>();
-		if(scri != null)
+		if(scri != null 
+			&& (scribbles.isEmpty() 
+				|| 	(!scribbles.isEmpty() && !scri.equals(scribbles.get(scribbles.size()-1)))) ){
 			scribbles.add(scri);
+		}
 	}
 	
 	/**

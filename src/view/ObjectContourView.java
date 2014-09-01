@@ -142,12 +142,12 @@ public class ObjectContourView extends UserScribbleView {
 	 * Draw path object for scribbles to the canvas.
 	 */
 	@Override
-	public void drawUserScribble(Canvas canvas) {
-		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
-			for (Scribble s : mPicture.getScribbles()) {
-				s.drawScribble(canvas);
-			}
-		}
+	public void drawCurrentScribble(Canvas canvas) {
+//		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+//			for (Scribble s : mPicture.getScribbles()) {
+//				s.drawScribble(canvas);
+//			}
+//		}
 		canvas.drawPath(mPath, mPaint);
 	}
 	

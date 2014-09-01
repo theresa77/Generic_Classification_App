@@ -247,15 +247,15 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	}
 	
 	@Override
-	public void drawUserScribble(Canvas canvas) {
+	public void drawCurrentScribble(Canvas canvas) {
 		
 //		int color = mPaint.getColor();
 		
-		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
-			for (Scribble s : mPicture.getScribbles()) {
-				s.drawScribble(canvas);
-			}
-		}
+//		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+//			for (Scribble s : mPicture.getScribbles()) {
+//				s.drawScribble(canvas);
+//			}
+//		}
 		
 //		if(mForePath != null && !mForePath.isEmpty()){
 		

@@ -216,7 +216,12 @@ public abstract class UserScribbleView extends SurfaceView {
 //		canvas.drawBitmap(mPictureBitmap, 0, 0, paint);
 		canvas.drawBitmap(mPictureBitmap, 0,0, null);
 		
-		drawUserScribble(canvas);
+		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+			for (Scribble s : mPicture.getScribbles()) {
+				s.drawScribble(canvas);
+			}
+		}
+		drawCurrentScribble(canvas);
 		
 		canvas.restore();
 	}
@@ -230,8 +235,9 @@ public abstract class UserScribbleView extends SurfaceView {
 		if(currentScribble != null){
 //			mActivity.addScribbleToList(currentScribble);
 			mPicture.addScribbleToList(currentScribble);
+			currentScribble = null;
 		}
-		resetLastDrawing();
+//		resetLastDrawing();
 		invalidate();
 	}
 	
@@ -271,13 +277,30 @@ public abstract class UserScribbleView extends SurfaceView {
 	 * Draws current user scribbles to the canvas method parameter.
 	 * @param canvas object for drawing user scribbles
 	 */
-	public abstract void drawUserScribble(Canvas canvas);
+	public abstract void drawCurrentScribble(Canvas canvas);
 	
 	/**
 	 * Resets last drawing. 
 	 * Scribble get deleted.
 	 */
 	public abstract void resetLastDrawing();
+	
+	/**
+	 * TODO
+	 */
+	public void removeLastScribble(){
+		Log.d(TAG, "resetLastDrawing() called");
+		
+		if(currentScribble != null){
+			Log.d(TAG, "current Scribble: " + currentScribble.toString());
+			currentScribble = null;
+		} else {
+			Log.d(TAG, "current Scribble: NULL");
+			mPicture.removeLastScribble();
+		}
+		resetLastDrawing();
+		invalidate();
+	}
 	
 	/**
 	 * Called when user touches screen inside the picture.

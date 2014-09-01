@@ -433,10 +433,11 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	
 	/**
 	 * Reset last drawing.
-	 * Delete user scribble.
+	 * Delete latest user scribble.
 	 */
-	public void resetLastDrawing(View v){
-		mView.resetLastDrawing();
+	public void removeLastScribble(View v){
+		// TODO: View param in Signatur entfernen
+		mView.removeLastScribble();
 //		if(mView.drawNewScribble() && !scribbles.isEmpty()){
 //			scribbles.remove(scribbles.size()-1);
 //		}
@@ -448,7 +449,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	public void resetAllDrawings(){
 //		scribbles = new ArrayList<Scribble>();
 		mPicture.setScribbles(new ArrayList<Scribble>());
-		resetLastDrawing(null);
+		removeLastScribble(null);
 		if(mView instanceof ForegroundBackgroundView){
 			((ForegroundBackgroundView)mView).resetAllDrawings();
 		}
