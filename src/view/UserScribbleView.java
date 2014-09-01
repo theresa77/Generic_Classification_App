@@ -33,7 +33,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	protected UserScribbleMainActivity mActivity;
 	protected Paint mPaint;
 	protected Picture mPicture;
-	protected Bitmap mPictureBitmap;
+	private Bitmap mPictureBitmap;
 	protected int displayWidth;
 	protected int displayHeight;
 	protected boolean drawNewScribble;
@@ -142,7 +142,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	 * @param bitmap object of the picture
 	 */
 	public void setBitmap(Bitmap bitmap){
-		mPictureBitmap= bitmap;
+		mPictureBitmap = bitmap;
 	}
 	
 	/**
@@ -208,13 +208,13 @@ public abstract class UserScribbleView extends SurfaceView {
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		paint.setFilterBitmap(true);
-		paint.setDither(true);
+//		paint.setDither(true);
 		
 		canvas.getClipBounds(zoomBounds);
 //		Log.d(TAG, "zoomBounds - left: "+zoomBounds.left+", top: "+zoomBounds.top+", right: "+zoomBounds.right+", bottom: "+zoomBounds.bottom);
 		
 		canvas.drawBitmap(mPictureBitmap, 0, 0, paint);
-//		canvas.drawBitmap(mPictureBitmap, matrix, null);
+//		canvas.drawBitmap(mPictureBitmap, 0,0, null);
 		
 		drawUserScribble(canvas);
 //		drawFurtherThings(canvas);

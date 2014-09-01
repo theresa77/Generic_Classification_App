@@ -115,7 +115,7 @@ public abstract class UserScribbleFragment extends Fragment {
 	    pictureParams = new LinearLayout.LayoutParams((int)width, (int)height);
 	    
 	    // creates scaled bitmap and adds it to view
-		mPictureBitmap = Bitmap.createScaledBitmap(mPictureBitmap, pictureParams.width, pictureParams.height, false);
+		mPictureBitmap = Bitmap.createScaledBitmap(mPictureBitmap, pictureParams.width, pictureParams.height, true);
 		mView.setBitmap(mPictureBitmap);
 		
 		// set new frame view parameters and add new user scribble view to it

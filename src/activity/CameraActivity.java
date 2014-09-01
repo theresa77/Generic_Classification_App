@@ -421,8 +421,8 @@ public class CameraActivity extends Activity {
 	 * @return
 	 */
 	public static Bitmap decodeSampledBitmapFromResource(byte[] data, int reqWidth, int reqHeight) {
-		reqWidth = reqWidth * 2;
-		reqHeight = reqHeight * 2;
+//		reqWidth = reqWidth * 2;
+//		reqHeight = reqHeight * 2;
 		
 		// Decode with inJustDecodeBounds=true to check dimensions
 		final BitmapFactory.Options options = new BitmapFactory.Options();
