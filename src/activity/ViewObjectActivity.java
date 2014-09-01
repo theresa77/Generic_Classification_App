@@ -126,14 +126,15 @@ public class ViewObjectActivity extends Activity {
 	
 	
 	private Bitmap drawScribblesToBitmap(Bitmap bitmap){
-		Canvas canvas = new Canvas();
 		
-//		Canvas canvas = new Canvas(bitmap);
-		Paint paint = new Paint();
-		paint.setAntiAlias(true);
+		Canvas canvas = new Canvas(bitmap);
+		
+//		Canvas canvas = new Canvas();
+//		Paint paint = new Paint();
+//		paint.setAntiAlias(true);
 //		paint.setFilterBitmap(true);
 //		paint.setDither(true);
-		canvas.drawBitmap(bitmap, 0, 0, paint);
+//		canvas.drawBitmap(bitmap, 0, 0, paint);
 		
 		if (scribbles != null && !scribbles.isEmpty()) {
 			for (Scribble s : scribbles) {
