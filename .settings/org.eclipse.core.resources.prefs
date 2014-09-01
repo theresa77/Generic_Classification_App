@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/activity/CameraActivity.java=UTF-8
 encoding//src/activity/PictureActivity.java=UTF-8
+encoding//src/activity/UserScribbleMainActivity.java=UTF-8
 encoding//src/activity/ViewObjectActivity.java=UTF-8
 encoding//src/dialog/OptionMenuDialog.java=UTF-8
 encoding//src/dialog/PickStrokeWidthDialog.java=UTF-8

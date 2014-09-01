@@ -308,7 +308,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		invalidate();
 	}
 	
-	public void resetAllDrawings(){
+	public void removeAllScribbles(){
 		mPath = new Path();
 		mForePathList = new ArrayList<Path>();
 		mBackPathList = new ArrayList<Path>();

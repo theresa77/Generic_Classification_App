@@ -194,11 +194,17 @@ public class OptionMenuDialog extends DialogFragment {
 				
 				//view object with scribbles
 				case 3:
-					Picture picture = Picture.getInstance();
-//					picture.setScribbles(((UserScribbleMainActivity)activity).getScribbles());
-					newIntent = new Intent(activity, ViewObjectActivity.class);
-					startActivity(newIntent);
-					activity.finish();
+					((UserScribbleMainActivity)activity).addFurtherScribble(null);
+					
+					if(Picture.getInstance().getScribbles() != null && !Picture.getInstance().getScribbles().isEmpty()){
+						newIntent = new Intent(activity, ViewObjectActivity.class);
+						startActivity(newIntent);
+						activity.finish();
+					} else {
+						Toast.makeText(activity, R.string.mark_object, Toast.LENGTH_SHORT).show();
+						dialog.dismiss();
+					}
+					
 					break;
 				
 				//take new photo, go to CameraActivity
@@ -223,7 +229,7 @@ public class OptionMenuDialog extends DialogFragment {
 					
 				//delete all drawings	
 				case 7:
-					((UserScribbleMainActivity)activity).resetAllDrawings();
+					((UserScribbleMainActivity)activity).removeAllScribbles();
 					dialog.dismiss();
 					Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
 					break;

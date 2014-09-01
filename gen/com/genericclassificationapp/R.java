@@ -180,6 +180,7 @@ public final class R {
         public static final int hundred=0x7f07001b;
         public static final int hundred_percent=0x7f07001d;
         public static final int magnifier=0x7f07002e;
+        public static final int mark_object=0x7f070030;
         public static final int menu=0x7f07000f;
         public static final int new_text_annotation=0x7f07002f;
         /**  content description for views 
