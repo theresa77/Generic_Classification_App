@@ -205,19 +205,19 @@ public abstract class UserScribbleView extends SurfaceView {
 //		matrix.postScale(mScaleFactor, mScaleFactor, focusX, focusY);
 //		matrix.postTranslate(mPosX, mPosY);
 		
-		Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setFilterBitmap(true);
+//		Paint paint = new Paint();
+//		paint.setAntiAlias(true);
+//		paint.setFilterBitmap(true);
 //		paint.setDither(true);
 		
 		canvas.getClipBounds(zoomBounds);
 //		Log.d(TAG, "zoomBounds - left: "+zoomBounds.left+", top: "+zoomBounds.top+", right: "+zoomBounds.right+", bottom: "+zoomBounds.bottom);
 		
-		canvas.drawBitmap(mPictureBitmap, 0, 0, paint);
-//		canvas.drawBitmap(mPictureBitmap, 0,0, null);
+//		canvas.drawBitmap(mPictureBitmap, 0, 0, paint);
+		canvas.drawBitmap(mPictureBitmap, 0,0, null);
 		
 		drawUserScribble(canvas);
-//		drawFurtherThings(canvas);
+		
 		canvas.restore();
 	}
 	
@@ -228,7 +228,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	public void setDrawNewScribble(boolean drawNew){
 		drawNewScribble = drawNew;
 		if(currentScribble != null){
-			mActivity.addScribbleToList(currentScribble);
+//			mActivity.addScribbleToList(currentScribble);
 			mPicture.addScribbleToList(currentScribble);
 		}
 		resetLastDrawing();

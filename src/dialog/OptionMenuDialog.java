@@ -195,7 +195,7 @@ public class OptionMenuDialog extends DialogFragment {
 				//view object with scribbles
 				case 3:
 					Picture picture = Picture.getInstance();
-					picture.setScribbles(((UserScribbleMainActivity)activity).getScribbles());
+//					picture.setScribbles(((UserScribbleMainActivity)activity).getScribbles());
 					newIntent = new Intent(activity, ViewObjectActivity.class);
 					startActivity(newIntent);
 					activity.finish();
@@ -250,7 +250,8 @@ public class OptionMenuDialog extends DialogFragment {
 					TransmissionToServerDialog transDialog = new TransmissionToServerDialog();
 					transDialog.show(getActivity().getSupportFragmentManager(), "TransmissionToServerDialog");
 					
-					Scribble[] scribbles = (Scribble[]) ((UserScribbleMainActivity)activity).getScribbles().toArray();
+//					Scribble[] scribbles = (Scribble[]) ((UserScribbleMainActivity)activity).getScribbles().toArray();
+					Scribble[] scribbles = (Scribble[]) mPicture.getScribbles().toArray();
 					
 					// send picture and scribbles to a server
 //					new RetrieveHttpTask(((UserScribbleMainActivity)activity).getCurrentScribble().name(), transDialog).execute(byteStream.toByteArray());

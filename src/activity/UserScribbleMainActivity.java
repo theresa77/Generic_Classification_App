@@ -66,7 +66,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private RelativeLayout tab2;
 	private RelativeLayout tab3;
 //	private ScribbleType currentScribbleType;
-	private List<Scribble> scribbles;
+//	private List<Scribble> scribbles;
 	private List<String> textAnnotations = new ArrayList<String>();
 	private Boolean zoomEnabled = false;
 	 
@@ -156,7 +156,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
         	@Override
         	public void onTabChanged(String tabId) {
         		setTabsColor();
-        		addScribbleToList(mView.getCurrentScribble());
+//        		addScribbleToList(mView.getCurrentScribble());
+        		mPicture.addScribbleToList(mView.getCurrentScribble());
         		addFurtherScribble(null);
         	}});
         
@@ -171,9 +172,9 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		mPaint.setStrokeCap(Paint.Cap.ROUND);
 		
 		// create new list for all scribbles
-		scribbles = mPicture.getScribbles();
-		if(scribbles == null)
-			scribbles = new ArrayList<Scribble>();
+//		scribbles = mPicture.getScribbles();
+//		if(scribbles == null)
+//			scribbles = new ArrayList<Scribble>();
 		
 //		// create list for text annotations
 //		textAnnotations = new ArrayList<String>();
@@ -436,17 +437,17 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	public void resetLastDrawing(View v){
 		mView.resetLastDrawing();
-		if(mView.drawNewScribble() && !scribbles.isEmpty()){
-			scribbles.remove(scribbles.size()-1);
-		}
+//		if(mView.drawNewScribble() && !scribbles.isEmpty()){
+//			scribbles.remove(scribbles.size()-1);
+//		}
 	}
 	
 	/**
 	 * Delete all user scribbles.
 	 */
 	public void resetAllDrawings(){
-		scribbles = new ArrayList<Scribble>();
-		mPicture.setScribbles(scribbles);
+//		scribbles = new ArrayList<Scribble>();
+		mPicture.setScribbles(new ArrayList<Scribble>());
 		resetLastDrawing(null);
 		if(mView instanceof ForegroundBackgroundView){
 			((ForegroundBackgroundView)mView).resetAllDrawings();
@@ -499,24 +500,24 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 //		this.currentScribbleType = currentScribble;
 //	}
 	
-	/**
-	 * Add new scribble to list of all scribbles.
-	 * @param scri new scribble 
-	 */
-	public void addScribbleToList(Scribble scri){
-		if(scri != null){
-//			scri.setPaint(new Paint(mPaint));
-			scribbles.add(scri);
-		}
-	}
+//	/**
+//	 * Add new scribble to list of all scribbles.
+//	 * @param scri new scribble 
+//	 */
+//	public void addScribbleToList(Scribble scri){
+//		if(scri != null){
+////			scri.setPaint(new Paint(mPaint));
+//			scribbles.add(scri);
+//		}
+//	}
 	
-	/**
-	 * Get list of all drawn scribbles.
-	 * @return list of scribbles
-	 */
-	public List<Scribble> getScribbles(){
-		return scribbles;
-	}
+//	/**
+//	 * Get list of all drawn scribbles.
+//	 * @return list of scribbles
+//	 */
+//	public List<Scribble> getScribbles(){
+//		return scribbles;
+//	}
 	
 	/**
 	 * Set list of text annotations.
@@ -555,7 +556,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 			v.setBackgroundColor(this.getResources().getColor(R.color.buttonGray));
 		} else {
 			zoomEnabled = true;
-			addScribbleToList(mView.getCurrentScribble());
+			mPicture.addScribbleToList(mView.getCurrentScribble());
+//			addScribbleToList(mView.getCurrentScribble());
 			v.setBackgroundColor(this.getResources().getColor(R.color.darkGray));
 		}
 	}

@@ -92,14 +92,23 @@ public class Picture {
 	
 	/**
 	 * Add new scribble to list.
-	 * @param scri new sribble
+	 * @param scri new scribble
 	 */
 	public void addScribbleToList(Scribble scri){
 		if(scribbles == null)
 			scribbles = new ArrayList<Scribble>();
-		scribbles.add(scri);
+		if(scri != null)
+			scribbles.add(scri);
 	}
 	
+	/**
+	 * TODO
+	 */
+	public void removeLastScribble(){
+		if(!scribbles.isEmpty()){
+			scribbles.remove(scribbles.size()-1);
+		}
+	}
 	
 	
 }
