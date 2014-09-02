@@ -32,6 +32,8 @@ import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 import dialog.TransmissionToServerDialog;
+import domain.ForeBackGround;
+import domain.ObjectContour;
 import domain.Picture;
 import domain.Scribble;
  
@@ -81,44 +83,71 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 	    	Picture mPicture = Picture.getInstance();
 	    	Bitmap bitmap = mPicture.getBitmap();
 	    	
-	    	ByteArrayOutputStream streamBitmap = new ByteArrayOutputStream();	        	
-	    	bitmap.compress(Bitmap.CompressFormat.PNG, 100, streamBitmap);
+	    	ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 	    	
+	    	bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+	    	byte[] bitmapByteArray = byteStream.toByteArray();
 	    	
-	    	// TODO: diesen codeblock anpassen - liste aller scribbles durchgehen und diese zeichnen
-	    	// create new bitmap for scribbles only
-			Bitmap userScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)dialog.getActivity()).getDisplayWidth(),
+	    	// create new bitmap for Foreground-Background scribbles only
+			Bitmap foreBackScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)dialog.getActivity()).getDisplayWidth(),
 										((UserScribbleMainActivity)dialog.getActivity()).getDisplayHeight(), 
 										Bitmap.Config.ARGB_8888); 
-			Canvas canvas = new Canvas(userScribble);
-			UserScribbleView currView = ((UserScribbleMainActivity) dialog.getActivity()).getView();
+			Canvas foreBackCanvas = new Canvas(foreBackScribble);
 			
-			// draw scribbles at new canvas object
-			currView.drawCurrentScribble(canvas);
+			// create new bitmap for Object-Contour scribbles only
+			Bitmap contourScribble = Bitmap.createBitmap(
+					((UserScribbleMainActivity) dialog.getActivity())
+							.getDisplayWidth(),
+					((UserScribbleMainActivity) dialog.getActivity())
+							.getDisplayHeight(), Bitmap.Config.ARGB_8888);
+			Canvas contourCanvas = new Canvas(contourScribble);
 			
-			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();	        	
-			userScribble.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+			//TODO: create array for minimum bounding box coordinates and fill with coordinates (left, top, right, bottom)
+			int[] minBoundRectArray = new int[]{};
 			
+			// draw scribbles at new canvas objects 
+			if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
+				for (Scribble s : mPicture.getScribbles()) {
+					if(s instanceof ForeBackGround){
+						s.drawScribble(foreBackCanvas);
+					} else if (s instanceof ObjectContour){
+						s.drawScribble(contourCanvas);
+					}
+				}
+			}
 			
+//			ByteArrayOutputStream scribbbleByteStream = new ByteArrayOutputStream();
+			
+			foreBackScribble.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+			byte[] foreBackByteArray = byteStream.toByteArray();
+			
+			contourScribble.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+			byte[] contourByteArray = byteStream.toByteArray();
+			
+			byte[] minBoundRectByteArray = new byte[minBoundRectArray.length];
+			byteStream.write(minBoundRectByteArray);
+			minBoundRectByteArray = byteStream.toByteArray();
 	    	
 	    	// create JSONObject 
 	        JSONObject jsonObject = new JSONObject();
 	        try {
-	        	byte[] pictureEncoded = Base64.encode(streamBitmap.toByteArray(), Base64.DEFAULT);
-//	        	byte[] scribblesEncoded = Base64.encode(scribbles[0], Base64.DEFAULT);
-//	        	byte[] tagEncoded = Base64.encode(tag.getBytes(), Base64.DEFAULT);
+	        	bitmapByteArray = Base64.encode(bitmapByteArray, Base64.DEFAULT);
+	        	foreBackByteArray = Base64.encode(foreBackByteArray, Base64.DEFAULT);
+	        	contourByteArray = Base64.encode(contourByteArray, Base64.DEFAULT);	
+	        	minBoundRectByteArray = Base64.encode(minBoundRectByteArray, Base64.DEFAULT);
 	        	
 	        	// add byte array of picture and scribble to JSONObject
-	        	jsonObject.put("picture", pictureEncoded);
+	        	jsonObject.put("picture", bitmapByteArray);
 	        	jsonObject.put("landscape", mPicture.isLandscape());
-//	        	jsonObject.put("scribbles", scribblesEncoded);
-//	        	jsonObject.put("tag",tagEncoded); 
+	        	jsonObject.put("foreground-background", foreBackByteArray);
+	        	jsonObject.put("object-contour", contourByteArray);
+	        	jsonObject.put("min-bounding-rectangle", minBoundRectByteArray);
 	            
 	          } catch (JSONException e) {
 	            e.printStackTrace();
 	          }
 	        
-	        Log.d(TAG, "JSONObject lenght: "+jsonObject.length());
+	        Log.d(TAG, "JSONObject length: "+jsonObject.length());
 	        
 	        final int totalProgress = 100;
 
