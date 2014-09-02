@@ -358,6 +358,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		} else {
 			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.f_icon));
 			drawForeground = true;
+			resetPath();
 			setDrawNewScribble(true);
 		}
 	}
