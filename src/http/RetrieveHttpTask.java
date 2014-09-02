@@ -73,15 +73,9 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 	private static final String TAG = RetrieveHttpTask.class.getSimpleName();
 	private TransmissionToServerDialog dialog;
 	private UserScribbleMainActivity activity;
-//	private String tag;
 	private Boolean tranmissionComplete = false;
 	
-//	public RetrieveHttpTask(String tag, TransmissionToServerDialog dialog){
-//		this.dialog = dialog;
-//		this.tag = tag;
-//	}
-	
-	public RetrieveHttpTask(UserScribbleMainActivity activity, TransmissionToServerDialog dialog){ //TODO: activity variable vll wieder entfernen
+	public RetrieveHttpTask(UserScribbleMainActivity activity, TransmissionToServerDialog dialog){
 		this.dialog = dialog;
 		this.activity = activity;
 	}
@@ -108,7 +102,6 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 	    	Picture mPicture = Picture.getInstance();
 	    	Bitmap bitmap = mPicture.getBitmap();
 	    	
-	    	
 	    	// get height and width of display
 	        WindowManager winMan = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
 			Display display = winMan.getDefaultDisplay();
@@ -129,50 +122,28 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 		    	height = displayHeight;
 	    	}
 			
-			// create new layout parameter object with calculated width and height for the bitmap
-		    pictureParams = new LinearLayout.LayoutParams((int)width, (int)height);
-		    
-		    // creates scaled bitmap and adds it to view
+			pictureParams = new LinearLayout.LayoutParams((int)width, (int)height);
 		    bitmap = Bitmap.createScaledBitmap(bitmap, pictureParams.width, pictureParams.height, true);
-	    	
-	    	
-//		    Bitmap testBitmap1 = bitmap;					//################# start
-//	    	Bitmap testBitmap2 = bitmap;
-//	    	Canvas testCanvas1 = new Canvas(testBitmap1);
-//	    	Canvas testCanvas2 = new Canvas(testBitmap2);	//################# end
-	    	
 	    	ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-	    	
 	    	bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
-	    	byte[] bitmapByteArray = byteStream.toByteArray();
+	    	byte[] bitmapByteArray = byteStream.toByteArray(); // convert bitmap of picture to byte-array
 	    	
 	    	// create new bitmap for Foreground-Background scribbles only
-//			Bitmap foreBackScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)dialog.getActivity()).getDisplayWidth(), ((UserScribbleMainActivity)dialog.getActivity()).getDisplayHeight(), 
-//										Bitmap.Config.ARGB_8888); 
-	    	Bitmap foreBackScribble = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888); 
+			Bitmap foreBackScribble = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888); 
 			Canvas foreBackCanvas = new Canvas(foreBackScribble);
 			
-			
 			// create new bitmap for Object-Contour scribbles only
-//			Bitmap contourScribble = Bitmap.createBitmap( ((UserScribbleMainActivity) dialog.getActivity()).getDisplayWidth(), ((UserScribbleMainActivity) dialog.getActivity()) .getDisplayHeight(), Bitmap.Config.ARGB_8888);
 			Bitmap contourScribble = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 			Canvas contourCanvas = new Canvas(contourScribble);
 			
-			//TODO: folgende bitmap und canvas object wieder löschen - nur zum testen !!!
-			Bitmap mbrScribble = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-			Canvas mbrCanvas = new Canvas(mbrScribble);
-			
+			// create list for min-bounding-rectangle scribbles
 			List<Integer> MBRlist = new ArrayList<Integer>();
-			
-			// draw scribbles at new canvas objects 
 			if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
 				for (Scribble s : mPicture.getScribbles()) {
 					if(s instanceof ForeBackGround){
 						s.drawScribble(foreBackCanvas); 
-//						s.drawScribble(testCanvas1);//##########
 					} else if (s instanceof ObjectContour){
 						s.drawScribble(contourCanvas);
-//						s.drawScribble(testCanvas2);//########
 					} else if (s instanceof MinBoundingBox){
 						RectF rect = ((MinBoundingBox)s).getBoundingBoxOfScribble();
 						MBRlist.add((int)rect.left);
@@ -184,26 +155,23 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 				}
 			}
 			
-			
 			ByteArrayOutputStream foreBackByteStream = new ByteArrayOutputStream();
 			foreBackScribble.compress(Bitmap.CompressFormat.PNG, 100, foreBackByteStream);
-//			testBitmap1.compress(Bitmap.CompressFormat.PNG, 100, foreBackByteStream); ///######
-			byte[] foreBackByteArray = foreBackByteStream.toByteArray();
+			byte[] foreBackByteArray = foreBackByteStream.toByteArray(); // convert layer for foreground-background-scribbles to byte array
 			
 			ByteArrayOutputStream contourByteStream = new ByteArrayOutputStream();
 			contourScribble.compress(Bitmap.CompressFormat.PNG, 100, contourByteStream);
-//			testBitmap2.compress(Bitmap.CompressFormat.PNG, 100, contourByteStream); //#######
-			byte[] contourByteArray = contourByteStream.toByteArray();
+			byte[] contourByteArray = contourByteStream.toByteArray(); // convert layer for object-contour-scribbles to byte array
 			
 			int[] minBoundRectArray = new int[MBRlist.size()];
 			for(int i=0; i<MBRlist.size(); i++){
 				minBoundRectArray[i] = MBRlist.get(i);
 			}
-			// int-array to byte-array	
+			// convert list of coordinates to byte-array	
 			ByteBuffer byteBuffer = ByteBuffer.allocate(minBoundRectArray.length * 4);        
 	        IntBuffer intBuffer = byteBuffer.asIntBuffer();
 	        intBuffer.put(minBoundRectArray);
-	        byte[] minBoundRectByteArray = byteBuffer.array();
+	        byte[] minBoundRectByteArray = byteBuffer.array(); // convert list of minimum-bounding-rectangle coordinates to byte array
 	        
 	        
 			
@@ -269,6 +237,9 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 		    
 		    
 //		    // MIN-BOUND-BOX
+//	        Bitmap mbrScribble = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+//			Canvas mbrCanvas = new Canvas(mbrScribble);		
+			
 //		    int countLeft = 0;
 //		    int countTop = 1;
 //		    int countRight = 2;
@@ -328,8 +299,7 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 	        	contourByteArray = Base64.encode(contourByteArray, Base64.DEFAULT);	
 	        	minBoundRectByteArray = Base64.encode(minBoundRectByteArray, Base64.DEFAULT);
 	        	
-	        	
-	        	// add byte array of picture and scribble to JSONObject
+	        	// add byte arrays of picture and scribbles to JSONObject
 	        	jsonObject.put("picture", bitmapByteArray);
 	        	jsonObject.put("landscape", mPicture.isLandscape());
 	        	jsonObject.put("foreground-background", foreBackByteArray);
@@ -343,128 +313,130 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 	        
 //	        #################################################################################### start
 	        
-	        bitmapByteArray = Base64.decode(bitmapByteArray, Base64.DEFAULT);
-        	foreBackByteArray = Base64.decode(foreBackByteArray, Base64.DEFAULT);
-        	contourByteArray = Base64.decode(contourByteArray, Base64.DEFAULT);	
-        	minBoundRectByteArray = Base64.decode(minBoundRectByteArray, Base64.DEFAULT);
-	        
-			// get storage directory
-			File mediaStorageDir = new File(
-					Environment
-							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-					"GenericClassificationApp");
-			// Create the storage directory if it does not exist
-			if (!mediaStorageDir.exists()) {
-				if (!mediaStorageDir.mkdirs()) {
-					Log.d("GenericClassificationApp",
-							"failed to create directory");
-				}
-			}
-			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-			
-			
-			// FORE_BACK_GROUND
-		    File foreBackMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_1_"+ timeStamp + ".jpg");
-		    FileOutputStream fos1 = new FileOutputStream(foreBackMediaFile);
-		    
-		    try {
-				fos1.write(foreBackByteArray);
-				fos1.flush();
-				
-				// save file in gallery
-			    Intent mediaScanIntent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-			    File f = new File(foreBackMediaFile.getAbsolutePath());
-			    Uri contentUri = Uri.fromFile(f);
-			    mediaScanIntent1.setData(contentUri);
-			    activity.sendBroadcast(mediaScanIntent1);
-				
-				fos1.close();
-				Log.d(TAG, "Picture FORE-BACK-GROUND saved");
-			} catch (FileNotFoundException e) {
-				Log.d(TAG, "File not found: " + e.getMessage());
-			} catch (IOException e) {
-				Log.d(TAG, "Error accessing file: " + e.getMessage());
-			}
-			
-		    // OBJECT-CONTOUR
-		    File contourMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_2_"+ timeStamp + ".jpg");		    
-		    FileOutputStream fos2 = new FileOutputStream(contourMediaFile);
-		       
-		    try {
-				fos2.write(contourByteArray);
-				fos2.flush();
-				
-				// save file in gallery
-			    Intent mediaScanIntent2 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-			    File f = new File(contourMediaFile.getAbsolutePath());
-			    Uri contentUri = Uri.fromFile(f);
-			    mediaScanIntent2.setData(contentUri);
-			    activity.sendBroadcast(mediaScanIntent2);
-				
-				fos2.close();
-				Log.d(TAG, "Picture OBJECT-CONTOUR saved");
-			} catch (FileNotFoundException e) {
-				Log.d(TAG, "File not found: " + e.getMessage());
-			} catch (IOException e) {
-				Log.d(TAG, "Error accessing file: " + e.getMessage());
-			}
-		    
-		    
-		    // MIN-BOUND-BOX
-		    
-		    //byte array to int array
-		    IntBuffer intBuf =ByteBuffer.wrap(minBoundRectByteArray).order(ByteOrder.BIG_ENDIAN).asIntBuffer();
-	        minBoundRectArray = new int[intBuf.remaining()];
-	        intBuf.get(minBoundRectArray);
-			
-		    int countLeft = 0;
-		    int countTop = 1;
-		    int countRight = 2;
-		    int countBottom = 3;
-		    Paint mPaint = new Paint();
-			mPaint.setStyle(Paint.Style.STROKE);
-			mPaint.setColor(Color.BLUE);
-			mPaint.setStrokeWidth(10);
-			mPaint.setAntiAlias(true);
-			mPaint.setDither(true);
-			mPaint.setStrokeJoin(Paint.Join.ROUND);
-			mPaint.setStrokeCap(Paint.Cap.ROUND);
-			
-		    while(countBottom < minBoundRectArray.length){
-		    	RectF rectf = new RectF(minBoundRectArray[countLeft], minBoundRectArray[countTop], minBoundRectArray[countRight], minBoundRectArray[countBottom]);
-		    	mbrCanvas.drawRect(rectf, mPaint);
-		    	Log.d(TAG, "draw Rect to mbrCanvas: left: "+rectf.left+", top: "+rectf.top+", right: "+rectf.right+", bottom: "+rectf.bottom);
-		    	countLeft += 4;
-		    	countTop += 4;
-		    	countRight += 4;
-		    	countBottom += 4;
-		    }
-		    
-		    ByteArrayOutputStream MBRbyteStream2 = new ByteArrayOutputStream();
-		    mbrScribble.compress(Bitmap.CompressFormat.PNG, 100, MBRbyteStream2);
-		    byte[] MBRByteArray2 = MBRbyteStream2.toByteArray();
-		    
-		    File mbrMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_3_"+ timeStamp + ".jpg");
-		    FileOutputStream fos3 = new FileOutputStream(mbrMediaFile);
-		    
-		    try {
-		    	fos3.write(MBRByteArray2);
-		    	fos3.flush();
-				
-				// save file in gallery
-			    Intent mediaScanIntent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-			    File f = new File(mbrMediaFile.getAbsolutePath());
-			    Uri contentUri = Uri.fromFile(f);
-			    mediaScanIntent1.setData(contentUri);
-			    activity.sendBroadcast(mediaScanIntent1);
-				
-			    fos3.close();
-				Log.d(TAG, "Picture MIN-BOUND-BOX saved");
-			} catch (FileNotFoundException e) {
-				Log.d(TAG, "File not found: " + e.getMessage());
-			} catch (IOException e) {
-				Log.d(TAG, "Error accessing file: " + e.getMessage());
-			}
+//	        bitmapByteArray = Base64.decode(bitmapByteArray, Base64.DEFAULT);
+//        	foreBackByteArray = Base64.decode(foreBackByteArray, Base64.DEFAULT);
+//        	contourByteArray = Base64.decode(contourByteArray, Base64.DEFAULT);	
+//        	minBoundRectByteArray = Base64.decode(minBoundRectByteArray, Base64.DEFAULT);
+//	        
+//			// get storage directory
+//			File mediaStorageDir = new File(
+//					Environment
+//							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+//					"GenericClassificationApp");
+//			// Create the storage directory if it does not exist
+//			if (!mediaStorageDir.exists()) {
+//				if (!mediaStorageDir.mkdirs()) {
+//					Log.d("GenericClassificationApp",
+//							"failed to create directory");
+//				}
+//			}
+//			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+//			
+//			
+//			// FORE_BACK_GROUND
+//		    File foreBackMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_1_"+ timeStamp + ".jpg");
+//		    FileOutputStream fos1 = new FileOutputStream(foreBackMediaFile);
+//		    
+//		    try {
+//				fos1.write(foreBackByteArray);
+//				fos1.flush();
+//				
+//				// save file in gallery
+//			    Intent mediaScanIntent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//			    File f = new File(foreBackMediaFile.getAbsolutePath());
+//			    Uri contentUri = Uri.fromFile(f);
+//			    mediaScanIntent1.setData(contentUri);
+//			    activity.sendBroadcast(mediaScanIntent1);
+//				
+//				fos1.close();
+//				Log.d(TAG, "Picture FORE-BACK-GROUND saved");
+//			} catch (FileNotFoundException e) {
+//				Log.d(TAG, "File not found: " + e.getMessage());
+//			} catch (IOException e) {
+//				Log.d(TAG, "Error accessing file: " + e.getMessage());
+//			}
+//			
+//		    // OBJECT-CONTOUR
+//		    File contourMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_2_"+ timeStamp + ".jpg");		    
+//		    FileOutputStream fos2 = new FileOutputStream(contourMediaFile);
+//		       
+//		    try {
+//				fos2.write(contourByteArray);
+//				fos2.flush();
+//				
+//				// save file in gallery
+//			    Intent mediaScanIntent2 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//			    File f = new File(contourMediaFile.getAbsolutePath());
+//			    Uri contentUri = Uri.fromFile(f);
+//			    mediaScanIntent2.setData(contentUri);
+//			    activity.sendBroadcast(mediaScanIntent2);
+//				
+//				fos2.close();
+//				Log.d(TAG, "Picture OBJECT-CONTOUR saved");
+//			} catch (FileNotFoundException e) {
+//				Log.d(TAG, "File not found: " + e.getMessage());
+//			} catch (IOException e) {
+//				Log.d(TAG, "Error accessing file: " + e.getMessage());
+//			}
+//		    
+//		    
+//		    // MIN-BOUNDING-BOX
+//		    Bitmap mbrScribble = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+//			Canvas mbrCanvas = new Canvas(mbrScribble);		
+//		    
+//		    //byte array to int array
+//		    IntBuffer intBuf =ByteBuffer.wrap(minBoundRectByteArray).order(ByteOrder.BIG_ENDIAN).asIntBuffer();
+//	        minBoundRectArray = new int[intBuf.remaining()];
+//	        intBuf.get(minBoundRectArray);
+//			
+//		    int countLeft = 0;
+//		    int countTop = 1;
+//		    int countRight = 2;
+//		    int countBottom = 3;
+//		    Paint mPaint = new Paint();
+//			mPaint.setStyle(Paint.Style.STROKE);
+//			mPaint.setColor(Color.BLUE);
+//			mPaint.setStrokeWidth(10);
+//			mPaint.setAntiAlias(true);
+//			mPaint.setDither(true);
+//			mPaint.setStrokeJoin(Paint.Join.ROUND);
+//			mPaint.setStrokeCap(Paint.Cap.ROUND);
+//			
+//		    while(countBottom < minBoundRectArray.length){
+//		    	RectF rectf = new RectF(minBoundRectArray[countLeft], minBoundRectArray[countTop], minBoundRectArray[countRight], minBoundRectArray[countBottom]);
+//		    	mbrCanvas.drawRect(rectf, mPaint);
+//		    	Log.d(TAG, "draw Rect to mbrCanvas: left: "+rectf.left+", top: "+rectf.top+", right: "+rectf.right+", bottom: "+rectf.bottom);
+//		    	countLeft += 4;
+//		    	countTop += 4;
+//		    	countRight += 4;
+//		    	countBottom += 4;
+//		    }
+//		    
+//		    ByteArrayOutputStream MBRbyteStream2 = new ByteArrayOutputStream();
+//		    mbrScribble.compress(Bitmap.CompressFormat.PNG, 100, MBRbyteStream2);
+//		    byte[] MBRByteArray2 = MBRbyteStream2.toByteArray();
+//		    
+//		    File mbrMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_3_"+ timeStamp + ".jpg");
+//		    FileOutputStream fos3 = new FileOutputStream(mbrMediaFile);
+//		    
+//		    try {
+//		    	fos3.write(MBRByteArray2);
+//		    	fos3.flush();
+//				
+//				// save file in gallery
+//			    Intent mediaScanIntent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//			    File f = new File(mbrMediaFile.getAbsolutePath());
+//			    Uri contentUri = Uri.fromFile(f);
+//			    mediaScanIntent1.setData(contentUri);
+//			    activity.sendBroadcast(mediaScanIntent1);
+//				
+//			    fos3.close();
+//				Log.d(TAG, "Picture MIN-BOUND-BOX saved");
+//			} catch (FileNotFoundException e) {
+//				Log.d(TAG, "File not found: " + e.getMessage());
+//			} catch (IOException e) {
+//				Log.d(TAG, "Error accessing file: " + e.getMessage());
+//			}
         	
 	        
 //	        ##################################################################################### end
