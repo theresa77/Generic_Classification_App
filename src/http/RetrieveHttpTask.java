@@ -146,7 +146,6 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 //			Bitmap foreBackScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)dialog.getActivity()).getDisplayWidth(), ((UserScribbleMainActivity)dialog.getActivity()).getDisplayHeight(), 
 //										Bitmap.Config.ARGB_8888); 
 	    	Bitmap foreBackScribble = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888); 
-//	    	foreBackScribble = Bitmap.createScaledBitmap(foreBackScribble, bitmap.getWidth(), bitmap.getHeight(), true);
 			Canvas foreBackCanvas = new Canvas(foreBackScribble);
 			
 			
@@ -176,6 +175,7 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 						MBRlist.add((int)rect.top);
 						MBRlist.add((int)rect.right);
 						MBRlist.add((int)rect.bottom);
+						Log.d(TAG, "add new coordinates from RectF object to list: left: "+rect.left+", top: "+rect.top+", right: "+rect.right+", bottom: "+rect.bottom);
 					}
 				}
 			}
@@ -191,7 +191,7 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 //			testBitmap2.compress(Bitmap.CompressFormat.PNG, 100, contourByteStream); //#######
 			byte[] contourByteArray = contourByteStream.toByteArray();
 			
-			int[] minBoundRectArray = new int[MBRlist.size()];
+			float[] minBoundRectArray = new float[MBRlist.size()];
 			for(int i=0; i<MBRlist.size(); i++){
 				minBoundRectArray[i] = MBRlist.get(i);
 			}
@@ -278,8 +278,9 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 			mPaint.setStrokeCap(Paint.Cap.ROUND);
 			
 		    while(countBottom < minBoundRectArray.length){
-		    	RectF rectf = new RectF(countLeft, countTop, countRight, countBottom);
+		    	RectF rectf = new RectF(minBoundRectArray[countLeft], minBoundRectArray[countTop], minBoundRectArray[countRight], minBoundRectArray[countBottom]);
 		    	mbrCanvas.drawRect(rectf, mPaint);
+		    	Log.d(TAG, "draw Rect to mbrCanvas: left: "+rectf.left+", top: "+rectf.top+", right: "+rectf.right+", bottom: "+rectf.bottom);
 		    	countLeft += 4;
 		    	countTop += 4;
 		    	countRight += 4;
