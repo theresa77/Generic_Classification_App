@@ -98,9 +98,7 @@ public class CameraActivity extends Activity {
 					matrix.postRotate(270);
 				else 
 					matrix.postRotate(90);
-				mPictureBitmap = Bitmap.createBitmap(mPictureBitmap, 0, 0,
-						mPictureBitmap.getWidth(), mPictureBitmap.getHeight(),
-						matrix, true);
+				mPictureBitmap = Bitmap.createBitmap(mPictureBitmap, 0, 0, mPictureBitmap.getWidth(), mPictureBitmap.getHeight(), matrix, true);
 				
 				//create picture instance with the bitmap and an flag if the picture is in landsape 
 				Picture.createInstance(mPictureBitmap, false);

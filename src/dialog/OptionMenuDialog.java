@@ -119,12 +119,12 @@ public class OptionMenuDialog extends DialogFragment {
 				    File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
 				        "IMG_"+ timeStamp + ".jpg");
 				    
-				    Bitmap bitmap;		                       
+				    Bitmap bitmap = mPicture.getBitmap();;		                       
 				    
 				    // add scribbles to the bitmap
 				    if(activity instanceof UserScribbleMainActivity){
 				    	
-				    	bitmap = mPicture.getBitmap();
+//				    	bitmap = mPicture.getBitmap();
 				    	
 				    	double width = 0.0;
 				    	double height = 0.0;
@@ -147,9 +147,10 @@ public class OptionMenuDialog extends DialogFragment {
 						UserScribbleView currView = ((UserScribbleMainActivity) activity).getView();
 						currView.draw(canvas);
 					
-					} else {
-				    	bitmap = mPicture.getBitmap();
-				    }
+					} 
+//				    else {
+//				    	bitmap = mPicture.getBitmap();
+//				    }
 				    
 				    ByteArrayOutputStream stream = new ByteArrayOutputStream();	        	
 				    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -257,11 +258,12 @@ public class OptionMenuDialog extends DialogFragment {
 					transDialog.show(getActivity().getSupportFragmentManager(), "TransmissionToServerDialog");
 					
 //					Scribble[] scribbles = (Scribble[]) ((UserScribbleMainActivity)activity).getScribbles().toArray();
-					Scribble[] scribbles = (Scribble[]) mPicture.getScribbles().toArray();
+					Scribble[] scribbles = new Scribble[mPicture.getScribbles().size()];
+					mPicture.getScribbles().toArray(scribbles);
 					
 					// send picture and scribbles to a server
 //					new RetrieveHttpTask(((UserScribbleMainActivity)activity).getCurrentScribble().name(), transDialog).execute(byteStream.toByteArray());
-					new RetrieveHttpTask(transDialog).execute(scribbles);	
+					new RetrieveHttpTask((UserScribbleMainActivity)activity, transDialog).execute(scribbles);	
 					break;
 				}
 			}	
