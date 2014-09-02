@@ -37,6 +37,9 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -48,6 +51,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import dialog.TransmissionToServerDialog;
 import domain.ForeBackGround;
+import domain.MinBoundingBox;
 import domain.ObjectContour;
 import domain.Picture;
 import domain.Scribble;
@@ -151,8 +155,11 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 			Bitmap contourScribble = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 			Canvas contourCanvas = new Canvas(contourScribble);
 			
-			//TODO: create array for minimum bounding box coordinates and fill with coordinates (left, top, right, bottom)
-			int[] minBoundRectArray = new int[]{};
+			//TODO: folgende bitmap und canvas object wieder löschen - nur zum testen !!!
+			Bitmap mbrScribble = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+			Canvas mbrCanvas = new Canvas(mbrScribble);
+			
+			List<Integer> MBRlist = new ArrayList<Integer>();
 			
 			// draw scribbles at new canvas objects 
 			if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
@@ -163,9 +170,16 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 					} else if (s instanceof ObjectContour){
 						s.drawScribble(contourCanvas);
 //						s.drawScribble(testCanvas2);//########
+					} else if (s instanceof MinBoundingBox){
+						RectF rect = ((MinBoundingBox)s).getBoundingBoxOfScribble();
+						MBRlist.add((int)rect.left);
+						MBRlist.add((int)rect.top);
+						MBRlist.add((int)rect.right);
+						MBRlist.add((int)rect.bottom);
 					}
 				}
 			}
+			
 			
 			ByteArrayOutputStream foreBackByteStream = new ByteArrayOutputStream();
 			foreBackScribble.compress(Bitmap.CompressFormat.PNG, 100, foreBackByteStream);
@@ -177,60 +191,58 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 //			testBitmap2.compress(Bitmap.CompressFormat.PNG, 100, contourByteStream); //#######
 			byte[] contourByteArray = contourByteStream.toByteArray();
 			
-			ByteArrayOutputStream minBRByteStream = new ByteArrayOutputStream();
+			int[] minBoundRectArray = new int[MBRlist.size()];
+			for(int i=0; i<MBRlist.size(); i++){
+				minBoundRectArray[i] = MBRlist.get(i);
+			}
+			ByteArrayOutputStream MBRbyteStream = new ByteArrayOutputStream();
 			byte[] minBoundRectByteArray = new byte[minBoundRectArray.length];
-			minBRByteStream.write(minBoundRectByteArray);
-			minBoundRectByteArray = minBRByteStream.toByteArray();
+			MBRbyteStream.write(minBoundRectByteArray);
+			minBoundRectByteArray = MBRbyteStream.toByteArray();
 			
 			
 			
-//			#######################
+//			####################### start
 			
 			
 			// get storage directory
 			File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
 		              Environment.DIRECTORY_PICTURES), "GenericClassificationApp");
-		    
 		    // Create the storage directory if it does not exist
 		    if (! mediaStorageDir.exists()){
 		        if (! mediaStorageDir.mkdirs()){
 		            Log.d("GenericClassificationApp", "failed to create directory");
 		        }
 		    }
-		    
-		    // Create a media file name
 		    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
 		    
-		    File foreBackMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_1"+ timeStamp + ".jpg");
-		    
-		    FileOutputStream fos1 = new FileOutputStream(foreBackMediaFile);
-		    
-		    
-		    try {
-				fos1.write(foreBackByteArray);
-				fos1.flush();
-				
-				// save file in gallery
-			    Intent mediaScanIntent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-			    File f = new File(foreBackMediaFile.getAbsolutePath());
-			    Uri contentUri = Uri.fromFile(f);
-			    mediaScanIntent1.setData(contentUri);
-			    activity.sendBroadcast(mediaScanIntent1);
-				
-				fos1.close();
-				Log.d(TAG, "Picture FORE-BACK-GROUND saved");
-			} catch (FileNotFoundException e) {
-				Log.d(TAG, "File not found: " + e.getMessage());
-			} catch (IOException e) {
-				Log.d(TAG, "Error accessing file: " + e.getMessage());
-			}
-			
-		    
-//		    File contourMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_2"+ timeStamp + ".jpg");
+		    // FORE_BACK_GROUND
+//		    File foreBackMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_1"+ timeStamp + ".jpg");
+//		    FileOutputStream fos1 = new FileOutputStream(foreBackMediaFile);
 //		    
+//		    try {
+//				fos1.write(foreBackByteArray);
+//				fos1.flush();
+//				
+//				// save file in gallery
+//			    Intent mediaScanIntent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//			    File f = new File(foreBackMediaFile.getAbsolutePath());
+//			    Uri contentUri = Uri.fromFile(f);
+//			    mediaScanIntent1.setData(contentUri);
+//			    activity.sendBroadcast(mediaScanIntent1);
+//				
+//				fos1.close();
+//				Log.d(TAG, "Picture FORE-BACK-GROUND saved");
+//			} catch (FileNotFoundException e) {
+//				Log.d(TAG, "File not found: " + e.getMessage());
+//			} catch (IOException e) {
+//				Log.d(TAG, "Error accessing file: " + e.getMessage());
+//			}
+//			
+//		    // OBJECT-CONTOUR
+//		    File contourMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_2"+ timeStamp + ".jpg");		    
 //		    FileOutputStream fos2 = new FileOutputStream(contourMediaFile);
-//		    
-//		    
+//		       
 //		    try {
 //				fos2.write(contourByteArray);
 //				fos2.flush();
@@ -249,8 +261,58 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 //			} catch (IOException e) {
 //				Log.d(TAG, "Error accessing file: " + e.getMessage());
 //			}
+		    
+		    
+		    // MIN-BOUND-BOX
+		    int countLeft = 0;
+		    int countTop = 1;
+		    int countRight = 2;
+		    int countBottom = 3;
+		    Paint mPaint = new Paint();
+			mPaint.setStyle(Paint.Style.STROKE);
+			mPaint.setColor(Color.BLUE);
+			mPaint.setStrokeWidth(10);
+			mPaint.setAntiAlias(true);
+			mPaint.setDither(true);
+			mPaint.setStrokeJoin(Paint.Join.ROUND);
+			mPaint.setStrokeCap(Paint.Cap.ROUND);
 			
-//			#######################
+		    while(countBottom < minBoundRectArray.length){
+		    	RectF rectf = new RectF(countLeft, countTop, countRight, countBottom);
+		    	mbrCanvas.drawRect(rectf, mPaint);
+		    	countLeft += 4;
+		    	countTop += 4;
+		    	countRight += 4;
+		    	countBottom += 4;
+		    }
+		    
+		    ByteArrayOutputStream MBRbyteStream2 = new ByteArrayOutputStream();
+		    mbrScribble.compress(Bitmap.CompressFormat.PNG, 100, MBRbyteStream2);
+		    byte[] MBRByteArray2 = MBRbyteStream2.toByteArray();
+		    
+		    File mbrMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_3"+ timeStamp + ".jpg");
+		    FileOutputStream fos3 = new FileOutputStream(mbrMediaFile);
+		    
+		    try {
+		    	fos3.write(MBRByteArray2);
+		    	fos3.flush();
+				
+				// save file in gallery
+			    Intent mediaScanIntent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+			    File f = new File(mbrMediaFile.getAbsolutePath());
+			    Uri contentUri = Uri.fromFile(f);
+			    mediaScanIntent1.setData(contentUri);
+			    activity.sendBroadcast(mediaScanIntent1);
+				
+			    fos3.close();
+				Log.d(TAG, "Picture MIN-BOUND-BOX saved");
+			} catch (FileNotFoundException e) {
+				Log.d(TAG, "File not found: " + e.getMessage());
+			} catch (IOException e) {
+				Log.d(TAG, "Error accessing file: " + e.getMessage());
+			}
+			
+//			####################### end
 	    	
 	    	// create JSONObject 
 	        JSONObject jsonObject = new JSONObject();
