@@ -3,6 +3,8 @@
  */
 package dialog;
 
+import java.util.List;
+
 import activity.UserScribbleMainActivity;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -52,6 +54,15 @@ public class TextAnnotationDialog extends DialogFragment {
 		dialog.show();
 		
 		textAnnotations = new SparseArray<String>();
+		List<String> annotations = activity.getTextAnnotations();
+		if(annotations != null && !annotations.isEmpty()) {
+			int id = 0;
+			for (String a: annotations){
+				Log.d(TAG, "add old annotation to list: "+a);
+				addTextAnnotation(id, a);
+				id++;
+			}
+		}
 		
 		listView = (ListView) dialog.findViewById(R.id.text_annotation_list);
         adapter = new EditTextAdapter(this); 
@@ -79,6 +90,12 @@ public class TextAnnotationDialog extends DialogFragment {
 	            new View.OnClickListener() {
 	                @Override
 	                public void onClick(View v) {
+//	                	int i = 0;
+//	                	while (i > 0){
+//	                		i = textAnnotations.indexOfValue("");
+//	                		textAnnotations.remove(i);
+//	                	}
+	                	Log.d(TAG, "Number of Text Annotations save in Activity: "+ textAnnotations.size());
 	                	activity.setTextAnnotations(textAnnotations);
 	                	dialog.dismiss();
 	                	//TODO: make correct Toast Text
@@ -104,6 +121,10 @@ public class TextAnnotationDialog extends DialogFragment {
 		Log.d(TAG, "addTextAnnotation( id: "+id+", annotation: "+annotation+" ) called");
 		textAnnotations.put(id, annotation);
 		Log.d(TAG, textAnnotations.size()+"");
+	}
+	
+	public SparseArray<String> getTextAnnotations(){
+		return textAnnotations;
 	}
 
 }

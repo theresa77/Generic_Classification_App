@@ -39,15 +39,14 @@ public class EditTextAdapter extends BaseAdapter {
         itemList = new ArrayList<EditText>();
         
         // set old text annotations in the corresponding EditText field in the list
-        for (int i = 0; i <= activity.getTextAnnotations().size(); i++) {
+        for (int i = 0; i <= dialog.getTextAnnotations().size(); i++) {
         	EditText listItem = new EditText(activity);
-        	if(i < activity.getTextAnnotations().size()){
-        		listItem.setText(activity.getTextAnnotations().get(i));
-        		Log.d(TAG, "set Text for ListItem on position "+i+" and with text: "+activity.getTextAnnotations().get(i));
+        	if(i < dialog.getTextAnnotations().size()){
+        		listItem.setText(dialog.getTextAnnotations().get(i));
+        		Log.d(TAG, "set Text for ListItem on position "+i+" and with text: "+dialog.getTextAnnotations().get(i));
         	}
         	itemList.add(listItem);
-        }
-       
+        } 
     }
 	
 	/**
@@ -55,16 +54,16 @@ public class EditTextAdapter extends BaseAdapter {
 	 */
 	@Override
     public View getView(int position, View convertView, ViewGroup parent){
-		String msg = "getView( position: "+position+", convertView-Text: ";
-		if(convertView != null)
-			msg += itemList.get(position).getText().toString();
-		else
-			msg += "NULL";
-		msg += ", parent: ";
-		if (parent != null)
-			msg += parent.toString();
-		msg += " ) called";
-		Log.d(TAG, msg);
+//		String msg = "getView( position: "+position+", convertView-Text: ";
+//		if(convertView != null)
+//			msg += itemList.get(position).getText().toString();
+//		else
+//			msg += "NULL";
+//		msg += ", parent: ";
+//		if (parent != null)
+//			msg += parent.toString();
+//		msg += " ) called";
+//		Log.d(TAG, msg);
 
 		final EditText editText;
 		if (convertView == null) {
@@ -75,7 +74,7 @@ public class EditTextAdapter extends BaseAdapter {
 			editText = (EditText) convertView.getTag();
 		}
 		
-		editText.setText(itemList.get(position).getText().toString());
+		editText.setText(dialog.getTextAnnotations().get(position));
 		editText.setId(position);
 
 		// add TextChangedListener for saving changes in EditText fields in the ListView 
@@ -93,11 +92,11 @@ public class EditTextAdapter extends BaseAdapter {
 			 */
 			@Override
 			public void onTextChanged(CharSequence text, int start, int before, int count) {
-				Log.d(TAG, "onTextChanged() called in EditTextAdapter: TEXT: "+text+", LENGTH: "+ text.length()+ ", FOCUS: "+editText.isFocused());
+//				Log.d(TAG, "onTextChanged() called in EditTextAdapter: TEXT: "+text+", LENGTH: "+ text.length()+ ", FOCUS: "+editText.isFocused());
 				if (text != null && text.length() > 0 && editText.isFocused()) {
 					dialog.addTextAnnotation(editText.getId(), text.toString());	
 				} 
-				else if(text.length()== 0 && editText.isFocused()){
+				else if(text.length() == 0 && editText.isFocused()){
 					dialog.addTextAnnotation(editText.getId(), "");
 				} 
 			}
@@ -111,10 +110,12 @@ public class EditTextAdapter extends BaseAdapter {
 	 */
 	public void addNewListItem(){
 		EditText listItem = new EditText(activity);
+		listItem.setFocusable(true);
 		itemList.add(listItem);
+		listItem.requestFocus();
 		notifyDataSetChanged();
 	}
-
+	
 	/**
 	 * Get list of all EditText fields.
 	 * @return list of EditText fields from the dialog

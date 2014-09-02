@@ -525,15 +525,18 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param annotations sparse array of text annotations
 	 */
 	public void setTextAnnotations(SparseArray<String> annotations){
+		textAnnotations = new  ArrayList<String>();
 		for(int i=0; i<annotations.size(); i++){
-			if(annotations.keyAt(i) < textAnnotations.size()){
-				if(annotations.valueAt(i).equals("")) {
-					textAnnotations.remove(annotations.keyAt(i));
-				} else {
-					textAnnotations.set(annotations.keyAt(i), annotations.valueAt(i));
-				}
-			}
-			else
+//			if(annotations.keyAt(i) < textAnnotations.size()){
+//				if(annotations.valueAt(i).equals("")) {
+//					textAnnotations.remove(annotations.keyAt(i));
+//				} else {
+//					textAnnotations.set(annotations.keyAt(i), annotations.valueAt(i));
+//				}
+//			}
+//			else
+//				textAnnotations.add(annotations.valueAt(i));
+			if(!annotations.valueAt(i).equals(""))
 				textAnnotations.add(annotations.valueAt(i));
 		}
 	}
