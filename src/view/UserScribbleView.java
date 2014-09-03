@@ -240,7 +240,7 @@ public abstract class UserScribbleView extends SurfaceView {
 			mPicture.addScribbleToList(currentScribble);
 			currentScribble = null;
 		}
-//		resetLastDrawing();
+		resetLastDrawing();
 		invalidate();
 	}
 	
@@ -297,11 +297,12 @@ public abstract class UserScribbleView extends SurfaceView {
 		if(currentScribble != null){
 			Log.d(TAG, "current Scribble: " + currentScribble.toString());
 			currentScribble = null;
+			resetLastDrawing();
 		} else {
 			Log.d(TAG, "current Scribble: NULL");
 			mPicture.removeLastScribble();
 		}
-		resetLastDrawing();
+		
 		invalidate();
 	}
 	

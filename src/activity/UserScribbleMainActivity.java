@@ -268,7 +268,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	public void resetLastForeBackDrawing(View v){
 		((ForegroundBackgroundView)mView).deleteLastDrawnPath();
-//		mView.resetLastDrawing();
 	}
 	
 	/**

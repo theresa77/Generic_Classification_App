@@ -113,5 +113,16 @@ public class Picture {
 		}
 	}
 	
+	public void removeLastForeBackScribble(){
+		if(!scribbles.isEmpty()){
+			for(int i=scribbles.size()-1; i>=0; i--){
+				if(scribbles.get(i) instanceof ForeBackGround){
+					scribbles.remove(i);
+					break;
+				}
+			}
+		}
+	}
+	
 	
 }
