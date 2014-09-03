@@ -169,6 +169,9 @@ public final class R {
         public static final int dialog_pick_shape=0x7f070005;
         public static final int dialog_text_annotation=0x7f070007;
         public static final int dialog_transmission_to_server=0x7f070004;
+        /**  toast text 
+         */
+        public static final int draw_new_scribble=0x7f070033;
         public static final int edit_color=0x7f070013;
         public static final int edit_foreground_background=0x7f070014;
         public static final int edit_form=0x7f070015;
@@ -180,6 +183,8 @@ public final class R {
         public static final int forty=0x7f070018;
         public static final int hundred=0x7f07001b;
         public static final int hundred_percent=0x7f07001d;
+        /**  toast text 
+         */
         public static final int instruction_drawing_background=0x7f070032;
         /**  toast text 
          */

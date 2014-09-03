@@ -3,6 +3,8 @@
  */
 package view;
 
+import com.genericclassificationapp.R;
+
 import activity.UserScribbleMainActivity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.SurfaceView;
+import android.widget.Toast;
 import domain.Picture;
 import domain.Scribble;
 
@@ -180,19 +183,15 @@ public abstract class UserScribbleView extends SurfaceView {
 	
 	@Override
 	public void onDraw(Canvas canvas){
-		
 		canvas.save();
 		canvas.getClipBounds(boundsBeforeScale);
-//		Log.d(TAG, "boundsBeforeScale - left: "+boundsBeforeScale.left+", top: "+boundsBeforeScale.top+", right: "+boundsBeforeScale.right+", bottom: "+boundsBeforeScale.bottom);
-		
+
 		canvas.scale(mScaleFactor, mScaleFactor, focusX, focusY);
 		canvas.getClipBounds(boundsAfterScale);
-//		Log.d(TAG, "boundsAfterScale - left: "+boundsAfterScale.left+", top: "+boundsAfterScale.top+", right: "+boundsAfterScale.right+", bottom: "+boundsAfterScale.bottom);
-		
+
 		canvas.translate(mPosX, mPosY);
 		canvas.getClipBounds(boundsAfterTranslate);
-//		Log.d(TAG, "boundsAfterTranslate - left: "+boundsAfterTranslate.left+", top: "+boundsAfterTranslate.top+", right: "+boundsAfterTranslate.right+", bottom: "+boundsAfterTranslate.bottom);
-		
+
 		if(boundsAfterTranslate.left < 0){
 			canvas.translate(boundsAfterTranslate.left, 0);
 			mPosX = boundsAfterScale.left;
@@ -210,19 +209,7 @@ public abstract class UserScribbleView extends SurfaceView {
 			mPosY = boundsAfterScale.bottom-boundsBeforeScale.bottom;
 		}
 		
-//		Matrix matrix = new Matrix();
-//		matrix.postScale(mScaleFactor, mScaleFactor, focusX, focusY);
-//		matrix.postTranslate(mPosX, mPosY);
-		
-//		Paint paint = new Paint();
-//		paint.setAntiAlias(true);
-//		paint.setFilterBitmap(true);
-//		paint.setDither(true);
-		
 		canvas.getClipBounds(zoomBounds);
-//		Log.d(TAG, "zoomBounds - left: "+zoomBounds.left+", top: "+zoomBounds.top+", right: "+zoomBounds.right+", bottom: "+zoomBounds.bottom);
-		
-//		canvas.drawBitmap(mPictureBitmap, 0, 0, paint);
 		canvas.drawBitmap(mPictureBitmap, 0,0, null);
 		
 		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
@@ -230,8 +217,8 @@ public abstract class UserScribbleView extends SurfaceView {
 				s.drawScribble(canvas);
 			}
 		}
-		drawCurrentScribble(canvas);
 		
+		drawCurrentScribble(canvas);
 		canvas.restore();
 	}
 	

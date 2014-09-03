@@ -222,6 +222,10 @@ public class ForegroundBackgroundView extends UserScribbleView {
 //			if(mBackPathList.size()>0)
 //				mBackPathList.remove(mBackPathList.size()-1);
 //		}
+		if(drawNewScribble){
+			drawForeground = true;
+		}
+		setForeBackgroundButton();
 		resetPath();
 		invalidate();
 	}
@@ -270,18 +274,29 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	/**
 	 * Set drawable for foreground-background-button at the very left in the button bar.
 	 */
-	public void setForeBackgroundButton(){
+	public void changeForeBackgroundButton(){
 		if (drawForeground) {
-			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.b_icon));
+//			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.b_icon));
 			drawForeground = false;
 			Toast.makeText(mActivity, R.string.instruction_drawing_background, Toast.LENGTH_LONG).show();
 		} else {
-			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.f_icon));
+//			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.f_icon));
 			drawForeground = true;
-			resetPath();
-//			currentScribble = new ForeBackGround(mForePathList, mBackPathList, new Paint(mForePaint), new Paint(mBackPaint));
 			setDrawNewScribble(true);
+			resetPath();
 			Toast.makeText(mActivity, R.string.instruction_drawing_foreground, Toast.LENGTH_LONG).show();
+		}
+		setForeBackgroundButton();
+	}
+	
+	/**
+	 * TODO
+	 */
+	public void setForeBackgroundButton(){
+		if (drawForeground) {
+			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.f_icon));
+		} else {
+			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.b_icon));
 		}
 	}
 	
