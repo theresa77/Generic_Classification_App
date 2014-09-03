@@ -56,7 +56,7 @@ public class ForegroundBackgroundFragment extends UserScribbleFragment {
 			mView = new ForegroundBackgroundView(mActivity, mView, foreBackButton);
 		}
 		
-		Toast.makeText(getActivity(), R.string.select_foreground_background, Toast.LENGTH_SHORT).show();
+		Toast.makeText(getActivity(), R.string.instruction_drawing_foreground, Toast.LENGTH_LONG).show();
 		
 		return view;
 	}

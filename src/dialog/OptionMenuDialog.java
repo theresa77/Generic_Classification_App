@@ -223,7 +223,7 @@ public class OptionMenuDialog extends DialogFragment {
 					
 				//delete last drawing
 				case 6:
-					((UserScribbleMainActivity)activity).removeLastScribble(null);
+					((UserScribbleMainActivity)activity).removeLastScribble();
 					dialog.dismiss();
 					Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
 					break;
@@ -238,31 +238,16 @@ public class OptionMenuDialog extends DialogFragment {
 				//send picture and scribbles to server
 				case 8:
 					Log.d(TAG, "sendToServer called");
-//					// create new bitmap for scribbles only
-//					Bitmap userScribble = Bitmap.createBitmap( ((UserScribbleMainActivity)activity).getDisplayWidth(),
-//												((UserScribbleMainActivity)activity).getDisplayHeight(), 
-//												Bitmap.Config.ARGB_8888); 
-//					Canvas canvas = new Canvas(userScribble);
-//					UserScribbleView currView = ((UserScribbleMainActivity) activity).getView();
-//					
-//					// draw scribbles at new canvas object
-//					currView.drawUserScribble(canvas);
-//					
-//					ByteArrayOutputStream byteStream = new ByteArrayOutputStream();	        	
-//					userScribble.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
-					
 					dialog.dismiss();
 					
 					// open Dialog to show progress of the transmission from picture and scribbles to a server
 					TransmissionToServerDialog transDialog = new TransmissionToServerDialog();
 					transDialog.show(getActivity().getSupportFragmentManager(), "TransmissionToServerDialog");
 					
-//					Scribble[] scribbles = (Scribble[]) ((UserScribbleMainActivity)activity).getScribbles().toArray();
 					Scribble[] scribbles = new Scribble[mPicture.getScribbles().size()];
 					mPicture.getScribbles().toArray(scribbles);
 					
 					// send picture and scribbles to a server
-//					new RetrieveHttpTask(((UserScribbleMainActivity)activity).getCurrentScribble().name(), transDialog).execute(byteStream.toByteArray());
 					new RetrieveHttpTask((UserScribbleMainActivity)activity, transDialog).execute(scribbles);	
 					break;
 				}

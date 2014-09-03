@@ -5,7 +5,6 @@ package domain;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 
 /**
@@ -31,14 +30,6 @@ public class MinBoundingBox extends Scribble {
 		this.paint = paint;
 	}
 
-//	public RectF getRectf() {
-//		return rectf;
-//	}
-//
-//	public Shape getShape() {
-//		return shape;
-//	}
-
 	@Override
 	public void drawScribble(Canvas canvas) {
 		if (shape == Shape.RECTANGLE) {
@@ -49,16 +40,6 @@ public class MinBoundingBox extends Scribble {
 		}
 	}
 	
-//	public void drawScribble(Canvas canvas, Rect rect) {
-//		if (shape == Shape.RECTANGLE) {
-//			
-//			canvas.drawRect(rectf, paint);
-//		} else {
-//			canvas.drawOval(rectf, paint);
-//			
-//		}
-//	}
-//	
 	public String toString() {
 		return "MinBoundingBox(rectf(left: " + rectf.left + ", top: "
 				+ rectf.top + ", right: " + rectf.right + ", bottom: "

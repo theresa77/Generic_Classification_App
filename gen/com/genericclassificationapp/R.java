@@ -179,6 +179,10 @@ public final class R {
         public static final int forty=0x7f070018;
         public static final int hundred=0x7f07001b;
         public static final int hundred_percent=0x7f07001d;
+        public static final int instruction_drawing_background=0x7f070032;
+        /**  toast text 
+         */
+        public static final int instruction_drawing_foreground=0x7f070031;
         public static final int magnifier=0x7f07002e;
         public static final int mark_object=0x7f070030;
         public static final int menu=0x7f07000f;

@@ -18,7 +18,6 @@ import android.view.MotionEvent;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import domain.ForeBackGround;
-import domain.Scribble;
 
 /**
  * View class for controlling the view for a ForegroundBackgroundFragment.
@@ -30,17 +29,15 @@ import domain.Scribble;
 public class ForegroundBackgroundView extends UserScribbleView {
 
 	private static final String TAG = ForegroundBackgroundView.class.getSimpleName();
-//	private Path mForePath = new Path();
-//	private Path mBackPath = new Path();
 	private Path mPath = new Path();
 	private List<Path> mForePathList = new ArrayList<Path>();
 	private List<Path> mBackPathList = new ArrayList<Path>();
+	private List<String> mPathHistory = new ArrayList<String>();
 	private Paint mForePaint = new Paint(mPaint);
 	private Paint mBackPaint = new Paint(mPaint);
 	private float mX;
 	private float mY;
 	private Selection mCurrentSelection = Selection.FOREGROUND;
-//	private boolean drawCircle = true;
 	private boolean drawForeground = true;
 	ImageButton foreBackButton;
 	
@@ -75,7 +72,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	}
 	
 	public void handleTouchEvent(int action, float x, float y){
-
 		switch (action) {
 
 		// user start touch
@@ -96,7 +92,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 			// Log.d(TAG,"Action was UP");
 			stopMove(x, y);
 			break;
-
 		}
 
 	}
@@ -114,24 +109,11 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 */
 	public void startMove(float x, float y){
 		//Log.d(TAG, "startMove() called");
-//		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
 		if(drawNewScribble){
-//			if(mBackPath != null && !mBackPath.isEmpty())
-//				mPicture.addScribbleToList(currentScribble);
 			currentScribble = new ForeBackGround(mForePathList, mBackPathList, new Paint(mForePaint), new Paint(mBackPaint));
 			mPicture.addScribbleToList(currentScribble);
 			drawNewScribble = false;
 		}
-
-//		drawCircle = true;
-		
-//		if (drawForeground) {
-//			mForePath.reset();
-//			mForePath.moveTo(x, y);
-//		} else {
-//			mBackPath.reset();
-//			mBackPath.moveTo(x, y);
-//		}
 		
 		mPath.reset();
 		mPath.moveTo(x, y);
@@ -149,34 +131,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 */
 	public void move(float x, float y){
 		//Log.d(TAG, "move() called");
-//		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
-		
-//		if(drawForeground){
-//			if (!mForePath.isEmpty()) {
-//				float dx = Math.abs(x - mX);
-//				float dy = Math.abs(y - mY);
-//				if (dx >= 4 || dy >= 4) {
-//					mForePath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
-//					mX = x;
-//					mY = y;
-//				}
-//			} else {
-//				startMove(x, y);
-//			}
-//		} else {
-//			if (!mBackPath.isEmpty()) {
-//				float dx = Math.abs(x - mX);
-//				float dy = Math.abs(y - mY);
-//				if (dx >= 4 || dy >= 4) {
-//					mBackPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
-//					mX = x;
-//					mY = y;
-//				}
-//			} else {
-//				startMove(x, y);
-//			}
-//		}
-		
+
 		if (!mPath.isEmpty()) {
 			float dx = Math.abs(x - mX);
 			float dy = Math.abs(y - mY);
@@ -188,10 +143,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		} else {
 			startMove(x, y);
 		}
-	
-		
-//		if(drawCircle)
-//			drawCircle = false;
 		
 		invalidate();
 	}
@@ -203,32 +154,19 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 */
 	public void stopMove(float x, float y){
 //		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
-//		if(drawForeground){
-//			mForePath.lineTo(x, y);
-//			drawForeground = false;
-//			Toast.makeText(mActivity, "Draw Background", Toast.LENGTH_SHORT).show();
-//		} else {
-//			mBackPath.lineTo(x, y);
-//			currentScribble = new ForeBackGround(mForePathList, mBackPathList, new Paint(mForePaint), new Paint(mBackPaint));
-//		}
-		
-//		if (drawForeground) {
-//			mForePathList.add(new Path(mForePath));
-//		} else {
-//			mBackPathList.add(mBackPath);
-//		}
-		
 		mPath.lineTo(x, y);
 		
 		foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.check));
 		
 		if (drawForeground) {
 			mForePathList.add(new Path(mPath));
+			mPathHistory.add("FORE");
 		} else {
 			mBackPathList.add(new Path(mPath));
+			mPathHistory.add("BACK");
 		}
 		
-	//	drawCircle = true;
+		currentScribble = new ForeBackGround(mForePathList, mBackPathList, new Paint(mForePaint), new Paint(mBackPaint));
 		invalidate();
 	}
 	
@@ -236,47 +174,14 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 * Resets the last drawn path.
 	 */
 	public void resetPath(){
-//		mForePath.reset();
-//		mBackPath.reset();
 		mPath.reset();
 		mX = 0;
 		mY = 0;
-//		drawForeground = true;
-//		drawCircle = true;
 		invalidate();
 	}
 	
 	@Override
 	public void drawCurrentScribble(Canvas canvas) {
-		
-//		int color = mPaint.getColor();
-		
-//		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
-//			for (Scribble s : mPicture.getScribbles()) {
-//				s.drawScribble(canvas);
-//			}
-//		}
-		
-//		if(mForePath != null && !mForePath.isEmpty()){
-		
-////		if (drawCircle){
-////			mPaint.setStyle(Paint.Style.FILL);
-////			canvas.drawCircle(mX, mY, mPaint.getStrokeWidth()/2, mPaint);
-////		}else{
-		
-			
-//			mPaint.setColor(Color.YELLOW);
-//			mPaint.setStyle(Paint.Style.STROKE);
-//			canvas.drawPath(mForePath, mPaint);
-			
-			
-//		}
-//		} 
-		
-//		if (mBackPath != null && !mBackPath.isEmpty()) {
-//			mPaint.setColor(Color.MAGENTA);
-//			canvas.drawPath(mBackPath, mPaint);
-//		}
 		
 		for(Path p : mForePathList) {
 			canvas.drawPath(p, mForePaint);
@@ -292,11 +197,23 @@ public class ForegroundBackgroundView extends UserScribbleView {
 			canvas.drawPath(mPath, mBackPaint);
 		}
 		
-//		mPaint.setColor(color);
 	}
 
 	@Override
 	public void resetLastDrawing() {
+		String lastTag = mPathHistory.remove(mPathHistory.size()-1);
+		if(lastTag.equals("FORE")){
+			if(mForePathList.size()>0)
+				mForePathList.remove(mForePathList.size()-1);
+		} else {
+			if(mBackPathList.size()>0)
+				mBackPathList.remove(mBackPathList.size()-1);
+		}
+		resetPath();
+		invalidate();
+	}
+	
+	public void deleteLastDrawnPath(){
 		if(drawForeground) {
 			if(mForePathList.size()>0)
 				mForePathList.remove(mForePathList.size()-1);
@@ -354,12 +271,14 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		if (drawForeground) {
 			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.b_icon));
 			drawForeground = false;
+			Toast.makeText(mActivity, R.string.instruction_drawing_background, Toast.LENGTH_LONG).show();
 		} else {
 			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.f_icon));
 			drawForeground = true;
 			resetPath();
 			currentScribble = new ForeBackGround(mForePathList, mBackPathList, new Paint(mForePaint), new Paint(mBackPaint));
 			setDrawNewScribble(true);
+			Toast.makeText(mActivity, R.string.instruction_drawing_foreground, Toast.LENGTH_LONG).show();
 		}
 	}
 	

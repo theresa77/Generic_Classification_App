@@ -171,15 +171,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		mPaint.setStrokeJoin(Paint.Join.ROUND);
 		mPaint.setStrokeCap(Paint.Cap.ROUND);
 		
-		// create new list for all scribbles
-//		scribbles = mPicture.getScribbles();
-//		if(scribbles == null)
-//			scribbles = new ArrayList<Scribble>();
-		
-//		// create list for text annotations
-//		textAnnotations = new ArrayList<String>();
-//		
-//		zoomEnabled = false;
 	}
 	
 	/**
@@ -276,8 +267,8 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param v pressed button
 	 */
 	public void resetLastForeBackDrawing(View v){
-//		((ForegroundBackgroundView)mView).deleteLastDrawnPath();
-		mView.resetLastDrawing();
+		((ForegroundBackgroundView)mView).deleteLastDrawnPath();
+//		mView.resetLastDrawing();
 	}
 	
 	/**
@@ -435,7 +426,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * Reset last drawing.
 	 * Delete latest user scribble.
 	 */
-	public void removeLastScribble(View v){
+	public void removeLastScribble(){
 		// TODO: View param in Signatur entfernen
 		mView.removeLastScribble();
 //		if(mView.drawNewScribble() && !scribbles.isEmpty()){
@@ -449,7 +440,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	public void removeAllScribbles(){
 //		scribbles = new ArrayList<Scribble>();
 		mPicture.setScribbles(new ArrayList<Scribble>());
-		removeLastScribble(null);
+		removeLastScribble();
 		if(mView instanceof ForegroundBackgroundView){
 			((ForegroundBackgroundView)mView).removeAllScribbles(); //TODO: das sollte nicht hier passieren, sollte mit dem löschen aller scribbles in picture klasse erledigt sein.
 		}
