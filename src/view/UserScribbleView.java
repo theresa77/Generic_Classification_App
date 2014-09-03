@@ -108,6 +108,11 @@ public abstract class UserScribbleView extends SurfaceView {
 	 * @param width stroke width for user scribbles
 	 */
 	public void setStrokeWidth(int width){
+		if(currentScribble != null){
+			mPicture.addScribbleToList(currentScribble);
+			currentScribble = null;
+		}
+		resetLastDrawing();
 		mPaint.setStrokeWidth(width);
 		invalidate();
 	}
@@ -232,7 +237,6 @@ public abstract class UserScribbleView extends SurfaceView {
 	public void setDrawNewScribble(boolean drawNew){
 		drawNewScribble = drawNew;
 		if(currentScribble != null){
-//			mActivity.addScribbleToList(currentScribble);
 			mPicture.addScribbleToList(currentScribble);
 			currentScribble = null;
 		}

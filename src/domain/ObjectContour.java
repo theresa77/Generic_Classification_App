@@ -25,10 +25,6 @@ public class ObjectContour extends Scribble {
 		this.paint = paint;
 	}
 
-//	public Path getPath() {
-//		return path;
-//	}
-
 	@Override
 	public void drawScribble(Canvas canvas) {
 		canvas.drawPath(path, paint);

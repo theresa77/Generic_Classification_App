@@ -30,16 +30,18 @@ public class ForegroundBackgroundView extends UserScribbleView {
 
 	private static final String TAG = ForegroundBackgroundView.class.getSimpleName();
 	private Path mPath = new Path();
-	private List<Path> mForePathList = new ArrayList<Path>();
-	private List<Path> mBackPathList = new ArrayList<Path>();
-	private List<String> mPathHistory = new ArrayList<String>();
-	private Paint mForePaint = new Paint(mPaint);
-	private Paint mBackPaint = new Paint(mPaint);
+//	private List<Path> mForePathList = new ArrayList<Path>();
+//	private List<Path> mBackPathList = new ArrayList<Path>();
+//	private List<String> mPathHistory = new ArrayList<String>();
+//	private Paint mForePaint = new Paint(mPaint);
+//	private Paint mBackPaint = new Paint(mPaint);
+	private int mForeColor = Color.YELLOW;
+	private int mBackColor = Color.MAGENTA;
 	private float mX;
 	private float mY;
 	private Selection mCurrentSelection = Selection.FOREGROUND;
 	private boolean drawForeground = true;
-	ImageButton foreBackButton;
+	private ImageButton foreBackButton;
 	
 	public enum Selection {
 		FOREGROUND, BACKGROUND
@@ -66,8 +68,8 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	
 	private void init(ImageButton foreBackButton) {
 		Log.d(TAG, "init ForegroundBackgroundView");
-		mForePaint.setColor(Color.YELLOW);
-		mBackPaint.setColor(Color.MAGENTA);
+//		mForePaint.setColor(Color.YELLOW);
+//		mBackPaint.setColor(Color.MAGENTA);
 		this.foreBackButton = foreBackButton;
 	}
 	
@@ -110,11 +112,10 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	public void startMove(float x, float y){
 		//Log.d(TAG, "startMove() called");
 		if(drawNewScribble){
-			currentScribble = new ForeBackGround(mForePathList, mBackPathList, new Paint(mForePaint), new Paint(mBackPaint));
-			mPicture.addScribbleToList(currentScribble);
+//			mPicture.addScribbleToList(currentScribble);
 			drawNewScribble = false;
 		}
-		
+		mPicture.addScribbleToList(currentScribble);
 		mPath.reset();
 		mPath.moveTo(x, y);
 		
@@ -159,14 +160,21 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.check));
 		
 		if (drawForeground) {
-			mForePathList.add(new Path(mPath));
-			mPathHistory.add("FORE");
+//			mForePathList.add(new Path(mPath));
+//			mPathHistory.add("FORE");
+			Paint forePaint = new Paint(mPaint);
+			forePaint.setColor(mForeColor);
+			currentScribble = new ForeBackGround(new Path(mPath), new Paint(forePaint));
 		} else {
-			mBackPathList.add(new Path(mPath));
-			mPathHistory.add("BACK");
+//			mBackPathList.add(new Path(mPath));
+//			mPathHistory.add("BACK");
+			Paint backPaint = new Paint(mPaint);
+			backPaint.setColor(mBackColor);
+			currentScribble = new ForeBackGround(new Path(mPath), new Paint(backPaint));
 		}
 		
-		currentScribble = new ForeBackGround(mForePathList, mBackPathList, new Paint(mForePaint), new Paint(mBackPaint));
+//		currentScribble = new ForeBackGround(mForePathList, mBackPathList, new Paint(mForePaint), new Paint(mBackPaint));
+		
 		invalidate();
 	}
 	
@@ -183,52 +191,62 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	@Override
 	public void drawCurrentScribble(Canvas canvas) {
 		
-		for(Path p : mForePathList) {
-			canvas.drawPath(p, mForePaint);
-		}
+//		for(Path p : mForePathList) {
+//			canvas.drawPath(p, mForePaint);
+//		}
+//		
+//		for(Path p : mBackPathList) {
+//			canvas.drawPath(p, mBackPaint);
+//		}
+//		
+//		if(drawForeground) {
+//			canvas.drawPath(mPath, mForePaint);
+//		} else {
+//			canvas.drawPath(mPath, mBackPaint);
+//		}
+		int currColor = mPaint.getColor();
 		
-		for(Path p : mBackPathList) {
-			canvas.drawPath(p, mBackPaint);
-		}
-		
-		if(drawForeground) {
-			canvas.drawPath(mPath, mForePaint);
+		if (drawForeground) {
+			mPaint.setColor(mForeColor);
 		} else {
-			canvas.drawPath(mPath, mBackPaint);
+			mPaint.setColor(mBackColor);
 		}
 		
+		canvas.drawPath(mPath, mPaint);
+		
+		mPaint.setColor(currColor);
 	}
 
 	@Override
 	public void resetLastDrawing() {
-		String lastTag = mPathHistory.remove(mPathHistory.size()-1);
-		if(lastTag.equals("FORE")){
-			if(mForePathList.size()>0)
-				mForePathList.remove(mForePathList.size()-1);
-		} else {
-			if(mBackPathList.size()>0)
-				mBackPathList.remove(mBackPathList.size()-1);
-		}
+//		String lastTag = mPathHistory.remove(mPathHistory.size()-1);
+//		if(lastTag.equals("FORE")){
+//			if(mForePathList.size()>0)
+//				mForePathList.remove(mForePathList.size()-1);
+//		} else {
+//			if(mBackPathList.size()>0)
+//				mBackPathList.remove(mBackPathList.size()-1);
+//		}
 		resetPath();
 		invalidate();
 	}
 	
 	public void deleteLastDrawnPath(){
-		if(drawForeground) {
-			if(mForePathList.size()>0)
-				mForePathList.remove(mForePathList.size()-1);
-		} else {
-			if(mBackPathList.size()>0)
-				mBackPathList.remove(mBackPathList.size()-1);
-		}
+//		if(drawForeground) {
+//			if(mForePathList.size()>0)
+//				mForePathList.remove(mForePathList.size()-1);
+//		} else {
+//			if(mBackPathList.size()>0)
+//				mBackPathList.remove(mBackPathList.size()-1);
+//		}
 		resetPath();
 		invalidate();
 	}
 	
 	public void removeAllScribbles(){
 		mPath = new Path();
-		mForePathList = new ArrayList<Path>();
-		mBackPathList = new ArrayList<Path>();
+//		mForePathList = new ArrayList<Path>();
+//		mBackPathList = new ArrayList<Path>();
 		invalidate();
 	}
 	
@@ -276,20 +294,20 @@ public class ForegroundBackgroundView extends UserScribbleView {
 			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.f_icon));
 			drawForeground = true;
 			resetPath();
-			currentScribble = new ForeBackGround(mForePathList, mBackPathList, new Paint(mForePaint), new Paint(mBackPaint));
+//			currentScribble = new ForeBackGround(mForePathList, mBackPathList, new Paint(mForePaint), new Paint(mBackPaint));
 			setDrawNewScribble(true);
 			Toast.makeText(mActivity, R.string.instruction_drawing_foreground, Toast.LENGTH_LONG).show();
 		}
 	}
 	
-	@Override
-	public void setStrokeWidth(int width){
-		if(drawForeground) {
-			mForePaint.setStrokeWidth(width);
-		} else {
-			mBackPaint.setStrokeWidth(width);
-		}
-		invalidate();
-	}
+//	@Override
+//	public void setStrokeWidth(int width){
+//		if(drawForeground) {
+//			mForePaint.setStrokeWidth(width);
+//		} else {
+//			mBackPaint.setStrokeWidth(width);
+//		}
+//		invalidate();
+//	}
 
 }

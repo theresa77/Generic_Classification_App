@@ -330,9 +330,9 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param width for scribbles
 	 */
 	public void setStrokeWidth(int width){
-		if(!(mView instanceof ForegroundBackgroundView)) {
+//		if(!(mView instanceof ForegroundBackgroundView)) {
 			mPaint.setStrokeWidth(width);
-		}
+//		}
 		mView.setStrokeWidth(width);
 		if(currentDialog!=null)
 			currentDialog.dismiss();
