@@ -475,18 +475,18 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		return mView;
 	}
 
-	/**
-	 * Get current selection for drawing scribbles.
-	 * @return current scribble selection
-	 */
+//	/**
+//	 * Get current selection for drawing scribbles.
+//	 * @return current scribble selection
+//	 */
 //	public ScribbleType getCurrentScribble() {
 //		return currentScribbleType;
 //	}
 
-	/**
-	 * Set value for scribble selection.
-	 * @param currentScribble new scribble selection
-	 */
+//	/**
+//	 * Set value for scribble selection.
+//	 * @param currentScribble new scribble selection
+//	 */
 //	public void setCurrentScribble(ScribbleType currentScribble) {
 //		this.currentScribbleType = currentScribble;
 //	}
@@ -550,8 +550,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 			v.setBackgroundColor(this.getResources().getColor(R.color.buttonGray));
 		} else {
 			zoomEnabled = true;
-			mPicture.addScribbleToList(mView.getCurrentScribble());
-//			addScribbleToList(mView.getCurrentScribble());
+//			mPicture.addScribbleToList(mView.getCurrentScribble());
 			v.setBackgroundColor(this.getResources().getColor(R.color.darkGray));
 		}
 	}
