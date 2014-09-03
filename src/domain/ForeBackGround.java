@@ -14,7 +14,7 @@ import android.graphics.RectF;
  * @author Theresa Froeschl
  *
  */
-public class ForeBackGround implements Scribble {
+public class ForeBackGround extends PathScribble {
 	
 	// code for Tuple-class
 	//TODO: if not needed --> delete
@@ -34,8 +34,9 @@ public class ForeBackGround implements Scribble {
 //	private List<Tuple<Path,Paint>> foreTupleList, backTupleList;
 //	private List<Path> forePathList, backPathList;
 //	private Paint forePaint, backPaint;
-	private Path path;
-	private Paint paint;
+	
+//	private Path path;
+//	private Paint paint;
 	
 //	public ForeBackGround(List<Path> forePathList, List<Path> backPathList, Paint forePaint, Paint backPaint){
 //		super();
@@ -52,22 +53,26 @@ public class ForeBackGround implements Scribble {
 //	}
 	
 	public ForeBackGround(Path path, Paint paint){
-		super();
-		this.path = path;
-		this.paint = paint;
+		super(path, paint);
 	}
 	
-	@Override
-	public void drawScribble(Canvas canvas) {
-		canvas.drawPath(path, paint);
-	}
-	
-	@Override
-	public RectF getBoundingBoxOfScribble(){
-		RectF bounds = new RectF();
-		path.computeBounds(bounds, true);
-		return bounds;
-	}
+//	public ForeBackGround(Path path, Paint paint){
+//		super();
+//		this.path = path;
+//		this.paint = paint;
+//	}
+//	
+//	@Override
+//	public void drawScribble(Canvas canvas) {
+//		canvas.drawPath(path, paint);
+//	}
+//	
+//	@Override
+//	public RectF getBoundingBoxOfScribble(){
+//		RectF bounds = new RectF();
+//		path.computeBounds(bounds, true);
+//		return bounds;
+//	}
 
 //	/**
 //	 * Get list of all drawn paths which were marked by the user as Foreground.

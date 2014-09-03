@@ -24,7 +24,6 @@ public class MinBoundingBox implements Scribble {
 	}
 	
 	public MinBoundingBox(RectF rectf, Shape shape, Paint paint){
-		super();
 		this.rectf = rectf;
 		this.shape = shape;
 		this.paint = paint;

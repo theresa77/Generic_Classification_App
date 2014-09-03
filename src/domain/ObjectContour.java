@@ -14,27 +14,32 @@ import android.graphics.RectF;
  * @author Theresa Froeschl
  *
  */
-public class ObjectContour implements Scribble {
+public class ObjectContour extends PathScribble {
 
-	private Path path;
-	private Paint paint;
+//	private Path path;
+//	private Paint paint;
+//	
 	
 	public ObjectContour(Path path, Paint paint){
-		super();
-		this.path = path;
-		this.paint = paint;
-	}
-
-	@Override
-	public void drawScribble(Canvas canvas) {
-		canvas.drawPath(path, paint);
+		super(path, paint);
 	}
 	
-	@Override
-	public RectF getBoundingBoxOfScribble(){
-		RectF bounds = new RectF();
-		path.computeBounds(bounds, true);
-		return bounds;
-	}
+//	public ObjectContour(Path path, Paint paint){
+//		super();
+//		this.path = path;
+//		this.paint = paint;
+//	}
+//
+//	@Override
+//	public void drawScribble(Canvas canvas) {
+//		canvas.drawPath(path, paint);
+//	}
+//	
+//	@Override
+//	public RectF getBoundingBoxOfScribble(){
+//		RectF bounds = new RectF();
+//		path.computeBounds(bounds, true);
+//		return bounds;
+//	}
 	
 }
