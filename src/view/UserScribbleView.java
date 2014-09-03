@@ -91,6 +91,11 @@ public abstract class UserScribbleView extends SurfaceView {
 	 * @param color new color for user scribbles
 	 */
 	public void setUserScribbleColor(int color){
+		if(currentScribble != null){
+			mPicture.addScribbleToList(currentScribble);
+			currentScribble = null;
+		}
+		resetLastDrawing();
 		mPaint.setColor(color);
 		invalidate();
 	}
