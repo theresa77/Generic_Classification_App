@@ -65,8 +65,9 @@ public final class R {
         public static final int oc_icon=0x7f020015;
         public static final int oval=0x7f020016;
         public static final int plus=0x7f020017;
-        public static final int rectangle=0x7f020018;
-        public static final int waste=0x7f020019;
+        public static final int plus2=0x7f020018;
+        public static final int rectangle=0x7f020019;
+        public static final int waste=0x7f02001a;
     }
     public static final class id {
         public static final int add_further_scribble_button=0x7f09000d;
