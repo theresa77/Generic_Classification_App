@@ -15,6 +15,21 @@ import android.graphics.RectF;
  *
  */
 public class ForeBackGround implements Scribble {
+	
+	// code for Tuple-class
+	//TODO: if not needed --> delete
+//	package domain;
+//
+//	public class Tuple<X,Y>{
+//		
+//		public X x;
+//		public Y y;
+//		
+//		public Tuple(X x, Y y){
+//			this.x = x;
+//			this.y = y;
+//		}
+//	}
 
 //	private List<Tuple<Path,Paint>> foreTupleList, backTupleList;
 //	private List<Path> forePathList, backPathList;

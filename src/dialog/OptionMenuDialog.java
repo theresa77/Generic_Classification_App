@@ -100,7 +100,6 @@ public class OptionMenuDialog extends DialogFragment {
 				
 				//save picture (+ scribbles) to Gallery
 				case 0:
-					Log.d(TAG, "save to Gallery selected");
 					savePictureInGallery(mPicture, activity, dialog);
 					break;
 				
@@ -151,6 +150,7 @@ public class OptionMenuDialog extends DialogFragment {
 	}
 	
 	private void savePictureInGallery(Picture mPicture, Activity activity, Dialog dialog){
+		Log.d(TAG, "save to Gallery selected");
 		// get storage directory
 		File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
 	              Environment.DIRECTORY_PICTURES), "GenericClassificationApp");
