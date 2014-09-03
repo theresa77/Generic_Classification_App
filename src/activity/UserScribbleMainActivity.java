@@ -426,11 +426,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * Delete latest user scribble.
 	 */
 	public void removeLastScribble(){
-		// TODO: View param in Signatur entfernen
 		mView.removeLastScribble();
-//		if(mView.drawNewScribble() && !scribbles.isEmpty()){
-//			scribbles.remove(scribbles.size()-1);
-//		}
 	}
 	
 	/**

@@ -31,7 +31,6 @@ public class ViewObjectActivity extends Activity {
 	
 	private static final String TAG = ViewObjectActivity.class.getSimpleName();
 	private Picture mPicture;
-//	private ViewObjectView mView;
 	private int displayWidth;
 	private int displayHeight;
 	private Bitmap mPictureBitmap;
@@ -55,8 +54,7 @@ public class ViewObjectActivity extends Activity {
 		
 //		LinearLayout.LayoutParams params;
 		double width = 0.0; 
-	    double height = 0.0;
-//	    float marginTopLeft = 0; 
+	    double height = 0.0; 
 		
 		if (!mPicture.isLandscape()) {// Picture on Portrait
 
@@ -75,7 +73,6 @@ public class ViewObjectActivity extends Activity {
 	    	params = new LinearLayout.LayoutParams((int)width, (int)height);
 	    	params.bottomMargin = topBottom;
 	    	params.topMargin = topBottom;
-//	    	marginTopLeft = (float) (top + displayHeight*0.1);
 
 		} else { // Picture in landscape
 
@@ -94,15 +91,7 @@ public class ViewObjectActivity extends Activity {
 	    	params = new LinearLayout.LayoutParams((int)width, (int)height);
 	    	params.rightMargin = leftRight;
 	    	params.leftMargin = leftRight;
-//	    	marginTopLeft = (float) (left + displayWidth*0.1);
 		}
-		
-//		mView = new ViewObjectView(this);
-//		mView.setBitmap(Bitmap.createScaledBitmap(mPicture.getBitmap(), params.width, params.height, false));
-//		
-//		FrameLayout pictureFrame = (FrameLayout) findViewById(R.id.picture_frame);
-//		pictureFrame.setLayoutParams(params);
-//		pictureFrame.addView(mView);
 		
 		scribbles = mPicture.getScribbles();
 		mPictureBitmap = Bitmap.createScaledBitmap(mPicture.getBitmap(), params.width, params.height, true);
@@ -123,15 +112,7 @@ public class ViewObjectActivity extends Activity {
 	
 	
 	private Bitmap drawScribblesToBitmap(Bitmap bitmap){
-		
 		Canvas canvas = new Canvas(bitmap);
-		
-//		Canvas canvas = new Canvas();
-//		Paint paint = new Paint();
-//		paint.setAntiAlias(true);
-//		paint.setFilterBitmap(true);
-//		paint.setDither(true);
-//		canvas.drawBitmap(bitmap, 0, 0, paint);
 		
 		if (scribbles != null && !scribbles.isEmpty()) {
 			for (Scribble s : scribbles) {
@@ -271,5 +252,4 @@ public class ViewObjectActivity extends Activity {
 		return bounds;
 	}
 	
-
 }

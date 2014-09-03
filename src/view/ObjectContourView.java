@@ -10,7 +10,6 @@ import android.graphics.Path;
 import android.util.Log;
 import android.view.MotionEvent;
 import domain.ObjectContour;
-import domain.Scribble;
 
 /**
  * View class for controlling the view for a ObjectContourFragment.
@@ -143,11 +142,6 @@ public class ObjectContourView extends UserScribbleView {
 	 */
 	@Override
 	public void drawCurrentScribble(Canvas canvas) {
-//		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
-//			for (Scribble s : mPicture.getScribbles()) {
-//				s.drawScribble(canvas);
-//			}
-//		}
 		canvas.drawPath(mPath, mPaint);
 	}
 	
