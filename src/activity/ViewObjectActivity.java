@@ -5,19 +5,12 @@ package activity;
 
 import java.util.List;
 
-import view.ViewObjectView;
-
-import com.genericclassificationapp.R;
-
-import domain.Picture;
-import domain.Scribble;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -25,10 +18,14 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.genericclassificationapp.R;
+
+import domain.Picture;
+import domain.Scribble;
 
 public class ViewObjectActivity extends Activity {
 	
