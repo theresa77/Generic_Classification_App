@@ -39,13 +39,8 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	private int mBackColor = Color.MAGENTA;
 	private float mX;
 	private float mY;
-	private Selection mCurrentSelection = Selection.FOREGROUND;
 	private boolean drawForeground = true;
 	private ImageButton foreBackButton;
-	
-	public enum Selection {
-		FOREGROUND, BACKGROUND
-	}
 	
 	public ForegroundBackgroundView(Context context, UserScribbleView oldView, ImageButton foreBackButton){
 		super(context);
@@ -255,22 +250,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 ////		mBackPathList = new ArrayList<Path>();
 //		invalidate();
 //	}
-	
-	/**
-	 * Get current selection of foreground or background
-	 * @param selection
-	 */
-	public Selection getCurrentSelection() {
-		return mCurrentSelection;
-	}
-	
-	/**
-	 * Set current selection of foreground or background
-	 * @param selection
-	 */
-	public void setCurrentSelection(Selection selection) {
-		this.mCurrentSelection = selection;
-	}
 
 	/**
 	 * Returns if user is currently drawing on the foreground of the picture.

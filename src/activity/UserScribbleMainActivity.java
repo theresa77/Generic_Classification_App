@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import view.ForegroundBackgroundView;
-import view.ForegroundBackgroundView.Selection;
 import view.MinimumBoundingBoxView;
 import view.UserScribbleView;
 import android.content.Context;
@@ -65,8 +64,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private RelativeLayout tab1;
 	private RelativeLayout tab2;
 	private RelativeLayout tab3;
-//	private ScribbleType currentScribbleType;
-//	private List<Scribble> scribbles;
 	private List<String> textAnnotations = new ArrayList<String>();
 	private Boolean zoomEnabled = false;
 	 
@@ -296,12 +293,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param v pressed button
 	 */
 	public void pickForegroundBackground(View v){
-		// OLD CODE:
-//		currentDialog = new PickForegroundBackgroundDialog();
-//		currentDialog.show(getSupportFragmentManager(), "SelectForgroundBackgroundDialog");
-//		Log.d(TAG, "show Dialog for selecting foreground or background");
-		
-		
 		((ForegroundBackgroundView)mView).setForeBackgroundButton();
 	}
 	
@@ -404,24 +395,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	}
 	
 	/**
-	 * Set the value for the selection of fore- or background for ForgroundBackgroundView
-	 * @param selection value for selection
-	 */
-	public void setForeBackgroundSelection(Selection selection){
-		((ForegroundBackgroundView)mView).setCurrentSelection(selection);
-		ImageButton imgButton = (ImageButton) findViewById(R.id.select_fore_or_background_button);
-		
-		// adapt icon for button to new selection value
-		if(selection == Selection.FOREGROUND) {
-			imgButton.setImageResource(R.drawable.f_icon);
-//			currentScribbleType = ScribbleType.FOREGROUND;
-		} else {
-			imgButton.setImageResource(R.drawable.b_icon);
-//			currentScribbleType = ScribbleType.BACKGROUND;
-		}
-	}
-	
-	/**
 	 * Reset last drawing.
 	 * Delete latest user scribble.
 	 */
@@ -433,7 +406,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * Delete all user scribbles.
 	 */
 	public void removeAllScribbles(){
-//		scribbles = new ArrayList<Scribble>();
 		mPicture.setScribbles(new ArrayList<Scribble>());
 		removeLastScribble();
 //		if(mView instanceof ForegroundBackgroundView){
@@ -471,41 +443,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		return mView;
 	}
 
-//	/**
-//	 * Get current selection for drawing scribbles.
-//	 * @return current scribble selection
-//	 */
-//	public ScribbleType getCurrentScribble() {
-//		return currentScribbleType;
-//	}
-
-//	/**
-//	 * Set value for scribble selection.
-//	 * @param currentScribble new scribble selection
-//	 */
-//	public void setCurrentScribble(ScribbleType currentScribble) {
-//		this.currentScribbleType = currentScribble;
-//	}
-	
-//	/**
-//	 * Add new scribble to list of all scribbles.
-//	 * @param scri new scribble 
-//	 */
-//	public void addScribbleToList(Scribble scri){
-//		if(scri != null){
-////			scri.setPaint(new Paint(mPaint));
-//			scribbles.add(scri);
-//		}
-//	}
-	
-//	/**
-//	 * Get list of all drawn scribbles.
-//	 * @return list of scribbles
-//	 */
-//	public List<Scribble> getScribbles(){
-//		return scribbles;
-//	}
-	
 	/**
 	 * Set list of text annotations.
 	 * @param annotations sparse array of text annotations

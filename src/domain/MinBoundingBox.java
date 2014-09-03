@@ -13,7 +13,7 @@ import android.graphics.RectF;
  * @author Theresa Froeschl
  *
  */
-public class MinBoundingBox extends Scribble {
+public class MinBoundingBox implements Scribble {
 
 	private RectF rectf;
 	private Shape shape;

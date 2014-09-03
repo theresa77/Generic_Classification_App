@@ -14,7 +14,7 @@ import android.graphics.RectF;
  * @author Theresa Froeschl
  *
  */
-public class ObjectContour extends Scribble {
+public class ObjectContour implements Scribble {
 
 	private Path path;
 	private Paint paint;

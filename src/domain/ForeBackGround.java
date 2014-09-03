@@ -3,8 +3,6 @@
  */
 package domain;
 
-import java.util.List;
-
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -16,7 +14,7 @@ import android.graphics.RectF;
  * @author Theresa Froeschl
  *
  */
-public class ForeBackGround extends Scribble {
+public class ForeBackGround implements Scribble {
 
 //	private List<Tuple<Path,Paint>> foreTupleList, backTupleList;
 //	private List<Path> forePathList, backPathList;
