@@ -239,16 +239,22 @@ public class ForegroundBackgroundView extends UserScribbleView {
 //			if(mBackPathList.size()>0)
 //				mBackPathList.remove(mBackPathList.size()-1);
 //		}
-		resetPath();
+		if(!mPath.isEmpty() || currentScribble != null){
+			resetPath();
+			currentScribble = null;
+		} else {
+			mPicture.removeLastForeBackScribble();
+		}
+		
 		invalidate();
 	}
 	
-	public void removeAllScribbles(){
-		mPath = new Path();
-//		mForePathList = new ArrayList<Path>();
-//		mBackPathList = new ArrayList<Path>();
-		invalidate();
-	}
+//	public void removeAllScribbles(){
+//		mPath = new Path();
+////		mForePathList = new ArrayList<Path>();
+////		mBackPathList = new ArrayList<Path>();
+//		invalidate();
+//	}
 	
 	/**
 	 * Get current selection of foreground or background

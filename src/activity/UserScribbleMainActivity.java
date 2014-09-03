@@ -440,9 +440,9 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 //		scribbles = new ArrayList<Scribble>();
 		mPicture.setScribbles(new ArrayList<Scribble>());
 		removeLastScribble();
-		if(mView instanceof ForegroundBackgroundView){
-			((ForegroundBackgroundView)mView).removeAllScribbles(); //TODO: das sollte nicht hier passieren, sollte mit dem löschen aller scribbles in picture klasse erledigt sein.
-		}
+//		if(mView instanceof ForegroundBackgroundView){
+//			((ForegroundBackgroundView)mView).removeAllScribbles(); //TODO: das sollte nicht hier passieren, sollte mit dem löschen aller scribbles in picture klasse erledigt sein.
+//		}
 		mView.setDrawNewScribble(true);
 	}
 
