@@ -191,6 +191,9 @@ public final class R {
         public static final int instruction_drawing_foreground=0x7f070031;
         public static final int magnifier=0x7f07002e;
         public static final int mark_object=0x7f070030;
+        /**  toast text 
+         */
+        public static final int mark_object_first=0x7f070034;
         public static final int menu=0x7f07000f;
         public static final int new_text_annotation=0x7f07002f;
         /**  content description for views 

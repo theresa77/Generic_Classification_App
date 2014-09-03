@@ -94,7 +94,6 @@ public class OptionMenuDialog extends DialogFragment {
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-				Intent newIntent;
 				Picture mPicture = Picture.getInstance();
 				
 				switch (position) {
@@ -102,153 +101,47 @@ public class OptionMenuDialog extends DialogFragment {
 				//save picture (+ scribbles) to Gallery
 				case 0:
 					Log.d(TAG, "save to Gallery selected");
-					
-					// get storage directory
-					File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-				              Environment.DIRECTORY_PICTURES), "GenericClassificationApp");
-				    
-				    // Create the storage directory if it does not exist
-				    if (! mediaStorageDir.exists()){
-				        if (! mediaStorageDir.mkdirs()){
-				            Log.d("GenericClassificationApp", "failed to create directory");
-				        }
-				    }
-				    
-				    // Create a media file name
-				    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-				    File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-				        "IMG_"+ timeStamp + ".jpg");
-				    
-				    Bitmap bitmap = mPicture.getBitmap();;		                       
-				    
-				    // add scribbles to the bitmap
-				    if(activity instanceof UserScribbleMainActivity){
-				    	
-//				    	bitmap = mPicture.getBitmap();
-				    	
-				    	double width = 0.0;
-				    	double height = 0.0;
-					    
-					    LinearLayout.LayoutParams pictureParams;
-					
-						if (!mPicture.isLandscape()) {
-							height = ((UserScribbleMainActivity)activity).getDisplayWidth() * 1.33;
-					    	width = ((UserScribbleMainActivity)activity).getDisplayWidth();
-				    	} else {
-				    		width = ((UserScribbleMainActivity)activity).getDisplayHeight() * 1.33;
-					    	height = ((UserScribbleMainActivity)activity).getDisplayHeight();				
-				    	}
-						
-					    pictureParams = new LinearLayout.LayoutParams((int)width, (int)height);
-						bitmap = Bitmap.createScaledBitmap(bitmap, pictureParams.width, pictureParams.height, false);
-
-						// draw picture and scribbles to new canvas
-						Canvas canvas = new Canvas(bitmap);
-						UserScribbleView currView = ((UserScribbleMainActivity) activity).getView();
-						currView.draw(canvas);
-					
-					} 
-//				    else {
-//				    	bitmap = mPicture.getBitmap();
-//				    }
-				    
-				    ByteArrayOutputStream stream = new ByteArrayOutputStream();	        	
-				    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-				    
-				    try {
-						FileOutputStream fos = new FileOutputStream(mediaFile);
-						fos.write(stream.toByteArray());
-						fos.flush();
-						fos.close();
-						Log.d(TAG, "Picture saved");
-					} catch (FileNotFoundException e) {
-						Log.d(TAG, "File not found: " + e.getMessage());
-					} catch (IOException e) {
-						Log.d(TAG, "Error accessing file: " + e.getMessage());
-					}
-			    
-				    // save file in gallery
-				    Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-				    File f = new File(mediaFile.getAbsolutePath());
-				    Uri contentUri = Uri.fromFile(f);
-				    mediaScanIntent.setData(contentUri);
-				    activity.sendBroadcast(mediaScanIntent);
-					
-					dialog.dismiss();
-					Toast.makeText(activity, R.string.save_picture, Toast.LENGTH_SHORT).show();
+					savePictureInGallery(mPicture, activity, dialog);
 					break;
 				
 				//delete picture, go back to camera activity
 				case 1:
-					newIntent = new Intent(activity, CameraActivity.class);
-					startActivity(newIntent);
-					activity.finish();
-					Toast.makeText(activity, R.string.delete_picture, Toast.LENGTH_SHORT).show();
+					deletePicture(activity);
 					break;
 					
 				//view picture, go to Picture Activity
 				case 2:
-					newIntent = new Intent(activity, PictureActivity.class);
-					startActivity(newIntent);
-					activity.finish();
+					viewPicture(activity);
 					break;
 				
 				//view object with scribbles
 				case 3:
-					((UserScribbleMainActivity)activity).addFurtherScribble(null);
-					
-					if(Picture.getInstance().getScribbles() != null && !Picture.getInstance().getScribbles().isEmpty()){
-						newIntent = new Intent(activity, ViewObjectActivity.class);
-						startActivity(newIntent);
-						activity.finish();
-					} else {
-						Toast.makeText(activity, R.string.mark_object, Toast.LENGTH_SHORT).show();
-						dialog.dismiss();
-					}
-					
+					viewObject(activity, dialog);
 					break;
 				
 				//take new photo, go to CameraActivity
 				case 4:
-					newIntent = new Intent(activity, CameraActivity.class);
-					startActivity(newIntent);
-					activity.finish();
+					takeNewPhoto(activity);
 					break;
 				
 				//add Text Annotation	
 				case 5:
-					dialog.dismiss();
-					((UserScribbleMainActivity)activity).openTextAnnotationDialog();
+					addTextAnnotation(activity, dialog);
 					break;
 					
 				//delete last drawing
 				case 6:
-					((UserScribbleMainActivity)activity).removeLastScribble();
-					dialog.dismiss();
-					Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
+					removeLastDrawing(activity, dialog);
 					break;
 					
 				//delete all drawings	
 				case 7:
-					((UserScribbleMainActivity)activity).removeAllScribbles();
-					dialog.dismiss();
-					Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
+					removeAllDrawings(activity, dialog);
 					break;
 				
 				//send picture and scribbles to server
 				case 8:
-					Log.d(TAG, "sendToServer called");
-					dialog.dismiss();
-					
-					// open Dialog to show progress of the transmission from picture and scribbles to a server
-					TransmissionToServerDialog transDialog = new TransmissionToServerDialog();
-					transDialog.show(getActivity().getSupportFragmentManager(), "TransmissionToServerDialog");
-					
-					Scribble[] scribbles = new Scribble[mPicture.getScribbles().size()];
-					mPicture.getScribbles().toArray(scribbles);
-					
-					// send picture and scribbles to a server
-					new RetrieveHttpTask((UserScribbleMainActivity)activity, transDialog).execute(scribbles);	
+					sendPictureToServer(activity, dialog, mPicture);	
 					break;
 				}
 			}	
@@ -257,4 +150,149 @@ public class OptionMenuDialog extends DialogFragment {
 		return dialog;
 	}
 	
+	private void savePictureInGallery(Picture mPicture, Activity activity, Dialog dialog){
+		// get storage directory
+		File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+	              Environment.DIRECTORY_PICTURES), "GenericClassificationApp");
+	    
+	    // Create the storage directory if it does not exist
+	    if (! mediaStorageDir.exists()){
+	        if (! mediaStorageDir.mkdirs()){
+	            Log.d("GenericClassificationApp", "failed to create directory");
+	        }
+	    }
+	    
+	    // Create a media file name
+	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+	    File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+	        "IMG_"+ timeStamp + ".jpg");
+	    
+	    Bitmap bitmap = mPicture.getBitmap();;		                       
+	    
+	    // add scribbles to the bitmap
+	    if(activity instanceof UserScribbleMainActivity){
+	    	
+//	    	bitmap = mPicture.getBitmap();
+	    	
+	    	double width = 0.0;
+	    	double height = 0.0;
+		    
+		    LinearLayout.LayoutParams pictureParams;
+		
+			if (!mPicture.isLandscape()) {
+				height = ((UserScribbleMainActivity)activity).getDisplayWidth() * 1.33;
+		    	width = ((UserScribbleMainActivity)activity).getDisplayWidth();
+	    	} else {
+	    		width = ((UserScribbleMainActivity)activity).getDisplayHeight() * 1.33;
+		    	height = ((UserScribbleMainActivity)activity).getDisplayHeight();				
+	    	}
+			
+		    pictureParams = new LinearLayout.LayoutParams((int)width, (int)height);
+			bitmap = Bitmap.createScaledBitmap(bitmap, pictureParams.width, pictureParams.height, false);
+
+			// draw picture and scribbles to new canvas
+			Canvas canvas = new Canvas(bitmap);
+			UserScribbleView currView = ((UserScribbleMainActivity) activity).getView();
+			currView.draw(canvas);
+		
+		} 
+//	    else {
+//	    	bitmap = mPicture.getBitmap();
+//	    }
+	    
+	    ByteArrayOutputStream stream = new ByteArrayOutputStream();	        	
+	    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+	    
+	    try {
+			FileOutputStream fos = new FileOutputStream(mediaFile);
+			fos.write(stream.toByteArray());
+			fos.flush();
+			fos.close();
+			Log.d(TAG, "Picture saved");
+		} catch (FileNotFoundException e) {
+			Log.d(TAG, "File not found: " + e.getMessage());
+		} catch (IOException e) {
+			Log.d(TAG, "Error accessing file: " + e.getMessage());
+		}
+    
+	    // save file in gallery
+	    Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+	    File f = new File(mediaFile.getAbsolutePath());
+	    Uri contentUri = Uri.fromFile(f);
+	    mediaScanIntent.setData(contentUri);
+	    activity.sendBroadcast(mediaScanIntent);
+		
+		dialog.dismiss();
+		Toast.makeText(activity, R.string.save_picture, Toast.LENGTH_SHORT).show();
+	}
+	
+	private void viewPicture(Activity activity){
+		Intent newIntent = new Intent(activity, PictureActivity.class);
+		startActivity(newIntent);
+		activity.finish();
+	}
+	
+	private void deletePicture(Activity activity){
+		Intent newIntent = new Intent(activity, CameraActivity.class);
+		startActivity(newIntent);
+		activity.finish();
+		Toast.makeText(activity, R.string.delete_picture, Toast.LENGTH_SHORT).show();
+	}
+	
+	private void viewObject(Activity activity, Dialog dialog){
+		((UserScribbleMainActivity)activity).addFurtherScribble(null);
+		
+		if(Picture.getInstance().getScribbles() != null && !Picture.getInstance().getScribbles().isEmpty()){
+			Intent newIntent = new Intent(activity, ViewObjectActivity.class);
+			startActivity(newIntent);
+			activity.finish();
+		} else {
+			Toast.makeText(activity, R.string.mark_object, Toast.LENGTH_SHORT).show();
+			dialog.dismiss();
+		}
+	}
+	
+	private void takeNewPhoto(Activity activity){
+		Intent newIntent = new Intent(activity, CameraActivity.class);
+		startActivity(newIntent);
+		activity.finish();
+	}
+	
+	private void addTextAnnotation(Activity activity, Dialog dialog){
+		dialog.dismiss();
+		((UserScribbleMainActivity)activity).openTextAnnotationDialog();
+	}
+	
+	private void removeLastDrawing(Activity activity, Dialog dialog){
+		((UserScribbleMainActivity)activity).removeLastScribble();
+		dialog.dismiss();
+		Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
+	}
+	
+	private void removeAllDrawings(Activity activity, Dialog dialog){
+		((UserScribbleMainActivity)activity).removeAllScribbles();
+		dialog.dismiss();
+		Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
+	}
+	
+	private void sendPictureToServer(Activity activity, Dialog dialog, Picture mPicture){
+		Log.d(TAG, "sendPictureToServer called");
+		((UserScribbleMainActivity)activity).getView().setDrawNewScribble(true);
+		
+		try {
+			Scribble[] scribbles = new Scribble[mPicture.getScribbles().size()];
+			mPicture.getScribbles().toArray(scribbles);
+			
+			// open Dialog to show progress of the transmission from picture and scribbles to a server
+			TransmissionToServerDialog transDialog = new TransmissionToServerDialog();
+			transDialog.show(getActivity().getSupportFragmentManager(), "TransmissionToServerDialog");
+			
+			// send picture and scribbles to a server
+			new RetrieveHttpTask((UserScribbleMainActivity)activity, transDialog).execute(scribbles);
+		} catch(NullPointerException ex){
+			Toast.makeText(activity, R.string.mark_object_first, Toast.LENGTH_SHORT).show();
+		}
+		
+		dialog.dismiss();
+	}
 }
