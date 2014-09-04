@@ -108,7 +108,7 @@ public class Picture {
 	 * TODO
 	 */
 	public void removeLastScribble(){
-		if(!scribbles.isEmpty()){
+		if(scribbles!=null && !scribbles.isEmpty()){
 			scribbles.remove(scribbles.size()-1);
 		}
 	}

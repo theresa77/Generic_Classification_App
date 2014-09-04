@@ -11,9 +11,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
@@ -68,18 +70,10 @@ public class TextAnnotationDialog extends DialogFragment {
         adapter = new EditTextAdapter(this); 
         listView.setAdapter(adapter);
         
-        int height = 0;
-        EditText item;
-        for(int i=0; i<activity.getTextAnnotations().size(); i++){
-        	item = adapter.getItem(i);
-        	item.measure(0, 0);
-        	height += item.getMeasuredHeight();
-        }
-        
         // set height for list view of edit-text-fields
-        if(height > activity.getDisplayHeight()*0.5){
+        if(calculateListViewHeight() > activity.getDisplayHeight()*0.5){
         	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 
-					(int)(activity.getDisplayHeight()-activity.getDisplayHeight()*0.5));
+					(int)(activity.getDisplayHeight()*0.5));
         	listView.setLayoutParams(params);
         }
         
@@ -90,11 +84,6 @@ public class TextAnnotationDialog extends DialogFragment {
 	            new View.OnClickListener() {
 	                @Override
 	                public void onClick(View v) {
-//	                	int i = 0;
-//	                	while (i > 0){
-//	                		i = textAnnotations.indexOfValue("");
-//	                		textAnnotations.remove(i);
-//	                	}
 	                	Log.d(TAG, "Number of Text Annotations save in Activity: "+ textAnnotations.size());
 	                	activity.setTextAnnotations(textAnnotations);
 	                	dialog.dismiss();
@@ -110,6 +99,12 @@ public class TextAnnotationDialog extends DialogFragment {
 	                @Override
 	                public void onClick(View v) {
 	                	adapter.addNewListItem();
+	                	if(calculateListViewHeight() > activity.getDisplayHeight()*0.5){
+	                    	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 
+	            					(int)(activity.getDisplayHeight()*0.5));
+	                    	listView.setLayoutParams(params);
+	                    }
+	                	
 	                }
 	            }
 	        );
@@ -125,6 +120,17 @@ public class TextAnnotationDialog extends DialogFragment {
 	
 	public SparseArray<String> getTextAnnotations(){
 		return textAnnotations;
+	}
+	
+	public int calculateListViewHeight(){
+		int height = 0;
+        EditText item;
+        for(int i=0; i<adapter.getList().size(); i++){
+        	item = adapter.getItem(i);
+        	item.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+        	height += item.getMeasuredHeight();
+        }
+        return height;
 	}
 
 }

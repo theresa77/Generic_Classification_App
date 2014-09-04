@@ -486,7 +486,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 			v.setBackgroundColor(this.getResources().getColor(R.color.buttonGray));
 		} else {
 			zoomEnabled = true;
-//			mPicture.addScribbleToList(mView.getCurrentScribble());
 			v.setBackgroundColor(this.getResources().getColor(R.color.darkGray));
 		}
 	}
