@@ -6,10 +6,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.genericclassificationapp.R;
-
 import android.graphics.Bitmap;
-import android.widget.Toast;
 
 /**
  * Represents the taken picture
@@ -116,6 +113,9 @@ public class Picture {
 		}
 	}
 	
+	/**
+	 * TODO: remove when delete-last-scribble-button remains in all views
+	 */
 	public void removeLastForeBackScribble(){
 		if(!scribbles.isEmpty()){
 			for(int i=scribbles.size()-1; i>=0; i--){

@@ -86,9 +86,6 @@ public class CameraActivity extends Activity {
 			}
 
 			// create a Bitmap from the byte array with the width and height of the screen
-			// TODO: test ob doppelte größe zu viel ist (wegen speicher)
-//			reqWidth = reqWidth * 2;
-//			reqHeight = reqHeight * 2;
 			mPictureBitmap = decodeSampledBitmapFromResource(data, reqWidth, reqHeight);
 
 			if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -253,7 +250,6 @@ public class CameraActivity extends Activity {
 			}
 
 			// create a Bitmap from the byte array with the width and height of the screen
-			//mPictureBitmap = BitmapFactory.decodeByteArray(inputData, 0, inputData.length);
 			mPictureBitmap = decodeSampledBitmapFromResource(inputData, displayWidth, displayHeight);
 
 			if (mPictureBitmap.getHeight() > mPictureBitmap.getWidth()) {
@@ -305,30 +301,11 @@ public class CameraActivity extends Activity {
         		
         		Log.d(TAG, "c = Camera.open("+Camera.CameraInfo.CAMERA_FACING_BACK+");");
         	}else {
-        		//TODO: Hier wird eine RuntimeException geworfen weil das mit der front camera offenbar,
-        		// komplizierter ist als gedacht.
-        		// Recherche wird benötigt!!!
         		camera = Camera.open(CameraInfo.CAMERA_FACING_FRONT);
         		parameters = camera.getParameters();
         		parameters.set("camera-id", 2);
-        		//TODO: set correct preview size
-        		parameters.setPreviewSize(640, 480);
-        		
+        		parameters.setPreviewSize(mPreviewParams.width, mPreviewParams.height);
         		Log.d(TAG, "c = Camera.open("+Camera.CameraInfo.CAMERA_FACING_FRONT+");");
-        		
-        		// another way to get to front camera
-//        		Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-//        	    int cameraCount = Camera.getNumberOfCameras();
-//        	    for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
-//        	        Camera.getCameraInfo(camIdx, cameraInfo);
-//        	        if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-//        	            try {
-//        	                c = Camera.open(camIdx);
-//        	            } catch (RuntimeException e) {
-//        	                Log.e(TAG, "Camera failed to open: " + e.getLocalizedMessage());
-//        	            }
-//        	        }
-//        	    }
         	}
         	
         	camera.setParameters(parameters);
@@ -419,9 +396,6 @@ public class CameraActivity extends Activity {
 	 * @return
 	 */
 	public static Bitmap decodeSampledBitmapFromResource(byte[] data, int reqWidth, int reqHeight) {
-//		reqWidth = reqWidth * 2;
-//		reqHeight = reqHeight * 2;
-		
 		// Decode with inJustDecodeBounds=true to check dimensions
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
@@ -429,7 +403,6 @@ public class CameraActivity extends Activity {
 
 		// Calculate inSampleSize
 		options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-		//options.inScaled = false;
 
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;

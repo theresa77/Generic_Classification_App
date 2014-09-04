@@ -12,7 +12,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.hardware.Camera;
-import android.hardware.Camera.CameraInfo;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -86,23 +85,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
 
         try {
-        	// following code removed to CameraActivity when camera gets opened
-//			Camera.Parameters p = mCamera.getParameters();
-//			//TODO: Auto focus only possible for back camera, use it for front camera too
-////			 p.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-//			try {
-//				// TODO: hier wird immer einer RuntimeException geworfen!
-//				// hat vielleicht etwas mit der PreviewSize zu tun, da diese bei
-//				// der
-//				// front camera anders ist
-//				// das ganze ist auch leider vom gerät abhängig.
-//				mCamera.setParameters(p);
-//			} catch (Exception e) {
-//				p.set("camera-id", 2);
-//				p.setPreviewSize(640, 480);
-//				mCamera.setParameters(p);
-//			}
-
         	// set camera orientation corresponding to display orientation
         	setCameraOrientation(getResources().getConfiguration().orientation);
         	
@@ -111,8 +93,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             mCamera.autoFocus(null);
             
 		} catch (Exception e) {
-			e.printStackTrace();
-//			Log.e(TAG, "Error setting camera preview: " + e.getMessage());
+			Log.e(TAG, "Error setting camera preview: " + e.getMessage());
 		}
         
         
@@ -128,21 +109,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 		
 		// following code removed to CameraActivity when camera gets opened
 		try {
-//			Camera.Parameters p = mCamera.getParameters();
-//			// p.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-//			try {
-//				// TODO: hier wird immer einer RuntimeException geworfen!
-//				// hat vielleicht etwas mit der PreviewSize zu tun, da diese bei
-//				// der
-//				// front camera anders ist
-//				// das ganze ist auch leider von gerät abhängig.
-//				mCamera.setParameters(p);
-//			} catch (Exception e) {
-//				p.set("camera-id", 2);
-//				p.setPreviewSize(640, 480);
-//				mCamera.setParameters(p);
-//			}
-//
 			// set camera orientation corresponding to display orientation
         	setCameraOrientation(getResources().getConfiguration().orientation);
         	
