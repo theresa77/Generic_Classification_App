@@ -244,7 +244,7 @@ public class OptionMenuDialog extends DialogFragment {
 			startActivity(newIntent);
 			activity.finish();
 		} else {
-			Toast.makeText(activity, R.string.mark_object, Toast.LENGTH_SHORT).show();
+			Toast.makeText(activity, R.string.mark_object_first, Toast.LENGTH_SHORT).show();
 			dialog.dismiss();
 		}
 	}

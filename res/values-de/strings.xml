@@ -39,4 +39,17 @@
  	<string name="select_stroke_width">Linien-Dicke gesetzt</string>
  	<string name="delete_drawing">Zeichnung gelöscht</string>
  	
+ 	
+ 	<!-- new Text for testing -->
+ 	<string name="edit_text_annotation">Kommentare hinzufügen/bearbeiten</string>
+ 	<string name="add_further_scribble">Neue Zeichnung erstellen</string>
+ 	<string name="delete_scribble">Zeichnung löschen</string>
+ 	<string name="back">Zurück</string>
+ 	<string name="magnifier">Lupe</string>
+ 	<string name="new_text_annotation">Neues Kommentar</string>
+ 	<string name="instruction_drawing_foreground">Markiere den Vordergrund des Bildes. Bestätige anschließend.</string> <!-- toast text -->
+ 	<string name="instruction_drawing_background">Markiere den Hintergrund des Bildes. Bestätige anschließend.</string> <!-- toast text -->
+ 	<string name="draw_new_scribble">Erstelle eine weitere Zeichnung.</string> <!-- toast text -->
+ 	<string name="mark_object_first">Markiere zuerst ein Objekt</string> <!-- toast text -->
+ 	
 </resources>

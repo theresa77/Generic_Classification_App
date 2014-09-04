@@ -6,7 +6,10 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.genericclassificationapp.R;
+
 import android.graphics.Bitmap;
+import android.widget.Toast;
 
 /**
  * Represents the taken picture

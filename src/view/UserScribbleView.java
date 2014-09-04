@@ -230,6 +230,7 @@ public abstract class UserScribbleView extends SurfaceView {
 		drawNewScribble = drawNew;
 		if(currentScribble != null){
 			mPicture.addScribbleToList(currentScribble);
+			Toast.makeText(mActivity, R.string.draw_new_scribble, Toast.LENGTH_SHORT).show();
 			currentScribble = null;
 		}
 		resetLastDrawing();

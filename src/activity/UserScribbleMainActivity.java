@@ -25,12 +25,11 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TabHost.OnTabChangeListener;
+import android.widget.Toast;
 
 import com.genericclassificationapp.R;
 
@@ -258,7 +257,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	public void addFurtherScribble(View v){
 		Log.d(TAG, "addFurtherScribble() called");
 		mView.setDrawNewScribble(true);
-		Toast.makeText(this, R.string.draw_new_scribble, Toast.LENGTH_LONG).show();
 	}
 	
 	/**

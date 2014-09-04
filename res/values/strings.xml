@@ -61,10 +61,9 @@
  	<string name="back">Get Back</string>
  	<string name="magnifier">magnifier</string>
  	<string name="new_text_annotation">New Text Annotation</string>
- 	<string name="mark_object">Mark An Object First</string> <!-- toast text -->
- 	<string name="instruction_drawing_foreground">Draw on the foreground of the picture. Confirm, when you are finished.</string> <!-- toast text -->
+	<string name="instruction_drawing_foreground">Draw on the foreground of the picture. Confirm, when you are finished.</string> <!-- toast text -->
  	<string name="instruction_drawing_background">Draw on the background of the picture. Confirm, when you are finished.</string> <!-- toast text -->
  	<string name="draw_new_scribble">Make Another Drawing</string> <!-- toast text -->
- 	<string name="mark_object_first">Mark An Object First</string>
+ 	<string name="mark_object_first">Mark An Object First</string> <!-- toast text -->
 
 </resources>
