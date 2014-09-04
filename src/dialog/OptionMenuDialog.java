@@ -196,9 +196,6 @@ public class OptionMenuDialog extends DialogFragment {
 			currView.draw(canvas);
 		
 		} 
-//	    else {
-//	    	bitmap = mPicture.getBitmap();
-//	    }
 	    
 	    ByteArrayOutputStream stream = new ByteArrayOutputStream();	        	
 	    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -264,7 +261,7 @@ public class OptionMenuDialog extends DialogFragment {
 	}
 	
 	private void removeLastDrawing(Activity activity, Dialog dialog){
-		((UserScribbleMainActivity)activity).removeLastScribble();
+		((UserScribbleMainActivity)activity).removeLastScribble(null);
 		dialog.dismiss();
 		Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
 	}

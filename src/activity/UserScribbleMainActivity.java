@@ -400,8 +400,11 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * Reset last drawing.
 	 * Delete latest user scribble.
 	 */
-	public void removeLastScribble(){
+	public void removeLastScribble(View v){
 		mView.removeLastScribble();
+		if(v != null){
+			Toast.makeText(this, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	/**
@@ -409,7 +412,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 */
 	public void removeAllScribbles(){
 		mPicture.setScribbles(new ArrayList<Scribble>());
-		removeLastScribble();
+		removeLastScribble(null);
 //		if(mView instanceof ForegroundBackgroundView){
 //			((ForegroundBackgroundView)mView).removeAllScribbles(); //TODO: das sollte nicht hier passieren, sollte mit dem löschen aller scribbles in picture klasse erledigt sein.
 //		}

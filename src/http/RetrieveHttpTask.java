@@ -167,7 +167,6 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 			for(int i=0; i<MBRlist.size(); i++){
 				minBoundRectArray[i] = MBRlist.get(i);
 			}
-			// convert list of coordinates to byte-array	
 			ByteBuffer byteBuffer = ByteBuffer.allocate(minBoundRectArray.length * 4);        
 	        IntBuffer intBuffer = byteBuffer.asIntBuffer();
 	        intBuffer.put(minBoundRectArray);
@@ -188,8 +187,8 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 //		        }
 //		    }
 //		    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-		    
-		    // FORE_BACK_GROUND
+//		    
+//		    // FORE_BACK_GROUND
 //		    File foreBackMediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_1"+ timeStamp + ".jpg");
 //		    FileOutputStream fos1 = new FileOutputStream(foreBackMediaFile);
 //		    
@@ -234,12 +233,12 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 //			} catch (IOException e) {
 //				Log.d(TAG, "Error accessing file: " + e.getMessage());
 //			}
-		    
-		    
-//		    // MIN-BOUND-BOX
+//		    
+//		    
+////		    // MIN-BOUND-BOX
 //	        Bitmap mbrScribble = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 //			Canvas mbrCanvas = new Canvas(mbrScribble);		
-			
+//			
 //		    int countLeft = 0;
 //		    int countTop = 1;
 //		    int countRight = 2;
@@ -288,7 +287,7 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 //			} catch (IOException e) {
 //				Log.d(TAG, "Error accessing file: " + e.getMessage());
 //			}
-			
+//			
 //			####################### end
 	    	
 	    	// create JSONObject 

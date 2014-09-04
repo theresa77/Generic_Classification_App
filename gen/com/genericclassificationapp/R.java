@@ -70,7 +70,7 @@ public final class R {
         public static final int waste=0x7f02001a;
     }
     public static final class id {
-        public static final int add_further_scribble_button=0x7f09000d;
+        public static final int add_further_scribble_button=0x7f09000e;
         public static final int back_button=0x7f090035;
         public static final int button_capture=0x7f090004;
         public static final int button_change_camera=0x7f090005;
@@ -80,11 +80,11 @@ public final class R {
         public static final int camera_preview=0x7f090001;
         public static final int camera_preview_layout=0x7f090000;
         public static final int color_picker_view=0x7f09001a;
-        public static final int delete_scribble_button=0x7f09000f;
+        public static final int delete_scribble_button=0x7f09000d;
         public static final int dialog_list_text_view=0x7f090006;
         public static final int edit_color_button=0x7f090014;
         public static final int edit_form_button=0x7f090015;
-        public static final int edit_line_button=0x7f09000e;
+        public static final int edit_line_button=0x7f09000f;
         public static final int edit_text_item_annotation=0x7f090007;
         public static final int foreground_background_surface_view=0x7f090009;
         public static final int foreground_background_view=0x7f090008;

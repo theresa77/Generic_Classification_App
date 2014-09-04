@@ -26,33 +26,6 @@
             android:onClick="pickForegroundBackground"
            />
 	    
-	    <ImageButton
-            android:id="@+id/delete_scribble_button"
-            style="@style/ButtonBarButton"
-            android:src="@drawable/waste"
-            android:contentDescription="@string/delete_scribble" 
-            android:onClick="resetLastForeBackDrawing"
-             />
-
-	    <!--
-        <ImageButton
-            android:id="@+id/select_background_button"
-            style="@style/ButtonBarButton"
-            android:src="@drawable/b_icon"
-            android:contentDescription="@string/edit_foreground_background"
-            
-           />
-        
-          android:onClick="pickForegroundBackground" -->
-        <!--  
-        <ImageButton
-            android:id="@+id/edit_color_button"
-            style="@style/ButtonBarButton"
-            android:src="@drawable/color_palette"
-            android:contentDescription="@string/edit_color"
-            android:onClick="editColor"
-           />
-	-->
         <ImageButton
             android:id="@+id/edit_line_button"
             style="@style/ButtonBarButton"
@@ -64,10 +37,19 @@
         <ImageButton
             android:id="@+id/add_further_scribble_button"
             style="@style/ButtonBarButton"
-            android:src="@drawable/plus"
+            android:src="@drawable/add_further_scribble"
             android:contentDescription="@string/add_further_scribble" 
             android:onClick="addFurtherScribble"
              />
+        
+         <ImageButton
+            android:id="@+id/delete_scribble_button"
+            style="@style/ButtonBarButton"
+            android:src="@drawable/waste"
+            android:contentDescription="@string/delete_scribble" 
+            android:onClick="removeLastScribble"
+             />
+          <!-- android:onClick="resetLastForeBackDrawing" -->
         
         <ImageButton
             android:id="@+id/zoom_button"
