@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 import com.genericclassificationapp.R;
 
-//import domain.Scribble.ScribbleType;
-
 /**
  * Fragment for drawing Minimum Bounding Box.
  * Sets the content view of UserScribbleMainActivity when user selects tab for drawing Minimum Bounding Box
@@ -33,7 +31,6 @@ public class MinimumBoundingBoxFragment extends UserScribbleFragment {
 	protected View setCustomContentView(boolean isLandscape) {
 		Log.d(TAG, "setCustomContentView() called");
 		
-//		mActivity.setCurrentScribble(ScribbleType.MINIMUM_BOUNDING_BOX);
 		View view;
 		
 		if(isLandscape){

@@ -6,9 +6,10 @@ import android.graphics.Path;
 import android.graphics.RectF;
 
 /**
- * Abstract class for a scribble that only consists of an simple path. 
+ * Abstract class for a scribble that only consists of a simple path object. 
  * 
  * @author Theresa Froeschl
+ * @version 1.0
  *
  */
 public abstract class PathScribble implements Scribble {

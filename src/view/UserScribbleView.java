@@ -282,7 +282,7 @@ public abstract class UserScribbleView extends SurfaceView {
 	public abstract void resetLastDrawing();
 	
 	/**
-	 * TODO
+	 * Removes the last drawn scribble.
 	 */
 	public void removeLastScribble(){
 		Log.d(TAG, "resetLastDrawing() called");

@@ -299,9 +299,6 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		invalidate();
 	}
 	
-	/**
-	 * Draw user scribble to canvas object.
-	 */
 	@Override
 	public void drawCurrentScribble(Canvas canvas) {
 		if (rectf != null) {
@@ -315,10 +312,6 @@ public class MinimumBoundingBoxView extends UserScribbleView {
 		}
 	}
 
-	/**
-	 * Set RectF object null.
-	 * Delete drawing.
-	 */
 	@Override
 	public void resetLastDrawing() {
 		rectf = null;

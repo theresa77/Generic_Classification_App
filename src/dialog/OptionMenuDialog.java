@@ -149,6 +149,12 @@ public class OptionMenuDialog extends DialogFragment {
 		return dialog;
 	}
 	
+	/**
+	 * Saves the taken picture with the drawn scribbles to the gallery.
+	 * @param mPicture taken picture
+	 * @param activity activity which created the dialog
+	 * @param dialog current dialog instance
+	 */
 	private void savePictureInGallery(Picture mPicture, Activity activity, Dialog dialog){
 		Log.d(TAG, "save to Gallery selected");
 		// get storage directory
@@ -171,8 +177,6 @@ public class OptionMenuDialog extends DialogFragment {
 	    
 	    // add scribbles to the bitmap
 	    if(activity instanceof UserScribbleMainActivity){
-	    	
-//	    	bitmap = mPicture.getBitmap();
 	    	
 	    	double width = 0.0;
 	    	double height = 0.0;
@@ -223,12 +227,22 @@ public class OptionMenuDialog extends DialogFragment {
 		Toast.makeText(activity, R.string.save_picture, Toast.LENGTH_SHORT).show();
 	}
 	
+	/**
+	 * Starts the PictureActivity to view the picture.
+	 * @param activity current activity
+	 */
 	private void viewPicture(Activity activity){
+		((UserScribbleMainActivity)activity).addFurtherScribble(null);
+		
 		Intent newIntent = new Intent(activity, PictureActivity.class);
 		startActivity(newIntent);
 		activity.finish();
 	}
 	
+	/**
+	 * Deletes the taken picture. Starts camera activity.
+	 * @param activity current activity
+	 */
 	private void deletePicture(Activity activity){
 		Intent newIntent = new Intent(activity, CameraActivity.class);
 		startActivity(newIntent);
@@ -236,6 +250,11 @@ public class OptionMenuDialog extends DialogFragment {
 		Toast.makeText(activity, R.string.delete_picture, Toast.LENGTH_SHORT).show();
 	}
 	
+	/**
+	 * Starts the activity to view the marked object and the scribble.
+	 * @param activity current activity
+	 * @param dialog current dialog
+	 */
 	private void viewObject(Activity activity, Dialog dialog){
 		((UserScribbleMainActivity)activity).addFurtherScribble(null);
 		
@@ -249,29 +268,55 @@ public class OptionMenuDialog extends DialogFragment {
 		}
 	}
 	
+	/**
+	 * Starts camera activity to make a new photo.
+	 * @param activity current activity
+	 */
 	private void takeNewPhoto(Activity activity){
 		Intent newIntent = new Intent(activity, CameraActivity.class);
 		startActivity(newIntent);
 		activity.finish();
 	}
 	
+	/**
+	 * Opend the dialog to add and edit text annotations.
+	 * @param activity current activity
+	 * @param dialog current dialog
+	 */
 	private void addTextAnnotation(Activity activity, Dialog dialog){
 		dialog.dismiss();
 		((UserScribbleMainActivity)activity).openTextAnnotationDialog();
 	}
 	
+	/**
+	 * Removes the last drawn scribble.
+	 * @param activity current activity
+	 * @param dialog current dialog
+	 */
 	private void removeLastDrawing(Activity activity, Dialog dialog){
 		((UserScribbleMainActivity)activity).removeLastScribble(null);
 		dialog.dismiss();
 		Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
 	}
 	
+	/**
+	 * Removes all drawn scribbles.
+	 * @param activity current activity
+	 * @param dialog current dialog
+	 */
 	private void removeAllDrawings(Activity activity, Dialog dialog){
 		((UserScribbleMainActivity)activity).removeAllScribbles();
 		dialog.dismiss();
 		Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
 	}
 	
+	/**
+	 * Opens the dialog to view the transmission of picture and scribbeles to the server.
+	 * Starts the http-task to send picture and scribbles to the server.
+	 * @param activity current activity
+	 * @param dialog current dialog
+	 * @param mPicture taken picture
+	 */
 	private void sendPictureToServer(Activity activity, Dialog dialog, Picture mPicture){
 		Log.d(TAG, "sendPictureToServer called");
 		((UserScribbleMainActivity)activity).getView().setDrawNewScribble(true);

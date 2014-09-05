@@ -6,6 +6,13 @@ package domain;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
+/**
+ * Interface for a scribble object.
+ * 
+ * @author Theresa Froeschl
+ * @version 1.0
+ *
+ */
 public interface Scribble {
 
 	/**

@@ -32,7 +32,6 @@ public class PictureActivity extends FragmentActivity {
 
 	private static final String TAG = PictureActivity.class.getSimpleName();
 	private Picture mPicture;
-//	private Bitmap mPictureBitmap;
 	private int displayWidth;
 	private int displayHeight;
 	
@@ -45,7 +44,6 @@ public class PictureActivity extends FragmentActivity {
 		
 		// get Picture instance
 		mPicture = Picture.getInstance();
-		//mPictureBitmap = this.mPicture.getBitmap();
         
 		// get Height and Width of display
 		WindowManager winMan = (WindowManager) getSystemService(Context.WINDOW_SERVICE);

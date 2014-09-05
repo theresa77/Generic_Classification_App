@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
@@ -87,12 +86,13 @@ public class TextAnnotationDialog extends DialogFragment {
 	                	Log.d(TAG, "Number of Text Annotations save in Activity: "+ textAnnotations.size());
 	                	activity.setTextAnnotations(textAnnotations);
 	                	dialog.dismiss();
-	                	//TODO: make correct Toast Text
-	                	Toast.makeText(activity, "Text Annotation saved", Toast.LENGTH_SHORT).show();
+	                	
+	                	Toast.makeText(activity, R.string.annotation_saved, Toast.LENGTH_SHORT).show();
 	                }
 	            }
 	        );
        
+       // button for adding new EditText field to the list
        ImageButton mNewButton = (ImageButton) dialog.findViewById(R.id.new_text_annotation_button);
        mNewButton.setOnClickListener(
     		   new View.OnClickListener() {
@@ -100,11 +100,9 @@ public class TextAnnotationDialog extends DialogFragment {
 	                public void onClick(View v) {
 	                	adapter.addNewListItem();
 	                	if(calculateListViewHeight() > activity.getDisplayHeight()*0.5){
-	                    	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 
-	            					(int)(activity.getDisplayHeight()*0.5));
+	                    	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, (int)(activity.getDisplayHeight()*0.5));
 	                    	listView.setLayoutParams(params);
-	                    }
-	                	
+	                    }	
 	                }
 	            }
 	        );
@@ -112,16 +110,29 @@ public class TextAnnotationDialog extends DialogFragment {
 		return dialog;
 	}
 	
+	/**
+	 * Adds a new text annotation to the list.
+	 * @param id position of EditText-field in the list
+	 * @param annotation string value of the annotation
+	 */
 	public void addTextAnnotation(int id, String annotation){
 		Log.d(TAG, "addTextAnnotation( id: "+id+", annotation: "+annotation+" ) called");
 		textAnnotations.put(id, annotation);
 		Log.d(TAG, textAnnotations.size()+"");
 	}
 	
+	/**
+	 * Get all text annotations.
+	 * @return list of text annotations
+	 */
 	public SparseArray<String> getTextAnnotations(){
 		return textAnnotations;
 	}
 	
+	/**
+	 * Calculates the current height of the ListView which contains the text annotations. 
+	 * @return height of list of annotations
+	 */
 	public int calculateListViewHeight(){
 		int height = 0;
         EditText item;

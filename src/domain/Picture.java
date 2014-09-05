@@ -105,27 +105,12 @@ public class Picture {
 	}
 	
 	/**
-	 * TODO
+	 * Removes last drawn scribble from the list.
 	 */
 	public void removeLastScribble(){
 		if(scribbles!=null && !scribbles.isEmpty()){
 			scribbles.remove(scribbles.size()-1);
 		}
 	}
-	
-	/**
-	 * TODO: remove when delete-last-scribble-button remains in all views
-	 */
-	public void removeLastForeBackScribble(){
-		if(!scribbles.isEmpty()){
-			for(int i=scribbles.size()-1; i>=0; i--){
-				if(scribbles.get(i) instanceof ForeBackGround){
-					scribbles.remove(i);
-					break;
-				}
-			}
-		}
-	}
-	
 	
 }

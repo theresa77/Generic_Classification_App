@@ -153,6 +153,10 @@ public final class R {
     }
     public static final class string {
         public static final int add_further_scribble=0x7f07002b;
+        /**  toast text 
+ toast text 
+         */
+        public static final int annotation_saved=0x7f070034;
         public static final int app_name=0x7f070000;
         public static final int back=0x7f07002d;
         public static final int camera_icon=0x7f07000d;

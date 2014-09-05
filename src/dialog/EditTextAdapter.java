@@ -22,6 +22,7 @@ import com.genericclassificationapp.R;
  * Adapter class for ListView of EditText fields in TextAnnotationDialog. 
  * 
  * @author Theresa Froeschl
+ * @version 1.0
  *
  */
 public class EditTextAdapter extends BaseAdapter {
@@ -54,17 +55,6 @@ public class EditTextAdapter extends BaseAdapter {
 	 */
 	@Override
     public View getView(int position, View convertView, ViewGroup parent){
-//		String msg = "getView( position: "+position+", convertView-Text: ";
-//		if(convertView != null)
-//			msg += itemList.get(position).getText().toString();
-//		else
-//			msg += "NULL";
-//		msg += ", parent: ";
-//		if (parent != null)
-//			msg += parent.toString();
-//		msg += " ) called";
-//		Log.d(TAG, msg);
-
 		final EditText editText;
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.edit_text_item_annotation_dialog, null);
@@ -92,7 +82,6 @@ public class EditTextAdapter extends BaseAdapter {
 			 */
 			@Override
 			public void onTextChanged(CharSequence text, int start, int before, int count) {
-//				Log.d(TAG, "onTextChanged() called in EditTextAdapter: TEXT: "+text+", LENGTH: "+ text.length()+ ", FOCUS: "+editText.isFocused());
 				if (text != null && text.length() > 0 && editText.isFocused()) {
 					dialog.addTextAnnotation(editText.getId(), text.toString());	
 				} 

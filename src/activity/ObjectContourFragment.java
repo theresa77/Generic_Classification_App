@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 import com.genericclassificationapp.R;
 
-//import domain.Scribble.ScribbleType;
-
 /**
  * Fragment for drawing Object Contour.
  * Sets the content view of UserScribbleMainActivity when the Object Contour tab is selected.
@@ -33,7 +31,6 @@ public class ObjectContourFragment extends UserScribbleFragment {
 	protected View setCustomContentView(boolean isLandscape) {
 		Log.d(TAG, "setCustomContentView called");
 		
-//		mActivity.setCurrentScribble(ScribbleType.OBJECT_CONTOUR);
 		View view;
 
 		if (isLandscape) {
@@ -46,7 +43,6 @@ public class ObjectContourFragment extends UserScribbleFragment {
 		}
 
 		frameView = (FrameLayout) view.findViewById(R.id.object_contour_surface_view);
-//		frameView = (ScrollView) view.findViewById(R.id.object_contour_surface_view);
 		
 		// create new view for drawing object contour
 		if(mView == null){
@@ -54,7 +50,6 @@ public class ObjectContourFragment extends UserScribbleFragment {
 		} else {
 			mView = new ObjectContourView(mActivity, mView);
 		}
-		
 		
 		Toast.makeText(getActivity(), R.string.select_object_contour, Toast.LENGTH_SHORT).show();
 		

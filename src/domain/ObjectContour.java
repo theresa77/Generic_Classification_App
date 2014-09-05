@@ -3,43 +3,21 @@
  */
 package domain;
 
-import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.RectF;
 
 /**
  * Class for one Object Contour drawing.
  * 
  * @author Theresa Froeschl
+ * @version 1.0
  *
  */
 public class ObjectContour extends PathScribble {
 
-//	private Path path;
-//	private Paint paint;
-//	
-	
 	public ObjectContour(Path path, Paint paint){
 		super(path, paint);
 	}
 	
-//	public ObjectContour(Path path, Paint paint){
-//		super();
-//		this.path = path;
-//		this.paint = paint;
-//	}
-//
-//	@Override
-//	public void drawScribble(Canvas canvas) {
-//		canvas.drawPath(path, paint);
-//	}
-//	
-//	@Override
-//	public RectF getBoundingBoxOfScribble(){
-//		RectF bounds = new RectF();
-//		path.computeBounds(bounds, true);
-//		return bounds;
-//	}
 	
 }

@@ -27,6 +27,13 @@ import com.genericclassificationapp.R;
 import domain.Picture;
 import domain.Scribble;
 
+/**
+ * Activity to show the marked object with the scribbles.
+ * 
+ * @author Theresa Froeschl
+ * @version 1.0
+ *
+ */
 public class ViewObjectActivity extends Activity {
 	
 	private static final String TAG = ViewObjectActivity.class.getSimpleName();
@@ -52,7 +59,6 @@ public class ViewObjectActivity extends Activity {
 		displayHeight = metrics.heightPixels;
 		displayWidth = metrics.widthPixels;
 		
-//		LinearLayout.LayoutParams params;
 		double width = 0.0; 
 	    double height = 0.0; 
 		
@@ -97,20 +103,26 @@ public class ViewObjectActivity extends Activity {
 		mPictureBitmap = Bitmap.createScaledBitmap(mPicture.getBitmap(), params.width, params.height, true);
 		mPictureBitmap = createScaledBitmap(drawScribblesToBitmap(mPictureBitmap));
 		
-		Log.d(TAG, "Params-width: "+ params.width);
-		Log.d(TAG, "Params-height: "+ params.height);
 		ImageView image = (ImageView) findViewById(R.id.picture);
 		image.setImageBitmap(mPictureBitmap);
 	}
 	
-	
+	/**
+	 * Called when user presses the back button.
+	 * Starts the main activity for drawing user scribbles.
+	 * @param v pressed button
+	 */
 	public void backToUserScribbleActivity(View v){
 		Intent newIntent = new Intent(this, UserScribbleMainActivity.class);
 		startActivity(newIntent);
 		this.finish();
 	}
 	
-	
+	/**
+	 * Draws all scribbles to the bitmap.
+	 * @param bitmap bitmap object to draw scribbles to.
+	 * @return bitmap with scribbles
+	 */
 	private Bitmap drawScribblesToBitmap(Bitmap bitmap){
 		Canvas canvas = new Canvas(bitmap);
 		
@@ -123,115 +135,50 @@ public class ViewObjectActivity extends Activity {
 		return bitmap;
 	}
 	
+	/**
+	 * Scales and clips the bitmap to only show the object and the scribbles.
+	 * @param bitmap to scale and clip
+	 * @return the scaled and clipped bitmap
+	 */
 	private Bitmap createScaledBitmap(Bitmap bitmap){
 		bitmap = drawScribblesToBitmap(bitmap);
 		bounds = calculateBoundingBoxForScribbles();
-		int frameWidth = params.width;
-		int frameHeight = params.height;
-		Log.d(TAG, "frameWidth: "+ frameWidth);
-		Log.d(TAG, "frameHeight: "+ frameHeight);
-		Log.d(TAG, "bounds - LEFT (1): " + bounds.left);
-		Log.d(TAG, "bounds - RIGHT (1): " + bounds.right);
-		Log.d(TAG, "bounds - TOP (1): " + bounds.top);
-		Log.d(TAG, "bounds - BOTTOM (1): " + bounds.bottom);
 		
 		float width = bounds.right - bounds.left;
 		bounds.left = (float) (bounds.left - width*0.15);
 		bounds.right = (float) (bounds.right + width*0.15);
-		Log.d(TAG, "bounds - LEFT (2): " + bounds.left);
-		Log.d(TAG, "bounds - RIGHT (2): " + bounds.right);
+		
 		if(bounds.left < 0){
-			Log.d(TAG, "set bounds.left = 0  (1)");
 			bounds.left = 0;
 		}
-		if(bounds.right > bitmap.getWidth()) {//--> größer als Bildschirm-Breite/Höhe
-			Log.d(TAG, "set bounds.right = bitmap.getWidth()  (1)");
+		
+		if(bounds.right > bitmap.getWidth()) {
 			bounds.right = bitmap.getWidth();
 		}
+		
 		width = bounds.right - bounds.left;
-		Log.d(TAG, "width (1): "+ width);
 		
 		float height = bounds.bottom - bounds.top;
 		bounds.top = (float) (bounds.top - height*0.15);
 		bounds.bottom = (float) (bounds.bottom + height *0.15);
-		Log.d(TAG, "bounds - TOP (2): " + bounds.top);
-		Log.d(TAG, "bounds - BOTTOM (2): " + bounds.bottom);
+		
 		if(bounds.top < 0){
-			Log.d(TAG, "set bounds.top = 0  (1)");
 			bounds.top = 0;
 		}
 			
-		if(bounds.bottom > bitmap.getHeight()) {// ---> größer als Bildschirm-Breite/Höhe
+		if(bounds.bottom > bitmap.getHeight()) {
 			Log.d(TAG, "set bounds.bottom = bitmap.getHeight()  (1)");
 			bounds.bottom = bitmap.getHeight();
 		}
 		height = bounds.bottom - bounds.top;
-		Log.d(TAG, "height (1): "+ height);
-		
-		
-		//TODO: Seiterverhältnis von Höhe und Breite vergleichen und schauen, 
-		//		ob das ganze in Hoch- oder Querformat ist.
-		// TODO: and frame-grenzen anpassen - wenn width oder height über diese grenzen gehen
-		//		--> offenbar wird das scribble verändert, wenn man dann wieder auf return geht- 
-		//			übernimmt irgendwie die das bounds RectF als Scribble
-		//
-		// bei Bild im Hochformat und Bounding Box im Querformat wird oben und unten ein zu dicker schwarzer streifen angezeigt
-		// das gleiche ist auch bei Bild im Querformat, die Bounding Box aber im Hochformat - links und rechts dicke schwarze streifen
-		// die Frage ist hier: will ich das so haben, oder soll stattdessen so viel wie möglich vom restlichen Bild gezeigt werden?
-	
-		
-		// dieser auskommentierte code soll bewirken, dass nicht nur die bounding box um Object+Scribbles gezeichnet wird,
-		// sondern so viel wie möglich auch vom restlichen Bild, sodass am Bildschirm keine zu dicken schwarzen Balken sind.
-		// funktioniert aber mit diesem code noch nicht richtig, es wird vermutlich eine ausführlichere Fallunterscheidung
-		// zwischen Hochformat und Querformat, jeweils für Bildschirm und BoundingBox der Scribbles benötigt.
-//			if(width < height){ // bounding box ist im "Hochformat" - Höhe übernehmen, Breite anpassen
-//				Log.d(TAG, "Bounding Box in PORTRAIT");
-//				width = (int)(height * 0.75);
-//				bounds.left = bounds.left - Math.abs(width - (bounds.right - bounds.left))/2;
-//				if((bounds.left + width) > bitmap.getWidth()){
-//					Log.d(TAG, "IF statement entered: if((bounds.left + width) > bitmap.getWidth())");
-//					bounds.left = bounds.left - ((bounds.left + width) - bitmap.getWidth());
-//				}
-//				
-//				// Versuch bei Querformat-bild und Hochformat-Scribble-Bounding-Box die ganze mögliche Bildbreite zu nutzen.
-//				// ist nicht geglückt
-////				if((bounds.left + width) < bitmap.getWidth()){
-////					Log.d(TAG, "IF statement entered: if((bounds.left + width) < bitmap.getWidth())");
-////					bounds.left = bounds.left - (bitmap.getWidth() - width);
-////					width = width + (bitmap.getWidth() - width);
-////				}
-//				if(bounds.left < 0){
-//					Log.d(TAG, "IF statement entered: if(bounds.left < 0)");
-//					Log.d(TAG, "set bounds.left = 0)");
-//					width = width + bounds.left;
-//					bounds.left = 0;
-//				}
-//			} else { // bounding box ist im "Querformat" - Breite übernemen, Höhe anpassen
-//				Log.d(TAG, "Bounding Box in LANDSCAPE");
-//				height = (int)(width * 0.75);
-//				bounds.top = bounds.top - Math.abs(height - (bounds.bottom - bounds.top))/2;
-//				if((bounds.top + height) > bitmap.getHeight()){
-//					Log.d(TAG, "IF statement entered: if((bounds.top + height) > bitmap.getHeight())");
-//					bounds.top = bounds.top - ((bounds.top + height) - bitmap.getHeight());
-//				}
-//				if(bounds.top < 0){
-//					Log.d(TAG, "IF statement entered: if(bounds.top < 0)");
-//					Log.d(TAG, "set bounds.top = 0");
-//					height = height + bounds.top;
-//					bounds.top = 0;
-//				}
-//			}
-			
-		Log.d(TAG, "Bitmap-HEIGHT: "+bitmap.getHeight());
-		Log.d(TAG, "Bitmap-WIDTH: "+bitmap.getWidth());
-		Log.d(TAG, "Bounds-LEFT: "+bounds.left);
-		Log.d(TAG, "Bounds-TOP: "+bounds.top);
-		Log.d(TAG, "WIDTH: "+width);
-		Log.d(TAG, "HEIGHT: "+height);
 		
 		return Bitmap.createBitmap(bitmap, (int)bounds.left, (int)bounds.top, (int)width, (int)height);
 	}
 
+	/**
+	 * Calculate the bounding box for all scribbles.
+	 * @return bounds for all scribbles
+	 */
 	private RectF calculateBoundingBoxForScribbles(){
 		RectF bounds = null;
 		RectF currScri = new RectF();

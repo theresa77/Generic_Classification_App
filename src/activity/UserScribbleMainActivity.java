@@ -258,15 +258,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		Log.d(TAG, "addFurtherScribble() called");
 		mView.setDrawNewScribble(true);
 	}
-	
-	/**
-	 * Reset last drawn path in ForeroundBackgroundView
-	 * @param v pressed button
-	 */
-	public void resetLastForeBackDrawing(View v){
-		((ForegroundBackgroundView)mView).deleteLastDrawnPath();
-	}
-	
+
 	/**
 	 * Open dialog for adding, editing and deleting text annotations.
 	 */
@@ -320,9 +312,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	 * @param width for scribbles
 	 */
 	public void setStrokeWidth(int width){
-//		if(!(mView instanceof ForegroundBackgroundView)) {
-			mPaint.setStrokeWidth(width);
-//		}
+		mPaint.setStrokeWidth(width);
 		mView.setStrokeWidth(width);
 		if(currentDialog!=null)
 			currentDialog.dismiss();
@@ -411,9 +401,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	public void removeAllScribbles(){
 		mPicture.setScribbles(new ArrayList<Scribble>());
 		removeLastScribble(null);
-//		if(mView instanceof ForegroundBackgroundView){
-//			((ForegroundBackgroundView)mView).removeAllScribbles(); //TODO: das sollte nicht hier passieren, sollte mit dem löschen aller scribbles in picture klasse erledigt sein.
-//		}
 		mView.setDrawNewScribble(true);
 	}
 
@@ -453,15 +440,6 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	public void setTextAnnotations(SparseArray<String> annotations){
 		textAnnotations = new  ArrayList<String>();
 		for(int i=0; i<annotations.size(); i++){
-//			if(annotations.keyAt(i) < textAnnotations.size()){
-//				if(annotations.valueAt(i).equals("")) {
-//					textAnnotations.remove(annotations.keyAt(i));
-//				} else {
-//					textAnnotations.set(annotations.keyAt(i), annotations.valueAt(i));
-//				}
-//			}
-//			else
-//				textAnnotations.add(annotations.valueAt(i));
 			if(!annotations.valueAt(i).equals(""))
 				textAnnotations.add(annotations.valueAt(i));
 		}

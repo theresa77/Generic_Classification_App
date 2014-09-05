@@ -11,6 +11,7 @@ import android.graphics.RectF;
  * Class for one Minimum Bounding Box drawing.
  * 
  * @author Theresa Froeschl
+ * @version 1.0
  *
  */
 public class MinBoundingBox implements Scribble {
@@ -37,14 +38,6 @@ public class MinBoundingBox implements Scribble {
 			canvas.drawOval(rectf, paint);
 			
 		}
-	}
-	
-	public String toString() {
-		return "MinBoundingBox(rectf(left: " + rectf.left + ", top: "
-				+ rectf.top + ", right: " + rectf.right + ", bottom: "
-				+ rectf.bottom + ")" + ", shape(" + shape.name() + "), "
-				+ "+paint( color:" + paint.getColor() + ", stroke width: "
-				+ paint.getStrokeWidth() + ") )";
 	}
 	
 	@Override

@@ -3,11 +3,6 @@
  */
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.genericclassificationapp.R;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,6 +12,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.genericclassificationapp.R;
+
 import domain.ForeBackGround;
 
 /**
@@ -30,11 +28,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 
 	private static final String TAG = ForegroundBackgroundView.class.getSimpleName();
 	private Path mPath = new Path();
-//	private List<Path> mForePathList = new ArrayList<Path>();
-//	private List<Path> mBackPathList = new ArrayList<Path>();
-//	private List<String> mPathHistory = new ArrayList<String>();
-//	private Paint mForePaint = new Paint(mPaint);
-//	private Paint mBackPaint = new Paint(mPaint);
 	private int mForeColor = Color.YELLOW;
 	private int mBackColor = Color.MAGENTA;
 	private float mX;
@@ -63,11 +56,10 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	
 	private void init(ImageButton foreBackButton) {
 		Log.d(TAG, "init ForegroundBackgroundView");
-//		mForePaint.setColor(Color.YELLOW);
-//		mBackPaint.setColor(Color.MAGENTA);
 		this.foreBackButton = foreBackButton;
 	}
 	
+	@Override
 	public void handleTouchEvent(int action, float x, float y){
 		switch (action) {
 
@@ -93,6 +85,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 
 	}
 	
+	@Override
 	public void handleTouchEventOutsidePicture(int action){
 		if(action == MotionEvent.ACTION_DOWN){
 			resetPath();
@@ -107,7 +100,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	public void startMove(float x, float y){
 		//Log.d(TAG, "startMove() called");
 		if(drawNewScribble){
-//			mPicture.addScribbleToList(currentScribble);
 			drawNewScribble = false;
 		}
 		mPicture.addScribbleToList(currentScribble);
@@ -149,26 +141,19 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 * @param y coordinate of the current touch event
 	 */
 	public void stopMove(float x, float y){
-//		Log.d(TAG, "Draw New Scribble - Boolean: "+super.drawNewScribble);
 		mPath.lineTo(x, y);
 		
 		foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.check));
 		
 		if (drawForeground) {
-//			mForePathList.add(new Path(mPath));
-//			mPathHistory.add("FORE");
 			Paint forePaint = new Paint(mPaint);
 			forePaint.setColor(mForeColor);
 			currentScribble = new ForeBackGround(new Path(mPath), new Paint(forePaint));
 		} else {
-//			mBackPathList.add(new Path(mPath));
-//			mPathHistory.add("BACK");
 			Paint backPaint = new Paint(mPaint);
 			backPaint.setColor(mBackColor);
 			currentScribble = new ForeBackGround(new Path(mPath), new Paint(backPaint));
 		}
-		
-//		currentScribble = new ForeBackGround(mForePathList, mBackPathList, new Paint(mForePaint), new Paint(mBackPaint));
 		
 		invalidate();
 	}
@@ -185,20 +170,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	
 	@Override
 	public void drawCurrentScribble(Canvas canvas) {
-		
-//		for(Path p : mForePathList) {
-//			canvas.drawPath(p, mForePaint);
-//		}
-//		
-//		for(Path p : mBackPathList) {
-//			canvas.drawPath(p, mBackPaint);
-//		}
-//		
-//		if(drawForeground) {
-//			canvas.drawPath(mPath, mForePaint);
-//		} else {
-//			canvas.drawPath(mPath, mBackPaint);
-//		}
 		int currColor = mPaint.getColor();
 		
 		if (drawForeground) {
@@ -214,14 +185,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 
 	@Override
 	public void resetLastDrawing() {
-//		String lastTag = mPathHistory.remove(mPathHistory.size()-1);
-//		if(lastTag.equals("FORE")){
-//			if(mForePathList.size()>0)
-//				mForePathList.remove(mForePathList.size()-1);
-//		} else {
-//			if(mBackPathList.size()>0)
-//				mBackPathList.remove(mBackPathList.size()-1);
-//		}
 		if(drawNewScribble){
 			drawForeground = true;
 		}
@@ -230,30 +193,6 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		invalidate();
 	}
 	
-	public void deleteLastDrawnPath(){
-//		if(drawForeground) {
-//			if(mForePathList.size()>0)
-//				mForePathList.remove(mForePathList.size()-1);
-//		} else {
-//			if(mBackPathList.size()>0)
-//				mBackPathList.remove(mBackPathList.size()-1);
-//		}
-		if(!mPath.isEmpty() || currentScribble != null){
-			resetPath();
-			currentScribble = null;
-		} else {
-			mPicture.removeLastForeBackScribble();
-		}
-		
-		invalidate();
-	}
-	
-//	public void removeAllScribbles(){
-//		mPath = new Path();
-////		mForePathList = new ArrayList<Path>();
-////		mBackPathList = new ArrayList<Path>();
-//		invalidate();
-//	}
 
 	/**
 	 * Returns if user is currently drawing on the foreground of the picture.
@@ -276,11 +215,9 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	 */
 	public void changeForeBackgroundButton(){
 		if (drawForeground) {
-//			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.b_icon));
 			drawForeground = false;
 			Toast.makeText(mActivity, R.string.instruction_drawing_background, Toast.LENGTH_LONG).show();
 		} else {
-//			foreBackButton.setImageDrawable(getResources().getDrawable(R.drawable.f_icon));
 			drawForeground = true;
 			setDrawNewScribble(true);
 			resetPath();
@@ -290,7 +227,7 @@ public class ForegroundBackgroundView extends UserScribbleView {
 	}
 	
 	/**
-	 * TODO
+	 * Sets the icon for the button on the very left in button bar.
 	 */
 	public void setForeBackgroundButton(){
 		if (drawForeground) {
@@ -300,14 +237,4 @@ public class ForegroundBackgroundView extends UserScribbleView {
 		}
 	}
 	
-//	@Override
-//	public void setStrokeWidth(int width){
-//		if(drawForeground) {
-//			mForePaint.setStrokeWidth(width);
-//		} else {
-//			mBackPaint.setStrokeWidth(width);
-//		}
-//		invalidate();
-//	}
-
 }

@@ -51,5 +51,6 @@
  	<string name="instruction_drawing_background">Markiere den Hintergrund des Bildes. Bestätige anschließend.</string> <!-- toast text -->
  	<string name="draw_new_scribble">Erstelle eine weitere Zeichnung.</string> <!-- toast text -->
  	<string name="mark_object_first">Markiere zuerst ein Objekt</string> <!-- toast text -->
+ 	<string name="annotation_saved">Kommentare gespeichert</string> <!-- toast text -->
  	
 </resources>

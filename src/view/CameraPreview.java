@@ -167,6 +167,10 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         canvas.drawLine(0,params.height,params.width,params.height,mPaint);
     }
 	
+	/**
+	 * Sets the instance for the camera.
+	 * @param camera 
+	 */
 	public void setCameraInstance(Camera camera){
 		mCamera = camera;
 	}

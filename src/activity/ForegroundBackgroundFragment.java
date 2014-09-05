@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import com.genericclassificationapp.R;
 
-//import domain.Scribble.ScribbleType;
-
 /**
  * Fragment for drawing Foreground or Background.
  * Sets the content view of UserScribbleMainActivity when user selects tab for drawing Foreground/Background
@@ -33,8 +31,7 @@ public class ForegroundBackgroundFragment extends UserScribbleFragment {
 	@Override
 	protected View setCustomContentView(boolean isLandscape) {
 		Log.d(TAG, "setCustomContentView called");
-		
-//		mActivity.setCurrentScribble(ScribbleType.FOREGROUND);
+		 
 		View view;
 		
 		if(isLandscape){

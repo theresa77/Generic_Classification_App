@@ -42,6 +42,7 @@ public class ObjectContourView extends UserScribbleView {
 		mPaint.setStyle(Paint.Style.STROKE);
 	}
 	
+	@Override
 	public void handleTouchEvent(int action, float x, float y){
 
 		switch (action) {
@@ -68,6 +69,7 @@ public class ObjectContourView extends UserScribbleView {
 	
 	}
 
+	@Override
 	public void handleTouchEventOutsidePicture(int action){
 		if(action == MotionEvent.ACTION_DOWN){
 			resetPath();
