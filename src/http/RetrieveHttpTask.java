@@ -25,6 +25,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.genericclassificationapp.R;
+
 import activity.UserScribbleMainActivity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -76,9 +78,11 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 		
 		HttpClient httpclient = new DefaultHttpClient();
 		
-		// create httpPost object with ip and port for the server
-	    HttpPost httppost = new HttpPost("http://192.168.43.29:8000");    
-	    HttpResponse response;
+		// create httpPost object with IP and port for the server
+		// TODO: set correct IP address and port in server.xml file
+		String server = "http://" + R.string.server_ip + ":" + R.string.server_port;
+		HttpPost httppost = new HttpPost(server);
+		HttpResponse response;
 	    
 	    try {
 	    	

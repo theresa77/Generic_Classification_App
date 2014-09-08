@@ -27,23 +27,31 @@ Used Libraries:
 
 Packages:
 The Project is split into 5 packages.
-The activity package contains all activities and Fragments for the UserScribbleMainActivity.
+The activity package contains all activities and fragments for the UserScribbleMainActivity.
 The dialog package contains all DialogFragment classes of the project.
 In the view package are all view classes stored.
-The picture package contains the Picture class which represents the picture taken by the camera.
+The domain package contains the Picture class which represents the picture taken by the camera, all classes which represent the scribbles types the user can draw and the Scribble interface for the method an scribble class has to implement.
 In the http package is the RetrieveHttpTask which gets created and executed when the user wants
- to send the picture and his scribbles to a server.
+to send the picture and his scribbles to a server.
 
 Transmission to Server:
-When the user send the taken picture with his scribbles to the server the RetrieveHttpTask gets executed. During this task a JSONObject gets send to a server that includes the byte array of the picture, a byte array of another picture which contains only the scribbles from the user. 
-Furthermore the JSONObject stores the information if the picture is taken in landscape or in portrait and a tag which says gives information what kind scribbles the user draw. 
-Should the scribbles represent a Minimum Bounding Box the tag is „MINIMUM_BOUNDING_BOX“. For an Object Contour it is „OBJECT_CONTOUR“. Did the user select the foreground it is „FOREGROUND“ and for the background it is „BACKGROUND“.
+When the user wants to send the taken picture with his scribbles to the server the RetrieveHttpTask gets executed. During this task a JSONObject gets send to a server by an http post request. For that request the IP address and the port for the server are needed. These two values are stored in the server.xml file in the values folder.
+
+The JSONObject contains following name-values pairs:
+- "picture": the corresponding values is a byte array of the taken photo
+- "landscape": boolean value for the information whether the photo is in landscape (boolean is true) or in portrait (boolean is false)
+- "foreground-background": byte array of another picture with the same size as the photo which comprise all foreground-background scribbles only
+- "object-contour": byte array of an third picture with the same size as the photo for all object-contour scribbles
+- "min-bounding-rectangle": byte array for the bounds of all drawn minimum-bounding-rectangles. These array has to be converted into an simple array of integer to get the bounds. The different drawn rectangles were saved one after another into that integer array. So every rectangle is composed of four integers in the following order: left, top, right, bottom.
+
+The JSONObject has always these 5 values stored, even if there is only one type of scribbles for the picture. e.g. has the user only drawn one minimum-bounding-rectangle the values for the foreground-background and object-contour scribbles are just two empty pictures.
+
 
 Usage:
 The application starts with the Camera Activity during which the user can take his picture.
 After that he gets to the Picture Activity. Here the captured picture is shown.
-For the next step the user has to decide how he wants to select the object  on the picture.
-He can choose between drawing a Minimum Bounding Box, selecting the Foreground or Background or drawing the Object Contour. For that he has to select one of the corresponding buttons in the button bar.
+For the next step the user has to decide how he wants to select the object on the picture.
+He can choose between drawing a Minimum Bounding Box, selecting the Foreground and Background or drawing the Object Contour. For that he has to select one of the corresponding buttons in the button bar.
 Then the UserScribbleMain Activity starts with the corresponding Fragment for the previous selection.
-Now the user can draw his user scribbles. Is he finished he can send the picture with his scribbles to a server for classification. For that he has to select the Send to Server option in the menu dialog.
+Now the user can draw his scribbles. Is he finished he can send the picture with his scribbles to a server for classification. For that he has to select the Send to Server option in the menu dialog.
 The Transmission to a server starts and returns a message with the result.

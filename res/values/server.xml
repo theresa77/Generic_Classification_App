@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="server_ip">192.168.43.29</string>
+    <string name="server_port">8000</string>
+    
+</resources>

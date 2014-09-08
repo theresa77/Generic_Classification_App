@@ -152,87 +152,89 @@ public final class R {
         public static final int view_object_activity_portrait=0x7f030017;
     }
     public static final class string {
-        public static final int add_further_scribble=0x7f07002b;
+        public static final int add_further_scribble=0x7f07002d;
         /**  toast text 
  toast text 
          */
-        public static final int annotation_saved=0x7f070034;
-        public static final int app_name=0x7f070000;
-        public static final int back=0x7f07002d;
-        public static final int camera_icon=0x7f07000d;
-        public static final int delete_drawing=0x7f070029;
-        public static final int delete_picture=0x7f070025;
-        public static final int delete_scribble=0x7f07002c;
-        public static final int dialog_edit_foreground_background=0x7f070006;
-        public static final int dialog_edit_line=0x7f070002;
-        public static final int dialog_menu=0x7f070003;
+        public static final int annotation_saved=0x7f070036;
+        public static final int app_name=0x7f070002;
+        public static final int back=0x7f07002f;
+        public static final int camera_icon=0x7f07000f;
+        public static final int delete_drawing=0x7f07002b;
+        public static final int delete_picture=0x7f070027;
+        public static final int delete_scribble=0x7f07002e;
+        public static final int dialog_edit_foreground_background=0x7f070008;
+        public static final int dialog_edit_line=0x7f070004;
+        public static final int dialog_menu=0x7f070005;
         /**  labels for dialogs 
  labels for dialogs 
          */
-        public static final int dialog_pick_color=0x7f070001;
-        public static final int dialog_pick_shape=0x7f070005;
-        public static final int dialog_text_annotation=0x7f070007;
-        public static final int dialog_transmission_to_server=0x7f070004;
+        public static final int dialog_pick_color=0x7f070003;
+        public static final int dialog_pick_shape=0x7f070007;
+        public static final int dialog_text_annotation=0x7f070009;
+        public static final int dialog_transmission_to_server=0x7f070006;
         /**  toast text 
  toast text 
          */
-        public static final int draw_new_scribble=0x7f070032;
-        public static final int edit_color=0x7f070013;
-        public static final int edit_foreground_background=0x7f070014;
-        public static final int edit_form=0x7f070015;
-        public static final int edit_line=0x7f070012;
+        public static final int draw_new_scribble=0x7f070034;
+        public static final int edit_color=0x7f070015;
+        public static final int edit_foreground_background=0x7f070016;
+        public static final int edit_form=0x7f070017;
+        public static final int edit_line=0x7f070014;
         /**  new Text for testing 
  new Text for testing 
          */
-        public static final int edit_text_annotation=0x7f07002a;
-        public static final int eighty=0x7f07001a;
-        public static final int forty=0x7f070018;
-        public static final int hundred=0x7f07001b;
-        public static final int hundred_percent=0x7f07001d;
+        public static final int edit_text_annotation=0x7f07002c;
+        public static final int eighty=0x7f07001c;
+        public static final int forty=0x7f07001a;
+        public static final int hundred=0x7f07001d;
+        public static final int hundred_percent=0x7f07001f;
         /**  toast text 
  toast text 
          */
-        public static final int instruction_drawing_background=0x7f070031;
-        public static final int instruction_drawing_foreground=0x7f070030;
-        public static final int magnifier=0x7f07002e;
+        public static final int instruction_drawing_background=0x7f070033;
+        public static final int instruction_drawing_foreground=0x7f070032;
+        public static final int magnifier=0x7f070030;
         /**  toast text 
  toast text 
          */
-        public static final int mark_object_first=0x7f070033;
-        public static final int menu=0x7f07000f;
-        public static final int new_text_annotation=0x7f07002f;
+        public static final int mark_object_first=0x7f070035;
+        public static final int menu=0x7f070011;
+        public static final int new_text_annotation=0x7f070031;
         /**  content description for views 
  content description for views 
          */
-        public static final int ok=0x7f070008;
-        public static final int oval_icon=0x7f07000a;
-        public static final int pick=0x7f07000e;
-        public static final int pick_background=0x7f07000c;
-        public static final int pick_foreground=0x7f07000b;
-        public static final int picture=0x7f070011;
-        public static final int rectangle_icon=0x7f070009;
-        public static final int save_picture=0x7f070026;
+        public static final int ok=0x7f07000a;
+        public static final int oval_icon=0x7f07000c;
+        public static final int pick=0x7f070010;
+        public static final int pick_background=0x7f07000e;
+        public static final int pick_foreground=0x7f07000d;
+        public static final int picture=0x7f070013;
+        public static final int rectangle_icon=0x7f07000b;
+        public static final int save_picture=0x7f070028;
         /**  Strings for Toast Text 
  Strings for Toast Text 
          */
-        public static final int select_background=0x7f07001e;
-        public static final int select_color=0x7f070027;
-        public static final int select_foreground=0x7f07001f;
-        public static final int select_foreground_background=0x7f070020;
-        public static final int select_min_bounting_box=0x7f070021;
-        public static final int select_object_contour=0x7f070022;
-        public static final int select_oval=0x7f070024;
-        public static final int select_rectangle=0x7f070023;
-        public static final int select_stroke_width=0x7f070028;
-        public static final int sixty=0x7f070019;
-        public static final int take_new_photo=0x7f070010;
-        public static final int twenty=0x7f070017;
+        public static final int select_background=0x7f070020;
+        public static final int select_color=0x7f070029;
+        public static final int select_foreground=0x7f070021;
+        public static final int select_foreground_background=0x7f070022;
+        public static final int select_min_bounting_box=0x7f070023;
+        public static final int select_object_contour=0x7f070024;
+        public static final int select_oval=0x7f070026;
+        public static final int select_rectangle=0x7f070025;
+        public static final int select_stroke_width=0x7f07002a;
+        public static final int server_ip=0x7f070000;
+        public static final int server_port=0x7f070001;
+        public static final int sixty=0x7f07001b;
+        public static final int take_new_photo=0x7f070012;
+        public static final int twenty=0x7f070019;
         /**  numbers for seek bar in PickStrokeDialog 
          */
-        public static final int zero=0x7f070016;
+        public static final int zero=0x7f070018;
         /**  label for progress bar in Transmission to Server Dialog 
          */
-        public static final int zero_percent=0x7f07001c;
+        public static final int zero_percent=0x7f07001e;
     }
     public static final class style {
         /** 
