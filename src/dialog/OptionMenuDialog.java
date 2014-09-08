@@ -304,7 +304,8 @@ public class OptionMenuDialog extends DialogFragment {
 	 */
 	private void sendPictureToServer(Activity activity, Dialog dialog, Picture mPicture){
 		Log.d(TAG, "sendPictureToServer called");
-		((UserScribbleMainActivity)activity).getView().setDrawNewScribble(true);
+		mPicture.addScribbleToList(((UserScribbleMainActivity)activity).getView().getCurrentScribble());
+		((UserScribbleMainActivity)activity).getView().resetLastDrawing();
 		
 		try {
 			Scribble[] scribbles = new Scribble[mPicture.getScribbles().size()];

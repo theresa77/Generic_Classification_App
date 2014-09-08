@@ -8,10 +8,9 @@
    		<item>Bild Anzeigen</item>
    		<item>Objekt Anzeigen</item>
    		<item>Neues Foto</item>
-   		<item>Text Annotation hinzufügen</item>
-   		<item>Letzte Zeichnung Löschen</item>
+   		<item>Kommentar hinzufügen/bearbeiten</item>
    		<item>Alle Zeichnungen Löschen</item>
-   		<item>zu Server schicken</item>
+   		<item>Zu Server schicken</item>
     </string-array>
     
      <!-- string array for option menu in picture activity -->

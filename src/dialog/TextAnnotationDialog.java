@@ -3,6 +3,7 @@
  */
 package dialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import activity.UserScribbleMainActivity;
@@ -25,6 +26,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.genericclassificationapp.R;
+
+import domain.Picture;
 
 /**
  * 
@@ -55,7 +58,7 @@ public class TextAnnotationDialog extends DialogFragment {
 		dialog.show();
 		
 		textAnnotations = new SparseArray<String>();
-		List<String> annotations = activity.getTextAnnotations();
+		List<String> annotations = Picture.getInstance().getAnnotations();
 		if(annotations != null && !annotations.isEmpty()) {
 			int id = 0;
 			for (String a: annotations){
@@ -83,8 +86,13 @@ public class TextAnnotationDialog extends DialogFragment {
 	            new View.OnClickListener() {
 	                @Override
 	                public void onClick(View v) {
-	                	Log.d(TAG, "Number of Text Annotations save in Activity: "+ textAnnotations.size());
-	                	activity.setTextAnnotations(textAnnotations);
+	                	List<String> annotatonsList = new  ArrayList<String>();
+	            		for(int i=0; i<textAnnotations.size(); i++){
+	            			if(!textAnnotations.valueAt(i).equals(""))
+	            				annotatonsList.add(textAnnotations.valueAt(i));
+	            		}
+	            		Picture.getInstance().setAnnotations(annotatonsList);
+//	                	activity.setTextAnnotations(textAnnotations);
 	                	dialog.dismiss();
 	                	
 	                	Toast.makeText(activity, R.string.annotation_saved, Toast.LENGTH_SHORT).show();

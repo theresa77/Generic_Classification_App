@@ -64,7 +64,7 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 	private RelativeLayout tab1;
 	private RelativeLayout tab2;
 	private RelativeLayout tab3;
-	private List<String> textAnnotations = new ArrayList<String>();
+//	private List<String> textAnnotations = new ArrayList<String>();
 	private Boolean zoomEnabled = false;
 	 
 	
@@ -433,25 +433,26 @@ public class UserScribbleMainActivity extends FragmentActivity  {
 		return mView;
 	}
 
-	/**
-	 * Set list of text annotations.
-	 * @param annotations sparse array of text annotations
-	 */
-	public void setTextAnnotations(SparseArray<String> annotations){
-		textAnnotations = new  ArrayList<String>();
-		for(int i=0; i<annotations.size(); i++){
-			if(!annotations.valueAt(i).equals(""))
-				textAnnotations.add(annotations.valueAt(i));
-		}
-	}
+//	/**
+//	 * Set list of text annotations.
+//	 * @param annotations sparse array of text annotations
+//	 */
+//	public void setTextAnnotations(SparseArray<String> annotations){
+//		List<String> textAnnotations = new  ArrayList<String>();
+//		for(int i=0; i<annotations.size(); i++){
+//			if(!annotations.valueAt(i).equals(""))
+//				textAnnotations.add(annotations.valueAt(i));
+//		}
+//		mPicture.setAnnotations(textAnnotations);
+//	}
 	
-	/**
-	 * Get list of all text annotations.
-	 * @return list of text annotations
-	 */
-	public List<String> getTextAnnotations(){
-		return textAnnotations;
-	}
+//	/**
+//	 * Get list of all text annotations.
+//	 * @return list of text annotations
+//	 */
+//	public List<String> getTextAnnotations(){
+//		return textAnnotations;
+//	}
 	
 	/**
 	 * Called when user clicks on zoom button.

@@ -8,6 +8,7 @@
     <string name="dialog_transmission_to_server">Übertragung zu Server</string>
     <string name="dialog_pick_shape">Wähle eine Form</string>
     <string name="dialog_edit_foreground_background">Wähle Vorder- oder Hintergrund</string>
+    <string name="dialog_text_annotation">Kommentare</string>
     
     <!-- content description for views -->
     <string name="ok">OK</string>

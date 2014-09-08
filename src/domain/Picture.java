@@ -23,6 +23,7 @@ public class Picture {
 	private boolean mIsLandscape;
 	private Bitmap mBitmap;
 	private List<Scribble> scribbles;
+	private List<String> annotations;
 	
 	public Picture(Bitmap mBitmap, boolean mIsLandscape){
 		this.mIsLandscape = mIsLandscape;
@@ -111,6 +112,22 @@ public class Picture {
 		if(scribbles!=null && !scribbles.isEmpty()){
 			scribbles.remove(scribbles.size()-1);
 		}
+	}
+	
+	/**
+	 * Gets list of all text annotations.
+	 * @return annotations
+	 */
+	public List<String> getAnnotations(){
+		return annotations;
+	}
+	
+	/**
+	 * Sets text annotations.
+	 * @param annotationsList list of annotations
+	 */
+	public void setAnnotations(List<String> annotationsList){
+		annotations = annotationsList;
 	}
 	
 }

@@ -159,6 +159,14 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 	        intBuffer.put(minBoundRectArray);
 	        byte[] minBoundRectByteArray = byteBuffer.array(); // convert list of minimum-bounding-rectangle coordinates to byte array
 	        
+	        // convert list of text annotations to byte array
+	        List<String> annotationList = mPicture.getAnnotations();
+	        byte[][] annotationByteArray = new byte[annotationList.size()][];
+	        for(int i=0; i<annotationList.size(); i++){
+	        	annotationByteArray[i] = annotationList.get(i).getBytes();
+	        }
+	        
+	        
 	    	// create JSONObject 
 	        JSONObject jsonObject = new JSONObject();
 	        try {
@@ -173,6 +181,7 @@ public class RetrieveHttpTask extends AsyncTask<Scribble[], Integer, String> {
 	        	jsonObject.put("foreground-background", foreBackByteArray);
 	        	jsonObject.put("object-contour", contourByteArray);
 	        	jsonObject.put("min-bounding-rectangle", minBoundRectByteArray);
+	        	jsonObject.put("annotation", annotationByteArray);
 	            
 	          } catch (JSONException e) {
 	            e.printStackTrace();
