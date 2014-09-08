@@ -92,7 +92,6 @@ public class TextAnnotationDialog extends DialogFragment {
 	            				annotatonsList.add(textAnnotations.valueAt(i));
 	            		}
 	            		Picture.getInstance().setAnnotations(annotatonsList);
-//	                	activity.setTextAnnotations(textAnnotations);
 	                	dialog.dismiss();
 	                	
 	                	Toast.makeText(activity, R.string.annotation_saved, Toast.LENGTH_SHORT).show();

@@ -44,7 +44,7 @@ public class ForegroundBackgroundFragment extends UserScribbleFragment {
 		}
 		
 		frameView = (FrameLayout) view.findViewById(R.id.foreground_background_surface_view);
-		ImageButton foreBackButton = (ImageButton) view.findViewById(R.id.select_foreground_button);
+		ImageButton foreBackButton = (ImageButton) view.findViewById(R.id.confirm_fore_back_ground_button);
 		
 		// create new view for drawing foreground or background
 		if(mView == null){

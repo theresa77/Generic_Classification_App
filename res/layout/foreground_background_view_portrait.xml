@@ -19,10 +19,10 @@
          >
         
 	    <ImageButton
-            android:id="@+id/select_foreground_button"
+            android:id="@+id/confirm_fore_back_ground_button"
             style="@style/ButtonBarButton"
             android:src="@drawable/f_icon"
-            android:contentDescription="@string/edit_foreground_background"
+            android:contentDescription="@string/confirm_foreground_background"
             android:onClick="pickForegroundBackground"
            />
 	    
@@ -49,8 +49,7 @@
             android:contentDescription="@string/delete_scribble" 
             android:onClick="removeLastScribble"
              />
-          <!-- android:onClick="resetLastForeBackDrawing" -->
-        
+         
         <ImageButton
             android:id="@+id/zoom_button"
             style="@style/ButtonBarButton"

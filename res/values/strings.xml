@@ -9,24 +9,26 @@
     <string name="dialog_menu">Menu</string>
     <string name="dialog_transmission_to_server">Transmission to Server</string>
     <string name="dialog_pick_shape">Pick a Shape</string>
-    <string name="dialog_edit_foreground_background">Select Fore- or Background</string>
-    <string name="dialog_text_annotation">Text Annotation</string>
+    <string name="dialog_text_annotation">Annotations</string>
     
     <!-- content description for views -->
     <string name="ok">OK</string>
-    <string name="rectangle_icon">Rectangle Icon</string>
- 	<string name="oval_icon">Oval Icon</string>
- 	<string name="pick_foreground">select Foreground</string>
- 	<string name="pick_background">select Background</string>
- 	<string name="camera_icon">Camera Icon</string>
+    <string name="rectangle_icon">rectangle icon</string>
+ 	<string name="oval_icon">oval icon</string>
+ 	<string name="camera_icon">camera icon</string>
  	<string name="pick">pick</string>
- 	<string name="menu">Menu</string>
- 	<string name="take_new_photo">New Photo</string>
- 	<string name="picture">Photo</string>
+ 	<string name="menu">menu</string>
+ 	<string name="take_new_photo">new photo</string>
+ 	<string name="picture">photo</string>
  	<string name="edit_line">edit stroke width</string>
  	<string name="edit_color">edit color</string>
- 	<string name="edit_foreground_background">edit selection for Fore- or Background</string>
+ 	<string name="confirm_foreground_background">confirm fore- or background</string>
  	<string name="edit_form">edit shape</string>
+ 	<string name="new_text_annotation">new annotation</string>
+ 	<string name="magnifier">magnifier</string>
+ 	<string name="delete_scribble">delete drawing</string>
+ 	<string name="add_further_scribble">add further drawing</string>
+ 	<string name="back">get back</string>
  	
  	<!-- numbers for seek bar in PickStrokeDialog -->
  	<string name="zero">0</string>
@@ -41,30 +43,20 @@
  	<string name="hundred_percent">100%</string>
  	
  	<!-- Strings for Toast Text -->
- 	<string name="select_background">Background Selected</string>
- 	<string name="select_foreground">Foreground Selected</string>
- 	<string name="select_foreground_background">Select Fore- or Background</string>
- 	<string name="select_min_bounting_box">Select Minimum Bounding Box</string>
- 	<string name="select_object_contour">Select Object Contour</string>
- 	<string name="select_rectangle">Rectangle Selected</string>
- 	<string name="select_oval">Oval Selected</string>
- 	<string name="delete_picture">Picture Deleted</string>
- 	<string name="save_picture">Picture saved to Gallery</string>
- 	<string name="select_color">Color Selected</string>
- 	<string name="select_stroke_width">Stroke Width Selected</string>
- 	<string name="delete_drawing">Drawing deleted</string>
- 	
- 	<!-- new Text for testing -->
- 	<string name="edit_text_annotation">Add and Edit Text Annotation</string>
- 	<string name="add_further_scribble">Add Further Scribble</string>
- 	<string name="delete_scribble">Delete Scribble</string>
- 	<string name="back">Get Back</string>
- 	<string name="magnifier">magnifier</string>
- 	<string name="new_text_annotation">New Text Annotation</string>
-	<string name="instruction_drawing_foreground">Draw on the foreground of the picture. Confirm, when you are finished.</string> <!-- toast text -->
- 	<string name="instruction_drawing_background">Draw on the background of the picture. Confirm, when you are finished.</string> <!-- toast text -->
- 	<string name="draw_new_scribble">Make Another Drawing</string> <!-- toast text -->
- 	<string name="mark_object_first">Mark An Object First</string> <!-- toast text -->
- 	<string name="annotation_saved">Text Annotations saved</string> <!-- toast text -->
+ 	<string name="select_foreground_background">select foreground and background</string> 
+ 	<string name="select_min_bounting_box">select minimum bounding box</string>
+ 	<string name="select_object_contour">select object contour</string>
+ 	<string name="select_rectangle">rectangle selected</string>
+ 	<string name="select_oval">oval selected</string>
+ 	<string name="delete_picture">picture deleted</string>
+ 	<string name="save_picture">picture saved to gallery</string>
+ 	<string name="select_color">color set</string>
+ 	<string name="select_stroke_width">stroke width set</string>
+ 	<string name="delete_drawing">drawing deleted</string>
+ 	<string name="instruction_drawing_foreground">Draw on the foreground of the picture. Confirm to continue with background.</string>
+ 	<string name="instruction_drawing_background">Draw on the background of the picture. Confirm, when you are finished.</string>
+ 	<string name="draw_new_scribble">make another drawing</string>
+ 	<string name="mark_object_first">mark an object first</string>
+ 	<string name="annotation_saved">annotations saved</string>
 
 </resources>
