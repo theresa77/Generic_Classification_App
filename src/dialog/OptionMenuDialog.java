@@ -128,20 +128,16 @@ public class OptionMenuDialog extends DialogFragment {
 					addTextAnnotation(activity, dialog);
 					break;
 					
-				//delete last drawing
-				case 6:
-					removeLastDrawing(activity, dialog);
-					break;
-					
 				//delete all drawings	
-				case 7:
+				case 6:
 					removeAllDrawings(activity, dialog);
 					break;
-				
-				//send picture and scribbles to server
-				case 8:
-					sendPictureToServer(activity, dialog, mPicture);	
+					
+				//send picture and scribbles to server	
+				case 7:
+					sendPictureToServer(activity, dialog, mPicture);
 					break;
+				
 				}
 			}	
 		});
@@ -279,24 +275,13 @@ public class OptionMenuDialog extends DialogFragment {
 	}
 	
 	/**
-	 * Opend the dialog to add and edit text annotations.
+	 * Opens the dialog to add and edit text annotations.
 	 * @param activity current activity
 	 * @param dialog current dialog
 	 */
 	private void addTextAnnotation(Activity activity, Dialog dialog){
 		dialog.dismiss();
 		((UserScribbleMainActivity)activity).openTextAnnotationDialog();
-	}
-	
-	/**
-	 * Removes the last drawn scribble.
-	 * @param activity current activity
-	 * @param dialog current dialog
-	 */
-	private void removeLastDrawing(Activity activity, Dialog dialog){
-		((UserScribbleMainActivity)activity).removeLastScribble(null);
-		dialog.dismiss();
-		Toast.makeText(activity, R.string.delete_drawing, Toast.LENGTH_SHORT).show();
 	}
 	
 	/**
@@ -311,7 +296,7 @@ public class OptionMenuDialog extends DialogFragment {
 	}
 	
 	/**
-	 * Opens the dialog to view the transmission of picture and scribbeles to the server.
+	 * Opens the dialog to view the transmission of picture and scribbles to the server.
 	 * Starts the http-task to send picture and scribbles to the server.
 	 * @param activity current activity
 	 * @param dialog current dialog
