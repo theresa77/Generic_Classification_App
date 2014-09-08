@@ -46,8 +46,9 @@ When the user wants to send the taken picture with his scribbles to the server t
 - "foreground-background": byte array of another picture with the same size as the photo which comprise all foreground-background scribbles only
 - "object-contour": byte array of an third picture with the same size as the photo for all object-contour scribbles
 - "min-bounding-rectangle": byte array for the bounds of all drawn minimum-bounding-rectangles. These array has to be converted into an simple array of integer to get the bounds. The different drawn rectangles were saved one after another into that integer array. So every rectangle is composed of four integers in the following order: left, top, right, bottom.
+- "annotation": 2-dimensional byte array for text annotations. These array has to be converted into an 1-dimensional string array to get the list of all text annotations.
 
-The JSONObject has always these 5 values stored, even if there is only one type of scribbles for the picture. e.g. has the user only drawn one minimum-bounding-rectangle the values for the foreground-background and object-contour scribbles are just two empty pictures.
+The JSONObject has always these 6 values stored, even if there is only one type of scribbles for the picture. e.g. has the user only drawn one minimum-bounding-rectangle the values for the foreground-background and object-contour scribbles are just two empty pictures.
 
 
 #### Usage:
