@@ -6,16 +6,11 @@
 
     <uses-sdk
         android:minSdkVersion="13"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="20" />
     
-    <!--Camera Permission - Your application must request permission to use a device camera.
-       		 Note: If you are using the camera via an intent, 
-       		 your application does not need to request this permission.-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    
-    <!-- Camera Features - Your application must also declare use of camera features -->
     <uses-feature android:name="android.hardware.camera" android:required="true" />
     <uses-feature android:name="android.hardware.camera.front" android:required="false" />
     
@@ -23,21 +18,19 @@
 	    android:allowBackup="true"
 	    android:icon="@drawable/main_icon"
 	    android:label="@string/app_name"
-	    android:theme="@style/AppTheme" >
+	    android:theme="@style/AppTheme"
+	    android:hardwareAccelerated="false" >
 	    
 	    <activity
 	        android:name="activity.CameraActivity"
 	        android:label="@string/app_name" 
 	        android:screenOrientation="fullSensor" 
 	        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
-	        
 	       >
-	        <!-- configure this activity to use landscape orientation -->
-
-	        <intent-filter>
+	   <intent-filter>
 	            <action android:name="android.intent.action.MAIN" />
 	            <category android:name="android.intent.category.LAUNCHER" />
-	        </intent-filter>
+	        </intent-filter>  
 	    </activity>
 	    <activity 
 	    	android:name="activity.PictureActivity"
@@ -50,26 +43,7 @@
 	        android:label="@string/app_name"
 	        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
 	         >
-	    </activity>
-	    <!--  
-	    <activity
-	        android:name="activity.MinimumBoundingBoxActivity"
-	        android:label="@string/app_name"
-	        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
-	        
-	        >
-	     </activity>
-	    <activity
-	        android:name="activity.ForegroundBackgroundActivity"
-	        android:label="@string/app_name"
-	        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
-	    </activity>
-	    <activity
-	        android:name="activity.ObjectContourActivity"
-	        android:label="@string/app_name"
-	        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
-	    </activity>
-	    -->
+	    </activity> 
 	     <activity
 	        android:name="http.HttpActivity"
 	        android:label="@string/app_name"
@@ -82,7 +56,6 @@
 	        android:windowSoftInputMode="adjustPan" >
 	    </activity>
 	     
-	    
 	</application>
 
 </manifest>

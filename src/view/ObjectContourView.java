@@ -3,6 +3,9 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -24,6 +27,9 @@ public class ObjectContourView extends UserScribbleView {
 	private Path mPath;
 	private float mX;
 	private float mY;
+	private List<Float> mPoints = new ArrayList<Float>();
+	private float mLastX = Float.NaN;
+	private float mLastY = Float.NaN;
 	
 	public ObjectContourView(Context context, UserScribbleView oldView){
 		super(context);
@@ -42,9 +48,23 @@ public class ObjectContourView extends UserScribbleView {
 		mPaint.setStyle(Paint.Style.STROKE);
 	}
 	
+//	public void addPoint(float x, float y) {
+//	    if (mLastX == Float.NaN || mLastY == Float.NaN) {
+//	        mLastX = x;
+//	        mLastY = y;
+//	    } else {
+//	        mPoints.add(mLastX);
+//	        mPoints.add(mLastY);
+//	        mPoints.add(x);
+//	        mPoints.add(y);
+//
+//	        mLastX = x;
+//	        mLastY = y;
+//	    }
+//	}
+	
 	@Override
 	public void handleTouchEvent(int action, float x, float y){
-
 		switch (action) {
 
 		// user start touch
@@ -66,7 +86,6 @@ public class ObjectContourView extends UserScribbleView {
 			stopMove(x, y);
 			break;
 		}
-	
 	}
 
 	@Override
@@ -90,10 +109,13 @@ public class ObjectContourView extends UserScribbleView {
 			drawNewScribble = false;
 		}
 		
-		mPath.reset();
+		resetPath();
 		mPath.moveTo(x, y);
 		mX = x;
 		mY = y;
+		
+//		addPoint(x, y);
+			
 		invalidate();
 	}
 	
@@ -115,6 +137,9 @@ public class ObjectContourView extends UserScribbleView {
 		} else {
 			startMove(x, y);
 		}
+		
+//		addPoint(x, y);
+		
 		invalidate();
 	}
 	
@@ -127,7 +152,17 @@ public class ObjectContourView extends UserScribbleView {
 	public void stopMove(float x, float y){
 		mPath.lineTo(x, y);
 		mPath.close();
+		
+//		addPoint(x, y);
+//		addPoint(x, y);
+//		addPoint(mPoints.get(0), mPoints.get(1));
+//		float[] pts = new float[mPoints.size()];
+//		for(int i=0; i<mPoints.size(); i++){
+//			pts[i] = mPoints.get(i);
+//		}
+//		currentScribble = new ObjectContour(pts, new Paint(mPaint));
 		currentScribble = new ObjectContour(new Path(mPath), new Paint(mPaint));
+		
 		invalidate();
 	}
 
@@ -136,6 +171,7 @@ public class ObjectContourView extends UserScribbleView {
 	 */
 	public void resetPath(){
 		mPath.reset();
+		mPoints = new ArrayList<Float>();
 		invalidate();
 	}
 
@@ -145,6 +181,13 @@ public class ObjectContourView extends UserScribbleView {
 	@Override
 	public void drawCurrentScribble(Canvas canvas) {
 		canvas.drawPath(mPath, mPaint);
+		Log.d(TAG, "IS CANVAS HARDWARE ACCELERATED?:"+ canvas.isHardwareAccelerated());
+		
+//		float[] pts = new float[mPoints.size()];
+//		for(int i=0; i<mPoints.size(); i++){
+//			pts[i] = mPoints.get(i);
+//		}
+//		canvas.drawLines(pts, mPaint);
 	}
 	
 	/**

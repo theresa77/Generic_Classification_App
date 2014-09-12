@@ -16,15 +16,24 @@ public abstract class PathScribble implements Scribble {
 
 	private Path path;
 	private Paint paint;
+	private float[] points;
 	
 	public PathScribble(Path path, Paint paint){
 		this.path = path;
 		this.paint = paint;
 	}
+	
+//	public PathScribble(float[] points, Paint paint){
+//		this.paint = paint;
+//		this.points = points;
+//	}
 
 	@Override
 	public void drawScribble(Canvas canvas) {
-		canvas.drawPath(path, paint);
+		if(points != null && points.length>0)
+			canvas.drawLines(points, paint);
+		else
+			canvas.drawPath(path, paint);
 	}
 	
 	@Override

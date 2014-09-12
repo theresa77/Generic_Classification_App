@@ -149,11 +149,6 @@ public final class R {
         public static final int annotation_saved=0x7f070030;
         public static final int app_name=0x7f070002;
         public static final int back=0x7f070019;
-        /** 	<string name="pick_foreground">select Foreground</string>
- 	<string name="pick_background">select Background</string> 
-	<string name="pick_foreground">Vordergrund wählen</string>
- 	<string name="pick_background">Hintergrund wählen</string> 
-         */
         public static final int camera_icon=0x7f07000c;
         public static final int confirm_foreground_background=0x7f070013;
         public static final int delete_drawing=0x7f07002b;
@@ -166,9 +161,6 @@ public final class R {
          */
         public static final int dialog_pick_color=0x7f070003;
         public static final int dialog_pick_shape=0x7f070007;
-        /**     <string name="dialog_edit_foreground_background">Select Fore- or Background</string> 
-  <string name="dialog_edit_foreground_background">Wähle Vorder- oder Hintergrund</string> 
-         */
         public static final int dialog_text_annotation=0x7f070008;
         public static final int dialog_transmission_to_server=0x7f070006;
         public static final int draw_new_scribble=0x7f07002e;
@@ -196,11 +188,7 @@ public final class R {
         public static final int save_picture=0x7f070028;
         public static final int select_color=0x7f070029;
         /**  Strings for Toast Text 
-	<string name="select_background">Background Selected</string>
- 	<string name="select_foreground">Foreground Selected</string>  
  Strings for Toast Text 
- 	<string name="select_background">Zeichne Hintergrund ausgewählt</string>
- 	<string name="select_foreground">Zeichne Vordergrund ausgewählt</string>  
          */
         public static final int select_foreground_background=0x7f070022;
         public static final int select_min_bounting_box=0x7f070023;
