@@ -214,9 +214,6 @@ public abstract class UserScribbleView extends SurfaceView {
 		canvas.getClipBounds(zoomBounds);
 		canvas.drawBitmap(mPictureBitmap, 0,0, null);
 		
-		Log.d(TAG, "IS VIEW HARDWARE ACCELERATED?:"+ this.isHardwareAccelerated());
-		Log.d(TAG, "IS CANVAS HARDWARE ACCELERATED?:"+ canvas.isHardwareAccelerated());
-		
 		if (mPicture.getScribbles() != null && !mPicture.getScribbles().isEmpty()) {
 			for (Scribble s : mPicture.getScribbles()) {
 				s.drawScribble(canvas);

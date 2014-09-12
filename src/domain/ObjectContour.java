@@ -19,9 +19,4 @@ public class ObjectContour extends PathScribble {
 		super(path, paint);
 	}
 	
-//	public ObjectContour(float[] points, Paint paint){
-//		super(points, paint);
-//	}
-	
-	
 }
